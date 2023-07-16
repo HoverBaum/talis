@@ -26,8 +26,14 @@ export const DiceRollResult = ({ diceRoll }: { diceRoll: DiceRollType }) => {
               return (
                 <span
                   key={j}
-                  className={`${result >= 5 && 'text-success'} ${
-                    result === 1 && 'text-error'
+                  className={`${result >= 5 && 'text-info'} ${
+                    result === 1 &&
+                    !diceRoll.shadowrun?.isCriticalGlitch &&
+                    'text-warning'
+                  } ${
+                    result === 1 &&
+                    diceRoll.shadowrun?.isCriticalGlitch &&
+                    'text-error'
                   }`}
                 >
                   {d6Mapping[result as 1 | 2 | 3 | 4 | 5 | 6]}
