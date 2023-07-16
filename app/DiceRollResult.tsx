@@ -9,9 +9,14 @@ const d6Mapping = {
   6: '⚅',
 }
 
-export const DiceRollResult = ({ diceRoll }: { diceRoll: DiceRollType }) => {
+type DiceRollResultProps = {
+  diceRoll: DiceRollType
+  isFaded?: boolean
+}
+
+export const DiceRollResult = ({ diceRoll, isFaded }: DiceRollResultProps) => {
   return (
-    <div className="pb-6">
+    <div className={`pb-6 ${isFaded && 'opacity-75'}`}>
       {diceRoll.type === 'Shadowrun' && (
         <>
           <span>{diceRoll.shadowrun?.hits} hits</span>

@@ -56,8 +56,12 @@ export const D6Roller = () => {
   return (
     <div className="h-full flex flex-col">
       <div id="d6Results" className="flex-grow overflow-y-auto h-0 p-4">
-        {results.map((roll) => (
-          <DiceRollResult diceRoll={roll} key={roll.timestamp} />
+        {results.map((roll, index) => (
+          <DiceRollResult
+            diceRoll={roll}
+            isFaded={index < results.length - 2}
+            key={roll.timestamp}
+          />
         ))}
       </div>
       <div className="p-4 flex-none border-t-2">
