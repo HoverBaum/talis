@@ -54,20 +54,23 @@ export const D6Roller = () => {
         ))}
       </div>
       <div className="p-4 flex-none border-t-2">
-        <p>
-          Number of dice:{' '}
-          <input
-            type="text"
-            placeholder="Number of dice"
-            className="input input-ghost"
-            value={numberOfDice > 0 ? numberOfDice : ''}
-            onChange={(e) => {
-              if (isNaN(parseInt(e.target.value))) return setNumberOfDice(0)
-              setNumberOfDice(parseInt(e.target.value))
-            }}
-          />
+        <div className="flex">
+          <p>
+            Number of dice:{' '}
+            <input
+              type="text"
+              placeholder="0"
+              className="input input-bordered w-14 text-center"
+              value={numberOfDice > 0 ? numberOfDice : ''}
+              onChange={(e) => {
+                if (isNaN(parseInt(e.target.value))) return setNumberOfDice(0)
+                setNumberOfDice(parseInt(e.target.value))
+              }}
+            />
+          </p>
+
           <button
-            className="btn btn-square"
+            className="btn btn-square ml-2"
             disabled={numberOfDice <= 1}
             onClick={() =>
               setNumberOfDice((dice) => {
@@ -113,7 +116,7 @@ export const D6Roller = () => {
               />
             </svg>
           </button>
-        </p>
+        </div>
 
         <button
           disabled={numberOfDice <= 0}
