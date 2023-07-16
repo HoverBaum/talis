@@ -21,7 +21,7 @@ export const DiceRollResult = ({ diceRoll }: { diceRoll: DiceRollType }) => {
           {diceRoll.shadowrun?.isCriticalGlitch && (
             <span className="badge badge-error mx-2">Critical Glitch</span>
           )}
-          <span className="text-4xl block">
+          <span className="text-4xl flex flex-wrap">
             {diceRoll.results.map((result, j) => {
               return (
                 <span
