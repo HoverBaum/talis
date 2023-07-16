@@ -1,9 +1,22 @@
 'use client'
 
 import { useState } from 'react'
+import { DiceRollResult } from './DiceRollResult'
+
+export type DiceRollType = {
+  results: number[]
+  type: 'Shadowrun'
+  timestamp: number
+  id: number
+  shadowrun?: {
+    hits: number
+    isGlitch: boolean
+    isCriticalGlitch: boolean
+  }
+}
 
 export const D6Roller = () => {
-  const [results, setResults] = useState<number[][]>([])
+  const [results, setResults] = useState<DiceRollType[]>([])
   const [numberOfDice, setNumberOfDice] = useState<number>(6)
 
   const rollD6 = (dice: number) => {
@@ -13,26 +26,32 @@ export const D6Roller = () => {
     for (let i = 0; i < dice; i++) {
       rolls.push(Math.floor(Math.random() * 6) + 1)
     }
-    setResults((results) => [...results, rolls])
+
+    // Everything 5 and higher is a hit.
+    const hits = rolls.reduce((hits, roll) => (roll >= 5 ? hits + 1 : hits), 0)
+
+    // If half or more are 1s, it's a glitch.
+    const isGlitch = rolls.filter((roll) => roll === 1).length >= dice / 2
+
+    // If player glitched without any hits, it's a critical glitch.
+    const isCriticalGlitch = isGlitch && hits === 0
+
+    const result: DiceRollType = {
+      results: rolls,
+      type: 'Shadowrun',
+      timestamp: Date.now(),
+      id: results.length + 1,
+      shadowrun: { hits, isGlitch, isCriticalGlitch },
+    }
+    setResults((results) => [...results, result])
   }
 
   return (
     <div className="h-full flex flex-col">
       <div className="flex-grow overflow-y-auto h-0 p-4">
-        {[...results].reverse().map((rolls, i) => {
-          return (
-            <div key={i} className="font-mono">
-              {rolls.map((roll, j) => {
-                return (
-                  <span key={j}>
-                    {roll}
-                    {j < rolls.length - 1 ? ', ' : ''}
-                  </span>
-                )
-              })}
-            </div>
-          )
-        })}
+        {[...results].reverse().map((roll) => (
+          <DiceRollResult diceRoll={roll} key={roll.timestamp} />
+        ))}
       </div>
       <div className="p-4 flex-none border-t-2">
         <p>
