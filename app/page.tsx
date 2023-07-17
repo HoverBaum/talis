@@ -1,9 +1,9 @@
-import { D6Roller } from './D6Roller'
+import Link from 'next/link'
 
 export default function Home() {
   return (
     <>
-      <D6Roller />
+      <Link href="/dice/shadowrun">Shadowrun</Link>
     </>
   )
 }
