@@ -19,7 +19,10 @@ export const DiceRollResult = ({ diceRoll, isFaded }: DiceRollResultProps) => {
     <div className={`pb-6 ${isFaded && 'opacity-75'}`}>
       {diceRoll.type === 'Shadowrun' && (
         <>
-          <span>{diceRoll.shadowrun?.hits} hits</span>
+          <span>
+            {diceRoll.shadowrun?.hits} hit
+            {diceRoll.shadowrun?.hits === 1 ? '' : 's'}
+          </span>
           {diceRoll.shadowrun?.isGlitch && (
             <span className="badge badge-warning mx-2">Glitch</span>
           )}
