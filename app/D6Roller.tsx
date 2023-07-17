@@ -178,7 +178,7 @@ export const D6Roller = () => {
 
         <button
           disabled={numberOfDice <= 0}
-          className="btn btn-neutral btn-block mt-4"
+          className="btn btn-block mt-4"
           onClick={() => rollD6(numberOfDice)}
         >
           Roll
