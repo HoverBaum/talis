@@ -50,7 +50,9 @@ export const D6Roller = () => {
     setResults((results) => [...results, result])
   }
 
+  // Scroll down on new result to have it in view.
   useEffect(() => {
+    console.log('Scrolling down')
     const resultContainer = document.getElementById('d6Results')
     if (resultContainer) {
       resultContainer.scrollTop = resultContainer.scrollHeight
@@ -59,8 +61,11 @@ export const D6Roller = () => {
 
   return (
     <div className="h-full flex flex-col">
-      <div id="d6Results" className="flex-grow grid grid-cols-12 h-0 p-4">
-        <div className="overflow-y-auto col-span-10 no-scrollbar">
+      <div className="flex-grow grid grid-cols-12 h-0 p-4">
+        <div
+          id="d6Results"
+          className="overflow-y-auto col-span-10 no-scrollbar"
+        >
           {results.map((roll, index) => (
             <DiceRollResult
               diceRoll={roll}
