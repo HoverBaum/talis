@@ -40,6 +40,7 @@ export const DiceSelectWheel = ({
 
   // Scroll the wheel to right position when current or height changes.
   useEffect(() => {
+    if (height === 0) return
     const wheelContainer = document.getElementById('wheelContainer')
     if (wheelContainer) {
       // Position of currently selected element relative to wheel container.
