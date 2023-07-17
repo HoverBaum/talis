@@ -178,7 +178,6 @@ export const D6Roller = () => {
 
         <button
           disabled={numberOfDice <= 0}
-          autoFocus={true}
           className="btn btn-neutral btn-block mt-4"
           onClick={() => rollD6(numberOfDice)}
         >
