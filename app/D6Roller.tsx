@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { DiceRollResult } from './DiceRollResult'
+import { DiceSelectWheel } from './DiceSelectWheel'
 
 export type DiceRollType = {
   results: number[]
@@ -15,9 +16,12 @@ export type DiceRollType = {
   }
 }
 
+const MAX_DICE_AMOUNT = 50
+const DEFAULT_DICE_AMOUNT = 7
+
 export const D6Roller = () => {
   const [results, setResults] = useState<DiceRollType[]>([])
-  const [numberOfDice, setNumberOfDice] = useState<number>(6)
+  const [numberOfDice, setNumberOfDice] = useState<number>(DEFAULT_DICE_AMOUNT)
 
   const rollD6 = (dice: number) => {
     console.log(`Rolling ${dice} dice.`)
@@ -65,7 +69,13 @@ export const D6Roller = () => {
             />
           ))}
         </div>
-        <div className="col-span-2">hi</div>
+        <div className="col-span-2 relative">
+          <DiceSelectWheel
+            max={MAX_DICE_AMOUNT}
+            current={numberOfDice}
+            onChange={(amount) => setNumberOfDice(amount)}
+          />
+        </div>
       </div>
       <div className="p-4 flex-none border-t-2">
         <div className="flex">
@@ -113,7 +123,16 @@ export const D6Roller = () => {
           </button>
           <button
             className="btn btn-square ml-2"
-            onClick={() => setNumberOfDice((dice) => dice + 1)}
+            disabled={numberOfDice >= MAX_DICE_AMOUNT}
+            onClick={() =>
+              setNumberOfDice((dice) => {
+                if (dice >= MAX_DICE_AMOUNT) {
+                  return dice
+                } else {
+                  return dice + 1
+                }
+              })
+            }
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
