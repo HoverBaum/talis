@@ -61,7 +61,7 @@ export const D6Roller = () => {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="flex-grow grid grid-cols-12 h-0 p-4">
+      <div className="flex-grow grid grid-cols-12 h-0 pb-4">
         <div
           id="d6Results"
           className="overflow-y-auto col-span-10 no-scrollbar"
@@ -82,7 +82,7 @@ export const D6Roller = () => {
           />
         </div>
       </div>
-      <div className="p-4 flex-none border-t-2">
+      <div className="flex-none border-t-2 pt-4">
         <div className="flex">
           <p>
             Number of dice:{' '}
