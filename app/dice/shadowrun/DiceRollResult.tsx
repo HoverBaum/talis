@@ -59,7 +59,8 @@ export const DiceRollResult = ({
 
       <span className="block text-xs">
         #{diceRoll.id} - {new Date(diceRoll.timestamp).toLocaleDateString()} -{' '}
-        {new Date(diceRoll.timestamp).toLocaleTimeString()}
+        {new Date(diceRoll.timestamp).toLocaleTimeString()} -{' '}
+        {diceRoll.results.length} dice
       </span>
     </div>
   )
