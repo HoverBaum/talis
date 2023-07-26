@@ -1,4 +1,5 @@
 import { DiceRollType } from './page'
+import { useConfig } from './useConfig'
 
 const d6Mapping = {
   1: '⚀',
@@ -20,6 +21,10 @@ export const DiceRollResult = ({
   isFaded,
   isHighlighted,
 }: DiceRollResultProps) => {
+  const {
+    config: { sortDice },
+  } = useConfig()
+
   return (
     <div
       className={`p-2 mb-6 ${isFaded && 'opacity-75'} ${
@@ -37,24 +42,33 @@ export const DiceRollResult = ({
         <span className="badge badge-error mx-2">Critical Glitch</span>
       )}
       <span className="text-4xl flex flex-wrap">
-        {diceRoll.results.map((result, j) => {
-          return (
-            <span
-              key={j}
-              className={`${result >= 5 && 'text-info'} ${
-                result === 1 &&
-                !diceRoll.shadowrun?.isCriticalGlitch &&
-                'text-warning'
-              } ${
-                result === 1 &&
-                diceRoll.shadowrun?.isCriticalGlitch &&
-                'text-error'
-              }`}
-            >
-              {d6Mapping[result as 1 | 2 | 3 | 4 | 5 | 6]}
-            </span>
-          )
-        })}
+        {diceRoll.results
+          .sort((a, b) => {
+            if (sortDice) {
+              // We want hits to be at the front.
+              return b - a
+            } else {
+              return 0
+            }
+          })
+          .map((result, j) => {
+            return (
+              <span
+                key={j}
+                className={`${result >= 5 && 'text-info'} ${
+                  result === 1 &&
+                  !diceRoll.shadowrun?.isCriticalGlitch &&
+                  'text-warning'
+                } ${
+                  result === 1 &&
+                  diceRoll.shadowrun?.isCriticalGlitch &&
+                  'text-error'
+                }`}
+              >
+                {d6Mapping[result as 1 | 2 | 3 | 4 | 5 | 6]}
+              </span>
+            )
+          })}
       </span>
 
       <span className="block text-xs">

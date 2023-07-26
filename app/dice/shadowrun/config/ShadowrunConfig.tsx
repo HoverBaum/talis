@@ -25,6 +25,13 @@ export const ShadowrunConfig = () => {
 
         <Toggle
           className="mb-2"
+          label="Sort dice"
+          checked={config.sortDice}
+          onChange={(checked) => updateConfig({ sortDice: checked })}
+        />
+
+        <Toggle
+          className="mb-2"
           label="Quick buttons"
           checked={config.useQuickButtons}
           onChange={(checked) => updateConfig({ useQuickButtons: checked })}

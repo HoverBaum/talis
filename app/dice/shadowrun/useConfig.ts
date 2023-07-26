@@ -4,7 +4,8 @@ import { useCallback, useEffect, useState } from 'react'
 
 const DEFAULT_CONFIG = {
   showNewResultBottom: true,
-  useFreeInput: true,
+  useFreeInput: false,
+  sortDice: false,
   useQuickButtons: true,
 }
 
