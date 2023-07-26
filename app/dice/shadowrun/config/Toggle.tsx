@@ -2,11 +2,17 @@ type ToggleProps = {
   label: string
   checked: boolean
   onChange: (checked: boolean) => void
+  className?: string
 }
 
-export const Toggle = ({ label, checked, onChange }: ToggleProps) => {
+export const Toggle = ({
+  label,
+  checked,
+  onChange,
+  className,
+}: ToggleProps) => {
   return (
-    <div className="form-control">
+    <div className={`form-control ${className}`}>
       <label className="label cursor-pointer">
         <span className="label-text">{label}</span>
         <input
