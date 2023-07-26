@@ -57,6 +57,7 @@ export const D6Roller = () => {
 
   // Scroll down on new result to have it in view.
   useEffect(() => {
+    if (!showNewResultBottom) return
     console.log('Scrolling down')
     const resultContainer = document.getElementById('d6Results')
     if (resultContainer) {
@@ -71,13 +72,21 @@ export const D6Roller = () => {
           id="d6Results"
           className="overflow-y-auto col-span-10 no-scrollbar"
         >
-          {results.map((roll, index) => (
-            <DiceRollResult
-              diceRoll={roll}
-              isFaded={index < results.length - 2}
-              key={roll.timestamp}
-            />
-          ))}
+          {results
+            .reduce(
+              (all, current) =>
+                showNewResultBottom
+                  ? all.concat([current])
+                  : [current].concat(all),
+              [] as DiceRollType[]
+            )
+            .map((roll, index) => (
+              <DiceRollResult
+                diceRoll={roll}
+                isFaded={index < results.length - 2}
+                key={roll.timestamp}
+              />
+            ))}
         </div>
         <div className="col-span-2 relative">
           <DiceSelectWheel
