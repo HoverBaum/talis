@@ -1,6 +1,6 @@
 export const useConfig = () => {
   const config = {
-    showNewResultBottom: false,
+    showNewResultBottom: true,
     useFreeInput: true,
     useQuickButtons: true,
   }

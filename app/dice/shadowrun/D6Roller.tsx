@@ -52,7 +52,7 @@ export const D6Roller = () => {
       id: results.length + 1,
       shadowrun: { hits, isGlitch, isCriticalGlitch },
     }
-    setResults((results) => [...results, result])
+    setResults((results) => [result, ...results])
   }
 
   // Scroll down on new result to have it in view.
@@ -70,23 +70,17 @@ export const D6Roller = () => {
       <div className="flex-grow grid grid-cols-12 h-0 pb-4">
         <div
           id="d6Results"
-          className="overflow-y-auto col-span-10 no-scrollbar"
+          className={`overflow-y-auto col-span-10 no-scrollbar flex ${
+            showNewResultBottom ? 'flex-col-reverse' : 'flex-col'
+          }`}
         >
-          {results
-            .reduce(
-              (all, current) =>
-                showNewResultBottom
-                  ? all.concat([current])
-                  : [current].concat(all),
-              [] as DiceRollType[]
-            )
-            .map((roll, index) => (
-              <DiceRollResult
-                diceRoll={roll}
-                isFaded={index < results.length - 2}
-                key={roll.timestamp}
-              />
-            ))}
+          {results.map((roll, index) => (
+            <DiceRollResult
+              diceRoll={roll}
+              isFaded={index > 1}
+              key={roll.timestamp}
+            />
+          ))}
         </div>
         <div className="col-span-2 relative">
           <DiceSelectWheel
