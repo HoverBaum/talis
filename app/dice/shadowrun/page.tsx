@@ -31,7 +31,6 @@ export default function Home() {
   } = useConfig()
 
   const rollD6 = (dice: number) => {
-    console.log(`Rolling ${dice} dice.`)
     // Roll dice n times and save in results.
     const rolls: number[] = []
     for (let i = 0; i < dice; i++) {
@@ -60,7 +59,6 @@ export default function Home() {
   // Scroll down on new result to have it in view.
   useEffect(() => {
     if (!showNewResultBottom) return
-    console.log('Scrolling down')
     const resultContainer = document.getElementById('d6Results')
     if (resultContainer) {
       resultContainer.scrollTop = resultContainer.scrollHeight
