@@ -1,4 +1,4 @@
-import { DiceRollType } from './D6Roller'
+import { DiceRollType } from './page'
 
 const d6Mapping = {
   1: '⚀',
@@ -53,7 +53,7 @@ export const DiceRollResult = ({ diceRoll, isFaded }: DiceRollResultProps) => {
       )}
       {diceRoll.type !== 'Shadowrun' && (
         <span className="font-mono text-xl">
-          {diceRoll.results.map((result, j) => {
+          {diceRoll.results.map((result: any, j: number) => {
             return (
               <span key={j}>
                 {result}
