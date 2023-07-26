@@ -99,7 +99,7 @@ export default function Home() {
           <div className="flex-grow grid grid-cols-12 h-0 pb-4">
             <div
               id="d6Results"
-              className={`overflow-y-auto col-span-10 no-scrollbar flex ${
+              className={`overflow-y-auto col-span-10 no-scrollbar pr-2 flex ${
                 showNewResultBottom ? 'flex-col-reverse' : 'flex-col'
               }`}
             >
@@ -107,6 +107,7 @@ export default function Home() {
                 <DiceRollResult
                   diceRoll={roll}
                   isFaded={index > 1}
+                  isHighlighted={index === 0}
                   key={roll.timestamp}
                 />
               ))}
