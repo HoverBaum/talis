@@ -3,12 +3,14 @@ type ToggleProps = {
   checked: boolean
   onChange: (checked: boolean) => void
   className?: string
+  disabled?: boolean
 }
 
 export const Toggle = ({
   label,
   checked,
   onChange,
+  disabled,
   className,
 }: ToggleProps) => {
   return (
@@ -17,6 +19,7 @@ export const Toggle = ({
         <span className="label-text">{label}</span>
         <input
           type="checkbox"
+          disabled={disabled}
           className="toggle"
           checked={checked}
           onChange={() => onChange(!checked)}
