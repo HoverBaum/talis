@@ -26,7 +26,7 @@ export const FreeDiceInput = ({
       </p>
 
       <button
-        className="btn btn-square ml-2"
+        className="btn btn-square ml-4"
         disabled={numberOfDice <= 1}
         onClick={() => {
           if (numberOfDice <= 1) return

@@ -156,43 +156,51 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="flex-none border-t-2 pt-4">
-            {useFreeInput && (
-              <FreeDiceInput
-                numberOfDice={numberOfDice}
-                onNewNumber={setNumberOfDice}
-                maxDiceAmount={maxDiceAmount}
-              />
-            )}
+          <div className="flex-none border-t-2">
+            <div className="flex py-2">
+              {useFreeInput && (
+                <div className="py-2">
+                  <FreeDiceInput
+                    numberOfDice={numberOfDice}
+                    onNewNumber={setNumberOfDice}
+                    maxDiceAmount={maxDiceAmount}
+                  />
+                </div>
+              )}
 
-            {useQuickButtons && (
-              <div>
-                {quickButtons.map(({ id, type, amount }) => (
-                  <button
-                    className="btn btn-square btn-outline mx-2 relative"
-                    key={id}
-                    onClick={() => {
-                      if (type === 'instantRoll') {
-                        rollD6(amount)
-                      } else {
-                        setNumberOfDice(amount)
-                      }
-                    }}
-                  >
-                    {type === 'instantRoll' && (
-                      <div className="bg-base-100 rounded-full absolute top-0 right-0 -translate-y-1/2 translate-x-1/2">
-                        ⚡
-                      </div>
-                    )}
-                    {amount}
-                  </button>
-                ))}
-              </div>
-            )}
+              {useFreeInput && useQuickButtons && (
+                <div className="mr-4 ml-6 w-[1px] border-r-2" />
+              )}
+
+              {useQuickButtons && (
+                <div className="overflow-x-auto flex py-2">
+                  {quickButtons.map(({ id, type, amount }) => (
+                    <button
+                      className="btn btn-square btn-outline mx-2 relative"
+                      key={id}
+                      onClick={() => {
+                        if (type === 'instantRoll') {
+                          rollD6(amount)
+                        } else {
+                          setNumberOfDice(amount)
+                        }
+                      }}
+                    >
+                      {type === 'instantRoll' && (
+                        <div className="bg-base-100 rounded-full absolute top-0 right-0 -translate-y-1/2 translate-x-1/2">
+                          ⚡
+                        </div>
+                      )}
+                      {amount}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
 
             <button
               disabled={numberOfDice <= 0}
-              className="btn btn-block mt-4"
+              className="btn btn-block mt-2"
               onClick={() => rollD6(numberOfDice)}
             >
               Roll
