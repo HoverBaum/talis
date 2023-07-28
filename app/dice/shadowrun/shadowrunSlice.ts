@@ -18,7 +18,11 @@ export interface ShadowrunState {
 }
 
 // Initially load config from local storage.
-const configFromStorage = window.localStorage.getItem('shadowrunConfig')
+let configFromStorage = null
+// During Server Render we can not read local storage.
+if (typeof window !== 'undefined') {
+  configFromStorage = window.localStorage.getItem('shadowrunConfig')
+}
 console.log('Config loaded from Storage', configFromStorage)
 
 const initialState: ShadowrunState = {
