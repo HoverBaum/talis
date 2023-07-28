@@ -10,20 +10,18 @@ export const FreeDiceInput = ({
   maxDiceAmount,
 }: FreeDiceInputProps) => {
   return (
-    <div className="flex">
-      <p>
-        Number of dice:{' '}
-        <input
-          type="text"
-          placeholder="0"
-          className="input input-bordered w-14 text-center"
-          value={numberOfDice > 0 ? numberOfDice : ''}
-          onChange={(e) => {
-            if (isNaN(parseInt(e.target.value))) return onNewNumber(0)
-            onNewNumber(parseInt(e.target.value))
-          }}
-        />
-      </p>
+    <div className="flex items-center">
+      <p>Number of dice: </p>
+      <input
+        type="text"
+        placeholder="0"
+        className="input input-bordered w-14 text-center ml-2"
+        value={numberOfDice > 0 ? numberOfDice : ''}
+        onChange={(e) => {
+          if (isNaN(parseInt(e.target.value))) return onNewNumber(0)
+          onNewNumber(parseInt(e.target.value))
+        }}
+      />
 
       <button
         className="btn btn-square ml-4"
