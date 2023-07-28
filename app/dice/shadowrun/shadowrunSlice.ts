@@ -18,17 +18,17 @@ export interface ShadowrunState {
 }
 
 // Initially load config from local storage.
-let configFromStorage = null
+let clientConfig: null | ShadowrunConfigType = null
 // During Server Render we can not read local storage.
 if (typeof window !== 'undefined') {
-  configFromStorage = window.localStorage.getItem('shadowrunConfig')
+  const configString = window.localStorage.getItem('shadowrunConfig')
+  if (configString) clientConfig = JSON.parse(configString)
 }
-console.log('Config loaded from Storage', configFromStorage)
 
 const initialState: ShadowrunState = {
   diceAmount: 8,
   rolls: [],
-  config: configFromStorage ? JSON.parse(configFromStorage) : DEFAULT_CONFIG,
+  config: clientConfig || DEFAULT_CONFIG,
 }
 
 export const shadowrunSlice = createSlice({
