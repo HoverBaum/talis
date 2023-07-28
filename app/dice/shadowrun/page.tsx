@@ -1,7 +1,7 @@
 'use client'
 
 import { Navbar } from '@/app/Navbar'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { DiceRollResult } from './DiceRollResult'
 import { DiceSelectWheel } from './DiceSelectWheel'
@@ -9,7 +9,7 @@ import { useConfig } from './useConfig'
 import { FreeDiceInput } from './FreeDiceInput'
 import Link from 'next/link'
 import { RootState } from '@/app/store'
-import { setDiceAmount } from './shadowrunSlice'
+import { addRoll, clearRolls, setDiceAmount } from './shadowrunSlice'
 
 export type DiceRollType = {
   results: number[]
@@ -26,7 +26,8 @@ export type DiceRollType = {
 const MAX_DICE_AMOUNT = 50
 
 export default function Home() {
-  const [results, setResults] = useState<DiceRollType[]>([])
+  const rolls = useSelector((state: RootState) => state.shadowrun.rolls)
+  // const [results, setResults] = useState<DiceRollType[]>([])
   const {
     config: { showNewResultBottom, useFreeInput },
   } = useConfig()
@@ -42,28 +43,32 @@ export default function Home() {
 
   const rollD6 = (dice: number) => {
     // Roll dice n times and save in results.
-    const rolls: number[] = []
+    const diceRolls: number[] = []
     for (let i = 0; i < dice; i++) {
-      rolls.push(Math.floor(Math.random() * 6) + 1)
+      diceRolls.push(Math.floor(Math.random() * 6) + 1)
     }
 
     // Everything 5 and higher is a hit.
-    const hits = rolls.reduce((hits, roll) => (roll >= 5 ? hits + 1 : hits), 0)
+    const hits = diceRolls.reduce(
+      (hits, roll) => (roll >= 5 ? hits + 1 : hits),
+      0
+    )
 
     // If half or more are 1s, it's a glitch.
-    const isGlitch = rolls.filter((roll) => roll === 1).length >= dice / 2
+    const isGlitch = diceRolls.filter((roll) => roll === 1).length >= dice / 2
 
     // If player glitched without any hits, it's a critical glitch.
     const isCriticalGlitch = isGlitch && hits === 0
 
     const result: DiceRollType = {
-      results: rolls,
+      results: diceRolls,
       type: 'Shadowrun',
       timestamp: Date.now(),
-      id: results.length + 1,
+      id: rolls.length + 1,
       shadowrun: { hits, isGlitch, isCriticalGlitch },
     }
-    setResults((results) => [result, ...results])
+    dispatch(addRoll(result))
+    // setResults((results) => [result, ...results])
   }
 
   // Scroll down on new result to have it in view.
@@ -73,14 +78,14 @@ export default function Home() {
     if (resultContainer) {
       resultContainer.scrollTop = resultContainer.scrollHeight
     }
-  }, [results])
+  }, [rolls])
 
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar title="Shadowrun">
         <button
           className="btn btn-square btn-ghost ml-2"
-          onClick={() => setResults([])}
+          onClick={() => dispatch(clearRolls())}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +135,7 @@ export default function Home() {
                 showNewResultBottom ? 'flex-col-reverse' : 'flex-col'
               }`}
             >
-              {results.map((roll, index) => (
+              {[...rolls].reverse().map((roll, index) => (
                 <DiceRollResult
                   diceRoll={roll}
                   isFaded={index > 1}
@@ -152,7 +157,7 @@ export default function Home() {
               <FreeDiceInput
                 numberOfDice={numberOfDice}
                 onNewNumber={setNumberOfDice}
-                onClearResults={() => setResults([])}
+                onClearResults={() => dispatch(clearRolls())}
                 maxDiceAmount={MAX_DICE_AMOUNT}
               />
             )}

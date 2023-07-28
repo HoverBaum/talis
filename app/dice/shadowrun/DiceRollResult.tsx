@@ -42,7 +42,7 @@ export const DiceRollResult = ({
         <span className="badge badge-error mx-2">Critical Glitch</span>
       )}
       <span className="text-4xl flex flex-wrap">
-        {diceRoll.results
+        {[...diceRoll.results]
           .sort((a, b) => {
             if (sortDice) {
               // We want hits to be at the front.
