@@ -4,6 +4,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { DiceRollType } from './page'
 
+const MAX_DICE_AMOUNT = 50
+
 export type QuickButtonTypes = 'instantRoll' | 'setAmount'
 export type QuickButtonType = {
   amount: number
@@ -17,6 +19,7 @@ const DEFAULT_CONFIG = {
   sortDice: false,
   isLoading: true,
   useQuickButtons: true,
+  maxDiceAmount: MAX_DICE_AMOUNT,
   quickButtons: [
     {
       amount: 1,

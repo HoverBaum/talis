@@ -23,13 +23,11 @@ export type DiceRollType = {
   }
 }
 
-const MAX_DICE_AMOUNT = 50
-
 export default function Home() {
   const rolls = useSelector((state: RootState) => state.shadowrun.rolls)
   // const [results, setResults] = useState<DiceRollType[]>([])
   const {
-    config: { showNewResultBottom, useFreeInput },
+    config: { showNewResultBottom, useFreeInput, maxDiceAmount },
   } = useConfig()
 
   const numberOfDice = useSelector(
@@ -146,7 +144,7 @@ export default function Home() {
             </div>
             <div className="col-span-2 relative">
               <DiceSelectWheel
-                max={MAX_DICE_AMOUNT}
+                max={maxDiceAmount}
                 current={numberOfDice}
                 onChange={setNumberOfDice}
               />
@@ -157,8 +155,7 @@ export default function Home() {
               <FreeDiceInput
                 numberOfDice={numberOfDice}
                 onNewNumber={setNumberOfDice}
-                onClearResults={() => dispatch(clearRolls())}
-                maxDiceAmount={MAX_DICE_AMOUNT}
+                maxDiceAmount={maxDiceAmount}
               />
             )}
 

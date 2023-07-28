@@ -45,7 +45,7 @@ export const ShadowrunConfig = () => {
 
           {config.useQuickButtons && (
             <div>
-              <div>
+              <div className="mb-8">
                 {config.quickButtons &&
                   config.quickButtons.map((button) => (
                     <QuickButtonConfig key={button.id} quickButton={button} />
