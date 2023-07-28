@@ -7,7 +7,7 @@ type NavbarProps = {
 
 export const Navbar = ({ title, children }: NavbarProps) => {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 border-b-2">
       <div className="flex-1 ml-2">
         <Link href="/" className="text-xl">
           Talis
