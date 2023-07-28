@@ -27,7 +27,13 @@ export default function Home() {
   const rolls = useSelector((state: RootState) => state.shadowrun.rolls)
   // const [results, setResults] = useState<DiceRollType[]>([])
   const {
-    config: { showNewResultBottom, useFreeInput, maxDiceAmount },
+    config: {
+      showNewResultBottom,
+      useFreeInput,
+      maxDiceAmount,
+      useQuickButtons,
+      quickButtons,
+    },
   } = useConfig()
 
   const numberOfDice = useSelector(
@@ -157,6 +163,31 @@ export default function Home() {
                 onNewNumber={setNumberOfDice}
                 maxDiceAmount={maxDiceAmount}
               />
+            )}
+
+            {useQuickButtons && (
+              <div>
+                {quickButtons.map(({ id, type, amount }) => (
+                  <button
+                    className="btn btn-square btn-outline mx-2 relative"
+                    key={id}
+                    onClick={() => {
+                      if (type === 'instantRoll') {
+                        rollD6(amount)
+                      } else {
+                        setNumberOfDice(amount)
+                      }
+                    }}
+                  >
+                    {type === 'instantRoll' && (
+                      <div className="bg-base-100 rounded-full absolute top-0 right-0 -translate-y-1/2 translate-x-1/2">
+                        ⚡
+                      </div>
+                    )}
+                    {amount}
+                  </button>
+                ))}
+              </div>
             )}
 
             <button
