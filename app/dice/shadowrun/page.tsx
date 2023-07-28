@@ -2,11 +2,14 @@
 
 import { Navbar } from '@/app/Navbar'
 import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { DiceRollResult } from './DiceRollResult'
 import { DiceSelectWheel } from './DiceSelectWheel'
 import { useConfig } from './useConfig'
 import { FreeDiceInput } from './FreeDiceInput'
 import Link from 'next/link'
+import { RootState } from '@/app/store'
+import { setDiceAmount } from './shadowrunSlice'
 
 export type DiceRollType = {
   results: number[]
@@ -21,14 +24,21 @@ export type DiceRollType = {
 }
 
 const MAX_DICE_AMOUNT = 50
-const DEFAULT_DICE_AMOUNT = 7
 
 export default function Home() {
   const [results, setResults] = useState<DiceRollType[]>([])
-  const [numberOfDice, setNumberOfDice] = useState<number>(DEFAULT_DICE_AMOUNT)
   const {
     config: { showNewResultBottom, useFreeInput },
   } = useConfig()
+
+  const numberOfDice = useSelector(
+    (state: RootState) => state.shadowrun.diceAmount
+  )
+  const dispatch = useDispatch()
+
+  const setNumberOfDice = (dice: number) => {
+    dispatch(setDiceAmount(dice))
+  }
 
   const rollD6 = (dice: number) => {
     // Roll dice n times and save in results.
@@ -133,7 +143,7 @@ export default function Home() {
               <DiceSelectWheel
                 max={MAX_DICE_AMOUNT}
                 current={numberOfDice}
-                onChange={(amount) => setNumberOfDice(amount)}
+                onChange={setNumberOfDice}
               />
             </div>
           </div>
