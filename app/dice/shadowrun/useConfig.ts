@@ -1,37 +1,18 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
-
-const DEFAULT_CONFIG = {
-  showNewResultBottom: true,
-  useFreeInput: false,
-  sortDice: false,
-  useQuickButtons: true,
-}
-
-type ConfigType = typeof DEFAULT_CONFIG
+import { RootState } from '@/app/store'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  ShadowrunConfigType,
+  updateConfig as updateConfigAction,
+} from './shadowrunSlice'
 
 export const useConfig = () => {
-  const [config, setConfig] = useState(DEFAULT_CONFIG)
+  const config = useSelector((state: RootState) => state.shadowrun.config)
+  const dispatch = useDispatch()
 
-  // Initially load config from local storage.
-  useEffect(() => {
-    const configFromStorage = window.localStorage.getItem('shadowrunConfig')
-    console.log('Config loaded from Storage', configFromStorage)
-    if (configFromStorage) {
-      setConfig(JSON.parse(configFromStorage))
-    }
-  }, [])
-
-  const updateConfig = useCallback(
-    (configUpdate: Partial<ConfigType>) => {
-      const newConfig: ConfigType = { ...config, ...configUpdate }
-      setConfig(newConfig)
-      console.log('newConfig', newConfig)
-      localStorage.setItem('shadowrunConfig', JSON.stringify(newConfig))
-    },
-    [config, setConfig]
-  )
+  const updateConfig = (newConfig: Partial<ShadowrunConfigType>) =>
+    dispatch(updateConfigAction(newConfig))
 
   return { config, updateConfig }
 }
