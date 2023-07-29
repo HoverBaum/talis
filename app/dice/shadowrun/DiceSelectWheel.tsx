@@ -116,9 +116,7 @@ export const DiceSelectWheel = ({
             key={number}
             id={`number-${number}`}
             data-number={number}
-            className={`snap-center my-4 flex-grow flex justify-center items-center ${
-              number === current ? 'text-primary' : ''
-            }`}
+            className="snap-center my-4 flex-grow flex justify-center items-center"
           >
             {number}
           </div>
