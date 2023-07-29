@@ -27,7 +27,7 @@ export const DiceRollResult = ({
 
   return (
     <div
-      className={`p-2 mb-6 ${isFaded && 'opacity-75'} ${
+      className={`animate-fadeIn p-2 mb-6 ${isFaded && 'opacity-75'} ${
         isHighlighted && 'bg-base-200 border-2'
       }`}
     >
