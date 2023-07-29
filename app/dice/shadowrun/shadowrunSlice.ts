@@ -78,21 +78,33 @@ export const shadowrunSlice = createSlice({
       state.config = newConfig
     },
     deleteQuickButton: (state, action: PayloadAction<string>) => {
-      state.config.quickButtons = state.config.quickButtons.filter(
-        (button) => button.id !== action.payload
-      )
+      const newConfig: ShadowrunConfigType = {
+        ...state.config,
+        quickButtons: state.config.quickButtons.filter(
+          (button) => button.id !== action.payload
+        ),
+      }
+      localStorage.setItem('shadowrunConfig', JSON.stringify(newConfig))
+      state.config = newConfig
     },
     updateQuickButton: (
       state,
       action: PayloadAction<Partial<QuickButtonType>>
     ) => {
-      const button = state.config.quickButtons.find(
-        (button) => button.id === action.payload.id
-      )
-      if (button) {
-        button.amount = action.payload.amount || button.amount
-        button.type = action.payload.type || button.type
+      const newConfig = {
+        ...state.config,
+        quickButtons: state.config.quickButtons.map((button) => {
+          if (button.id === action.payload.id) {
+            return {
+              ...button,
+              ...action.payload,
+            }
+          }
+          return button
+        }),
       }
+      localStorage.setItem('shadowrunConfig', JSON.stringify(newConfig))
+      state.config = newConfig
     },
   },
 })
