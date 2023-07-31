@@ -6,22 +6,28 @@ import { MenuIcon } from '@/components/icons/MenuIcon'
 type NavbarProps = {
   title?: string
   children?: React.ReactNode
+  fixed?: boolean
 }
 
-export const Navbar = ({ title, children }: NavbarProps) => {
+export const Navbar = ({ title, children, fixed }: NavbarProps) => {
   return (
-    <div className="navbar bg-base-100 border-b-2">
-      <div className="flex-1">
-        <label htmlFor="talis-drawer" className="btn btn-ghost btn-square ">
-          <MenuIcon />
-        </label>
-        <Link href="/" className="text-xl flex items-center">
-          <Image src={talisLogo} width={32} height={32} alt="Talis Logo" />
-          Talis
-        </Link>
-        {title && <span className="text-xl ml-2">| {title}</span>}
+    <>
+      {fixed && <div className="h-16"></div>}
+      <div
+        className={`navbar bg-base-100 border-b-2 ${fixed && 'fixed top-0'}`}
+      >
+        <div className="flex-1">
+          <label htmlFor="talis-drawer" className="btn btn-ghost btn-square ">
+            <MenuIcon />
+          </label>
+          <Link href="/" className="text-xl flex items-center">
+            <Image src={talisLogo} width={32} height={32} alt="Talis Logo" />
+            Talis
+          </Link>
+          {title && <span className="text-xl ml-2">| {title}</span>}
+        </div>
+        <div className="flex-none">{children}</div>
       </div>
-      <div className="flex-none">{children}</div>
-    </div>
+    </>
   )
 }

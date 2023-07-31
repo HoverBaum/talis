@@ -4,7 +4,7 @@ import { Navbar } from '../Navbar'
 export default function Tipps() {
   return (
     <div>
-      <Navbar title="Tipps" />
+      <Navbar title="Tipps" fixed={true} />
       <article className="prose lg:prose-lg p-4 mx-auto">
         <h1>Tipps</h1>
         <section>

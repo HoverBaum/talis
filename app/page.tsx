@@ -4,7 +4,7 @@ import { Navbar } from './Navbar'
 export default function Home() {
   return (
     <>
-      <Navbar />
+      <Navbar fixed={true} />
       <main className="p-4 max-w-prose mx-auto">
         <h1 className="text-2xl">Dice Roller</h1>
         <p>Choose a Dice Roller from the list below.</p>

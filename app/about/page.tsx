@@ -4,7 +4,7 @@ import { Navbar } from '../Navbar'
 export default function About() {
   return (
     <div>
-      <Navbar title="About" />
+      <Navbar title="About" fixed={true} />
       <div className="prose lg:prose-lg p-4 mx-auto">
         <h1>About</h1>
         <p>
