@@ -31,6 +31,13 @@ export const Drawer = () => {
         <li className="mb-2">
           <Link href="/dice/shadowrun">Shadowrun</Link>
         </li>
+
+        <h2 className="text-lg mt-4">Community</h2>
+        <li className="mb-2">
+          <Link href="https://discord.gg/KYdHnpDeyw" target="_blank">
+            Join our Discord
+          </Link>
+        </li>
       </ul>
     </div>
   )

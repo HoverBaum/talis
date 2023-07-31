@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Navbar } from '../Navbar'
 
 export default function Tipps() {
@@ -20,6 +21,19 @@ export default function Tipps() {
             If rolling becomes sluggish, try clearing the list of results to
             speed the app up again. Should not happen for the first 1000 rolls
             or so.
+          </p>
+        </section>
+
+        <section>
+          <h2>Feedback and Community</h2>
+          <p>
+            Join our Discord to give feedback, report bugs or just hang out with
+            fellow Talis users.
+          </p>
+          <p>
+            <Link href="https://discord.gg/KYdHnpDeyw" target="_blank">
+              Join our Discord
+            </Link>
           </p>
         </section>
       </article>
