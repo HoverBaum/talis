@@ -9,3 +9,6 @@ Dice rolling app for Pen and Paper games.
 - [ ] explain setting
 - [ ] German? Only German or multilingual
 - [ ] PWA installation
+
+Discord
+https://discord.gg/KYdHnpDeyw
