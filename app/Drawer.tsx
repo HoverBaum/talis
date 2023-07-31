@@ -17,28 +17,53 @@ export const Drawer = () => {
   return (
     <div className="drawer-side">
       <label htmlFor="talis-drawer" className="drawer-overlay"></label>
-      <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
+      <div className="menu p-4 w-80 h-full bg-base-200 text-base-content flex flex-col">
         {/* Sidebar content here */}
-        <h1 className="text-2xl mb-4">Talis</h1>
-        <li className="mb-2">
-          <Link href="/">Talis - Home</Link>
-        </li>
-        <li className="mb-2">
-          <Link href="/tipps">Tipps</Link>
-        </li>
+        <ul className="flex-grow">
+          <h1 className="text-2xl mb-4">Talis</h1>
+          <li className="mb-2">
+            <Link href="/">Talis - Home</Link>
+          </li>
+          <li className="mb-2">
+            <Link href="/tipps">Tipps</Link>
+          </li>
 
-        <h2 className="text-lg mt-4">Rollers</h2>
-        <li className="mb-2">
-          <Link href="/dice/shadowrun">Shadowrun</Link>
-        </li>
+          <h2 className="text-lg mt-4">Rollers</h2>
+          <li className="mb-2">
+            <Link href="/dice/shadowrun">Shadowrun</Link>
+          </li>
+        </ul>
 
-        <h2 className="text-lg mt-4">Community</h2>
-        <li className="mb-2">
-          <Link href="https://discord.gg/KYdHnpDeyw" target="_blank">
-            Join our Discord
-          </Link>
-        </li>
-      </ul>
+        {/* Bottom section */}
+        <div>
+          <span className="opacity-75">
+            Build by{' '}
+            <Link
+              className="link"
+              target="_blank"
+              href="https://hendrikwallbaum.de/"
+            >
+              Hendrik
+            </Link>{' '}
+            on{' '}
+            <Link
+              className="link"
+              target="_blank"
+              href="https://github.com/HoverBaum/talis"
+            >
+              GitHub
+            </Link>{' '}
+            -{' '}
+            <Link
+              className="link"
+              target="_blank"
+              href="https://discord.gg/KYdHnpDeyw"
+            >
+              Join Discord
+            </Link>
+          </span>
+        </div>
+      </div>
     </div>
   )
 }
