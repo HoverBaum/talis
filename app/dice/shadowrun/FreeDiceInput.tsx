@@ -14,7 +14,7 @@ export const FreeDiceInput = ({
 }: FreeDiceInputProps) => {
   return (
     <div className="flex items-center">
-      <p>Number of dice: </p>
+      <label>Number of dice: </label>
       <input
         type="text"
         placeholder="0"
