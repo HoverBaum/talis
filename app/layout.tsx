@@ -18,6 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body
         suppressHydrationWarning={true}
         className={`${inter.className} min-h-screen bg-base-100`}
