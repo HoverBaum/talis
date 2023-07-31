@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Providers } from './Providers'
 import { StoreSetup } from './StoreSetup'
+import { Drawer } from './Drawer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,10 +27,18 @@ export default function RootLayout({
         className={`${inter.className} min-h-screen bg-base-100`}
       >
         <Providers>
-          <>
-            <StoreSetup />
-            {children}
-          </>
+          <div className="drawer">
+            <input
+              id="talis-drawer"
+              type="checkbox"
+              className="drawer-toggle"
+            />
+            <div className="drawer-content">
+              <StoreSetup />
+              {children}
+            </div>
+            <Drawer />
+          </div>
         </Providers>
       </body>
     </html>
