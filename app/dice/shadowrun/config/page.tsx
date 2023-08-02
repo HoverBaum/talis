@@ -6,7 +6,7 @@ import { CloseIcon } from '@/components/icons/CloseIcon'
 export default function ShadowrunConfigPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar title="Shadowrun Config">
+      <Navbar title="Shadowrun Config" fixed={true}>
         <Link href="/dice/shadowrun">
           <button className="btn btn-square btn-ghost">
             <CloseIcon />
