@@ -12,6 +12,7 @@ import { RootState } from '@/app/store'
 import { addRoll, clearRolls, setDiceAmount } from './shadowrunSlice'
 import { TrashIcon } from '@/components/icons/TrashIcon'
 import { CogIcon } from '@/components/icons/CogIcon'
+import { Emoji } from '@/components/icons/Emoji'
 
 export type DiceRollType = {
   results: number[]
@@ -159,7 +160,7 @@ export default function Home() {
                     >
                       {type === 'instantRoll' && (
                         <div className="bg-base-100 rounded-full absolute top-0 right-0 -translate-y-1/2 translate-x-1/2">
-                          ⚡
+                          <Emoji>⚡</Emoji>
                         </div>
                       )}
                       {amount}

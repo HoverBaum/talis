@@ -21,6 +21,9 @@ module.exports = {
       animation: {
         fadeIn: 'fadeInFrames 0.3s ease-out forwards',
       },
+      fontFamily: {
+        emoji: ['Noto Emoji', 'sans-serif'],
+      },
     },
   },
   plugins: [require('@tailwindcss/typography'), require('daisyui')],
