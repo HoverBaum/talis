@@ -171,7 +171,7 @@ export default function Home() {
 
             <button
               disabled={numberOfDice <= 0}
-              className="btn btn-block my-2"
+              className="btn btn-block my-2 max-w-[90%] md:max-w-full mx-auto block"
               onClick={() => rollD6(numberOfDice)}
             >
               Roll
