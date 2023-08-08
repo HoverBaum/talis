@@ -25,6 +25,7 @@ export const QuickButtonConfig = ({ quickButton }: QuickButtonConfigProps) => {
     <div className="grid grid-cols-6 grid-rows-2 md:grid-rows-1 md:grid-cols-12 gap-2 pb-4 border-b-2 border-base-300 mb-4">
       <div className="col-span-6 self-center">
         <FreeDiceInput
+          variant="small"
           numberOfDice={quickButton.amount}
           onNewNumber={(newAmount) =>
             dispatch(
