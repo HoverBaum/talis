@@ -31,7 +31,7 @@ export const DiceRollResult = ({
         isHighlighted && 'bg-base-200 border-2'
       }`}
     >
-      <span className={`${isHighlighted && 'text-2xl'}`}>
+      <span className={`text-xl ${isHighlighted && 'text-2xl'}`}>
         {diceRoll.shadowrun?.hits} hit
         {diceRoll.shadowrun?.hits === 1 ? '' : 's'}
       </span>
@@ -41,7 +41,9 @@ export const DiceRollResult = ({
       {diceRoll.shadowrun?.isCriticalGlitch && (
         <span className="badge badge-error mx-2">Critical Glitch</span>
       )}
-      <span className="text-4xl flex flex-wrap">
+      <span
+        className={`text-4xl flex flex-wrap ${isHighlighted && 'text-5xl'}`}
+      >
         {[...diceRoll.results]
           .sort((a, b) => {
             if (sortDice) {
@@ -63,7 +65,7 @@ export const DiceRollResult = ({
                   result === 1 &&
                   diceRoll.shadowrun?.isCriticalGlitch &&
                   'text-error'
-                }`}
+                } ${result > 1 && result < 5 && 'text-gray-600'}`}
               >
                 {d6Mapping[result as 1 | 2 | 3 | 4 | 5 | 6]}
               </span>
@@ -72,8 +74,7 @@ export const DiceRollResult = ({
       </span>
 
       <span className="block text-xs">
-        #{diceRoll.id} - {new Date(diceRoll.timestamp).toLocaleDateString()} -{' '}
-        {new Date(diceRoll.timestamp).toLocaleTimeString()} -{' '}
+        #{diceRoll.id} - {new Date(diceRoll.timestamp).toLocaleTimeString()} -{' '}
         {diceRoll.results.length} dice
       </span>
     </div>
