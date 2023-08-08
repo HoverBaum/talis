@@ -1,28 +1,25 @@
-type ToggleProps = {
-  label: string
+type CheckboxProps = {
   checked: boolean
   onChange: (checked: boolean) => void
+  label?: string
   className?: string
-  disabled?: boolean
 }
 
-export const Toggle = ({
-  label,
+export const Checkbox = ({
   checked,
   onChange,
-  disabled,
+  label,
   className,
-}: ToggleProps) => {
+}: CheckboxProps) => {
   return (
     <div className={`form-control ${className}`}>
-      <label className="label cursor-pointer">
+      <label className="flex items-center cursor-pointer">
         <span className="mr-2">{label}</span>
         <input
           type="checkbox"
-          disabled={disabled}
-          className="toggle"
           checked={checked}
-          onChange={() => onChange(!checked)}
+          onChange={(e) => onChange(e.target.checked)}
+          className="checkbox"
         />
       </label>
     </div>

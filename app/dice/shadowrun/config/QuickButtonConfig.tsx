@@ -10,6 +10,7 @@ import { Toggle } from './Toggle'
 import { FreeDiceInput } from '../FreeDiceInput'
 import { RootState } from '@/app/store'
 import { TrashIcon } from '@/components/icons/TrashIcon'
+import { Checkbox } from './Checkbox'
 
 type QuickButtonConfigProps = {
   quickButton: QuickButtonType
@@ -21,8 +22,8 @@ export const QuickButtonConfig = ({ quickButton }: QuickButtonConfigProps) => {
   )
   const dispatch = useDispatch()
   return (
-    <div className="grid grid-cols-6 grid-rows-2 md:grid-rows-1 md:grid-cols-12 gap-2 my-4 pb-4 border-b-2 border-base-100">
-      <div className="col-span-6">
+    <div className="grid grid-cols-6 grid-rows-2 md:grid-rows-1 md:grid-cols-12 gap-2 pb-4 border-b-2 border-base-300 mb-4">
+      <div className="col-span-6 self-center">
         <FreeDiceInput
           numberOfDice={quickButton.amount}
           onNewNumber={(newAmount) =>
@@ -33,8 +34,8 @@ export const QuickButtonConfig = ({ quickButton }: QuickButtonConfigProps) => {
           maxDiceAmount={maxDiceAmount}
         />
       </div>
-      <Toggle
-        className="col-span-3 md:col-start-8 self-center"
+      <Checkbox
+        className="col-span-4 md:col-start-8 self-center"
         label="Roll instantly"
         checked={quickButton.type === 'instantRoll'}
         onChange={(isInstant) => {
@@ -48,7 +49,7 @@ export const QuickButtonConfig = ({ quickButton }: QuickButtonConfigProps) => {
         }}
       />
       <button
-        className="btn btn-square col-start-6 md:col-start-12"
+        className="btn btn-square btn-sm col-start-7 md:col-start-12 self-center"
         onClick={() => dispatch(deleteQuickButton(quickButton.id))}
       >
         <TrashIcon />

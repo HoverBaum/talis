@@ -44,15 +44,17 @@ export const ShadowrunConfig = () => {
           />
 
           {config.useQuickButtons && (
-            <div>
-              <div className="mb-8">
+            <div className="p-6">
+              <div>
                 {config.quickButtons &&
                   config.quickButtons.map((button) => (
-                    <QuickButtonConfig key={button.id} quickButton={button} />
+                    <>
+                      <QuickButtonConfig key={button.id} quickButton={button} />
+                    </>
                   ))}
               </div>
               <button
-                className="btn btn-outline"
+                className="btn btn-outline btn-sm -mt-8"
                 onClick={() =>
                   updateConfig({
                     quickButtons: [
