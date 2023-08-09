@@ -12,7 +12,7 @@ import { RootState } from '@/app/store'
 import { addRoll, clearRolls, setDiceAmount } from './shadowrunSlice'
 import { TrashIcon } from '@/components/icons/TrashIcon'
 import { CogIcon } from '@/components/icons/CogIcon'
-import { Emoji } from '@/components/icons/Emoji'
+import { QuickButton } from './QuickButton'
 
 export type DiceRollType = {
   results: number[]
@@ -146,25 +146,18 @@ export default function Home() {
 
               {useQuickButtons && (
                 <div className="overflow-x-auto flex py-2">
-                  {quickButtons.map(({ id, type, amount }) => (
-                    <button
-                      className="btn btn-square btn-outline mx-2 relative"
-                      key={id}
+                  {quickButtons.map((quickButton) => (
+                    <QuickButton
+                      quickButton={quickButton}
+                      key={quickButton.id}
                       onClick={() => {
-                        if (type === 'instantRoll') {
-                          rollD6(amount)
+                        if (quickButton.type === 'instantRoll') {
+                          rollD6(quickButton.amount)
                         } else {
-                          setNumberOfDice(amount)
+                          setNumberOfDice(quickButton.amount)
                         }
                       }}
-                    >
-                      {type === 'instantRoll' && (
-                        <div className="bg-base-100 rounded-full absolute top-0 right-0 -translate-y-1/2 translate-x-1/2">
-                          <Emoji>⚡</Emoji>
-                        </div>
-                      )}
-                      {amount}
-                    </button>
+                    />
                   ))}
                 </div>
               )}
@@ -172,7 +165,7 @@ export default function Home() {
 
             <button
               disabled={numberOfDice <= 0}
-              className="btn btn-block my-2 max-w-[90%] md:max-w-full mx-auto block"
+              className="btn btn-block btn-primary my-2 max-w-[90%] md:max-w-full mx-auto block"
               onClick={() => rollD6(numberOfDice)}
             >
               Roll

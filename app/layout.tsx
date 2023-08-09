@@ -18,13 +18,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" data-theme="talisTheme">
+    <html lang="en" data-theme="synthwave">
       <head>
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body
         suppressHydrationWarning={true}
-        className={`${inter.className} min-h-screen bg-base-100`}
+        className={`${inter.className} min-h-screen`}
       >
         <Providers>
           <div className="drawer">

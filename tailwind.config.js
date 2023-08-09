@@ -40,6 +40,7 @@ module.exports = {
           error: '#f74848',
         },
       },
+      'synthwave',
     ],
   },
   plugins: [require('@tailwindcss/typography'), require('daisyui')],
