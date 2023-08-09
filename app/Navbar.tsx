@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import talisLogo from '../public/talis-dice.png'
 import { MenuIcon } from '@/components/icons/MenuIcon'
+import { ThemeSelect } from './ThemeSelect'
 
 type NavbarProps = {
   title?: string
@@ -27,16 +28,7 @@ export const Navbar = ({ title, children, fixed }: NavbarProps) => {
           {title && <span className="text-xl ml-2">| {title}</span>}
         </div>
         <div className="flex-none">
-          <select
-            data-choose-theme
-            className="select select-ghost w-full max-w-xs"
-          >
-            <option value="">System</option>
-            <option value="talisTheme">Light</option>
-            <option value="dark">Dark</option>
-            <option value="shadowrun">Shadowrun</option>
-            <option value="synthwave">Synthwave</option>
-          </select>
+          <ThemeSelect className="hidden md:block" />
           <div className="flex">{children}</div>
         </div>
       </div>
