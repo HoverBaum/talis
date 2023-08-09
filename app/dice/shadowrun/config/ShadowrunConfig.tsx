@@ -76,7 +76,7 @@ export const ShadowrunConfig = () => {
       )}
 
       <Link href="/dice/shadowrun">
-        <button className="btn w-full mt-8">Back</button>
+        <button className="btn btn-primary w-full mt-8">Back</button>
       </Link>
     </div>
   )
