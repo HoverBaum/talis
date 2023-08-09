@@ -31,7 +31,7 @@ export const DiceRollResult = ({
         isHighlighted && 'bg-base-200 border-2'
       }`}
     >
-      <span className={`text-xl ${isHighlighted && 'text-2xl'}`}>
+      <span className={`text-xl ${isHighlighted && 'text-3xl'}`}>
         {diceRoll.shadowrun?.hits} hit
         {diceRoll.shadowrun?.hits === 1 ? '' : 's'}
       </span>
@@ -57,7 +57,7 @@ export const DiceRollResult = ({
             return (
               <span
                 key={j}
-                className={`${result >= 5 && 'text-info'} ${
+                className={`mr-1 ${result >= 5 && 'text-info'} ${
                   result === 1 &&
                   !diceRoll.shadowrun?.isCriticalGlitch &&
                   'text-warning'
