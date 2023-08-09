@@ -26,7 +26,19 @@ export const Navbar = ({ title, children, fixed }: NavbarProps) => {
           </Link>
           {title && <span className="text-xl ml-2">| {title}</span>}
         </div>
-        <div className="flex-none">{children}</div>
+        <div className="flex-none">
+          <select
+            data-choose-theme
+            className="select select-ghost w-full max-w-xs"
+          >
+            <option value="">System</option>
+            <option value="talisTheme">Light</option>
+            <option value="dark">Dark</option>
+            <option value="shadowrun">Shadowrun</option>
+            <option value="synthwave">Synthwave</option>
+          </select>
+          <div className="flex">{children}</div>
+        </div>
       </div>
     </>
   )

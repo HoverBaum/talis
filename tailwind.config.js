@@ -41,7 +41,6 @@ module.exports = {
         },
       },
       'dark',
-      'light',
       'synthwave',
       {
         cyberpunk: {
