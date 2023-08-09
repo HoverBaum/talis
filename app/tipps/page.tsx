@@ -19,6 +19,15 @@ export default function Tipps() {
         </section>
 
         <section>
+          <h2>Color Theme</h2>
+          <p>
+            You can select your favorite theme from the drop down in the drawer
+            menu on the left. On desktop you can also change the theme from the
+            navbar.
+          </p>
+        </section>
+
+        <section>
           <h2>Sluggish rolling</h2>
           <p>
             If rolling becomes sluggish, try clearing the list of results to
