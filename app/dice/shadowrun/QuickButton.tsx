@@ -16,7 +16,7 @@ export const QuickButton = ({ quickButton, onClick }: QuickButtonProps) => {
     >
       {type === 'instantRoll' && (
         <div className="bg-base-100 rounded-full absolute top-0 right-0 -translate-y-1/2 translate-x-1/2">
-          <Emoji>⚡</Emoji>
+          <Emoji className="!text-base-content">⚡</Emoji>
         </div>
       )}
       {amount}
