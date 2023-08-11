@@ -2,5 +2,25 @@
   "Home": {
     "title": "Würfel App",
     "description": "Wähle zwischen folgenden Apps."
+  },
+  "Roller": {
+    "Shadowrun": {
+      "roll": "Würfeln",
+      "hits": "Erfolge",
+      "Config": {
+        "newResultsAtBottom": "Neue Ergebnisse unten",
+        "freeInput": "Input-Feld",
+        "sortDice": "Würfel sortieren",
+        "quickButtons": "Quick buttons",
+        "addQuickButton": "Quick Button hinzufügen",
+        "rollInstantly": "Einmal würfeln",
+        "back": "Zurück"
+      }
+    }
+  },
+  "Components": {
+    "FreeInput": {
+      "numberOfDice": "Würfelanzahl:"
+    }
   }
 }

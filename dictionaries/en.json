@@ -2,5 +2,25 @@
   "Home": {
     "title": "Dice Roller",
     "description": "Choose a Dice Roller from the list below."
+  },
+  "Roller": {
+    "Shadowrun": {
+      "roll": "Roll",
+      "hits": "hits",
+      "Config": {
+        "newResultsAtBottom": "New results at bottom",
+        "freeInput": "Free input",
+        "sortDice": "Sort dice",
+        "quickButtons": "Quick buttons",
+        "addQuickButton": "Add Quick Button",
+        "rollInstantly": "Roll instantly",
+        "back": "Back"
+      }
+    }
+  },
+  "Components": {
+    "FreeInput": {
+      "numberOfDice": "Number of dice:"
+    }
   }
 }
