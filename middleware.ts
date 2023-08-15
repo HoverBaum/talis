@@ -34,7 +34,8 @@ export function middleware(request: NextRequest) {
       '/manifest.json',
       // Your other files in `public`
     ].includes(pathname) ||
-    /\/icons\//.test(pathname)
+    /\/icons\//.test(pathname) ||
+    /\/fonts\//.test(pathname)
   )
     return
 
