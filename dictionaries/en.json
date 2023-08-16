@@ -21,6 +21,9 @@
   "Components": {
     "FreeInput": {
       "numberOfDice": "Number of dice:"
+    },
+    "DiceRollResult": {
+      "dice": "dice"
     }
   }
 }

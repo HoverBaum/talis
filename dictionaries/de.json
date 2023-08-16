@@ -21,6 +21,9 @@
   "Components": {
     "FreeInput": {
       "numberOfDice": "Würfelanzahl:"
+    },
+    "DiceRollResult": {
+      "dice": "Würfel"
     }
   }
 }

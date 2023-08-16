@@ -1,5 +1,16 @@
-import { DiceRollType } from './page'
 import { useConfig } from './useConfig'
+
+export type DiceRollType = {
+  results: number[]
+  type: 'Shadowrun'
+  timestamp: number
+  id: number
+  shadowrun?: {
+    hits: number
+    isGlitch: boolean
+    isCriticalGlitch: boolean
+  }
+}
 
 const d6Mapping = {
   1: '⚀',

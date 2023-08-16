@@ -12,3 +12,9 @@ const dictionaries = {
 
 export const getDictionary = async (locale: Locale) =>
   dictionaries[locale]?.() ?? dictionaries.en()
+
+export type DictionaryType = ReturnType<typeof getDictionary> extends Promise<
+  infer T
+>
+  ? T
+  : never
