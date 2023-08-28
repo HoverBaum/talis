@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import { ThemeSelect } from './ThemeSelect'
+import { LanguageSelect } from './LanguageSelect'
 
 export const Drawer = () => {
   const pathname = usePathname()
@@ -40,6 +41,7 @@ export const Drawer = () => {
 
         {/* Bottom section */}
         <div>
+          <LanguageSelect className="my-2" />
           <ThemeSelect withLabel={true} className="my-2" />
           <div>
             <span className="opacity-75">

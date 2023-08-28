@@ -13,7 +13,7 @@ import { addRoll, clearRolls, setDiceAmount } from './shadowrunSlice'
 import { TrashIcon } from '@/components/icons/TrashIcon'
 import { CogIcon } from '@/components/icons/CogIcon'
 import { QuickButton } from './QuickButton'
-import { DictionaryType, getDictionary } from '@/app/dictionanier'
+import { DictionaryType } from '@/app/dictionanier'
 import { ExtractProperty } from 'utils/extractProperty'
 
 type ShadowrunDict = ExtractProperty<DictionaryType, 'Roller.Shadowrun'>
@@ -91,7 +91,7 @@ export const ShadowrunRoller = ({ dict }: ShadowrunRollerProps) => {
         >
           <TrashIcon />
         </button>
-        <Link href="/dice/shadowrun/config">
+        <Link href="shadowrun/config">
           <button className="btn btn-square btn-ghost">
             <CogIcon />
           </button>
