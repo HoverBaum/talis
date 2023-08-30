@@ -2,7 +2,7 @@
 
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { DiceRollType } from './page'
+import { DiceRollType } from './DiceRollResult'
 
 const MAX_DICE_AMOUNT = 50
 
