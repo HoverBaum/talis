@@ -4,8 +4,14 @@ import Link from 'next/link'
 import { useConfig } from '../useConfig'
 import { Toggle } from './Toggle'
 import { QuickButtonConfig } from './QuickButtonConfig'
+import { ExtractProperty } from 'utils/extractProperty'
+import { DictionaryType } from 'dictionaries/dictionanier'
 
-export const ShadowrunConfig = () => {
+export const ShadowrunConfig = ({
+  dict,
+}: {
+  dict: ExtractProperty<DictionaryType, 'Roller.Shadowrun.Config'>
+}) => {
   const { config, updateConfig } = useConfig()
 
   return (
@@ -15,7 +21,7 @@ export const ShadowrunConfig = () => {
         <div>
           <Toggle
             className="mb-2"
-            label="New results at bottom"
+            label={dict.newResultsAtBottom}
             checked={config.showNewResultBottom}
             onChange={(checked) =>
               updateConfig({ showNewResultBottom: checked })
@@ -24,21 +30,21 @@ export const ShadowrunConfig = () => {
 
           <Toggle
             className="mb-2"
-            label="Free input"
+            label={dict.freeInput}
             checked={config.useFreeInput}
             onChange={(checked) => updateConfig({ useFreeInput: checked })}
           />
 
           <Toggle
             className="mb-2"
-            label="Sort dice"
+            label={dict.sortDice}
             checked={config.sortDice}
             onChange={(checked) => updateConfig({ sortDice: checked })}
           />
 
           <Toggle
             className="mb-2"
-            label="Quick buttons"
+            label={dict.quickButtons}
             checked={config.useQuickButtons}
             onChange={(checked) => updateConfig({ useQuickButtons: checked })}
           />
@@ -68,7 +74,7 @@ export const ShadowrunConfig = () => {
                   })
                 }
               >
-                Add Quick Button
+                {dict.addQuickButton}
               </button>
             </div>
           )}
@@ -76,7 +82,7 @@ export const ShadowrunConfig = () => {
       )}
 
       <Link href="/dice/shadowrun">
-        <button className="btn btn-primary w-full mt-8">Back</button>
+        <button className="btn btn-primary w-full mt-8">{dict.back}</button>
       </Link>
     </div>
   )

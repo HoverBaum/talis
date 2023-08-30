@@ -10,7 +10,6 @@ type FreeDiceInputProps = {
   maxDiceAmount: number
   className?: string
   variant?: 'default' | 'small'
-  dict: ExtractProperty<DictionaryType, 'Components.FreeInput'>
 }
 
 export const FreeDiceInput = ({

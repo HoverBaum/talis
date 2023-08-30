@@ -6,7 +6,13 @@
   "Roller": {
     "Shadowrun": {
       "roll": "Roll",
-      "hits": "hits",
+      "DiceRollResult": {
+        "dice": "dice",
+        "hit": "hit",
+        "hits": "hits",
+        "glitch": "Glitch",
+        "criticalGlitch": "Critical Glitch"
+      },
       "Config": {
         "newResultsAtBottom": "New results at bottom",
         "freeInput": "Free input",
@@ -21,9 +27,6 @@
   "Components": {
     "FreeInput": {
       "numberOfDice": "Number of dice:"
-    },
-    "DiceRollResult": {
-      "dice": "dice"
     }
   }
 }

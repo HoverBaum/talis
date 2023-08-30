@@ -112,6 +112,7 @@ export const ShadowrunRoller = ({ dict }: ShadowrunRollerProps) => {
                   isFaded={index > 1}
                   isHighlighted={index === 0}
                   key={roll.timestamp}
+                  dict={dict.DiceRollResult}
                 />
               ))}
             </div>

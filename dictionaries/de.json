@@ -6,7 +6,13 @@
   "Roller": {
     "Shadowrun": {
       "roll": "Würfeln",
-      "hits": "Erfolge",
+      "DiceRollResult": {
+        "dice": "Würfel",
+        "hit": "Erfolg",
+        "hits": "Erfolge",
+        "glitch": "Patzer",
+        "criticalGlitch": "Kritischer Patzer"
+      },
       "Config": {
         "newResultsAtBottom": "Neue Ergebnisse unten",
         "freeInput": "Input-Feld",
@@ -21,9 +27,6 @@
   "Components": {
     "FreeInput": {
       "numberOfDice": "Würfelanzahl:"
-    },
-    "DiceRollResult": {
-      "dice": "Würfel"
     }
   }
 }

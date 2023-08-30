@@ -1,4 +1,6 @@
+import { ExtractProperty } from 'utils/extractProperty'
 import { useConfig } from './useConfig'
+import { DictionaryType } from 'dictionaries/dictionanier'
 
 export type DiceRollType = {
   results: number[]
@@ -25,12 +27,14 @@ type DiceRollResultProps = {
   diceRoll: DiceRollType
   isFaded?: boolean
   isHighlighted?: boolean
+  dict: ExtractProperty<DictionaryType, 'Roller.Shadowrun.DiceRollResult'>
 }
 
 export const DiceRollResult = ({
   diceRoll,
   isFaded,
   isHighlighted,
+  dict,
 }: DiceRollResultProps) => {
   const {
     config: { sortDice },
@@ -43,14 +47,14 @@ export const DiceRollResult = ({
       }`}
     >
       <span className={`text-xl ${isHighlighted && 'text-3xl'}`}>
-        {diceRoll.shadowrun?.hits} hit
-        {diceRoll.shadowrun?.hits === 1 ? '' : 's'}
+        {diceRoll.shadowrun?.hits}{' '}
+        {diceRoll.shadowrun?.hits === 1 ? dict.hit : dict.hits}
       </span>
       {diceRoll.shadowrun?.isGlitch && (
-        <span className="badge badge-warning mx-2">Glitch</span>
+        <span className="badge badge-warning mx-2">{dict.glitch}</span>
       )}
       {diceRoll.shadowrun?.isCriticalGlitch && (
-        <span className="badge badge-error mx-2">Critical Glitch</span>
+        <span className="badge badge-error mx-2">{dict.criticalGlitch}</span>
       )}
       <span
         className={`text-4xl flex flex-wrap ${isHighlighted && 'text-5xl'}`}
@@ -86,7 +90,7 @@ export const DiceRollResult = ({
 
       <span className="block text-xs">
         #{diceRoll.id} - {new Date(diceRoll.timestamp).toLocaleTimeString()} -{' '}
-        {diceRoll.results.length} dice
+        {diceRoll.results.length} {dict.dice}
       </span>
     </div>
   )

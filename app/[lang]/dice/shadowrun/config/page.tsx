@@ -2,8 +2,15 @@ import { Navbar } from '@/app/Navbar'
 import { ShadowrunConfig } from './ShadowrunConfig'
 import Link from 'next/link'
 import { CloseIcon } from '@/components/icons/CloseIcon'
+import { Locale } from 'i18n-config'
+import { getDictionary } from 'dictionaries/dictionanier'
 
-export default function ShadowrunConfigPage() {
+export default async function ShadowrunConfigPage({
+  params: { lang },
+}: {
+  params: { lang: Locale }
+}) {
+  const dict = await getDictionary(lang)
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar title="Shadowrun Config" fixed={true}>
@@ -14,7 +21,7 @@ export default function ShadowrunConfigPage() {
         </Link>
       </Navbar>
       <main className="flex-grow basis-0 p-2 md:p-4">
-        <ShadowrunConfig />
+        <ShadowrunConfig dict={dict.Roller.Shadowrun.Config} />
       </main>
     </div>
   )
