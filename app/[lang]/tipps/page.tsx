@@ -28,6 +28,22 @@ export default function Tipps() {
         </section>
 
         <section>
+          <h2>Language</h2>
+          <p>
+            You can change the apps language from the sidebar. Supported
+            languages:
+          </p>
+          <ul>
+            <li>English</li>
+            <li>Deutsch</li>
+          </ul>
+          <p>
+            The information pages are currently only available in English
+            though.
+          </p>
+        </section>
+
+        <section>
           <h2>Sluggish rolling</h2>
           <p>
             If rolling becomes sluggish, try clearing the list of results to
