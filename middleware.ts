@@ -26,13 +26,6 @@ function getLocale(request: NextRequest): string | undefined {
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
-  console.log(
-    'request.url',
-    request.headers
-      .get('referer')
-      ?.replace(request.headers.get('host') || '', '')
-      .replace(/^http(s)*:\/\//, '')
-  )
   // // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
   // // If you have one
   if (
@@ -53,7 +46,6 @@ export function middleware(request: NextRequest) {
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
     let locale = getLocale(request)
-    console.log('pathnameIsMissingLocale', locale, pathname)
 
     // Check if last URL already had a locale.
     const refererPath =
@@ -61,11 +53,10 @@ export function middleware(request: NextRequest) {
         .get('referer')
         ?.replace(request.headers.get('host') || '', '')
         .replace(/^http(s)*:\/\//, '') || ''
-    console.log('refererPath', refererPath)
+
     const thereIsALocaleInReferer = i18n.locales.some((locale) =>
       refererPath.startsWith(`/${locale}`)
     )
-    console.log('thereIsALocaleInReferer', thereIsALocaleInReferer)
     if (thereIsALocaleInReferer) {
       // Prefer locale from referer over detected one.
       locale = refererPath.split('/')[1]

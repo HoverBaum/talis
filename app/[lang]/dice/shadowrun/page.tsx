@@ -1,6 +1,6 @@
 import { Locale } from 'i18n-config'
 import { ShadowrunRoller } from './ShadowrunRoller'
-import { getDictionary } from '@/app/dictionanier'
+import { getDictionary } from 'dictionaries/dictionanier'
 
 export default async function ShadowrunRollerPage({
   params: { lang },

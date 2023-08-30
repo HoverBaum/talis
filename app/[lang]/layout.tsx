@@ -4,6 +4,8 @@ import { Inter } from 'next/font/google'
 import { Providers } from './Providers'
 import { StoreSetup } from './StoreSetup'
 import { Drawer } from './Drawer'
+import { Locale } from 'i18n-config'
+import { ServerTranslationContext } from 'dictionaries/ServerTranslationContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,8 +16,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params: { lang },
 }: {
   children: React.ReactNode
+  params: { lang: Locale }
 }) {
   return (
     <html lang="en">
@@ -27,18 +31,20 @@ export default function RootLayout({
         className={`${inter.className} min-h-screen`}
       >
         <Providers>
-          <div className="drawer">
-            <input
-              id="talis-drawer"
-              type="checkbox"
-              className="drawer-toggle"
-            />
-            <div className="drawer-content">
-              <StoreSetup />
-              {children}
+          <ServerTranslationContext lang={lang}>
+            <div className="drawer">
+              <input
+                id="talis-drawer"
+                type="checkbox"
+                className="drawer-toggle"
+              />
+              <div className="drawer-content">
+                <StoreSetup />
+                {children}
+              </div>
+              <Drawer />
             </div>
-            <Drawer />
-          </div>
+          </ServerTranslationContext>
         </Providers>
       </body>
     </html>

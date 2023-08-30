@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Navbar } from './Navbar'
 import { Locale } from 'i18n-config'
-import { getDictionary } from './dictionanier'
+import { getDictionary } from '../../dictionaries/dictionanier'
 
 export default async function Home({
   params: { lang },

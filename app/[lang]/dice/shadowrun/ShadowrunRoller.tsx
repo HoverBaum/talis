@@ -13,7 +13,7 @@ import { addRoll, clearRolls, setDiceAmount } from './shadowrunSlice'
 import { TrashIcon } from '@/components/icons/TrashIcon'
 import { CogIcon } from '@/components/icons/CogIcon'
 import { QuickButton } from './QuickButton'
-import { DictionaryType } from '@/app/dictionanier'
+import { DictionaryType } from 'dictionaries/dictionanier'
 import { ExtractProperty } from 'utils/extractProperty'
 
 type ShadowrunDict = ExtractProperty<DictionaryType, 'Roller.Shadowrun'>

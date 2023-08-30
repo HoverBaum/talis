@@ -1,12 +1,14 @@
 'use client'
 
-import { ChangeEvent } from 'react'
+import { Locale } from 'i18n-config'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 type LanguageSelectProps = {
   className?: string
 }
 
 export const LanguageSelect = ({ className }: LanguageSelectProps) => {
+  const [currentLocale, setCurrentLocale] = useState<Locale>('en')
   const onSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     console.log(e.target.value)
     const newLocale = e.target.value
@@ -16,7 +18,13 @@ export const LanguageSelect = ({ className }: LanguageSelectProps) => {
     window.location.pathname = newPath
   }
 
-  const currentLocale = window.location.pathname.split('/')[1]
+  useEffect(() => {
+    const currentLocale =
+      typeof window !== 'undefined'
+        ? window.location.pathname.split('/')[1]
+        : 'en'
+    setCurrentLocale(currentLocale as Locale)
+  }, [])
 
   return (
     <div>

@@ -1,5 +1,8 @@
+import { DictionaryType } from 'dictionaries/dictionanier'
 import { MinusIcon } from '@/components/icons/MinusIcon'
 import { PlusIcon } from '@/components/icons/PlusIcon'
+import { ExtractProperty } from 'utils/extractProperty'
+import { useDict } from 'dictionaries/useDict'
 
 type FreeDiceInputProps = {
   numberOfDice: number
@@ -7,6 +10,7 @@ type FreeDiceInputProps = {
   maxDiceAmount: number
   className?: string
   variant?: 'default' | 'small'
+  dict: ExtractProperty<DictionaryType, 'Components.FreeInput'>
 }
 
 export const FreeDiceInput = ({
@@ -17,9 +21,11 @@ export const FreeDiceInput = ({
   variant = 'default',
 }: FreeDiceInputProps) => {
   const isSmall = variant === 'small'
+  const dict = useDict('Components.FreeInput')
+
   return (
     <div className={`flex items-center ${className}`}>
-      <label>Number of dice: </label>
+      <label>{dict.numberOfDice} </label>
       <input
         type="text"
         placeholder="0"
