@@ -17,9 +17,13 @@ export default async function Home({
         <h1 className="text-2xl">{dict.Home.title}</h1>
         <p>{dict.Home.description}</p>
         <div className="mt-4">
-          <Link className="link" href="dice/shadowrun">
-            Shadowrun
-          </Link>
+          <ul>
+            <li>
+              <Link className="link" href="dice/shadowrun">
+                Shadowrun
+              </Link>
+            </li>
+          </ul>
         </div>
       </main>
     </>
