@@ -28,5 +28,9 @@
     "FreeInput": {
       "numberOfDice": "Würfelanzahl:"
     }
+  },
+  "General": {
+    "dice": "Wprfel",
+    "roll": "Würfeln"
   }
 }

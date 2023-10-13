@@ -28,5 +28,9 @@
     "FreeInput": {
       "numberOfDice": "Number of dice:"
     }
+  },
+  "General": {
+    "dice": "dice",
+    "roll": "Roll"
   }
 }

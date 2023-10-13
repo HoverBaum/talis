@@ -8,5 +8,5 @@ export default async function MultiD6RollerPage({
   params: { lang: Locale }
 }) {
   const dict = await getDictionary(lang)
-  return <MultiD6Roller dict={dict.Roller.Shadowrun} />
+  return <MultiD6Roller generalDict={dict.General} />
 }
