@@ -18,9 +18,14 @@ export default async function Home({
         <p>{dict.Home.description}</p>
         <div className="mt-4">
           <ul>
-            <li>
+            <li className="my-4">
               <Link className="link" href="dice/shadowrun">
                 Shadowrun
+              </Link>
+            </li>
+            <li className="my-4">
+              <Link className="link" href="dice/multi-d6">
+                Multi D6 🚧
               </Link>
             </li>
           </ul>

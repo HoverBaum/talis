@@ -1,12 +1,12 @@
 import { Locale } from 'i18n-config'
-import { D6Roller } from './D6Roller'
+import { MultiD6Roller } from './MultiD6Roller'
 import { getDictionary } from 'dictionaries/dictionanier'
 
-export default async function D6RollerPage({
+export default async function MultiD6RollerPage({
   params: { lang },
 }: {
   params: { lang: Locale }
 }) {
   const dict = await getDictionary(lang)
-  return <D6Roller dict={dict.Roller.Shadowrun} />
+  return <MultiD6Roller dict={dict.Roller.Shadowrun} />
 }

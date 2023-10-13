@@ -5,11 +5,11 @@ import { useState } from 'react'
 import { DiceRollType } from '../shadowrun/DiceRollResult'
 import { DiceSelectWheel } from '../shadowrun/DiceSelectWheel'
 
-type D6RollerProps = {
+type MultiD6RollerProps = {
   dict: any
 }
 
-export const D6Roller = ({ dict }: D6RollerProps) => {
+export const MultiD6Roller = ({ dict }: MultiD6RollerProps) => {
   const [numberOfDice, setNumberOfDice] = useState(1)
   const [rolls, setRolls] = useState<number[][]>([])
 
@@ -24,7 +24,10 @@ export const D6Roller = ({ dict }: D6RollerProps) => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar title="D6"></Navbar>
+      <Navbar title="Multi D6 🚧"></Navbar>
+      <div className="alert alert-warning">
+        <span>🚨 This Dice Roller is under active development! 🚨</span>
+      </div>
       <main className="flex-grow basis-0 p-2 md:p-4">
         <div className="h-full flex flex-col">
           <div className="flex-grow grid grid-cols-12 h-0 pb-4">
