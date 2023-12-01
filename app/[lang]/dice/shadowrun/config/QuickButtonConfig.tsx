@@ -4,7 +4,7 @@ import {
   QuickButtonType,
   deleteQuickButton,
   updateQuickButton,
-} from '../shadowrunSlice'
+} from '../shadowrun.slice'
 import { useDispatch, useSelector } from 'react-redux'
 import { FreeDiceInput } from '../FreeDiceInput'
 import { RootState } from '@/app/store'

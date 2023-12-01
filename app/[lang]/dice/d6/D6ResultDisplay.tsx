@@ -7,7 +7,7 @@ export type D6RollResult = {
   results: D6[]
   type: 'D6'
   timestamp: number
-  id: number | string
+  id: string
 }
 
 type D6ResultDisplayProps = {

@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { shadowrunReducer } from '@/app/dice/shadowrun/shadowrunSlice'
+import { shadowrunReducer } from '@/app/dice/shadowrun/shadowrun.slice'
+import { d6Reducer } from './dice/d6/d6.slice'
 
 export const store = configureStore({
   reducer: {
     shadowrun: shadowrunReducer,
+    d6: d6Reducer,
   },
 })
 

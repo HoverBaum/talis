@@ -1,20 +1,33 @@
 'use client'
 
 import { Navbar } from '@/app/Navbar'
-import { useState } from 'react'
 import { DiceSelectWheel } from '../shadowrun/DiceSelectWheel'
 import { D6, D6ResultDisplay, D6RollResult } from './D6ResultDisplay'
 import { ExtractProperty } from 'utils/extractProperty'
 import { DictionaryType } from 'dictionaries/dictionanier'
 import { diceRollVibration } from 'utils/diceRollVibration'
+import { TrashIcon } from '@/components/icons/TrashIcon'
+import Link from 'next/link'
+import { CogIcon } from '@/components/icons/CogIcon'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/app/store'
+import { addRoll, setDiceAmount } from './d6.slice'
 
 type MultiD6RollerProps = {
   generalDict: ExtractProperty<DictionaryType, 'General'>
 }
 
 export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
-  const [numberOfDice, setNumberOfDice] = useState(1)
-  const [rolls, setRolls] = useState<D6RollResult[]>([])
+  const numberOfDice = useSelector((state: RootState) => state.d6.diceAmount)
+  const maxNumberOfDice = useSelector(
+    (state: RootState) => state.d6.config.maxDice
+  )
+  const rolls = useSelector((state: RootState) => state.d6.rolls)
+  const dispatch = useDispatch()
+
+  const setNumberOfDice = (amount: number) => {
+    dispatch(setDiceAmount(amount))
+  }
 
   const rollD6 = (diceAmount: number) => {
     diceRollVibration(diceAmount)
@@ -26,15 +39,24 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
       results: diceRolls,
       type: 'D6',
       timestamp: Date.now(),
-      id: Date.now(),
+      id: Date.now().toString() + (Math.random() * 100).toString().slice(0, 2),
     }
 
-    setRolls((rolls) => [...rolls, result])
+    dispatch(addRoll(result))
   }
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar title="Multi D6 🚧"></Navbar>
+      <Navbar title="Multi D6 🚧">
+        <button className="btn btn-square btn-ghost ml-2" onClick={() => {}}>
+          <TrashIcon />
+        </button>
+        <Link href="d6/config">
+          <button className="btn btn-square btn-ghost">
+            <CogIcon />
+          </button>
+        </Link>
+      </Navbar>
       <div className="alert alert-warning">
         <span>🚨 This Dice Roller is under active development! 🚨</span>
       </div>
@@ -56,13 +78,13 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
             </div>
             <div className="col-span-2 relative">
               <DiceSelectWheel
-                max={8}
+                max={maxNumberOfDice}
                 current={numberOfDice}
                 onChange={setNumberOfDice}
               />
             </div>
           </div>
-          <div className="flex-none border-t-2">
+          <div className="flex-none border-t-2 pt-4">
             <button
               disabled={numberOfDice <= 0}
               className="btn btn-block btn-primary my-2 max-w-[90%] md:max-w-full mx-auto block"

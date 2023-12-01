@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   ShadowrunConfigType,
   updateConfig as updateConfigAction,
-} from './shadowrunSlice'
+} from './shadowrun.slice'
 
 export const useConfig = () => {
   const config = useSelector((state: RootState) => state.shadowrun.config)

@@ -1,5 +1,5 @@
 import { Emoji } from '@/components/icons/Emoji'
-import { QuickButtonType } from './shadowrunSlice'
+import { QuickButtonType } from './shadowrun.slice'
 
 type QuickButtonProps = {
   quickButton: QuickButtonType

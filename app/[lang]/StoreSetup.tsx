@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { updateConfig } from './dice/shadowrun/shadowrunSlice'
+import { updateConfig } from './dice/shadowrun/shadowrun.slice'
 
 /**
  * Only serves to load the config from localStorage on the client.

@@ -1,5 +1,5 @@
 import { Locale } from 'i18n-config'
-import { MultiD6Roller } from './MultiD6Roller'
+import { MultiD6Roller } from './D6Roller'
 import { getDictionary } from 'dictionaries/dictionanier'
 
 export default async function MultiD6RollerPage({
