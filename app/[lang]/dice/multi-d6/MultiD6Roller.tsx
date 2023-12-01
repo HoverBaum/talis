@@ -6,6 +6,7 @@ import { DiceSelectWheel } from '../shadowrun/DiceSelectWheel'
 import { D6, D6ResultDisplay, D6RollResult } from './D6ResultDisplay'
 import { ExtractProperty } from 'utils/extractProperty'
 import { DictionaryType } from 'dictionaries/dictionanier'
+import { diceRollVibration } from 'utils/diceRollVibration'
 
 type MultiD6RollerProps = {
   generalDict: ExtractProperty<DictionaryType, 'General'>
@@ -16,6 +17,7 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
   const [rolls, setRolls] = useState<D6RollResult[]>([])
 
   const rollD6 = (diceAmount: number) => {
+    diceRollVibration(diceAmount)
     const diceRolls: D6[] = []
     for (let i = 0; i < diceAmount; i++) {
       diceRolls.push((Math.floor(Math.random() * 6) + 1) as D6)

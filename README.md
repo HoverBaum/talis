@@ -4,6 +4,7 @@ Dice rolling app for Pen and Paper games.
 
 ## Plans
 
+- [ ] Vibration feedback
 - [ ] Improve wheel readability, maybe usability?
 - [ ] Explain setting
 - [ ] Offline PWA functionality

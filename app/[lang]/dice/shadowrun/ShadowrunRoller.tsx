@@ -15,6 +15,7 @@ import { CogIcon } from '@/components/icons/CogIcon'
 import { QuickButton } from './QuickButton'
 import { DictionaryType } from 'dictionaries/dictionanier'
 import { ExtractProperty } from 'utils/extractProperty'
+import { diceRollVibration } from 'utils/diceRollVibration'
 
 type ShadowrunDict = ExtractProperty<DictionaryType, 'Roller.Shadowrun'>
 
@@ -44,6 +45,7 @@ export const ShadowrunRoller = ({ dict }: ShadowrunRollerProps) => {
   }
 
   const rollD6 = (dice: number) => {
+    diceRollVibration(dice)
     // Roll dice n times and save in results.
     const diceRolls: number[] = []
     for (let i = 0; i < dice; i++) {
