@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useConfig } from '../useConfig'
-import { Toggle } from './Toggle'
+import { Toggle } from '../../../../../components/Toggle'
 import { QuickButtonConfig } from './QuickButtonConfig'
 import { ExtractProperty } from 'utils/extractProperty'
 import { DictionaryType } from 'dictionaries/dictionanier'

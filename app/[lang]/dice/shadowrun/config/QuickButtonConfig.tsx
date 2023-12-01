@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FreeDiceInput } from '../FreeDiceInput'
 import { RootState } from '@/app/store'
 import { TrashIcon } from '@/components/icons/TrashIcon'
-import { Checkbox } from './Checkbox'
+import { Checkbox } from '../../../../../components/Checkbox'
 import { useDict } from 'dictionaries/useDict'
 
 type QuickButtonConfigProps = {
