@@ -14,7 +14,7 @@ export default async function Home({
     <>
       <Navbar fixed={true} />
       <main className="p-4 max-w-prose mx-auto">
-        <h1 className="text-2xl">{dict.Home.title}</h1>
+        <h1>{dict.Home.title}</h1>
         <p>{dict.Home.description}</p>
         <div className="mt-4">
           <ul>
@@ -24,8 +24,8 @@ export default async function Home({
               </Link>
             </li>
             <li className="my-4">
-              <Link className="link" href="dice/multi-d6">
-                Multi D6 🚧
+              <Link className="link" href="dice/d6">
+                D6 Roller 🚧
               </Link>
             </li>
           </ul>

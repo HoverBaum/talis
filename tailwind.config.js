@@ -13,12 +13,18 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       keyframes: {
+        indeterminate: {
+          '0%': { left: '-50%', width: '30%' },
+          '40%': { left: '25%', width: '50%' },
+          '100%': { left: '100%', width: '30%' },
+        },
         fadeInFrames: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
       },
       animation: {
+        indeterminate: 'indeterminate 2s infinite linear',
         fadeIn: 'fadeInFrames 0.3s ease-out forwards',
       },
       fontFamily: {

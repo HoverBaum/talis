@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { CloseIcon } from '@/components/icons/CloseIcon'
 import { Locale } from 'i18n-config'
 import { getDictionary } from 'dictionaries/dictionanier'
+import { D6Config } from './D6Config'
+import { Wrapper } from '@/components/Wrapper'
 
 export default async function ShadowrunConfigPage({
   params: { lang },
@@ -20,7 +22,12 @@ export default async function ShadowrunConfigPage({
         </Link>
       </Navbar>
       <main className="flex-grow basis-0 p-2 md:p-4">
-        <h1>D6 Config</h1>
+        <Wrapper>
+          <h1>D6 Config</h1>
+          <div className="mt-4">
+            <D6Config />
+          </div>
+        </Wrapper>
       </main>
     </div>
   )

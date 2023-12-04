@@ -4,8 +4,6 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { D6RollResult } from './D6ResultDisplay'
 
-// Identifier of D6 Config in local storage.
-export const D6_CONFIG_IDENTIFIER = 'd6Config'
 const MAX_DICE_AMOUNT = 8
 const INITIAL_DICE_AMOUNT = 1
 
@@ -13,6 +11,7 @@ const DEFAULT_CONFIG = {
   maxDice: MAX_DICE_AMOUNT,
   showNewResultBottom: true,
   sortDice: false,
+  isLoading: true,
 }
 
 export type D6ConfigType = typeof DEFAULT_CONFIG
@@ -50,7 +49,6 @@ export const d6Slice = createSlice({
         ...state.config,
         ...action.payload,
       }
-      localStorage.setItem(D6_CONFIG_IDENTIFIER, JSON.stringify(newConfig))
       state.config = newConfig
     },
   },

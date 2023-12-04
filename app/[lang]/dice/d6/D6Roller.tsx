@@ -12,6 +12,7 @@ import { CogIcon } from '@/components/icons/CogIcon'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/app/store'
 import { addRoll, setDiceAmount } from './d6.slice'
+import { useD6Config } from './config/useD6Config'
 
 type MultiD6RollerProps = {
   generalDict: ExtractProperty<DictionaryType, 'General'>
@@ -22,7 +23,11 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
   const maxNumberOfDice = useSelector(
     (state: RootState) => state.d6.config.maxDice
   )
+  const showNewResultBottom = useSelector(
+    (state: RootState) => state.d6.config.showNewResultBottom
+  )
   const rolls = useSelector((state: RootState) => state.d6.rolls)
+  const { config } = useD6Config()
   const dispatch = useDispatch()
 
   const setNumberOfDice = (amount: number) => {
@@ -65,7 +70,9 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
           <div className="flex-grow grid grid-cols-12 h-0 pb-4">
             <div
               id="d6Results"
-              className={`overflow-y-auto col-span-10 no-scrollbar pr-2 flex flex-col`}
+              className={`overflow-y-auto col-span-10 no-scrollbar pr-2 flex ${
+                showNewResultBottom ? 'flex-col-reverse' : 'flex-col'
+              }`}
             >
               {[...rolls].reverse().map((roll, index) => (
                 <D6ResultDisplay

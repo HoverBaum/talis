@@ -20,3 +20,21 @@
     scrollbar-width: none; /* Firefox */
   }
 }
+
+@layer components {
+  h1 {
+    @apply text-6xl lg:text-7xl mb-0 mt-0;
+  }
+
+  h2 {
+    @apply text-5xl lg:text-6xl mb-2 mt-10;
+  }
+
+  h3 {
+    @apply text-4xl lg:text-4xl mb-1 mt-8;
+  }
+
+  h4 {
+    @apply text-3xl lg:text-3xl mb-0 mt-5;
+  }
+}
