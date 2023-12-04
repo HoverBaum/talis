@@ -77,10 +77,19 @@ export const ShadowrunRoller = ({ dict }: ShadowrunRollerProps) => {
 
   // Scroll down on new result to have it in view.
   useEffect(() => {
-    if (!showNewResultBottom) return
     const resultContainer = document.getElementById('d6Results')
     if (resultContainer) {
-      resultContainer.scrollTop = resultContainer.scrollHeight
+      if (showNewResultBottom) {
+        resultContainer.scrollTo({
+          top: resultContainer.scrollHeight,
+          behavior: 'smooth',
+        })
+      } else {
+        resultContainer.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        })
+      }
     }
   }, [rolls])
 

@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/app/store'
 import { addRoll, clearRolls, setDiceAmount } from './d6.slice'
 import { useD6Config } from './config/useD6Config'
+import { useEffect } from 'react'
 
 type MultiD6RollerProps = {
   generalDict: ExtractProperty<DictionaryType, 'General'>
@@ -46,6 +47,24 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
 
     dispatch(addRoll(result))
   }
+
+  // Scroll on new result to keep everything in view.
+  useEffect(() => {
+    const resultContainer = document.getElementById('d6Results')
+    if (resultContainer) {
+      if (config.showNewResultBottom) {
+        resultContainer.scrollTo({
+          top: resultContainer.scrollHeight,
+          behavior: 'smooth',
+        })
+      } else {
+        resultContainer.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        })
+      }
+    }
+  }, [rolls])
 
   return (
     <div className="min-h-screen flex flex-col">
