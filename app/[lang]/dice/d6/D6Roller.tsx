@@ -11,7 +11,7 @@ import Link from 'next/link'
 import { CogIcon } from '@/components/icons/CogIcon'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/app/store'
-import { addRoll, setDiceAmount } from './d6.slice'
+import { addRoll, clearRolls, setDiceAmount } from './d6.slice'
 import { useD6Config } from './config/useD6Config'
 
 type MultiD6RollerProps = {
@@ -52,8 +52,11 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar title="Multi D6 🚧">
-        <button className="btn btn-square btn-ghost ml-2" onClick={() => {}}>
+      <Navbar title="D6 roller 🚧">
+        <button
+          className="btn btn-square btn-ghost ml-2"
+          onClick={() => dispatch(clearRolls())}
+        >
           <TrashIcon />
         </button>
         <Link href="d6/config">
