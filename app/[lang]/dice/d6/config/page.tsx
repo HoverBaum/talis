@@ -25,7 +25,7 @@ export default async function ShadowrunConfigPage({
         <Wrapper>
           <h1>D6 Config</h1>
           <div className="mt-4">
-            <D6Config />
+            <D6Config dict={dict.Roller.D6.Config} />
           </div>
         </Wrapper>
       </main>

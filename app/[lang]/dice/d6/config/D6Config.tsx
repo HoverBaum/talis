@@ -2,8 +2,15 @@
 
 import { Toggle } from '@/components/Toggle'
 import { useD6Config } from './useD6Config'
+import { ExtractProperty } from 'utils/extractProperty'
+import { DictionaryType } from 'dictionaries/dictionanier'
+import Link from 'next/link'
 
-export const D6Config = () => {
+type D6ConfigProps = {
+  dict: ExtractProperty<DictionaryType, 'Roller.D6.Config'>
+}
+
+export const D6Config = ({ dict }: D6ConfigProps) => {
   const { config, updateConfig } = useD6Config()
   console.log(config)
 
@@ -16,16 +23,20 @@ export const D6Config = () => {
     <div className="animate-fadeIn">
       <Toggle
         className="mb-2"
-        label="New results bottom"
+        label={dict.newResultsAtBottom}
         checked={config.showNewResultBottom}
         onChange={(checked) => updateConfig({ showNewResultBottom: checked })}
       />
       <Toggle
         className="mb-2"
-        label="Sort Dice"
+        label={dict.sortDice}
         checked={config.sortDice}
         onChange={(checked) => updateConfig({ sortDice: checked })}
       />
+
+      <Link href="/dice/d6">
+        <button className="btn btn-primary w-full mt-8">{dict.back}</button>
+      </Link>
     </div>
   )
 }
