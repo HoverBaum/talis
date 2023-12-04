@@ -50,7 +50,8 @@ export const DiceSelectWheel = ({
       const currentElementPosition = currentElement?.offsetTop || 0
       // We want the current element to be positioned in the middle.
       const newScrollPosition = currentElementPosition - height / 2
-      wheelContainer.scrollTop = newScrollPosition
+      wheelContainer.scrollTo({ top: newScrollPosition, behavior: 'smooth' })
+      // wheelContainer.scrollTop = newScrollPosition
     }
   }, [current, height])
 
@@ -116,7 +117,8 @@ export const DiceSelectWheel = ({
             key={number}
             id={`number-${number}`}
             data-number={number}
-            className="snap-center my-4 flex-grow flex justify-center items-center"
+            className="snap-center my-4 flex-grow flex justify-center items-center cursor-pointer"
+            onClick={() => onChange(number)}
           >
             {number}
           </div>
