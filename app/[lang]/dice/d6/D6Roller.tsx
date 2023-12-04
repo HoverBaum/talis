@@ -23,9 +23,6 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
   const maxNumberOfDice = useSelector(
     (state: RootState) => state.d6.config.maxDice
   )
-  const showNewResultBottom = useSelector(
-    (state: RootState) => state.d6.config.showNewResultBottom
-  )
   const rolls = useSelector((state: RootState) => state.d6.rolls)
   const { config } = useD6Config()
   const dispatch = useDispatch()
@@ -74,7 +71,7 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
             <div
               id="d6Results"
               className={`overflow-y-auto col-span-10 no-scrollbar pr-2 flex ${
-                showNewResultBottom ? 'flex-col-reverse' : 'flex-col'
+                config.showNewResultBottom ? 'flex-col-reverse' : 'flex-col'
               }`}
             >
               {[...rolls].reverse().map((roll, index) => (
@@ -83,6 +80,7 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
                   key={roll.id}
                   diceRoll={roll}
                   dict={generalDict}
+                  sortDice={config.sortDice}
                 />
               ))}
             </div>

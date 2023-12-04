@@ -20,6 +20,12 @@ export const D6Config = () => {
         checked={config.showNewResultBottom}
         onChange={(checked) => updateConfig({ showNewResultBottom: checked })}
       />
+      <Toggle
+        className="mb-2"
+        label="Sort Dice"
+        checked={config.sortDice}
+        onChange={(checked) => updateConfig({ sortDice: checked })}
+      />
     </div>
   )
 }
