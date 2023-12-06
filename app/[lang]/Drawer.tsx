@@ -32,6 +32,9 @@ export const Drawer = () => {
           <li className="mb-2">
             <Link href="/about">About</Link>
           </li>
+          {/* <li className="mb-2">
+            <Link href="/changelog">Changelog</Link>
+          </li> */}
 
           <h2 className="text-lg mt-4">Rollers</h2>
           <li className="mb-2">

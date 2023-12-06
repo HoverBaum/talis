@@ -1,6 +1,6 @@
 'use client'
 
-import { Navbar } from '@/app/Navbar'
+import { Navbar } from '@/components/Navbar'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { DiceRollResult, DiceRollType } from './DiceRollResult'

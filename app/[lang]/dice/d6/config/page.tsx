@@ -1,4 +1,4 @@
-import { Navbar } from '@/app/Navbar'
+import { Navbar } from '@/components/Navbar'
 import Link from 'next/link'
 import { CloseIcon } from '@/components/icons/CloseIcon'
 import { Locale } from 'i18n-config'

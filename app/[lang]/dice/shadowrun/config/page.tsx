@@ -1,4 +1,4 @@
-import { Navbar } from '@/app/Navbar'
+import { Navbar } from '@/components/Navbar'
 import { ShadowrunConfig } from './ShadowrunConfig'
 import Link from 'next/link'
 import { CloseIcon } from '@/components/icons/CloseIcon'

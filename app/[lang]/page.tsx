@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Navbar } from './Navbar'
+import { Navbar } from '../../components/Navbar'
 import { Locale } from 'i18n-config'
 import { getDictionary } from '../../dictionaries/dictionanier'
 

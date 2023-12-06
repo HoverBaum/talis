@@ -1,6 +1,6 @@
 'use client'
 
-import { Navbar } from '@/app/Navbar'
+import { Navbar } from '@/components/Navbar'
 import { DiceSelectWheel } from '../shadowrun/DiceSelectWheel'
 import { D6, D6ResultDisplay, D6RollResult } from './D6ResultDisplay'
 import { ExtractProperty } from 'utils/extractProperty'

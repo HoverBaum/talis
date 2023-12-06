@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import talisLogo from '@/public/talis-dice.png'
 import { MenuIcon } from '@/components/icons/MenuIcon'
-import { ThemeSelect } from './ThemeSelect'
+import { ThemeSelect } from '../app/[lang]/ThemeSelect'
 
 type NavbarProps = {
   title?: string
