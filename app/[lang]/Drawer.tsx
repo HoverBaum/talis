@@ -62,14 +62,14 @@ export const Drawer = () => {
               >
                 GitHub
               </Link>{' '}
-              -{' '}
+              {/* -{' '}
               <Link
                 className="link"
                 target="_blank"
                 href="https://discord.gg/KYdHnpDeyw"
               >
                 Join Discord
-              </Link>
+              </Link> */}
             </span>
           </div>
         </div>
