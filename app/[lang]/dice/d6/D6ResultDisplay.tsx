@@ -14,6 +14,7 @@ type D6ResultDisplayProps = {
   diceRoll: D6RollResult
   isHighlighted?: boolean
   sortDice?: boolean
+  sumDice?: boolean
   dict: ExtractProperty<DictionaryType, 'General'>
 }
 
@@ -30,6 +31,7 @@ export const D6ResultDisplay = ({
   diceRoll,
   isHighlighted = false,
   sortDice = false,
+  sumDice = false,
   dict,
 }: D6ResultDisplayProps) => {
   return (
@@ -38,6 +40,11 @@ export const D6ResultDisplay = ({
         isHighlighted && 'bg-base-200 border-2'
       }`}
     >
+      {sumDice && (
+        <span className={`${isHighlighted ? 'text-3xl' : 'text-xl'}`}>
+          {diceRoll.results.reduce((acc, curr) => acc + curr, 0)}{' '}
+        </span>
+      )}
       <span
         className={`text-4xl flex flex-wrap ${isHighlighted && 'text-5xl'}`}
       >

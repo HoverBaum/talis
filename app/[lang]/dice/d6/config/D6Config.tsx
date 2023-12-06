@@ -33,6 +33,12 @@ export const D6Config = ({ dict }: D6ConfigProps) => {
         checked={config.sortDice}
         onChange={(checked) => updateConfig({ sortDice: checked })}
       />
+      <Toggle
+        className="mb-2"
+        label={dict.sumDice}
+        checked={config.sumDice}
+        onChange={(checked) => updateConfig({ sumDice: checked })}
+      />
 
       <Link href="/dice/d6">
         <button className="btn btn-primary w-full mt-8">{dict.back}</button>

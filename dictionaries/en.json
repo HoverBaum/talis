@@ -27,7 +27,8 @@
       "Config": {
         "newResultsAtBottom": "New results at bottom",
         "sortDice": "Sort dice",
-        "back": "Back"
+        "back": "Back",
+        "sumDice": "Sum dice"
       }
     }
   },

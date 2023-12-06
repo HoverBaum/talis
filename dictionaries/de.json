@@ -27,7 +27,8 @@
       "Config": {
         "newResultsAtBottom": "Neue Ergebnisse unten",
         "sortDice": "Würfel sortieren",
-        "back": "Zurück"
+        "back": "Zurück",
+        "sumDice": "Würfel addieren"
       }
     }
   },

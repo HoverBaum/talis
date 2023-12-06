@@ -100,6 +100,7 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
                   diceRoll={roll}
                   dict={generalDict}
                   sortDice={config.sortDice}
+                  sumDice={config.sumDice}
                 />
               ))}
             </div>

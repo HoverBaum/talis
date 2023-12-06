@@ -46,7 +46,7 @@ export const DiceRollResult = ({
         isHighlighted && 'bg-base-200 border-2'
       }`}
     >
-      <span className={`text-xl ${isHighlighted && 'text-3xl'}`}>
+      <span className={`${isHighlighted ? 'text-3xl' : 'text-xl'}`}>
         {diceRoll.shadowrun?.hits}{' '}
         {diceRoll.shadowrun?.hits === 1 ? dict.hit : dict.hits}
       </span>

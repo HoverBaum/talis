@@ -12,6 +12,7 @@ const DEFAULT_CONFIG = {
   showNewResultBottom: true,
   sortDice: false,
   isLoading: true,
+  sumDice: false,
 }
 
 export type D6ConfigType = typeof DEFAULT_CONFIG
