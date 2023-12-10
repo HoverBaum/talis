@@ -14,44 +14,23 @@ export default async function Home({
 }) {
   const dict = await getDictionary(lang)
 
-  // Read the two most recent entries from changelog.
-  console.log(await fs.readdir(process.cwd()))
-  let mdxContent = ''
-  try {
-    mdxContent = (
-      await fs.readFile(
-        process.cwd() + '/app/[lang]/changelog/page.mdx',
-        'utf8'
-      )
-    )
-      .split('##')
-      .slice(0, 3)
-      .join('##')
-  } catch (e) {
-    console.error(e)
-  }
-
-  // const componentToString = (component: JSX.Element): string[] => {
-  //   if (typeof component === 'string') {
-  //     return [component]
-  //   }
-
-  //   if (Array.isArray(component)) {
-  //     return component.map(componentToString).flat()
-  //   }
-
-  //   if (typeof component === 'object') {
-  //     if (component.props.children) {
-  //       return componentToString(component.props.children)
-  //     }
-  //   }
-
-  //   return []
-  // }
-
-  // const mdxContent = componentToString(changelog({})).join('')
-
-  // console.log(componentToString(changelog({})))
+  // Prep Changelog for rendering.
+  // We need to do this via an import and logic for it to work on prod.
+  const CHANGELOG_ITEMS_TO_SHOW = 2
+  const changelogEntries = changelog({}).props.children
+  const h2Indexes = changelogEntries.reduce(
+    (acc: number[], curr: JSX.Element, index: number) => {
+      if (curr.type === 'h2') {
+        acc.push(index)
+      }
+      return acc
+    },
+    [] as number[]
+  )
+  const Changelog = changelogEntries.slice(
+    0,
+    h2Indexes[CHANGELOG_ITEMS_TO_SHOW]
+  )
 
   return (
     <>
@@ -76,7 +55,7 @@ export default async function Home({
           </div>
 
           <article className="mt-24">
-            <MDXRemote source={mdxContent} />
+            {Changelog}
 
             <Link className="link block mt-6" href="/changelog">
               Read full Changelog
