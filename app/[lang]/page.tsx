@@ -1,4 +1,4 @@
-import * as fs from 'fs'
+import { promises as fs } from 'fs'
 import Link from 'next/link'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Navbar } from '../../components/Navbar'
@@ -6,19 +6,28 @@ import { Locale } from 'i18n-config'
 import { getDictionary } from '../../dictionaries/dictionanier'
 import { Wrapper } from '@/components/Wrapper'
 
-// Read the two most recent entries from changelog.
-const mdxContent = fs
-  .readFileSync('./app/[lang]/changelog/page.mdx', 'utf8')
-  .split('##')
-  .slice(0, 3)
-  .join('##')
-
 export default async function Home({
   params: { lang },
 }: {
   params: { lang: Locale }
 }) {
   const dict = await getDictionary(lang)
+
+  // Read the two most recent entries from changelog.
+  let mdxContent = ''
+  try {
+    mdxContent = (
+      await fs.readFile(
+        process.cwd() + '/app/[lang]/changelog/page.mdx',
+        'utf8'
+      )
+    )
+      .split('##')
+      .slice(0, 3)
+      .join('##')
+  } catch (e) {
+    console.error(e)
+  }
 
   return (
     <>
