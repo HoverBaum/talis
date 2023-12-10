@@ -5,6 +5,7 @@ import { Navbar } from '../../components/Navbar'
 import { Locale } from 'i18n-config'
 import { getDictionary } from '../../dictionaries/dictionanier'
 import { Wrapper } from '@/components/Wrapper'
+import changelog from './changelog/page.mdx'
 
 export default async function Home({
   params: { lang },
@@ -14,6 +15,7 @@ export default async function Home({
   const dict = await getDictionary(lang)
 
   // Read the two most recent entries from changelog.
+  console.log(await fs.readdir(process.cwd()))
   let mdxContent = ''
   try {
     mdxContent = (
@@ -28,6 +30,28 @@ export default async function Home({
   } catch (e) {
     console.error(e)
   }
+
+  // const componentToString = (component: JSX.Element): string[] => {
+  //   if (typeof component === 'string') {
+  //     return [component]
+  //   }
+
+  //   if (Array.isArray(component)) {
+  //     return component.map(componentToString).flat()
+  //   }
+
+  //   if (typeof component === 'object') {
+  //     if (component.props.children) {
+  //       return componentToString(component.props.children)
+  //     }
+  //   }
+
+  //   return []
+  // }
+
+  // const mdxContent = componentToString(changelog({})).join('')
+
+  // console.log(componentToString(changelog({})))
 
   return (
     <>
