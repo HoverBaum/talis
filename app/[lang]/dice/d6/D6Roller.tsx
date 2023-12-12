@@ -68,7 +68,7 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar title="D6 roller 🚧">
+      <Navbar title="D6 roller">
         <button
           className="btn btn-square btn-ghost ml-2"
           onClick={() => dispatch(clearRolls())}
@@ -81,9 +81,7 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
           </button>
         </Link>
       </Navbar>
-      <div className="alert alert-warning">
-        <span>🚨 This Dice Roller is under active development! 🚨</span>
-      </div>
+
       <main className="flex-grow basis-0 p-2 md:p-4">
         <div className="h-full flex flex-col">
           <div className="flex-grow grid grid-cols-12 h-0 pb-4">
