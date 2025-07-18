@@ -51,6 +51,11 @@ export default async function Home({
                   D6 Roller
                 </Link>
               </li>
+              <li className="my-4">
+                <Link className="link" href="dice/daggerheart">
+                  Daggerheart
+                </Link>
+              </li>
             </ul>
           </div>
 
