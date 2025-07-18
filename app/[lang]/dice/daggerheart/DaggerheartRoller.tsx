@@ -10,7 +10,7 @@ import { useEffect } from 'react'
 import { DictionaryType } from 'dictionaries/dictionanier'
 import { ExtractProperty } from 'utils/extractProperty'
 
- type DaggerheartDict = ExtractProperty<DictionaryType, 'Roller.Daggerheart'>
+type DaggerheartDict = ExtractProperty<DictionaryType, 'Roller.Daggerheart'>
 
 type Props = {
   dict: DaggerheartDict
@@ -27,7 +27,7 @@ export const DaggerheartRoller = ({ dict }: Props) => {
       hope,
       fear,
       timestamp: Date.now(),
-      id: Date.now().toString() + Math.random().toString(36).slice(2,5),
+      id: Date.now().toString() + Math.random().toString(36).slice(2, 5),
     }
     dispatch(addRoll(roll))
   }
@@ -51,7 +51,10 @@ export const DaggerheartRoller = ({ dict }: Props) => {
       </Navbar>
       <main className="flex-grow basis-0 p-2 md:p-4">
         <div className="h-full flex flex-col">
-          <div id="d12Results" className="flex-grow overflow-y-auto no-scrollbar pr-2 flex flex-col">
+          <div
+            id="d12Results"
+            className="flex-grow overflow-y-auto no-scrollbar pr-2 flex flex-col"
+          >
             {[...rolls].reverse().map((roll, index) => (
               <DaggerheartResultDisplay
                 key={roll.id}
