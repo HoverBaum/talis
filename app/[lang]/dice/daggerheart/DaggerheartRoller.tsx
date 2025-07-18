@@ -35,7 +35,8 @@ export const DaggerheartRoller = ({ dict }: Props) => {
   useEffect(() => {
     const container = document.getElementById('d12Results')
     if (container) {
-      container.scrollTo({ top: 0, behavior: 'smooth' })
+      // Scroll contain to it's bottom.
+      container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' })
     }
   }, [rolls])
 
@@ -49,11 +50,11 @@ export const DaggerheartRoller = ({ dict }: Props) => {
           <TrashIcon />
         </button>
       </Navbar>
-      <main className="flex-grow basis-0 p-2 md:p-4">
-        <div className="h-full flex flex-col">
+      <main className="flex-grow basis-0 p-2 md:p-4 flex flex-col">
+        <div className="flex flex-col flex-grow h-full">
           <div
             id="d12Results"
-            className="flex-grow overflow-y-auto no-scrollbar pr-2 flex flex-col"
+            className="flex-grow overflow-y-auto no-scrollbar pr-2 flex flex-col-reverse h-0 pb-4"
           >
             {[...rolls].reverse().map((roll, index) => (
               <DaggerheartResultDisplay
