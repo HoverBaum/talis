@@ -38,23 +38,21 @@ export const DaggerheartResultDisplay = ({
       }`}
     >
       <div
-        className={`flex text-center ${
-          isHighlighted ? 'text-5xl' : 'text-3xl'
-        }`}
+        className={`flex text-center ${isHighlighted ? 'text-2xl' : 'text-md'}`}
       >
         <div
-          className="flex flex-col items-center mx-1 rounded bg-success text-success-content p-2"
+          className="flex flex-col items-center mx-1 rounded bg-blue-200 text-black p-2"
           style={{ flexGrow: hopeGrow }}
         >
-          <span className="text-sm font-semibold">
+          <span className="font-semibold">
             {dict.hope} {roll.hope}
           </span>
         </div>
         <div
-          className="flex flex-col items-center mx-1 rounded bg-error text-error-content p-2"
+          className="flex flex-col items-center mx-1 rounded bg-red-200 text-black p-2"
           style={{ flexGrow: fearGrow }}
         >
-          <span className="text-sm font-semibold">
+          <span className="font-semibold">
             {dict.fear} {roll.fear}
           </span>
         </div>
@@ -62,8 +60,8 @@ export const DaggerheartResultDisplay = ({
       {isCritical && (
         <span className="badge badge-accent mt-2">{dict.criticalSuccess}</span>
       )}
-      <span className="block text-xs">
-        #{roll.id} - {new Date(roll.timestamp).toLocaleTimeString()}
+      <span className="block text-xs mt-1">
+        {new Date(roll.timestamp).toLocaleTimeString()}
       </span>
     </div>
   )
