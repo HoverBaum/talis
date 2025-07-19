@@ -27,7 +27,7 @@ export const DaggerheartRoller = ({ dict }: Props) => {
       hope,
       fear,
       timestamp: Date.now(),
-      id: Date.now().toString() + Math.random().toString(36).slice(2, 5),
+      id: `${rolls.length + 1}`,
     }
     dispatch(addRoll(roll))
   }
