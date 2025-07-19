@@ -37,7 +37,7 @@ export const Drawer = () => {
           <li className="mb-2">
             <Link href="/dice/shadowrun">Shadowrun</Link>
             <Link href="/dice/d6">D6 Roller</Link>
-            <Link href="/dice/daggerheart">Daggerheart</Link>
+            <Link href="/dice/daggerheart">Daggerheart (beta)</Link>
           </li>
         </ul>
 

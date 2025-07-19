@@ -42,7 +42,7 @@ export const DaggerheartRoller = ({ dict }: Props) => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar title="Daggerheart">
+      <Navbar title="Daggerheart (beta)">
         <button
           className="btn btn-square btn-ghost ml-2"
           onClick={() => dispatch(clearRolls())}
