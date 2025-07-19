@@ -35,7 +35,7 @@ export const DaggerheartRoller = ({ dict }: Props) => {
   useEffect(() => {
     const container = document.getElementById('d12Results')
     if (container) {
-      // Scroll contain to it's bottom.
+      // Scroll container to its bottom.
       container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' })
     }
   }, [rolls])
