@@ -53,7 +53,7 @@ export default async function Home({
               </li>
               <li className="my-4">
                 <Link className="link" href="dice/daggerheart">
-                  Daggerheart
+                  Daggerheart (beta)
                 </Link>
               </li>
             </ul>
