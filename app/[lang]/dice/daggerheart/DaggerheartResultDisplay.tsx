@@ -46,7 +46,7 @@ export const DaggerheartResultDisplay = ({
           {roll.fear + roll.hope}
         </span>
       </div>
-      <div className={`flex text-center `}>
+      <div className="flex text-center">
         <div
           className="flex flex-col items-center mx-1 rounded bg-blue-200 text-black p-2"
           style={{ flexGrow: hopeGrow }}
