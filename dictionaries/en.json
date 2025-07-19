@@ -30,6 +30,12 @@
         "back": "Back",
         "sumDice": "Sum dice"
       }
+    },
+    "Daggerheart": {
+      "roll": "Roll",
+      "hope": "Hope",
+      "fear": "Fear",
+      "criticalSuccess": "Critical Success"
     }
   },
   "Components": {

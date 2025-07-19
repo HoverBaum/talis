@@ -30,6 +30,12 @@
         "back": "Zurück",
         "sumDice": "Würfel addieren"
       }
+    },
+    "Daggerheart": {
+      "roll": "Würfeln",
+      "hope": "Hoffnung",
+      "fear": "Furcht",
+      "criticalSuccess": "Kritischer Erfolg"
     }
   },
   "Components": {
