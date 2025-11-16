@@ -1,109 +1,80 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-  	container: {
-  		center: true,
-  		padding: '2rem',
-  		screens: {
-  			'2xl': '1400px'
-  		}
-  	},
-  	extend: {
-  		colors: {
-  			border: 'hsl(var(--border))',
-  			input: 'hsl(var(--input))',
-  			ring: 'hsl(var(--ring))',
-  			background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
-  			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
-  			},
-  			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
-  				foreground: 'hsl(var(--secondary-foreground))'
-  			},
-  			destructive: {
-  				DEFAULT: 'hsl(var(--destructive))',
-  				foreground: 'hsl(var(--destructive-foreground))'
-  			},
-  			muted: {
-  				DEFAULT: 'hsl(var(--muted))',
-  				foreground: 'hsl(var(--muted-foreground))'
-  			},
-  			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
-  				foreground: 'hsl(var(--accent-foreground))'
-  			},
-  			popover: {
-  				DEFAULT: 'hsl(var(--popover))',
-  				foreground: 'hsl(var(--popover-foreground))'
-  			},
-  			card: {
-  				DEFAULT: 'hsl(var(--card))',
-  				foreground: 'hsl(var(--card-foreground))'
-  			},
-  			sidebar: {
-  				DEFAULT: 'hsl(var(--sidebar-background))',
-  				foreground: 'hsl(var(--sidebar-foreground))',
-  				primary: 'hsl(var(--sidebar-primary))',
-  				'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-  				accent: 'hsl(var(--sidebar-accent))',
-  				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-  				border: 'hsl(var(--sidebar-border))',
-  				ring: 'hsl(var(--sidebar-ring))'
-  			}
-  		},
-  		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
-  		},
-  		backgroundImage: {
-  			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-  			'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
-  		},
-  		keyframes: {
-  			indeterminate: {
-  				'0%': {
-  					left: '-50%',
-  					width: '30%'
-  				},
-  				'40%': {
-  					left: '25%',
-  					width: '50%'
-  				},
-  				'100%': {
-  					left: '100%',
-  					width: '30%'
-  				}
-  			},
-  			fadeInFrames: {
-  				'0%': {
-  					opacity: '0'
-  				},
-  				'100%': {
-  					opacity: '1'
-  				}
-  			}
-  		},
-  		animation: {
-  			indeterminate: 'indeterminate 2s infinite linear',
-  			fadeIn: 'fadeInFrames 0.3s ease-out forwards'
-  		},
-  		fontFamily: {
-  			emoji: [
-  				'Noto Emoji',
-  				'sans-serif'
-  			]
-  		}
-  	}
+    extend: {
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic':
+          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      },
+      keyframes: {
+        indeterminate: {
+          '0%': { left: '-50%', width: '30%' },
+          '40%': { left: '25%', width: '50%' },
+          '100%': { left: '100%', width: '30%' },
+        },
+        fadeInFrames: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+      animation: {
+        indeterminate: 'indeterminate 2s infinite linear',
+        fadeIn: 'fadeInFrames 0.3s ease-out forwards',
+      },
+      fontFamily: {
+        emoji: ['Noto Emoji', 'sans-serif'],
+      },
+    },
   },
-  plugins: [require('@tailwindcss/typography'), require("tailwindcss-animate")],
+  daisyui: {
+    themes: [
+      {
+        talisTheme: {
+          primary: '#a991f7',
+          secondary: '#f6d860',
+          accent: '#37cdbe',
+          neutral: '#3d4451',
+          'base-100': '#ffffff',
+          info: '#3b08bd',
+          warning: '#f58e07',
+          error: '#f74848',
+        },
+      },
+      'dark',
+      'synthwave',
+      {
+        cyberpunk: {
+          primary: '#8A2BE2',
+          secondary: '#FF4500',
+          accent: '#00FF00',
+          neutral: '#181818',
+          'base-100': '#272727',
+          info: '#1E90FF',
+          success: '#32CD32',
+          warning: '#FFD700',
+          error: '#FF0000',
+        },
+      },
+      {
+        shadowrun: {
+          primary: '#990066',
+          secondary: '#00ffff',
+          accent: '#fceb7b',
+          neutral: '#ffffff',
+          'base-100': '#1d181c',
+          info: '#1E90FF',
+          success: '#32CD32',
+          warning: '#FFD700',
+          error: '#FF0000',
+        },
+      },
+    ],
+  },
+  plugins: [require('@tailwindcss/typography'), require('daisyui')],
 }

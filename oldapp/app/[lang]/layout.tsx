@@ -1,17 +1,13 @@
 import './globals.css'
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 import { Providers } from './Providers'
 import { StoreSetup } from './StoreSetup'
+import { Drawer } from './Drawer'
 import { Locale } from 'i18n-config'
 import { ServerTranslationContext } from 'dictionaries/ServerTranslationContext'
-import { AppSidebar } from '@/components/AppSidebar'
-import {
-  SidebarProvider,
-  SidebarInset,
-  SidebarTrigger,
-} from '@/components/ui/sidebar'
-import { HeaderProvider } from '@/components/header-context'
-import { DynamicHeader } from './DynamicHeader'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Talis - dice rolling',
@@ -32,22 +28,22 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning={true}
-        className="h-screen overflow-hidden"
+        className={`${inter.className} min-h-screen`}
       >
         <Providers>
           <ServerTranslationContext lang={lang}>
-            <HeaderProvider>
-              <SidebarProvider>
-                <AppSidebar />
-                <SidebarInset className="flex flex-col h-screen">
-                  <DynamicHeader />
-                  <div className="flex-1 overflow-hidden">
-                    <StoreSetup />
-                    {children}
-                  </div>
-                </SidebarInset>
-              </SidebarProvider>
-            </HeaderProvider>
+            <div className="drawer">
+              <input
+                id="talis-drawer"
+                type="checkbox"
+                className="drawer-toggle"
+              />
+              <div className="drawer-content">
+                <StoreSetup />
+                {children}
+              </div>
+              <Drawer />
+            </div>
           </ServerTranslationContext>
         </Providers>
       </body>

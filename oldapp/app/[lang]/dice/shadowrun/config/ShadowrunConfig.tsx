@@ -2,11 +2,10 @@
 
 import Link from 'next/link'
 import { useConfig } from '../useConfig'
-import { Switch } from '@/components/ui/switch'
+import { Toggle } from '../../../../../components/Toggle'
 import { QuickButtonConfig } from './QuickButtonConfig'
 import { ExtractProperty } from 'utils/extractProperty'
 import { DictionaryType } from 'dictionaries/dictionanier'
-import { Button } from '@/components/ui/button'
 
 export const ShadowrunConfig = ({
   dict,
@@ -19,76 +18,49 @@ export const ShadowrunConfig = ({
     <div className="max-w-[40rem] mx-auto">
       {config.isLoading && <div>Loading...</div>}
       {!config.isLoading && (
-        <div className="space-y-4">
-          <div className="flex items-center justify-between space-x-2">
-            <label
-              htmlFor="new-results-bottom"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              {dict.newResultsAtBottom}
-            </label>
-            <Switch
-              id="new-results-bottom"
-              checked={config.showNewResultBottom}
-              onCheckedChange={(checked) =>
-                updateConfig({ showNewResultBottom: checked })
-              }
-            />
-          </div>
+        <div>
+          <Toggle
+            className="mb-2"
+            label={dict.newResultsAtBottom}
+            checked={config.showNewResultBottom}
+            onChange={(checked) =>
+              updateConfig({ showNewResultBottom: checked })
+            }
+          />
 
-          <div className="flex items-center justify-between space-x-2">
-            <label
-              htmlFor="free-input"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              {dict.freeInput}
-            </label>
-            <Switch
-              id="free-input"
-              checked={config.useFreeInput}
-              onCheckedChange={(checked) => updateConfig({ useFreeInput: checked })}
-            />
-          </div>
+          <Toggle
+            className="mb-2"
+            label={dict.freeInput}
+            checked={config.useFreeInput}
+            onChange={(checked) => updateConfig({ useFreeInput: checked })}
+          />
 
-          <div className="flex items-center justify-between space-x-2">
-            <label
-              htmlFor="sort-dice"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              {dict.sortDice}
-            </label>
-            <Switch
-              id="sort-dice"
-              checked={config.sortDice}
-              onCheckedChange={(checked) => updateConfig({ sortDice: checked })}
-            />
-          </div>
+          <Toggle
+            className="mb-2"
+            label={dict.sortDice}
+            checked={config.sortDice}
+            onChange={(checked) => updateConfig({ sortDice: checked })}
+          />
 
-          <div className="flex items-center justify-between space-x-2">
-            <label
-              htmlFor="quick-buttons"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              {dict.quickButtons}
-            </label>
-            <Switch
-              id="quick-buttons"
-              checked={config.useQuickButtons}
-              onCheckedChange={(checked) => updateConfig({ useQuickButtons: checked })}
-            />
-          </div>
+          <Toggle
+            className="mb-2"
+            label={dict.quickButtons}
+            checked={config.useQuickButtons}
+            onChange={(checked) => updateConfig({ useQuickButtons: checked })}
+          />
 
           {config.useQuickButtons && (
-            <div className="p-6 border rounded-lg">
+            <div className="p-6">
               <div>
                 {config.quickButtons &&
                   config.quickButtons.map((button) => (
-                    <QuickButtonConfig key={button.id} quickButton={button} />
+                    <>
+                      <QuickButtonConfig key={button.id} quickButton={button} />
+                    </>
                   ))}
               </div>
-              <Button
-                variant="outline"
-                size="sm"
+              <button
+                className="btn btn-outline btn-sm -mt-8"
                 onClick={() =>
                   updateConfig({
                     quickButtons: [
@@ -103,14 +75,14 @@ export const ShadowrunConfig = ({
                 }
               >
                 {dict.addQuickButton}
-              </Button>
+              </button>
             </div>
           )}
         </div>
       )}
 
       <Link href="/dice/shadowrun">
-        <Button className="w-full mt-8">{dict.back}</Button>
+        <button className="btn btn-primary w-full mt-8">{dict.back}</button>
       </Link>
     </div>
   )

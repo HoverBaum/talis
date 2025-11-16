@@ -1,99 +1,80 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useEffect } from 'react'
 import { ThemeSelect } from './ThemeSelect'
 import { LanguageSelect } from './LanguageSelect'
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from '@/components/ui/sheet'
-import { useDrawer } from '@/components/drawer-context'
 
 export const Drawer = () => {
-  const { isOpen, setIsOpen } = useDrawer()
+  const pathname = usePathname()
+
+  useEffect(() => {
+    const checkbox = document.getElementById('talis-drawer') as HTMLInputElement
+    if (checkbox) {
+      checkbox.checked = false
+    }
+  }, [pathname])
 
   return (
-    <Sheet open={isOpen} onOpenChange={setIsOpen}>
-      <SheetContent side="left" className="w-80 flex flex-col">
-        <SheetHeader>
-          <SheetTitle className="text-2xl">Talis</SheetTitle>
-        </SheetHeader>
-        
-        <div className="flex-grow overflow-y-auto">
-          <nav className="space-y-2">
-            <Link 
-              href="/" 
-              className="block px-2 py-2 hover:bg-accent rounded-md"
-              onClick={() => setIsOpen(false)}
-            >
-              Talis - Home
-            </Link>
-            <Link 
-              href="/about" 
-              className="block px-2 py-2 hover:bg-accent rounded-md"
-              onClick={() => setIsOpen(false)}
-            >
-              About
-            </Link>
-            <Link 
-              href="/changelog" 
-              className="block px-2 py-2 hover:bg-accent rounded-md"
-              onClick={() => setIsOpen(false)}
-            >
-              Changelog
-            </Link>
+    <div className="drawer-side">
+      <label htmlFor="talis-drawer" className="drawer-overlay"></label>
+      <div className="menu p-4 w-80 h-full bg-base-200 text-base-content flex flex-col">
+        {/* Sidebar content here */}
+        <ul className="flex-grow">
+          <h1 className="text-2xl mb-4">Talis</h1>
+          <li className="mb-2">
+            <Link href="/">Talis - Home</Link>
+          </li>
+          <li className="mb-2">
+            <Link href="/about">About</Link>
+          </li>
+          <li className="mb-2">
+            <Link href="/changelog">Changelog</Link>
+          </li>
 
-            <h2 className="text-lg mt-4 px-2 font-semibold">Rollers</h2>
-            <Link 
-              href="/dice/shadowrun" 
-              className="block px-2 py-2 hover:bg-accent rounded-md"
-              onClick={() => setIsOpen(false)}
-            >
-              Shadowrun
-            </Link>
-            <Link 
-              href="/dice/d6" 
-              className="block px-2 py-2 hover:bg-accent rounded-md"
-              onClick={() => setIsOpen(false)}
-            >
-              D6 Roller
-            </Link>
-            <Link 
-              href="/dice/daggerheart" 
-              className="block px-2 py-2 hover:bg-accent rounded-md"
-              onClick={() => setIsOpen(false)}
-            >
-              Daggerheart (beta)
-            </Link>
-          </nav>
-        </div>
+          <h2 className="text-lg mt-4">Rollers</h2>
+          <li className="mb-2">
+            <Link href="/dice/shadowrun">Shadowrun</Link>
+            <Link href="/dice/d6">D6 Roller</Link>
+            <Link href="/dice/daggerheart">Daggerheart (beta)</Link>
+          </li>
+        </ul>
 
         {/* Bottom section */}
-        <div className="border-t pt-4 space-y-4">
-          <LanguageSelect />
-          <ThemeSelect withLabel={true} />
-          <div className="text-sm opacity-75">
-            Build by{' '}
-            <Link
-              className="underline"
-              target="_blank"
-              href="https://hendrikwallbaum.de/"
-            >
-              Hendrik
-            </Link>{' '}
-            on{' '}
-            <Link
-              className="underline"
-              target="_blank"
-              href="https://github.com/HoverBaum/talis"
-            >
-              GitHub
-            </Link>
+        <div>
+          <LanguageSelect className="my-2" />
+          <ThemeSelect withLabel={true} className="my-2" />
+          <div>
+            <span className="opacity-75">
+              Build by{' '}
+              <Link
+                className="link"
+                target="_blank"
+                href="https://hendrikwallbaum.de/"
+              >
+                Hendrik
+              </Link>{' '}
+              on{' '}
+              <Link
+                className="link"
+                target="_blank"
+                href="https://github.com/HoverBaum/talis"
+              >
+                GitHub
+              </Link>{' '}
+              {/* -{' '}
+              <Link
+                className="link"
+                target="_blank"
+                href="https://discord.gg/KYdHnpDeyw"
+              >
+                Join Discord
+              </Link> */}
+            </span>
           </div>
         </div>
-      </SheetContent>
-    </Sheet>
+      </div>
+    </div>
   )
 }

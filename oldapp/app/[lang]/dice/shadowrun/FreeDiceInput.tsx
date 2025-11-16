@@ -3,7 +3,6 @@ import { MinusIcon } from '@/components/icons/MinusIcon'
 import { PlusIcon } from '@/components/icons/PlusIcon'
 import { ExtractProperty } from 'utils/extractProperty'
 import { useDict } from 'dictionaries/useDict'
-import { Button } from '@/components/ui/button'
 
 type FreeDiceInputProps = {
   numberOfDice: number
@@ -29,8 +28,8 @@ export const FreeDiceInput = ({
       <input
         type="text"
         placeholder="0"
-        className={`border border-input rounded-md w-14 text-center ml-2 px-2 ${
-          isSmall ? 'h-8 text-sm' : 'h-10'
+        className={`input input-bordered w-14 text-center ml-2 ${
+          isSmall ? 'input-sm' : ''
         }`}
         value={numberOfDice > 0 ? numberOfDice : ''}
         onChange={(e) => {
@@ -39,10 +38,8 @@ export const FreeDiceInput = ({
         }}
       />
 
-      <Button
-        variant="outline"
-        size={isSmall ? "sm" : "icon"}
-        className="ml-4"
+      <button
+        className={`btn btn-square ml-4  ${isSmall ? 'btn-sm' : ''}`}
         disabled={numberOfDice <= 1}
         onClick={() => {
           if (numberOfDice <= 1) return
@@ -50,11 +47,9 @@ export const FreeDiceInput = ({
         }}
       >
         <MinusIcon />
-      </Button>
-      <Button
-        variant="outline"
-        size={isSmall ? "sm" : "icon"}
-        className="ml-2"
+      </button>
+      <button
+        className={`btn btn-square ml-2  ${isSmall ? 'btn-sm' : ''}`}
         disabled={numberOfDice >= maxDiceAmount}
         onClick={() => {
           if (numberOfDice >= maxDiceAmount) return
@@ -62,7 +57,7 @@ export const FreeDiceInput = ({
         }}
       >
         <PlusIcon />
-      </Button>
+      </button>
     </div>
   )
 }

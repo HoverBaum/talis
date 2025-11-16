@@ -1,9 +1,9 @@
+import { Navbar } from '@/components/Navbar'
 import { ShadowrunConfig } from './ShadowrunConfig'
 import Link from 'next/link'
 import { CloseIcon } from '@/components/icons/CloseIcon'
 import { Locale } from 'i18n-config'
 import { getDictionary } from 'dictionaries/dictionanier'
-import { Button } from '@/components/ui/button'
 
 export default async function ShadowrunConfigPage({
   params: { lang },
@@ -12,16 +12,15 @@ export default async function ShadowrunConfigPage({
 }) {
   const dict = await getDictionary(lang)
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex items-center gap-2 p-2 border-b">
+    <div className="min-h-screen flex flex-col">
+      <Navbar title="Shadowrun Config" fixed={true}>
         <Link href="/dice/shadowrun">
-          <Button variant="ghost" size="icon">
+          <button className="btn btn-square btn-ghost">
             <CloseIcon />
-          </Button>
+          </button>
         </Link>
-        <h2 className="text-lg font-semibold">Shadowrun Config</h2>
-      </div>
-      <main className="flex-grow p-2 md:p-4 overflow-auto">
+      </Navbar>
+      <main className="flex-grow basis-0 p-2 md:p-4">
         <ShadowrunConfig dict={dict.Roller.Shadowrun.Config} />
       </main>
     </div>

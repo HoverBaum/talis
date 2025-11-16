@@ -1,5 +1,3 @@
-import { Switch } from '@/components/ui/switch'
-
 type ToggleProps = {
   label: string
   checked: boolean
@@ -16,19 +14,17 @@ export const Toggle = ({
   className,
 }: ToggleProps) => {
   return (
-    <div className={`flex items-center justify-between space-x-2 ${className || ''}`}>
-      <label
-        htmlFor={label}
-        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-      >
-        {label}
+    <div className={`form-control ${className}`}>
+      <label className="label cursor-pointer">
+        <span className="mr-2">{label}</span>
+        <input
+          type="checkbox"
+          disabled={disabled}
+          className="toggle"
+          checked={checked}
+          onChange={() => onChange(!checked)}
+        />
       </label>
-      <Switch
-        id={label}
-        checked={checked}
-        onCheckedChange={onChange}
-        disabled={disabled}
-      />
     </div>
   )
 }

@@ -2,14 +2,13 @@
 
 import { store } from './store'
 import { Provider } from 'react-redux'
-import { ThemeProvider } from '@/components/theme-provider'
+import { useEffect } from 'react'
+import { themeChange } from 'theme-change'
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <Provider store={store}>
-      <ThemeProvider defaultTheme="system" storageKey="talis-theme">
-        {children}
-      </ThemeProvider>
-    </Provider>
-  )
+  useEffect(() => {
+    themeChange(false)
+    // 👆 false parameter is required for react project
+  }, [])
+  return <Provider store={store}>{children}</Provider>
 }

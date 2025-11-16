@@ -1,14 +1,3 @@
-'use client'
-
-import { useTheme } from '@/components/theme-provider'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-
 type ThemeSelectProps = {
   className?: string
   withLabel?: boolean
@@ -18,28 +7,26 @@ export const ThemeSelect = ({
   className,
   withLabel = false,
 }: ThemeSelectProps) => {
-  const { theme, setTheme } = useTheme()
-
   return (
-    <div className={className}>
+    <div>
       {withLabel && (
-        <label className="block text-sm font-medium mb-2">
-          Color Theme
+        <label className="label pb-0">
+          <span className="label-text">Color Theme</span>
         </label>
       )}
-      <Select value={theme} onValueChange={setTheme}>
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="Select theme" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="system">System</SelectItem>
-          <SelectItem value="talisTheme">Light</SelectItem>
-          <SelectItem value="dark">Dark</SelectItem>
-          <SelectItem value="shadowrun">Shadowrun</SelectItem>
-          <SelectItem value="cyberpunk">Cyberpunk</SelectItem>
-          <SelectItem value="synthwave">Synthwave</SelectItem>
-        </SelectContent>
-      </Select>
+      <select
+        data-choose-theme
+        className={`select select-bordered ${
+          withLabel ? 'mt-0' : ''
+        } w-full max-w-xs ${className}`}
+      >
+        <option value="">System</option>
+        <option value="talisTheme">Light</option>
+        <option value="dark">Dark</option>
+        <option value="shadowrun">Shadowrun</option>
+        <option value="cyberpunk">Cyberpunk</option>
+        <option value="synthwave">Synthwave</option>
+      </select>
     </div>
   )
 }

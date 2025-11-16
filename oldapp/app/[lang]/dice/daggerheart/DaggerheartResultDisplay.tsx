@@ -1,7 +1,6 @@
 import { ExtractProperty } from 'utils/extractProperty'
 import { DictionaryType } from 'dictionaries/dictionanier'
 import { DaggerheartRoll } from './daggerheart.slice'
-import { Badge } from '@/components/ui/badge'
 
 type DaggerheartDict = ExtractProperty<DictionaryType, 'Roller.Daggerheart'>
 
@@ -35,7 +34,7 @@ export const DaggerheartResultDisplay = ({
   return (
     <div
       className={`animate-fadeIn p-2 mb-6 ${
-        isHighlighted ? 'bg-accent/20 p-4 text-xl border-2 border-accent' : 'text-md'
+        isHighlighted ? 'bg-base-200 p-4 text-xl' : 'text-md'
       }`}
     >
       <div>
@@ -67,7 +66,7 @@ export const DaggerheartResultDisplay = ({
       </div>
       <div className="flex items-center mt-2">
         {isCritical && (
-          <Badge variant="accent">{dict.criticalSuccess}</Badge>
+          <span className="badge badge-accent">{dict.criticalSuccess}</span>
         )}
         <span className="text-xs ml-2">
           {new Date(roll.timestamp).toLocaleTimeString()}

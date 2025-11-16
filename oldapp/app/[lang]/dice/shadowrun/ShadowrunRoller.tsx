@@ -1,5 +1,6 @@
 'use client'
 
+import { Navbar } from '@/components/Navbar'
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { DiceRollResult, DiceRollType } from './DiceRollResult'
@@ -15,9 +16,6 @@ import { QuickButton } from './QuickButton'
 import { DictionaryType } from 'dictionaries/dictionanier'
 import { ExtractProperty } from 'utils/extractProperty'
 import { diceRollVibration } from 'utils/diceRollVibration'
-import { Button } from '@/components/ui/button'
-import { useHeader } from '@/components/header-context'
-import { RollerLayout } from '@/components/RollerLayout'
 
 type ShadowrunDict = ExtractProperty<DictionaryType, 'Roller.Shadowrun'>
 
@@ -41,32 +39,6 @@ export const ShadowrunRoller = ({ dict }: ShadowrunRollerProps) => {
     (state: RootState) => state.shadowrun.diceAmount
   )
   const dispatch = useDispatch()
-  const { setTitle, setActions } = useHeader()
-
-  // Set header title and actions
-  useEffect(() => {
-    setTitle('Shadowrun')
-    setActions(
-      <>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => dispatch(clearRolls())}
-        >
-          <TrashIcon />
-        </Button>
-        <Link href="shadowrun/config">
-          <Button variant="ghost" size="icon">
-            <CogIcon />
-          </Button>
-        </Link>
-      </>
-    )
-    return () => {
-      setTitle('Talis')
-      setActions(null)
-    }
-  }, [setTitle, setActions, dispatch])
 
   const setNumberOfDice = (dice: number) => {
     dispatch(setDiceAmount(dice))
@@ -122,10 +94,23 @@ export const ShadowrunRoller = ({ dict }: ShadowrunRollerProps) => {
   }, [rolls])
 
   return (
-    <div className="h-full">
-      <RollerLayout
-        resultsArea={
-          <div className="h-full grid grid-cols-12 gap-2 p-2 md:p-4">
+    <div className="min-h-screen flex flex-col">
+      <Navbar title="Shadowrun">
+        <button
+          className="btn btn-square btn-ghost ml-2"
+          onClick={() => dispatch(clearRolls())}
+        >
+          <TrashIcon />
+        </button>
+        <Link href="shadowrun/config">
+          <button className="btn btn-square btn-ghost">
+            <CogIcon />
+          </button>
+        </Link>
+      </Navbar>
+      <main className="flex-grow basis-0 p-2 md:p-4">
+        <div className="h-full flex flex-col">
+          <div className="flex-grow grid grid-cols-12 h-0 pb-4">
             <div
               id="d6Results"
               className={`overflow-y-auto col-span-10 no-scrollbar pr-2 flex ${
@@ -150,54 +135,51 @@ export const ShadowrunRoller = ({ dict }: ShadowrunRollerProps) => {
               />
             </div>
           </div>
-        }
-        controlsArea={
-          <div className="flex px-2 md:px-4">
-            {useFreeInput && (
-              <div className="py-2">
-                <FreeDiceInput
-                  numberOfDice={numberOfDice}
-                  onNewNumber={setNumberOfDice}
-                  maxDiceAmount={maxDiceAmount}
-                />
-              </div>
-            )}
-
-            {useFreeInput && useQuickButtons && (
-              <div className="mr-4 ml-6 w-[1px] border-r-2" />
-            )}
-
-            {useQuickButtons && (
-              <div className="overflow-x-auto flex py-2">
-                {quickButtons.map((quickButton) => (
-                  <QuickButton
-                    quickButton={quickButton}
-                    key={quickButton.id}
-                    onClick={() => {
-                      if (quickButton.type === 'instantRoll') {
-                        rollD6(quickButton.amount)
-                      } else {
-                        setNumberOfDice(quickButton.amount)
-                      }
-                    }}
+          <div className="flex-none border-t-2">
+            <div className="flex py-2">
+              {useFreeInput && (
+                <div className="py-2">
+                  <FreeDiceInput
+                    numberOfDice={numberOfDice}
+                    onNewNumber={setNumberOfDice}
+                    maxDiceAmount={maxDiceAmount}
                   />
-                ))}
-              </div>
-            )}
-          </div>
-        }
-        buttonArea={
-          <div className="px-2 md:px-4">
-            <Button
+                </div>
+              )}
+
+              {useFreeInput && useQuickButtons && (
+                <div className="mr-4 ml-6 w-[1px] border-r-2" />
+              )}
+
+              {useQuickButtons && (
+                <div className="overflow-x-auto flex py-2">
+                  {quickButtons.map((quickButton) => (
+                    <QuickButton
+                      quickButton={quickButton}
+                      key={quickButton.id}
+                      onClick={() => {
+                        if (quickButton.type === 'instantRoll') {
+                          rollD6(quickButton.amount)
+                        } else {
+                          setNumberOfDice(quickButton.amount)
+                        }
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <button
               disabled={numberOfDice <= 0}
-              className="w-full my-2 max-w-[90%] md:max-w-full mx-auto"
+              className="btn btn-block btn-primary my-2 max-w-[90%] md:max-w-full mx-auto block"
               onClick={() => rollD6(numberOfDice)}
             >
               {dict.roll}
-            </Button>
+            </button>
           </div>
-        }
-      />
+        </div>
+      </main>
     </div>
   )
 }

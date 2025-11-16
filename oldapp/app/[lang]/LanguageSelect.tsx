@@ -1,14 +1,7 @@
 'use client'
 
 import { Locale } from 'i18n-config'
-import { useEffect, useState } from 'react'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 type LanguageSelectProps = {
   className?: string
@@ -16,10 +9,11 @@ type LanguageSelectProps = {
 
 export const LanguageSelect = ({ className }: LanguageSelectProps) => {
   const [currentLocale, setCurrentLocale] = useState<Locale>('en')
-  
-  const onSelect = (value: string) => {
+  const onSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    console.log(e.target.value)
+    const newLocale = e.target.value
     const pathParts = window.location.pathname.split('/')
-    pathParts[1] = value
+    pathParts[1] = newLocale
     const newPath = pathParts.join('/')
     window.location.pathname = newPath
   }
@@ -33,19 +27,19 @@ export const LanguageSelect = ({ className }: LanguageSelectProps) => {
   }, [])
 
   return (
-    <div className={className}>
-      <label className="block text-sm font-medium mb-2">
-        Language
+    <div>
+      <label className="label pb-0">
+        <span className="label-text">Language</span>
       </label>
-      <Select value={currentLocale} onValueChange={onSelect}>
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="Select language" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="en">English</SelectItem>
-          <SelectItem value="de">Deutsch</SelectItem>
-        </SelectContent>
-      </Select>
+
+      <select
+        value={currentLocale}
+        onChange={onSelect}
+        className={`select select-bordered mt-0 w-full max-w-xs ${className}`}
+      >
+        <option value="en">English</option>
+        <option value="de">Deutsch</option>
+      </select>
     </div>
   )
 }

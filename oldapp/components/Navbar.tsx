@@ -1,12 +1,8 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
 import talisLogo from '@/public/talis-dice.png'
 import { MenuIcon } from '@/components/icons/MenuIcon'
 import { ThemeSelect } from '../app/[lang]/ThemeSelect'
-import { Button } from '@/components/ui/button'
-import { useDrawer } from '@/components/drawer-context'
 
 type NavbarProps = {
   title?: string
@@ -15,34 +11,25 @@ type NavbarProps = {
 }
 
 export const Navbar = ({ title, children, fixed }: NavbarProps) => {
-  const { toggle } = useDrawer()
-  
   return (
     <>
       {fixed && <div className="h-16"></div>}
       <div
-        className={`flex items-center justify-between h-16 px-4 border-b bg-background ${fixed && 'fixed top-0 left-0 right-0 z-40'}`}
+        className={`navbar bg-base-100 border-b-2 ${fixed && 'fixed top-0'}`}
       >
-        <div className="flex items-center flex-1">
-          <Button 
-            variant="ghost" 
-            size="icon"
-            onClick={toggle}
-            className="mr-2"
-          >
+        <div className="flex-1">
+          <label htmlFor="talis-drawer" className="btn btn-ghost btn-square ">
             <MenuIcon />
-          </Button>
+          </label>
           <Link href="/" className="text-xl flex items-center">
             <Image src={talisLogo} width={32} height={32} alt="Talis Logo" />
-            <span className="ml-2">Talis</span>
+            Talis
           </Link>
           {title && <span className="text-xl ml-2">| {title}</span>}
         </div>
-        <div className="flex items-center gap-2">
-          <div className="hidden md:block">
-            <ThemeSelect />
-          </div>
-          {children}
+        <div className="flex-none">
+          <ThemeSelect className="hidden md:block" />
+          <div className="flex">{children}</div>
         </div>
       </div>
     </>

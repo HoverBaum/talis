@@ -1,5 +1,6 @@
 'use client'
 
+import { Navbar } from '@/components/Navbar'
 import { DiceSelectWheel } from '../shadowrun/DiceSelectWheel'
 import { D6, D6ResultDisplay, D6RollResult } from './D6ResultDisplay'
 import { ExtractProperty } from 'utils/extractProperty'
@@ -13,9 +14,6 @@ import { RootState } from '@/app/store'
 import { addRoll, clearRolls, setDiceAmount } from './d6.slice'
 import { useD6Config } from './config/useD6Config'
 import { useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import { useHeader } from '@/components/header-context'
-import { RollerLayout } from '@/components/RollerLayout'
 
 type MultiD6RollerProps = {
   generalDict: ExtractProperty<DictionaryType, 'General'>
@@ -29,32 +27,6 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
   const rolls = useSelector((state: RootState) => state.d6.rolls)
   const { config } = useD6Config()
   const dispatch = useDispatch()
-  const { setTitle, setActions } = useHeader()
-
-  // Set header title and actions
-  useEffect(() => {
-    setTitle('D6 Roller')
-    setActions(
-      <>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => dispatch(clearRolls())}
-        >
-          <TrashIcon />
-        </Button>
-        <Link href="d6/config">
-          <Button variant="ghost" size="icon">
-            <CogIcon />
-          </Button>
-        </Link>
-      </>
-    )
-    return () => {
-      setTitle('Talis')
-      setActions(null)
-    }
-  }, [setTitle, setActions, dispatch])
 
   const setNumberOfDice = (amount: number) => {
     dispatch(setDiceAmount(amount))
@@ -95,10 +67,24 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
   }, [rolls])
 
   return (
-    <div className="h-full">
-      <RollerLayout
-        resultsArea={
-          <div className="h-full grid grid-cols-12 gap-2 p-2 md:p-4">
+    <div className="min-h-screen flex flex-col">
+      <Navbar title="D6 roller">
+        <button
+          className="btn btn-square btn-ghost ml-2"
+          onClick={() => dispatch(clearRolls())}
+        >
+          <TrashIcon />
+        </button>
+        <Link href="d6/config">
+          <button className="btn btn-square btn-ghost">
+            <CogIcon />
+          </button>
+        </Link>
+      </Navbar>
+
+      <main className="flex-grow basis-0 p-2 md:p-4">
+        <div className="h-full flex flex-col">
+          <div className="flex-grow grid grid-cols-12 h-0 pb-4">
             <div
               id="d6Results"
               className={`overflow-y-auto col-span-10 no-scrollbar pr-2 flex ${
@@ -124,19 +110,17 @@ export const MultiD6Roller = ({ generalDict }: MultiD6RollerProps) => {
               />
             </div>
           </div>
-        }
-        buttonArea={
-          <div className="px-2 md:px-4">
-            <Button
+          <div className="flex-none border-t-2 pt-4">
+            <button
               disabled={numberOfDice <= 0}
-              className="w-full my-2 max-w-[90%] md:max-w-full mx-auto"
+              className="btn btn-block btn-primary my-2 max-w-[90%] md:max-w-full mx-auto block"
               onClick={() => rollD6(numberOfDice)}
             >
               {generalDict.roll}
-            </Button>
+            </button>
           </div>
-        }
-      />
+        </div>
+      </main>
     </div>
   )
 }

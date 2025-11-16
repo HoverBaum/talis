@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs'
 import Link from 'next/link'
 import { MDXRemote } from 'next-mdx-remote/rsc'
+import { Navbar } from '../../components/Navbar'
 import { Locale } from 'i18n-config'
 import { getDictionary } from '../../dictionaries/dictionanier'
 import { Wrapper } from '@/components/Wrapper'
@@ -32,7 +33,8 @@ export default async function Home({
   )
 
   return (
-    <div className="h-full overflow-y-auto">
+    <>
+      <Navbar fixed={true} />
       <Wrapper>
         <main className="p-4">
           <h1>{dict.Home.title}</h1>
@@ -66,6 +68,6 @@ export default async function Home({
           </article>
         </main>
       </Wrapper>
-    </div>
+    </>
   )
 }

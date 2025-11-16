@@ -1,7 +1,6 @@
 import { ExtractProperty } from 'utils/extractProperty'
 import { useConfig } from './useConfig'
 import { DictionaryType } from 'dictionaries/dictionanier'
-import { Badge } from '@/components/ui/badge'
 
 export type DiceRollType = {
   results: number[]
@@ -44,7 +43,7 @@ export const DiceRollResult = ({
   return (
     <div
       className={`animate-fadeIn p-2 mb-6 ${isFaded && 'opacity-75'} ${
-        isHighlighted && 'bg-accent/20 border-2 border-accent'
+        isHighlighted && 'bg-base-200 border-2'
       }`}
     >
       <span className={`${isHighlighted ? 'text-3xl' : 'text-xl'}`}>
@@ -52,10 +51,10 @@ export const DiceRollResult = ({
         {diceRoll.shadowrun?.hits === 1 ? dict.hit : dict.hits}
       </span>
       {diceRoll.shadowrun?.isGlitch && (
-        <Badge variant="warning" className="mx-2">{dict.glitch}</Badge>
+        <span className="badge badge-warning mx-2">{dict.glitch}</span>
       )}
       {diceRoll.shadowrun?.isCriticalGlitch && (
-        <Badge variant="error" className="mx-2">{dict.criticalGlitch}</Badge>
+        <span className="badge badge-error mx-2">{dict.criticalGlitch}</span>
       )}
       <span
         className={`text-4xl flex flex-wrap ${isHighlighted && 'text-5xl'}`}
