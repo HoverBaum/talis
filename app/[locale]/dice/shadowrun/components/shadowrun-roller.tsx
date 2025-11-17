@@ -137,7 +137,7 @@ export function ShadowrunRoller() {
                   <Trash2 className="h-4 w-4" />
                 </Button>
                 <Button variant="ghost" size="icon" asChild>
-                  <Link href="config">
+                  <Link href="shadowrun/config">
                     <Settings className="h-4 w-4" />
                   </Link>
                 </Button>
