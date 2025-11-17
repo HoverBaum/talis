@@ -9,7 +9,7 @@ type DiceSelectWheelProps = {
   onChange: (value: number) => void
 }
 
-let timeout: any = null
+let timeout: NodeJS.Timeout | null = null
 
 export function DiceSelectWheel({
   max,
@@ -114,4 +114,3 @@ export function DiceSelectWheel({
     </>
   )
 }
-
