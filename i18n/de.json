@@ -1,0 +1,74 @@
+{
+  "Home": {
+    "title": "Würfel App",
+    "description": "Wähle zwischen folgenden Apps."
+  },
+  "Roller": {
+    "Shadowrun": {
+      "roll": "Würfeln",
+      "DiceRollResult": {
+        "dice": "Würfel",
+        "hit": "Erfolg",
+        "hits": "Erfolge",
+        "glitch": "Patzer",
+        "criticalGlitch": "Kritischer Patzer"
+      },
+      "Config": {
+        "newResultsAtBottom": "Neue Ergebnisse unten",
+        "freeInput": "Würfel Input",
+        "sortDice": "Würfel sortieren",
+        "quickButtons": "Quick buttons",
+        "addQuickButton": "Quick Button hinzufügen",
+        "rollInstantly": "Einmal würfeln",
+        "back": "Zurück"
+      }
+    },
+    "D6": {
+      "Config": {
+        "newResultsAtBottom": "Neue Ergebnisse unten",
+        "sortDice": "Würfel sortieren",
+        "back": "Zurück",
+        "sumDice": "Würfel addieren"
+      }
+    },
+    "Daggerheart": {
+      "roll": "Würfeln",
+      "hope": "Hoffnung",
+      "fear": "Furcht",
+      "criticalSuccess": "Kritischer Erfolg"
+    }
+  },
+  "Components": {
+    "FreeInput": {
+      "numberOfDice": "Würfelanzahl:"
+    }
+  },
+  "General": {
+    "dice": "Würfel",
+    "roll": "Würfeln"
+  },
+  "Navigation": {
+    "home": "Startseite",
+    "about": "Über",
+    "changelog": "Änderungsprotokoll",
+    "rollers": "Würfel Apps",
+    "shadowrun": "Shadowrun",
+    "d6": "D6 Würfel",
+    "daggerheart": "Daggerheart (beta)"
+  },
+  "Theme": {
+    "select": "Farbschema",
+    "system": "System",
+    "light": "Hell",
+    "dark": "Dunkel",
+    "shadowrun": "Shadowrun",
+    "cyberpunk": "Cyberpunk",
+    "synthwave": "Synthwave"
+  },
+  "Language": {
+    "select": "Sprache",
+    "english": "Englisch",
+    "german": "Deutsch"
+  }
+}
+

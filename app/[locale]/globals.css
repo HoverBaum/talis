@@ -139,13 +139,6 @@
   .animate-indeterminate {
     animation: indeterminate 2s infinite linear;
   }
-  .scrollbar-none {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .scrollbar-none::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 /* Custom Themes */
