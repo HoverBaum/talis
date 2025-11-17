@@ -91,8 +91,8 @@ export function DiceSelectWheel({
 
   return (
     <>
-      <div className="absolute left-0 w-full top-1/2 -translate-y-12 border-t"></div>
-      <div className="absolute left-0 w-full top-1/2 border-t"></div>
+      <div className="absolute left-0 w-full top-1/2 -translate-y-1/2 -mt-6 border-t pointer-events-none z-10"></div>
+      <div className="absolute left-0 w-full top-1/2 -translate-y-1/2 mt-6 border-t pointer-events-none z-10"></div>
       <div
         ref={wheelContainerRef}
         id="wheelContainer"
