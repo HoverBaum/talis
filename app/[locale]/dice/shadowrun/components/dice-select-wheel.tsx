@@ -53,13 +53,15 @@ export function DiceSelectWheel({
       const center = container.scrollTop + height / 2
       let closestElement: HTMLDivElement | null = null
       let closestDistance = Number.MAX_SAFE_INTEGER
-      elements.forEach((element) => {
+
+      for (const element of elements) {
         const distance = Math.abs(center - element.offsetTop)
         if (distance < closestDistance) {
           closestElement = element
           closestDistance = distance
         }
-      })
+      }
+
       if (closestElement) {
         const number = Number(closestElement.dataset.number)
         onChange(number)
@@ -67,7 +69,7 @@ export function DiceSelectWheel({
     }
 
     const scrollListener = () => {
-      timeout && clearTimeout(timeout)
+      if (!!timeout) clearTimeout(timeout)
       timeout = setTimeout(() => {
         const wheelContainer = document.getElementById('wheelContainer')
         if (wheelContainer) {
@@ -104,7 +106,7 @@ export function DiceSelectWheel({
             key={number}
             id={`number-${number}`}
             data-number={number}
-            className="snap-center my-4 flex-grow flex justify-center items-center cursor-pointer text-2xl"
+            className="snap-center my-4 grow flex justify-center items-center cursor-pointer text-2xl"
             onClick={() => onChange(number)}
           >
             {number}
