@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useWindowSize } from '../hooks/use-window-size'
 
 type DiceSelectWheelProps = {
@@ -8,8 +8,6 @@ type DiceSelectWheelProps = {
   current: number
   onChange: (value: number) => void
 }
-
-let timeout: NodeJS.Timeout | null = null
 
 export function DiceSelectWheel({
   max,
@@ -19,38 +17,49 @@ export function DiceSelectWheel({
   const diceNumberChoices = Array.from(Array(max).keys()).map((i) => i + 1)
   const [height, setHeight] = useState(0)
   const { height: windowHeight, lastHeight: lastWindowHeight } = useWindowSize()
+  const wheelContainerRef = useRef<HTMLDivElement>(null)
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
 
   useEffect(() => {
+    const wheelContainer = wheelContainerRef.current
+    if (!wheelContainer) return
+
     const updateHeight = () => {
-      const wheelContainer = document.getElementById('wheelContainer')
-      if (wheelContainer) {
-        const newHeight = wheelContainer.parentElement?.clientHeight || 0
-        setHeight(newHeight)
-      }
+      const newHeight = wheelContainer.parentElement?.clientHeight || 0
+      setHeight(newHeight)
     }
+
     if (windowHeight < lastWindowHeight) {
-      setTimeout(updateHeight, 0)
-      return setHeight(0)
+      const timer = setTimeout(updateHeight, 0)
+      return () => clearTimeout(timer)
     }
+
     updateHeight()
-  }, [setHeight, windowHeight, lastWindowHeight])
+  }, [windowHeight, lastWindowHeight])
 
   useEffect(() => {
     if (height === 0 || current === 0) return
-    const wheelContainer = document.getElementById('wheelContainer')
-    if (wheelContainer) {
-      const currentElement = document.getElementById(`number-${current}`)
-      const currentElementPosition = currentElement?.offsetTop || 0
+
+    const wheelContainer = wheelContainerRef.current
+    const currentElement = document.getElementById(`number-${current}`)
+
+    if (wheelContainer && currentElement) {
+      const currentElementPosition = currentElement.offsetTop
       const newScrollPosition = currentElementPosition - height / 2
       wheelContainer.scrollTo({ top: newScrollPosition, behavior: 'smooth' })
     }
   }, [current, height])
 
   useEffect(() => {
-    const findCurrentEvent = (container: HTMLElement) => {
+    if (height === 0) return
+
+    const wheelContainer = wheelContainerRef.current
+    if (!wheelContainer) return
+
+    const findCurrentEvent = () => {
       const elements =
-        document.querySelectorAll<HTMLDivElement>('[data-number]')
-      const center = container.scrollTop + height / 2
+        wheelContainer.querySelectorAll<HTMLDivElement>('[data-number]')
+      const center = wheelContainer.scrollTop + height / 2
       let closestElement: HTMLDivElement | null = null
       let closestDistance = Number.MAX_SAFE_INTEGER
 
@@ -68,23 +77,15 @@ export function DiceSelectWheel({
       }
     }
 
-    const scrollListener = () => {
-      if (!!timeout) clearTimeout(timeout)
-      timeout = setTimeout(() => {
-        const wheelContainer = document.getElementById('wheelContainer')
-        if (wheelContainer) {
-          findCurrentEvent(wheelContainer)
-        }
-      }, 100)
+    const handleScroll = () => {
+      clearTimeout(scrollTimeoutRef.current)
+      scrollTimeoutRef.current = setTimeout(findCurrentEvent, 150)
     }
 
-    const wheelContainer = document.getElementById('wheelContainer')
-    if (wheelContainer) {
-      wheelContainer.addEventListener('scroll', scrollListener)
-
-      return () => {
-        wheelContainer.removeEventListener('scroll', scrollListener)
-      }
+    wheelContainer.addEventListener('scroll', handleScroll)
+    return () => {
+      wheelContainer.removeEventListener('scroll', handleScroll)
+      clearTimeout(scrollTimeoutRef.current)
     }
   }, [height, onChange])
 
@@ -93,6 +94,7 @@ export function DiceSelectWheel({
       <div className="absolute left-0 w-full top-1/2 -translate-y-12 border-t"></div>
       <div className="absolute left-0 w-full top-1/2 border-t"></div>
       <div
+        ref={wheelContainerRef}
         id="wheelContainer"
         className="overflow-y-scroll scrollbar-none relative snap-y snap-mandatory"
         style={{
