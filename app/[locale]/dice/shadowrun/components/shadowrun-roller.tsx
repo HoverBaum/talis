@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useShadowrunStore } from '@/stores/shadowrun-store'
@@ -22,30 +22,33 @@ export function ShadowrunRoller() {
   const clearRolls = useShadowrunStore((state) => state.clearRolls)
   const addRoll = useShadowrunStore((state) => state.addRoll)
 
-  const rollD6 = (dice: number) => {
-    diceRollVibration(dice)
-    const diceRolls: number[] = []
-    for (let i = 0; i < dice; i++) {
-      diceRolls.push(Math.floor(Math.random() * 6) + 1)
-    }
+  const rollD6 = useCallback(
+    (dice: number) => {
+      diceRollVibration(dice)
+      const diceRolls: number[] = []
+      for (let i = 0; i < dice; i++) {
+        diceRolls.push(Math.floor(Math.random() * 6) + 1)
+      }
 
-    const hits = diceRolls.reduce(
-      (hits, roll) => (roll >= 5 ? hits + 1 : hits),
-      0
-    )
+      const hits = diceRolls.reduce(
+        (hits, roll) => (roll >= 5 ? hits + 1 : hits),
+        0
+      )
 
-    const isGlitch = diceRolls.filter((roll) => roll === 1).length >= dice / 2
-    const isCriticalGlitch = isGlitch && hits === 0
+      const isGlitch = diceRolls.filter((roll) => roll === 1).length >= dice / 2
+      const isCriticalGlitch = isGlitch && hits === 0
 
-    const result: DiceRollType = {
-      results: diceRolls,
-      type: 'Shadowrun',
-      timestamp: Date.now(),
-      id: rolls.length + 1,
-      shadowrun: { hits, isGlitch, isCriticalGlitch },
-    }
-    addRoll(result)
-  }
+      const result: DiceRollType = {
+        results: diceRolls,
+        type: 'Shadowrun',
+        timestamp: Date.now(),
+        id: rolls.length + 1,
+        shadowrun: { hits, isGlitch, isCriticalGlitch },
+      }
+      addRoll(result)
+    },
+    [rolls.length, addRoll]
+  )
 
   useEffect(() => {
     const resultContainer = document.getElementById('d6Results')
@@ -66,9 +69,9 @@ export function ShadowrunRoller() {
 
   return (
     <div className="h-full min-h-0 flex flex-col">
-      <div className="flex-grow basis-0 p-2 md:p-4">
+      <div className="grow basis-0 p-2 md:p-4">
         <div className="h-full flex flex-col">
-          <div className="flex-grow grid grid-cols-12 h-0 pb-4">
+          <div className="grow grid grid-cols-12 h-0 pb-4">
             <div
               id="d6Results"
               className={`overflow-y-auto col-span-10 scrollbar-none pr-2 flex ${
@@ -104,7 +107,7 @@ export function ShadowrunRoller() {
                 )}
 
                 {config.useFreeInput && config.useQuickButtons && (
-                  <div className="h-8 w-[1px] bg-border" />
+                  <div className="h-8 w-px bg-border" />
                 )}
 
                 {config.useQuickButtons && (
