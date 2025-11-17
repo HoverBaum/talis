@@ -1,5 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -122,14 +123,27 @@
 }
 
 @keyframes indeterminate {
-  0% { left: -50%; width: 30%; }
-  40% { left: 25%; width: 50%; }
-  100% { left: 100%; width: 30%; }
+  0% {
+    left: -50%;
+    width: 30%;
+  }
+  40% {
+    left: 25%;
+    width: 50%;
+  }
+  100% {
+    left: 100%;
+    width: 30%;
+  }
 }
 
 @keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @layer utilities {
@@ -149,7 +163,7 @@
 }
 
 /* Custom Themes */
-[data-theme="talisTheme"] {
+[data-theme='talisTheme'] {
   --primary: oklch(0.7 0.15 280);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.85 0.15 90);
@@ -160,7 +174,7 @@
   --foreground: oklch(0.145 0 0);
 }
 
-[data-theme="cyberpunk"] {
+[data-theme='cyberpunk'] {
   --primary: oklch(0.5 0.2 300);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.6 0.25 30);
@@ -173,7 +187,7 @@
   --card-foreground: oklch(0.9 0 0);
 }
 
-[data-theme="shadowrun"] {
+[data-theme='shadowrun'] {
   --primary: oklch(0.5 0.2 330);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.7 0.2 200);
@@ -186,7 +200,7 @@
   --card-foreground: oklch(0.985 0 0);
 }
 
-[data-theme="synthwave"] {
+[data-theme='synthwave'] {
   --primary: oklch(0.6 0.2 280);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.5 0.2 320);

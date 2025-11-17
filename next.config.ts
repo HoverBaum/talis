@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
 };
 
 const withMDX = createMDX({
+  extension: /\.(md|mdx)$/,
   // Add markdown plugins here, as desired
 });
 
