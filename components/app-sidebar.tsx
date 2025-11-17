@@ -35,12 +35,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     },
     {
       title: t('about'),
-      url: `/${locale}/about`,
+      url: `/${locale}/pages/about`,
       icon: null,
     },
     {
       title: t('changelog'),
-      url: `/${locale}/changelog`,
+      url: `/${locale}/pages/changelog`,
       icon: null,
     },
   ]
@@ -64,7 +64,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   ]
 
   const isActive = (url: string) => {
-    return pathname === url || pathname.startsWith(url + '/')
+    return pathname === url
   }
 
   return (
@@ -150,4 +150,3 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     </Sidebar>
   )
 }
-
