@@ -2,7 +2,10 @@
 
 import { useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { useDaggerheartStore, DaggerheartRoll } from '@/stores/daggerheart-store'
+import {
+  useDaggerheartStore,
+  DaggerheartRoll,
+} from '@/stores/daggerheart-store'
 import { DaggerheartResultDisplay } from './daggerheart-result-display'
 import { Button } from '@/components/ui/button'
 import { Trash2 } from 'lucide-react'
@@ -35,7 +38,7 @@ export function DaggerheartRoller() {
   }, [rolls])
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="h-full min-h-0 flex flex-col">
       <div className="flex-grow basis-0 p-2 md:p-4 flex flex-col">
         <div className="flex flex-col flex-grow h-full">
           <div
@@ -65,4 +68,3 @@ export function DaggerheartRoller() {
     </div>
   )
 }
-

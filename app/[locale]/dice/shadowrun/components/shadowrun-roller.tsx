@@ -65,7 +65,7 @@ export function ShadowrunRoller() {
   }, [rolls, config.showNewResultBottom])
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="h-full min-h-0 flex flex-col">
       <div className="flex-grow basis-0 p-2 md:p-4">
         <div className="h-full flex flex-col">
           <div className="flex-grow grid grid-cols-12 h-0 pb-4">
@@ -154,4 +154,3 @@ export function ShadowrunRoller() {
     </div>
   )
 }
-

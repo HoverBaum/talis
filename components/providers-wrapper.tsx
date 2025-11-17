@@ -3,11 +3,7 @@
 import { NextIntlClientProvider } from 'next-intl'
 import { ThemeProvider } from './theme-provider'
 import { AppSidebar } from './app-sidebar'
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from './ui/sidebar'
+import { SidebarInset, SidebarProvider, SidebarTrigger } from './ui/sidebar'
 import { Separator } from './ui/separator'
 
 type ProvidersWrapperProps = {
@@ -17,7 +13,11 @@ type ProvidersWrapperProps = {
 }
 
 // This component must be a client component to use contexts
-export function ProvidersWrapper({ messages, locale, children }: ProvidersWrapperProps) {
+export function ProvidersWrapper({
+  messages,
+  locale,
+  children,
+}: ProvidersWrapperProps) {
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
       <ThemeProvider defaultTheme="system" storageKey="talis-theme">
@@ -28,11 +28,10 @@ export function ProvidersWrapper({ messages, locale, children }: ProvidersWrappe
               <SidebarTrigger className="-ml-1" />
               <Separator orientation="vertical" className="mr-2 h-4" />
             </header>
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 min-h-0 overflow-hidden">{children}</main>
           </SidebarInset>
         </SidebarProvider>
       </ThemeProvider>
     </NextIntlClientProvider>
   )
 }
-
