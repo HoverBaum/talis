@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { QuickButtonType } from '@/stores/shadowrun-store'
-import { FreeDiceInput } from '../free-dice-input'
+import { FreeDiceInput } from '../FreeDiceInput'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import { Trash2 } from 'lucide-react'
@@ -36,9 +36,9 @@ export function QuickButtonConfig({
             maxDiceAmount={maxDiceAmount}
           />
         </div>
-        
+
         <Separator orientation="vertical" className="hidden md:block h-8" />
-        
+
         <div className="flex items-center justify-between md:justify-end gap-4">
           <div className="flex items-center space-x-2">
             <Checkbox
@@ -58,7 +58,7 @@ export function QuickButtonConfig({
               {t('rollInstantly')}
             </label>
           </div>
-          
+
           <Button
             variant="ghost"
             size="icon"

@@ -1,7 +1,7 @@
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { i18n } from '@/i18n/config'
-import { ProvidersWrapper } from '@/components/providers-wrapper'
+import { ProvidersWrapper } from '@/components/ProvidersWrapper'
 
 export function generateStaticParams() {
   return i18n.locales.map((locale) => ({ locale }))

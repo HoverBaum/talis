@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { DaggerheartRoller } from './daggerheart-roller'
+import { DaggerheartRoller } from './DaggerheartRoller'
 import { SetPageTitle } from '@/components/PageTitleProvider'
 
 export async function generateMetadata({

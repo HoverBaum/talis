@@ -12,7 +12,7 @@ import {
   RollerLayoutContent,
 } from '@/components/RollerLayout'
 import { RollerControls } from '@/components/RollerControls'
-import { DaggerheartResultDisplay } from './daggerheart-result-display'
+import { DaggerheartResultDisplay } from './DaggerheartResultDisplay'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/hooks/use-auto-scroll'
 

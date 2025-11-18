@@ -1,5 +1,5 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { D6Roller } from './d6-roller'
+import { D6Roller } from './D6Roller'
 import { SetPageTitle } from '@/components/PageTitleProvider'
 
 export async function generateMetadata({

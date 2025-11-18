@@ -6,7 +6,7 @@ import { useShadowrunStore } from '@/stores/shadowrun-store'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { QuickButtonConfig } from './quick-button-config'
+import { QuickButtonConfig } from './QuickButtonConfig'
 import { Separator } from '@/components/ui/separator'
 import { Settings2, ArrowLeft, Plus, Zap, Monitor, Keyboard } from 'lucide-react'
 

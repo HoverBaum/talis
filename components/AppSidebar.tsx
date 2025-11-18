@@ -18,8 +18,8 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from '@/components/ui/sidebar'
-import { ThemeSelect } from './theme-select'
-import { LanguageSelect } from './language-select'
+import { ThemeSelect } from './ThemeSelect'
+import { LanguageSelect } from './LanguageSelect'
 import talisLogo from '@/public/talis-dice.png'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

@@ -3,7 +3,7 @@
 import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { useShadowrunStore } from '@/stores/shadowrun-store'
-import { DiceRollResult } from './dice-roll-result'
+import { DiceRollResult } from './DiceRollResult'
 import { DiceSelectWheel } from '@/components/DiceSelectWheel'
 import {
   RollerLayout,
@@ -13,8 +13,8 @@ import {
   RollerLayoutContent,
 } from '@/components/RollerLayout'
 import { RollerControls } from '@/components/RollerControls'
-import { FreeDiceInput } from './free-dice-input'
-import { QuickButton } from './quick-button'
+import { FreeDiceInput } from './FreeDiceInput'
+import { QuickButton } from './QuickButton'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { DiceRollType } from '@/stores/shadowrun-store'
 import { useAutoScroll } from '@/hooks/use-auto-scroll'

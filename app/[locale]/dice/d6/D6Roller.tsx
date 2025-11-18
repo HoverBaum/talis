@@ -11,7 +11,7 @@ import {
   RollerLayoutContent,
 } from '@/components/RollerLayout'
 import { RollerControls } from '@/components/RollerControls'
-import { D6ResultDisplay } from './d6-result-display'
+import { D6ResultDisplay } from './D6ResultDisplay'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/hooks/use-auto-scroll'
 
