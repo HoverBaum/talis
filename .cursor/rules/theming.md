@@ -1,0 +1,101 @@
+# Theming & Color Schemes
+
+These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
+
+Talis supports multiple color schemes:
+
+* **System theme:**
+
+  * Respects the user's OS setting (light/dark).
+  * Automatically switches between light and dark.
+
+* **Additional custom color schemes:**
+
+  * Users may select other themes beyond default light/dark.
+
+Implementation notes:
+
+* Use Tailwind v4 utilities and appropriate theme tokens.
+* Theming logic should be centralized (e.g. in layout or a theme provider), not per-component.
+* Components should:
+
+  * Avoid hard-coded colors.
+  * Use theme-aware classes and shadcn/ui tokens.
+
+## Required CSS Variables
+
+**Every theme MUST define ALL of the following CSS variables** for shadcn/ui components to work correctly. Missing variables will cause components to fall back to `:root` defaults, resulting in inconsistent theming (e.g., sidebar not matching the selected theme).
+
+### Core Variables (2 required)
+* `--background` - Main background color
+* `--foreground` - Main text color
+
+### Component Variables (4 required)
+* `--card` - Card background color
+* `--card-foreground` - Card text color
+* `--popover` - Popover background color
+* `--popover-foreground` - Popover text color
+
+### Color Palette Variables (9 required)
+* `--primary` - Primary brand color
+* `--primary-foreground` - Text color on primary background
+* `--secondary` - Secondary color
+* `--secondary-foreground` - Text color on secondary background
+* `--muted` - Muted/subtle background color
+* `--muted-foreground` - Text color on muted background
+* `--accent` - Accent color
+* `--accent-foreground` - Text color on accent background
+* `--destructive` - Error/destructive action color
+
+### UI Element Variables (3 required)
+* `--border` - Border color
+* `--input` - Input field background color
+* `--ring` - Focus ring color
+
+### Sidebar Variables (8 required)
+* `--sidebar` - Sidebar background color
+* `--sidebar-foreground` - Sidebar text color
+* `--sidebar-primary` - Sidebar primary accent color
+* `--sidebar-primary-foreground` - Text color on sidebar primary
+* `--sidebar-accent` - Sidebar hover/active accent color
+* `--sidebar-accent-foreground` - Text color on sidebar accent
+* `--sidebar-border` - Sidebar border color
+* `--sidebar-ring` - Sidebar focus ring color
+
+### Chart Variables (5 required)
+* `--chart-1` through `--chart-5` - Chart color palette (5 colors)
+
+**Total: 31 required CSS variables per theme**
+
+### Color Format
+
+All color values should use the `oklch()` color space format for better color consistency and perceptual uniformity:
+
+```css
+--background: oklch(0.15 0 0);
+--primary: oklch(0.5 0.2 300);
+```
+
+Format: `oklch(lightness chroma hue)`
+* **Lightness**: 0-1 (0 = black, 1 = white)
+* **Chroma**: 0+ (0 = grayscale, higher = more saturated)
+* **Hue**: 0-360 (color wheel position)
+
+### Common Pitfalls
+
+1. **Missing Sidebar Variables**: The most common mistake is forgetting to define `--sidebar-*` variables. This causes the sidebar to use default light theme colors even when a custom theme is selected.
+
+2. **Incomplete Variable Sets**: Only defining a subset of variables (e.g., just `--background` and `--foreground`) will cause inconsistent theming across components.
+
+3. **Color Format Mismatch**: Using hex or RGB values instead of `oklch()` can cause color inconsistencies and make it harder to maintain color relationships.
+
+### Reference Implementation
+
+See `app/globals.css` for complete examples of theme definitions:
+* `:root` - Light theme (class-based)
+* `.dark` - Dark theme (class-based)
+* `[data-theme='talisTheme']` - Custom theme example
+* `[data-theme='cyberpunk']` - Custom theme example
+* `[data-theme='shadowrun']` - Custom theme example
+* `[data-theme='synthwave']` - Custom theme example
+

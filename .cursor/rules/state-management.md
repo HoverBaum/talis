@@ -1,0 +1,16 @@
+# State Management (Zustand)
+
+These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
+
+* Each roller has its **own Zustand store slice**, scoped and typed for that roller.
+* State for each roller is **persisted** (e.g. last used settings and results if desired).
+* Stores must use the centrally provided createStoreMiddleware.
+* Store files should live close to their roller, for example:
+
+  * `app/dice/[rollerName]/store.ts`
+
+* When adding new state:
+
+  * Make sure it is serializable and safe to persist.
+  * Document any performance / UX constraints in the component description block or store comments.
+

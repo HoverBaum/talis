@@ -1,0 +1,30 @@
+# HTML Semantics & Comments
+
+These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
+
+We want clear structure and future-proof semantics:
+
+* Non-semantic HTML tags (`div`, `span`, etc.) that represent a **meaningful UI concept** should have a **short comment** describing their semantic role.
+
+  * Example: a visually styled divider:
+
+    ```tsx
+    {/* Horizontal divider between result list and controls */}
+    <div className="my-4 h-px w-full bg-border" />
+    ```
+
+* This does **not** apply to trivial, purely layouting containers:
+
+  * Example:
+
+    ```tsx
+    <div className="flex gap-4">
+      {/* no extra comment needed here */}
+      ...
+    </div>
+    ```
+
+* When possible, prefer semantic elements over `div`s:
+
+  * `button`, `nav`, `header`, `section`, `main`, `aside`, `footer`, etc.
+

@@ -1,0 +1,14 @@
+# Tech Stack
+
+These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
+
+## Tech Stack
+
+* **Framework:** Next.js (App Router with `app/`)
+* **Styling:** Tailwind CSS v4
+* **UI Library:** shadcn/ui
+* **State Management:** Zustand (with persistence per roller)
+* **Content:** MDX for docs/guides/changelogs under `pages/`
+
+> When generating code (by hand or via AI), always assume this stack and follow the conventions in the other rule files.
+

@@ -1,0 +1,11 @@
+# Internationalization (i18n)
+
+These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
+
+* The app is **fully translated** in **German** and **English**.
+* All user-facing strings **must be obtained from the i18n layer** (e.g. translation files or hooks), not hard-coded.
+* When adding new text:
+
+  * Provide both `en` and `de` translations.
+  * Use clear, context-rich keys (`diceRoller.rollButton.label`, not `roll`).
+
