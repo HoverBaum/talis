@@ -95,7 +95,7 @@ export function ShadowrunRoller() {
           )}
 
           {config.useQuickButtons && (
-            <div className="overflow-x-auto flex py-2">
+            <div className="overflow-x-auto flex">
               {config.quickButtons.map((quickButton) => (
                 <QuickButton
                   quickButton={quickButton}

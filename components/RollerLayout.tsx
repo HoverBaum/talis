@@ -37,9 +37,8 @@ export function RollerLayout({
             <div className="flex-grow grid grid-cols-12 h-0 pb-4">
               <div
                 id={resultContainerId}
-                className={`overflow-y-auto col-span-10 scrollbar-none pr-2 flex ${
-                  showNewResultBottom ? 'flex-col-reverse' : 'flex-col'
-                }`}
+                className={`overflow-y-auto col-span-10 scrollbar-none pr-2 flex ${showNewResultBottom ? 'flex-col-reverse' : 'flex-col'
+                  }`}
               >
                 {resultArea}
               </div>
@@ -48,14 +47,13 @@ export function RollerLayout({
           ) : (
             <div
               id={resultContainerId}
-              className={`flex-grow overflow-y-auto scrollbar-none pr-2 flex ${
-                showNewResultBottom ? 'flex-col-reverse' : 'flex-col'
-              } h-0 pb-4`}
+              className={`flex-grow overflow-y-auto scrollbar-none pr-2 flex ${showNewResultBottom ? 'flex-col-reverse' : 'flex-col'
+                } h-0 pb-2`}
             >
               {resultArea}
             </div>
           )}
-          <div className="flex-none border-t-2 pt-4">{footer}</div>
+          <div className="flex-none border-t-2 pt-2">{footer}</div>
         </div>
       </div>
     </div>
