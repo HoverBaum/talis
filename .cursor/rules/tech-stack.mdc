@@ -13,6 +13,7 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 * **UI Library:** shadcn/ui
 * **State Management:** Zustand (with persistence per roller)
 * **Content:** MDX for docs/guides/changelogs under `pages/`
+* **PWA:** `@ducanh2912/next-pwa` for offline support and Progressive Web App features
 
 > When generating code (by hand or via AI), always assume this stack and follow the conventions in the other rule files.
 

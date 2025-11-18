@@ -20,12 +20,17 @@ import {
 } from '@/components/ui/sidebar'
 import { ThemeSelect } from './ThemeSelect'
 import { LanguageSelect } from './LanguageSelect'
+import { PWAInstallPrompt } from './PWAInstallPrompt'
 import talisLogo from '@/public/talis-dice.png'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
   const locale = useLocale()
   const t = useTranslations('Navigation')
+  const tPWA = useTranslations('PWA')
+  
+  // Get version from environment variable (set at build time in next.config.ts)
+  const appVersion = process.env.NEXT_PUBLIC_APP_VERSION || '0.1.0'
 
   const mainNav = [
     {
@@ -122,27 +127,35 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <div className="space-y-4 p-4">
           <LanguageSelect />
           <ThemeSelect withLabel={true} />
-          <div className="text-xs text-muted-foreground">
-            <span>
-              Built by{' '}
-              <a
-                href="https://hendrikwallbaum.de/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-foreground"
-              >
-                Hendrik
-              </a>{' '}
-              on{' '}
-              <a
-                href="https://github.com/HoverBaum/talis"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline hover:text-foreground"
-              >
-                GitHub
-              </a>
-            </span>
+          <PWAInstallPrompt />
+          <div className="text-xs text-muted-foreground space-y-1">
+            <div>
+              <span>
+                {tPWA('version')}: {appVersion}
+              </span>
+            </div>
+            <div>
+              <span>
+                Built by{' '}
+                <a
+                  href="https://hendrikwallbaum.de/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-foreground"
+                >
+                  Hendrik
+                </a>{' '}
+                on{' '}
+                <a
+                  href="https://github.com/HoverBaum/talis"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-foreground"
+                >
+                  GitHub
+                </a>
+              </span>
+            </div>
           </div>
         </div>
       </SidebarFooter>

@@ -41,3 +41,14 @@ Note: Organizational folders in routes **should** be avoided as long, as feasabl
   Hooks reused across multiple routes live in:
   `hooks/`
 
+## PWA Files
+
+* **Offline fallback page:** `app/_offline/page.tsx` - Shown when user is offline and page isn't cached
+* **PWA components:**
+  * `components/PWAUpdatePrompt.tsx` - Detects and notifies about service worker updates
+  * `components/PWAInstallPrompt.tsx` - Shows install button when app is installable
+* **PWA assets:**
+  * `public/manifest.json` - Web app manifest
+  * `public/icons/` - PWA icons (192x192, 512x512)
+* **Service worker:** Auto-generated in `public/` during build (not in source control)
+

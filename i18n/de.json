@@ -69,6 +69,14 @@
     "select": "Sprache",
     "english": "Englisch",
     "german": "Deutsch"
+  },
+  "PWA": {
+    "updateAvailable": "Neue Version verfügbar",
+    "updateDescription": "Eine neue Version von Talis ist bereit. Aktualisiere jetzt, um die neuesten Funktionen zu erhalten.",
+    "updateNow": "Jetzt aktualisieren",
+    "dismiss": "Schließen",
+    "installApp": "App installieren",
+    "version": "Version"
   }
 }
 

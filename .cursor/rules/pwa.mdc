@@ -1,0 +1,29 @@
+---
+description: PWA and offline support guidelines
+alwaysApply: false
+---
+# PWA & Offline Support
+
+These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
+
+Talis is a **fully offline-capable Progressive Web App (PWA)**:
+
+* **Service Worker:** Automatically registered in production builds (disabled in development)
+* **Offline Functionality:** All dice rollers and features work without internet connection
+* **Install Prompt:** Users can install the app via install button in sidebar
+* **Update Notifications:** Automatic detection and user notification when new versions are available
+* **Version Display:** Current app version shown in sidebar footer
+* **Offline Fallback:** Custom offline page at `app/_offline/page.tsx` for uncached routes
+
+## Development vs Production
+
+* **Development (`npm run dev`):** PWA features are **disabled** to prevent caching issues during development
+* **Production (`npm run build && npm start`):** PWA features are **enabled** - service worker registers automatically
+* **Testing:** Always test PWA features using production build locally
+
+## PWA Configuration
+
+* Configuration in `next.config.ts` using `@ducanh2912/next-pwa`
+* Manifest file: `public/manifest.json`
+* Icons: `public/icons/` (192x192 and 512x512 required)
+* Service worker: Auto-generated in `public/` directory during build

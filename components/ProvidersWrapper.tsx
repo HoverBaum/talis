@@ -7,6 +7,7 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from './ui/sidebar'
 import { Separator } from './ui/separator'
 import { PageTitle } from './PageTitle'
 import { PageTitleProvider } from './PageTitleProvider'
+import { PWAUpdatePrompt } from './PWAUpdatePrompt'
 
 type ProvidersWrapperProps = {
   messages: any
@@ -44,6 +45,7 @@ export function ProvidersWrapper({
           </SidebarProvider>
         </PageTitleProvider>
       </ThemeProvider>
+      <PWAUpdatePrompt />
     </NextIntlClientProvider>
   )
 }
