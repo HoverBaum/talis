@@ -1,6 +1,5 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
 import { ThemeProvider } from './theme-provider'
 import { AppSidebar } from './app-sidebar'
@@ -19,8 +18,6 @@ export function ProvidersWrapper({
   locale,
   children,
 }: ProvidersWrapperProps) {
-  const pathname = usePathname()
-  const isPagesRoute = pathname?.includes('/pages/')
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>
@@ -29,17 +26,13 @@ export function ProvidersWrapper({
           <AppSidebar />
           <SidebarInset>
             <header
-              className={`flex h-16 shrink-0 items-center gap-2 border-b px-4 ${
-                isPagesRoute ? 'sticky top-0 z-10 bg-background' : ''
-              }`}
+              className="flex h-16 shrink-0 items-center gap-2 border-b px-4 sticky top-0 z-10 bg-background"
             >
               <SidebarTrigger className="-ml-1" />
               <Separator orientation="vertical" className="mr-2 h-4" />
             </header>
             <main
-              className={`flex-1 min-h-0 ${
-                isPagesRoute ? 'overflow-y-auto' : 'overflow-hidden'
-              }`}
+              className="flex-1 min-h-0 overflow-y-auto"
             >
               {children}
             </main>
