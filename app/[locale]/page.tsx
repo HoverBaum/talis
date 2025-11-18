@@ -1,5 +1,4 @@
-import { useTranslations } from 'next-intl'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -10,7 +9,8 @@ export async function generateMetadata({
     params: Promise<{ locale: string }>
 }) {
     const { locale } = await params
-    const t = await getTranslations({ locale, namespace: 'Home' })
+    setRequestLocale(locale)
+    const t = await getTranslations('Home')
 
     return {
         title: 'Talis - Dice Rolling',
@@ -24,6 +24,7 @@ export default async function HomePage({
     params: Promise<{ locale: string }>
 }) {
     const { locale } = await params
+    setRequestLocale(locale)
     const t = await getTranslations('Home')
     const navT = await getTranslations('Navigation')
 

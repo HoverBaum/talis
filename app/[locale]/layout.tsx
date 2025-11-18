@@ -1,4 +1,4 @@
-import { getMessages } from 'next-intl/server'
+import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { i18n } from '@/i18n/config'
 import { ProvidersWrapper } from '@/components/providers-wrapper'
@@ -20,6 +20,8 @@ export default async function LocaleLayout({
     notFound()
   }
 
+  // Ensure the locale is available to all server components
+  setRequestLocale(locale)
   const messages = await getMessages()
 
   return <ProvidersWrapper messages={messages} locale={locale}>{children}</ProvidersWrapper>
