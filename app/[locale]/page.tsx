@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { SetPageTitle } from '@/components/PageTitleProvider'
 
 export async function generateMetadata({
     params,
@@ -11,9 +12,10 @@ export async function generateMetadata({
     const { locale } = await params
     setRequestLocale(locale)
     const t = await getTranslations('Home')
+    const navT = await getTranslations('Navigation')
 
     return {
-        title: 'Talis - Dice Rolling',
+        title: `${navT('home')} - Talis`,
         description: t('description'),
     }
 }
@@ -29,11 +31,13 @@ export default async function HomePage({
     const navT = await getTranslations('Navigation')
 
     return (
-        <div className="flex flex-col gap-4 p-4 md:p-8">
-            <div className="space-y-2">
-                <h1 className="text-4xl font-bold">{t('title')}</h1>
-                <p className="text-muted-foreground">{t('description')}</p>
-            </div>
+        <>
+            <SetPageTitle title={navT('home')} />
+            <div className="flex flex-col gap-4 p-4 md:p-8">
+                <div className="space-y-2">
+                    <h1 className="text-4xl font-bold">{t('title')}</h1>
+                    <p className="text-muted-foreground">{t('description')}</p>
+                </div>
 
             <div className="grid gap-4 md:grid-cols-3 mt-8">
                 <Card>
@@ -75,6 +79,7 @@ export default async function HomePage({
                 </Card>
             </div>
         </div>
+        </>
     )
 }
 
