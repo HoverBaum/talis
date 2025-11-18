@@ -1,7 +1,7 @@
 'use client'
 
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createStoreMiddleware } from './store-utils'
 
 const MAX_DICE_AMOUNT = 8
 const INITIAL_DICE_AMOUNT = 1
@@ -36,8 +36,8 @@ export interface D6State {
 }
 
 export const useD6Store = create<D6State>()(
-  persist(
-    (set) => ({
+  createStoreMiddleware({
+    stateCreator: (set) => ({
       diceAmount: INITIAL_DICE_AMOUNT,
       rolls: [],
       config: DEFAULT_CONFIG,
@@ -53,13 +53,13 @@ export const useD6Store = create<D6State>()(
           return { config }
         }),
     }),
-    {
+    persistConfig: {
       name: 'd6-storage',
       partialize: (state) => ({
         config: state.config,
         diceAmount: state.diceAmount,
       }),
-    }
-  )
+    },
+  })
 )
 

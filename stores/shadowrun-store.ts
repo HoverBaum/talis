@@ -1,7 +1,7 @@
 'use client'
 
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createStoreMiddleware } from './store-utils'
 
 const MAX_DICE_AMOUNT = 50
 
@@ -57,8 +57,8 @@ export interface ShadowrunState {
 }
 
 export const useShadowrunStore = create<ShadowrunState>()(
-  persist(
-    (set) => ({
+  createStoreMiddleware({
+    stateCreator: (set) => ({
       diceAmount: 8,
       rolls: [],
       config: DEFAULT_CONFIG,
@@ -100,13 +100,13 @@ export const useShadowrunStore = create<ShadowrunState>()(
           return { config }
         }),
     }),
-    {
+    persistConfig: {
       name: 'shadowrun-storage',
       partialize: (state) => ({
         config: state.config,
         diceAmount: state.diceAmount,
       }),
-    }
-  )
+    },
+  })
 )
 
