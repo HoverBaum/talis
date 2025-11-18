@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { DaggerheartRoll } from '@/stores/daggerheart-store'
+import { DaggerheartRoll } from './daggerheart-store'
 import { Badge } from '@/components/ui/badge'
 
 type DaggerheartResultDisplayProps = {

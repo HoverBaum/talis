@@ -13,7 +13,7 @@
  * Must be placed in a container with a defined height for proper sizing.
  */
 import { useEffect, useRef, useState } from 'react'
-import { useWindowSize } from '@/hooks/use-window-size'
+import { useWindowSize } from '@/utils/use-window-size'
 
 type DiceSelectWheelProps = {
   max: number

@@ -1,8 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { D6RollResult } from '@/stores/d6-store'
-import { useD6Store } from '@/stores/d6-store'
+import { D6RollResult, useD6Store } from './d6-store'
 import { d6Mapping } from '@/utils/dice-constants'
 
 type D6ResultDisplayProps = {

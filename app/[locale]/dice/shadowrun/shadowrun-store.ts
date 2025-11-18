@@ -1,7 +1,7 @@
 'use client'
 
 import { create } from 'zustand'
-import { createStoreMiddleware } from './store-utils'
+import { createStoreMiddleware } from '@/utils/store-utils'
 
 const MAX_DICE_AMOUNT = 50
 

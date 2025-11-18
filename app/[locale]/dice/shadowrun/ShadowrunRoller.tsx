@@ -2,7 +2,7 @@
 
 import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
-import { useShadowrunStore } from '@/stores/shadowrun-store'
+import { useShadowrunStore } from './shadowrun-store'
 import { DiceRollResult } from './DiceRollResult'
 import { DiceSelectWheel } from '@/components/DiceSelectWheel'
 import {
@@ -16,8 +16,8 @@ import { RollerControls } from '@/components/RollerControls'
 import { FreeDiceInput } from './FreeDiceInput'
 import { QuickButton } from './QuickButton'
 import { diceRollVibration } from '@/utils/diceRollVibration'
-import { DiceRollType } from '@/stores/shadowrun-store'
-import { useAutoScroll } from '@/hooks/use-auto-scroll'
+import { DiceRollType } from './shadowrun-store'
+import { useAutoScroll } from '@/utils/use-auto-scroll'
 
 export function ShadowrunRoller() {
   const t = useTranslations('Roller.Shadowrun')
