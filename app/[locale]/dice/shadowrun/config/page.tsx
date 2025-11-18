@@ -1,4 +1,4 @@
-import { ShadowrunConfig } from './components/shadowrun-config'
+import { ShadowrunConfig } from './shadowrun-config'
 
 export default function ShadowrunConfigPage() {
   return (

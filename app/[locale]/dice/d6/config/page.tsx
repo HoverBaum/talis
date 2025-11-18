@@ -1,4 +1,4 @@
-import { D6Config } from './components/d6-config'
+import { D6Config } from './d6-config'
 
 export default function D6ConfigPage() {
   return (

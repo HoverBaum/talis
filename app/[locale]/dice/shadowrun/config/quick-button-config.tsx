@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { QuickButtonType } from '@/stores/shadowrun-store'
-import { FreeDiceInput } from '../../components/free-dice-input'
+import { FreeDiceInput } from '../free-dice-input'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import { Trash2 } from 'lucide-react'

@@ -1,4 +1,4 @@
-import { DaggerheartRoller } from './components/daggerheart-roller'
+import { DaggerheartRoller } from './daggerheart-roller'
 
 export default function DaggerheartPage() {
   return <DaggerheartRoller />

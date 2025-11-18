@@ -1,4 +1,4 @@
-import { ShadowrunRoller } from './components/shadowrun-roller'
+import { ShadowrunRoller } from './shadowrun-roller'
 
 export default function ShadowrunPage() {
   return <ShadowrunRoller />

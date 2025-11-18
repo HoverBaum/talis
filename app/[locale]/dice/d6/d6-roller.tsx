@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useD6Store, D6RollResult, D6 } from '@/stores/d6-store'
-import { DiceSelectWheel } from '../../shadowrun/components/dice-select-wheel'
+import { DiceSelectWheel } from '../shadowrun/dice-select-wheel'
 import { D6ResultDisplay } from './d6-result-display'
 import { Button } from '@/components/ui/button'
 import { Trash2, Settings } from 'lucide-react'
@@ -103,3 +103,4 @@ export function D6Roller() {
     </div>
   )
 }
+

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { useWindowSize } from '../hooks/use-window-size'
+import { useWindowSize } from './hooks/use-window-size'
 
 type DiceSelectWheelProps = {
   max: number
@@ -118,3 +118,4 @@ export function DiceSelectWheel({
     </>
   )
 }
+
