@@ -1,3 +1,7 @@
+---
+description: Guide for working with text in the UI
+alwaysApply: false
+---
 # Internationalization (i18n)
 
 These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.

@@ -1,3 +1,7 @@
+---
+description: Statemanagement using zustand
+alwaysApply: false
+---
 # State Management (Zustand)
 
 These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
