@@ -77,7 +77,7 @@ export function D6Roller() {
           onRoll={() => rollD6(numberOfDice)}
           rollDisabled={numberOfDice <= 0}
           rollLabel={t('roll')}
-          settingsHref="config"
+          settingsHref="d6/config"
         />
       </RollerLayoutFooter>
     </RollerLayout>
