@@ -41,9 +41,9 @@ export const useD6Store = create<D6State>()(
       diceAmount: INITIAL_DICE_AMOUNT,
       rolls: [],
       config: DEFAULT_CONFIG,
-      setDiceAmount: (amount) => set({ diceAmount: amount }),
+      setDiceAmount: (amount: number) => set({ diceAmount: amount }),
       clearRolls: () => set({ rolls: [] }),
-      addRoll: (roll) =>
+      addRoll: (roll: D6RollResult) =>
         set((state) => ({
           rolls: [...state.rolls, roll],
         })),

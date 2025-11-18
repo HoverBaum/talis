@@ -73,26 +73,36 @@ export interface StoreConfig<T> {
  * )
  * ```
  */
-export function createStoreMiddleware<T extends object>(config: StoreConfig<T>) {
+export function createStoreMiddleware<T extends object>(config: StoreConfig<T>): StateCreator<T> {
   const { stateCreator, persistConfig, devtoolsName } = config
 
   // Determine the DevTools name
   const name = devtoolsName || persistConfig?.name || 'Zustand Store'
 
   // If persistence is configured, wrap state creator with persist first
-  let middleware = persistConfig
-    ? persist<T, [], [], Partial<T>>(stateCreator, {
-        name: persistConfig.name,
-        ...(persistConfig.partialize && {
-          partialize: persistConfig.partialize,
-        }),
-      })
-    : stateCreator
+  if (persistConfig) {
+    const persistedMiddleware = persist<T, [], [], Partial<T>>(stateCreator, {
+      name: persistConfig.name,
+      ...(persistConfig.partialize && {
+        partialize: persistConfig.partialize,
+      }),
+    })
+    // Then wrap with devtools (devtools should be outermost to track all changes)
+    // Type assertion needed due to Zustand's strict middleware typing
+    const devtoolsMiddleware = devtools(persistedMiddleware, {
+      name,
+      enabled: process.env.NODE_ENV === 'development',
+    })
+    // Cast to StateCreator to satisfy create<T>()() type requirements
+    return devtoolsMiddleware as unknown as StateCreator<T>
+  }
 
-  // Then wrap with devtools (devtools should be outermost to track all changes)
-  return devtools<T>(middleware, {
+  // If no persistence, just wrap with devtools
+  const devtoolsMiddleware = devtools<T>(stateCreator, {
     name,
     enabled: process.env.NODE_ENV === 'development',
   })
+  // Cast to StateCreator to satisfy create<T>()() type requirements
+  return devtoolsMiddleware as unknown as StateCreator<T>
 }
 
