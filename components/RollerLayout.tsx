@@ -5,55 +5,140 @@
  * 
  * Provides a consistent structure across all dice rollers with:
  * - Full-height flex container
- * - Grid layout for results (10 columns) and optional controls (2 columns)
- * - Scrollable results area with configurable scroll direction
- * - Footer area for action buttons
+ * - Responsive padding (p-2 on mobile, p-4 on desktop)
+ * - Composable sub-components for flexible layout
+ * 
+ * For detailed documentation and usage examples, see [RollerLayout.md](./RollerLayout.md).
  * 
  * Used by D6, Daggerheart, and Shadowrun rollers.
- * Responsive padding (p-2 on mobile, p-4 on desktop).
  */
-import { ReactNode } from 'react'
+import * as React from 'react'
+import { cn } from '@/lib/utils'
 
-type RollerLayoutProps = {
-  resultContainerId: string
+type RollerLayoutResultAreaProps = {
+  id: string
   showNewResultBottom?: boolean
-  resultArea: ReactNode
-  controlArea?: ReactNode
-  footer: ReactNode
+} & React.ComponentProps<'div'>
+
+/**
+ * Scrollable area for displaying dice roll results.
+ * 
+ * Use this component to wrap the list of roll results. It provides:
+ * - Vertical scrolling with hidden scrollbar
+ * - Configurable scroll direction (new results at top or bottom)
+ * - Required `id` prop for auto-scroll hooks
+ * 
+ * When used in a grid layout with RollerLayoutControlArea, add `className = "col-span-10"`.
+ * When used alone, add `className = "h-0 pb-2"` for proper spacing.
+ */
+export const RollerLayoutResultArea = ({
+  id,
+  showNewResultBottom = true,
+  className,
+  ...props
+}: RollerLayoutResultAreaProps) => {
+  return (
+    <div
+      data-slot="roller-layout-result-area"
+      id={id}
+      className={cn(
+        'flex-grow overflow-y-auto scrollbar-none pr-2 flex',
+        showNewResultBottom ? 'flex-col-reverse' : 'flex-col',
+        className
+      )}
+      {...props}
+    />
+  )
 }
 
-export function RollerLayout({
-  resultContainerId,
-  showNewResultBottom = true,
-  resultArea,
-  controlArea,
-  footer,
-}: RollerLayoutProps) {
+/**
+ * Optional control area for dice selection or other controls.
+ * 
+ * Use this component to wrap control elements like dice selectors or configuration
+ * widgets. It provides relative positioning for absolute-positioned children.
+ * 
+ * When used in a grid layout with RollerLayoutResultArea, wrap both in a grid
+ * container and add `className = "col-span-2"` to this component.
+ */
+export const RollerLayoutControlArea = ({
+  className,
+  ...props
+}: React.ComponentProps<'div'>) => {
   return (
-    <div className="h-full min-h-0 flex flex-col">
+    <div
+      data-slot="roller-layout-control-area"
+      className={cn('relative', className)}
+      {...props}
+    />
+  )
+}
+
+/**
+ * Footer area for action buttons and controls.
+ * 
+ * Use this component to wrap the footer content (typically RollerControls).
+ * It provides:
+ * - Fixed height (flex-none) so it doesn't grow
+ * - Top border for visual separation
+ * - Proper padding
+ * 
+ * Should be placed as the last child of RollerLayout.
+ */
+export const RollerLayoutFooter = ({
+  className,
+  ...props
+}: React.ComponentProps<'div'>) => {
+  return (
+    <div
+      data-slot="roller-layout-footer"
+      className={cn('flex-none border-t-2 pt-2', className)}
+      {...props}
+    />
+  )
+}
+
+/**
+ * Wrapper for the main content area (results and controls).
+ * 
+ * Use this component to wrap RollerLayoutResultArea and optionally
+ * RollerLayoutControlArea. It provides the flex-grow container that takes
+ * up available space between the layout padding and footer.
+ * 
+ * Place this as the first child of RollerLayout, before RollerLayoutFooter.
+ */
+export const RollerLayoutContent = ({
+  className,
+  ...props
+}: React.ComponentProps<'div'>) => {
+  return (
+    <div
+      data-slot="roller-layout-content"
+      className={cn('flex-grow flex flex-col h-0', className)}
+      {...props}
+    />
+  )
+}
+
+/**
+ * Root container component for dice roller layouts.
+ * 
+ * Use this as the outermost wrapper for all dice roller layouts. It provides:
+ * - Full-height flex container
+ * - Responsive padding (p-2 on mobile, p-4 on desktop)
+ * - Consistent structure across all rollers
+ * 
+ * Compose with RollerLayoutContent and RollerLayoutFooter as children.
+ */
+export const RollerLayout = ({ className, children, ...props }: React.ComponentProps<'div'>) => {
+  return (
+    <div
+      data-slot="roller-layout"
+      className={cn('h-full min-h-0 flex flex-col', className)}
+      {...props}
+    >
       <div className="flex-grow basis-0 p-2 md:p-4">
         <div className="h-full flex flex-col">
-          {controlArea ? (
-            <div className="flex-grow grid grid-cols-12 h-0 pb-4">
-              <div
-                id={resultContainerId}
-                className={`overflow-y-auto col-span-10 scrollbar-none pr-2 flex ${showNewResultBottom ? 'flex-col-reverse' : 'flex-col'
-                  }`}
-              >
-                {resultArea}
-              </div>
-              <div className="col-span-2 relative">{controlArea}</div>
-            </div>
-          ) : (
-            <div
-              id={resultContainerId}
-              className={`flex-grow overflow-y-auto scrollbar-none pr-2 flex ${showNewResultBottom ? 'flex-col-reverse' : 'flex-col'
-                } h-0 pb-2`}
-            >
-              {resultArea}
-            </div>
-          )}
-          <div className="flex-none border-t-2 pt-2">{footer}</div>
+          {children}
         </div>
       </div>
     </div>

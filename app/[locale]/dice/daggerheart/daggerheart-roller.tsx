@@ -5,7 +5,12 @@ import {
   useDaggerheartStore,
   DaggerheartRoll,
 } from '@/stores/daggerheart-store'
-import { RollerLayout } from '@/components/RollerLayout'
+import {
+  RollerLayout,
+  RollerLayoutResultArea,
+  RollerLayoutFooter,
+  RollerLayoutContent,
+} from '@/components/RollerLayout'
 import { RollerControls } from '@/components/RollerControls'
 import { DaggerheartResultDisplay } from './daggerheart-result-display'
 import { diceRollVibration } from '@/utils/diceRollVibration'
@@ -33,24 +38,30 @@ export function DaggerheartRoller() {
   useAutoScroll('d12Results', true, [rolls])
 
   return (
-    <RollerLayout
-      resultContainerId="d12Results"
-      showNewResultBottom={true}
-      resultArea={[...rolls].reverse().map((roll, index) => (
-        <DaggerheartResultDisplay
-          key={roll.id}
-          roll={roll}
-          isHighlighted={index === 0}
-        />
-      ))}
-      footer={
+    <RollerLayout>
+      <RollerLayoutContent>
+        <RollerLayoutResultArea
+          id="d12Results"
+          showNewResultBottom={true}
+          className="h-0 pb-2"
+        >
+          {[...rolls].reverse().map((roll, index) => (
+            <DaggerheartResultDisplay
+              key={roll.id}
+              roll={roll}
+              isHighlighted={index === 0}
+            />
+          ))}
+        </RollerLayoutResultArea>
+      </RollerLayoutContent>
+      <RollerLayoutFooter>
         <RollerControls
           onClear={clearRolls}
           onRoll={rollDice}
           rollLabel={t('roll')}
         />
-      }
-    />
+      </RollerLayoutFooter>
+    </RollerLayout>
   )
 }
 

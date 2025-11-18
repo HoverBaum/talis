@@ -5,7 +5,13 @@ import { useTranslations } from 'next-intl'
 import { useShadowrunStore } from '@/stores/shadowrun-store'
 import { DiceRollResult } from './dice-roll-result'
 import { DiceSelectWheel } from '@/components/DiceSelectWheel'
-import { RollerLayout } from '@/components/RollerLayout'
+import {
+  RollerLayout,
+  RollerLayoutResultArea,
+  RollerLayoutControlArea,
+  RollerLayoutFooter,
+  RollerLayoutContent,
+} from '@/components/RollerLayout'
 import { RollerControls } from '@/components/RollerControls'
 import { FreeDiceInput } from './free-dice-input'
 import { QuickButton } from './quick-button'
@@ -56,25 +62,33 @@ export function ShadowrunRoller() {
   ])
 
   return (
-    <RollerLayout
-      resultContainerId="d6Results"
-      showNewResultBottom={config.showNewResultBottom}
-      resultArea={[...rolls].reverse().map((roll, index) => (
-        <DiceRollResult
-          diceRoll={roll}
-          isFaded={index > 1}
-          isHighlighted={index === 0}
-          key={roll.timestamp}
-        />
-      ))}
-      controlArea={
-        <DiceSelectWheel
-          max={config.maxDiceAmount}
-          current={numberOfDice}
-          onChange={setNumberOfDice}
-        />
-      }
-      footer={
+    <RollerLayout>
+      <RollerLayoutContent>
+        <div className="flex-grow grid grid-cols-12 h-0 pb-4">
+          <RollerLayoutResultArea
+            id="d6Results"
+            showNewResultBottom={config.showNewResultBottom}
+            className="col-span-10"
+          >
+            {[...rolls].reverse().map((roll, index) => (
+              <DiceRollResult
+                diceRoll={roll}
+                isFaded={index > 1}
+                isHighlighted={index === 0}
+                key={roll.timestamp}
+              />
+            ))}
+          </RollerLayoutResultArea>
+          <RollerLayoutControlArea className="col-span-2">
+            <DiceSelectWheel
+              max={config.maxDiceAmount}
+              current={numberOfDice}
+              onChange={setNumberOfDice}
+            />
+          </RollerLayoutControlArea>
+        </div>
+      </RollerLayoutContent>
+      <RollerLayoutFooter>
         <RollerControls
           onClear={clearRolls}
           onRoll={() => rollD6(numberOfDice)}
@@ -112,8 +126,8 @@ export function ShadowrunRoller() {
             </div>
           )}
         </RollerControls>
-      }
-    />
+      </RollerLayoutFooter>
+    </RollerLayout>
   )
 }
 

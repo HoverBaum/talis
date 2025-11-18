@@ -3,7 +3,13 @@
 import { useTranslations } from 'next-intl'
 import { useD6Store, D6RollResult, D6 } from '@/stores/d6-store'
 import { DiceSelectWheel } from '@/components/DiceSelectWheel'
-import { RollerLayout } from '@/components/RollerLayout'
+import {
+  RollerLayout,
+  RollerLayoutResultArea,
+  RollerLayoutControlArea,
+  RollerLayoutFooter,
+  RollerLayoutContent,
+} from '@/components/RollerLayout'
 import { RollerControls } from '@/components/RollerControls'
 import { D6ResultDisplay } from './d6-result-display'
 import { diceRollVibration } from '@/utils/diceRollVibration'
@@ -40,24 +46,32 @@ export function D6Roller() {
   ])
 
   return (
-    <RollerLayout
-      resultContainerId="d6Results"
-      showNewResultBottom={config.showNewResultBottom}
-      resultArea={[...rolls].reverse().map((roll, index) => (
-        <D6ResultDisplay
-          isHighlighted={index === 0}
-          key={roll.id}
-          diceRoll={roll}
-        />
-      ))}
-      controlArea={
-        <DiceSelectWheel
-          max={config.maxDice}
-          current={numberOfDice}
-          onChange={setNumberOfDice}
-        />
-      }
-      footer={
+    <RollerLayout>
+      <RollerLayoutContent>
+        <div className="flex-grow grid grid-cols-12 h-0 pb-4">
+          <RollerLayoutResultArea
+            id="d6Results"
+            showNewResultBottom={config.showNewResultBottom}
+            className="col-span-10"
+          >
+            {[...rolls].reverse().map((roll, index) => (
+              <D6ResultDisplay
+                isHighlighted={index === 0}
+                key={roll.id}
+                diceRoll={roll}
+              />
+            ))}
+          </RollerLayoutResultArea>
+          <RollerLayoutControlArea className="col-span-2">
+            <DiceSelectWheel
+              max={config.maxDice}
+              current={numberOfDice}
+              onChange={setNumberOfDice}
+            />
+          </RollerLayoutControlArea>
+        </div>
+      </RollerLayoutContent>
+      <RollerLayoutFooter>
         <RollerControls
           onClear={clearRolls}
           onRoll={() => rollD6(numberOfDice)}
@@ -65,8 +79,8 @@ export function D6Roller() {
           rollLabel={t('roll')}
           settingsHref="config"
         />
-      }
-    />
+      </RollerLayoutFooter>
+    </RollerLayout>
   )
 }
 
