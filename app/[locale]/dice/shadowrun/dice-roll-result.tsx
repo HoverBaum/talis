@@ -4,15 +4,7 @@ import { useTranslations } from 'next-intl'
 import { DiceRollType } from '@/stores/shadowrun-store'
 import { useShadowrunStore } from '@/stores/shadowrun-store'
 import { Badge } from '@/components/ui/badge'
-
-const d6Mapping = {
-    1: '⚀',
-    2: '⚁',
-    3: '⚂',
-    4: '⚃',
-    5: '⚄',
-    6: '⚅',
-}
+import { d6Mapping } from '@/utils/dice-constants'
 
 type DiceRollResultProps = {
     diceRoll: DiceRollType

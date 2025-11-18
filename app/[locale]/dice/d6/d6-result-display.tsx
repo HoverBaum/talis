@@ -3,15 +3,7 @@
 import { useTranslations } from 'next-intl'
 import { D6RollResult } from '@/stores/d6-store'
 import { useD6Store } from '@/stores/d6-store'
-
-const d6Mapping = {
-  1: '⚀',
-  2: '⚁',
-  3: '⚂',
-  4: '⚃',
-  5: '⚄',
-  6: '⚅',
-}
+import { d6Mapping } from '@/utils/dice-constants'
 
 type D6ResultDisplayProps = {
   diceRoll: D6RollResult
@@ -35,9 +27,8 @@ export function D6ResultDisplay({
 
   return (
     <div
-      className={`animate-fadeIn p-2 mb-4 ${
-        isHighlighted && 'bg-muted border-2 rounded-lg'
-      }`}
+      className={`animate-fadeIn p-2 mb-4 ${isHighlighted && 'bg-muted border-2 rounded-lg'
+        }`}
     >
       {sumDice && (
         <span className={`${isHighlighted ? 'text-3xl' : 'text-xl'}`}>

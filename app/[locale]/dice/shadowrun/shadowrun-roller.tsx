@@ -1,17 +1,17 @@
 'use client'
 
-import { useEffect, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
-import Link from 'next/link'
 import { useShadowrunStore } from '@/stores/shadowrun-store'
 import { DiceRollResult } from './dice-roll-result'
-import { DiceSelectWheel } from './dice-select-wheel'
+import { DiceSelectWheel } from '@/components/DiceSelectWheel'
+import { RollerLayout } from '@/components/RollerLayout'
+import { RollerControls } from '@/components/RollerControls'
 import { FreeDiceInput } from './free-dice-input'
 import { QuickButton } from './quick-button'
-import { Button } from '@/components/ui/button'
-import { Trash2, Settings } from 'lucide-react'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { DiceRollType } from '@/stores/shadowrun-store'
+import { useAutoScroll } from '@/hooks/use-auto-scroll'
 
 export function ShadowrunRoller() {
   const t = useTranslations('Roller.Shadowrun')
@@ -50,111 +50,70 @@ export function ShadowrunRoller() {
     [rolls.length, addRoll]
   )
 
-  useEffect(() => {
-    const resultContainer = document.getElementById('d6Results')
-    if (resultContainer) {
-      if (config.showNewResultBottom) {
-        resultContainer.scrollTo({
-          top: resultContainer.scrollHeight,
-          behavior: 'smooth',
-        })
-      } else {
-        resultContainer.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        })
-      }
-    }
-  }, [rolls, config.showNewResultBottom])
+  useAutoScroll('d6Results', config.showNewResultBottom, [
+    rolls,
+    config.showNewResultBottom,
+  ])
 
   return (
-    <div className="h-full min-h-0 flex flex-col">
-      <div className="grow basis-0 p-2 md:p-4">
-        <div className="h-full flex flex-col">
-          <div className="grow grid grid-cols-12 h-0 pb-4">
-            <div
-              id="d6Results"
-              className={`overflow-y-auto col-span-10 scrollbar-none pr-2 flex ${
-                config.showNewResultBottom ? 'flex-col-reverse' : 'flex-col'
-              }`}
-            >
-              {[...rolls].reverse().map((roll, index) => (
-                <DiceRollResult
-                  diceRoll={roll}
-                  isFaded={index > 1}
-                  isHighlighted={index === 0}
-                  key={roll.timestamp}
+    <RollerLayout
+      resultContainerId="d6Results"
+      showNewResultBottom={config.showNewResultBottom}
+      resultArea={[...rolls].reverse().map((roll, index) => (
+        <DiceRollResult
+          diceRoll={roll}
+          isFaded={index > 1}
+          isHighlighted={index === 0}
+          key={roll.timestamp}
+        />
+      ))}
+      controlArea={
+        <DiceSelectWheel
+          max={config.maxDiceAmount}
+          current={numberOfDice}
+          onChange={setNumberOfDice}
+        />
+      }
+      footer={
+        <RollerControls
+          onClear={clearRolls}
+          onRoll={() => rollD6(numberOfDice)}
+          rollDisabled={numberOfDice <= 0}
+          rollLabel={t('roll')}
+          settingsHref="shadowrun/config"
+        >
+          {config.useFreeInput && (
+            <FreeDiceInput
+              numberOfDice={numberOfDice}
+              onNewNumber={setNumberOfDice}
+              maxDiceAmount={config.maxDiceAmount}
+            />
+          )}
+
+          {config.useFreeInput && config.useQuickButtons && (
+            <div className="h-8 w-px bg-border" />
+          )}
+
+          {config.useQuickButtons && (
+            <div className="overflow-x-auto flex py-2">
+              {config.quickButtons.map((quickButton) => (
+                <QuickButton
+                  quickButton={quickButton}
+                  key={quickButton.id}
+                  onClick={() => {
+                    if (quickButton.type === 'instantRoll') {
+                      rollD6(quickButton.amount)
+                    } else {
+                      setNumberOfDice(quickButton.amount)
+                    }
+                  }}
                 />
               ))}
             </div>
-            <div className="col-span-2 relative">
-              <DiceSelectWheel
-                max={config.maxDiceAmount}
-                current={numberOfDice}
-                onChange={setNumberOfDice}
-              />
-            </div>
-          </div>
-          <div className="flex-none border-t-2">
-            <div className="flex items-center justify-between py-2">
-              <div className="flex items-center gap-4">
-                {config.useFreeInput && (
-                  <FreeDiceInput
-                    numberOfDice={numberOfDice}
-                    onNewNumber={setNumberOfDice}
-                    maxDiceAmount={config.maxDiceAmount}
-                  />
-                )}
-
-                {config.useFreeInput && config.useQuickButtons && (
-                  <div className="h-8 w-px bg-border" />
-                )}
-
-                {config.useQuickButtons && (
-                  <div className="overflow-x-auto flex py-2">
-                    {config.quickButtons.map((quickButton) => (
-                      <QuickButton
-                        quickButton={quickButton}
-                        key={quickButton.id}
-                        onClick={() => {
-                          if (quickButton.type === 'instantRoll') {
-                            rollD6(quickButton.amount)
-                          } else {
-                            setNumberOfDice(quickButton.amount)
-                          }
-                        }}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div className="flex gap-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => clearRolls()}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="icon" asChild>
-                  <Link href="shadowrun/config">
-                    <Settings className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-
-            <Button
-              disabled={numberOfDice <= 0}
-              className="w-full my-2"
-              onClick={() => rollD6(numberOfDice)}
-            >
-              {t('roll')}
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
+          )}
+        </RollerControls>
+      }
+    />
   )
 }
 

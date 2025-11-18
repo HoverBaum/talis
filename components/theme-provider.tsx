@@ -37,17 +37,45 @@ export function ThemeProvider({
 
     root.classList.remove('light', 'dark', 'talisTheme', 'cyberpunk', 'shadowrun', 'synthwave')
 
+    const updateTheme = () => {
+      if (theme === 'system') {
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light'
+        root.classList.add(systemTheme)
+        root.removeAttribute('data-theme')
+      } else if (theme === 'light' || theme === 'dark') {
+        root.classList.add(theme)
+        root.removeAttribute('data-theme')
+      } else {
+        root.setAttribute('data-theme', theme)
+      }
+    }
+
+    updateTheme()
+
     if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light'
-      root.classList.add(systemTheme)
-      root.removeAttribute('data-theme')
-    } else if (theme === 'light' || theme === 'dark') {
-      root.classList.add(theme)
-      root.removeAttribute('data-theme')
-    } else {
-      root.setAttribute('data-theme', theme)
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+      const handleChange = () => {
+        root.classList.remove('light', 'dark')
+        const systemTheme = mediaQuery.matches ? 'dark' : 'light'
+        root.classList.add(systemTheme)
+        root.removeAttribute('data-theme')
+      }
+
+      // Use addEventListener for better browser support
+      if (mediaQuery.addEventListener) {
+        mediaQuery.addEventListener('change', handleChange)
+        return () => {
+          mediaQuery.removeEventListener('change', handleChange)
+        }
+      } else {
+        // Fallback for older browsers
+        mediaQuery.addListener(handleChange)
+        return () => {
+          mediaQuery.removeListener(handleChange)
+        }
+      }
     }
   }, [theme])
 
