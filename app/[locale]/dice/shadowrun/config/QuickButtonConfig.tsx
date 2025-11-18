@@ -1,12 +1,12 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { QuickButtonType } from '@/stores/shadowrun-store'
+import { QuickButtonType } from '../shadowrun-store'
 import { FreeDiceInput } from '../FreeDiceInput'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import { Trash2 } from 'lucide-react'
-import { useShadowrunStore } from '@/stores/shadowrun-store'
+import { useShadowrunStore } from '../shadowrun-store'
 import { Separator } from '@/components/ui/separator'
 
 type QuickButtonConfigProps = {

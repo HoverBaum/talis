@@ -1,8 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { DiceRollType } from '@/stores/shadowrun-store'
-import { useShadowrunStore } from '@/stores/shadowrun-store'
+import { DiceRollType, useShadowrunStore } from './shadowrun-store'
 import { Badge } from '@/components/ui/badge'
 import { d6Mapping } from '@/utils/dice-constants'
 

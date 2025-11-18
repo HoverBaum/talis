@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { useD6Store, D6RollResult, D6 } from '@/stores/d6-store'
+import { useD6Store, D6RollResult, D6 } from './d6-store'
 import { DiceSelectWheel } from '@/components/DiceSelectWheel'
 import {
   RollerLayout,
@@ -13,7 +13,7 @@ import {
 import { RollerControls } from '@/components/RollerControls'
 import { D6ResultDisplay } from './D6ResultDisplay'
 import { diceRollVibration } from '@/utils/diceRollVibration'
-import { useAutoScroll } from '@/hooks/use-auto-scroll'
+import { useAutoScroll } from '@/utils/use-auto-scroll'
 
 export function D6Roller() {
   const t = useTranslations('General')

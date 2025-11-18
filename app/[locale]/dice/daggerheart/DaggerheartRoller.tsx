@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl'
 import {
   useDaggerheartStore,
   DaggerheartRoll,
-} from '@/stores/daggerheart-store'
+} from './daggerheart-store'
 import {
   RollerLayout,
   RollerLayoutResultArea,
@@ -14,7 +14,7 @@ import {
 import { RollerControls } from '@/components/RollerControls'
 import { DaggerheartResultDisplay } from './DaggerheartResultDisplay'
 import { diceRollVibration } from '@/utils/diceRollVibration'
-import { useAutoScroll } from '@/hooks/use-auto-scroll'
+import { useAutoScroll } from '@/utils/use-auto-scroll'
 
 export function DaggerheartRoller() {
   const t = useTranslations('Roller.Daggerheart')
