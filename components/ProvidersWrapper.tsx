@@ -13,6 +13,7 @@ import { RegisterServiceWorker } from '@/app/register-sw'
 type ProvidersWrapperProps = {
   messages: any
   locale: string
+  timeZone?: string
   children: React.ReactNode
 }
 
@@ -20,11 +21,12 @@ type ProvidersWrapperProps = {
 export function ProvidersWrapper({
   messages,
   locale,
+  timeZone = 'UTC',
   children,
 }: ProvidersWrapperProps) {
 
   return (
-    <NextIntlClientProvider messages={messages} locale={locale}>
+    <NextIntlClientProvider messages={messages} locale={locale} timeZone={timeZone}>
       <ThemeProvider defaultTheme="system" storageKey="talis-theme">
         <PageTitleProvider>
           <SidebarProvider>

@@ -24,6 +24,6 @@ export default async function LocaleLayout({
   setRequestLocale(locale)
   const messages = await getMessages()
 
-  return <ProvidersWrapper messages={messages} locale={locale}>{children}</ProvidersWrapper>
+  return <ProvidersWrapper messages={messages} locale={locale} timeZone={i18n.timeZone}>{children}</ProvidersWrapper>
 }
 
