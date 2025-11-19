@@ -12,7 +12,7 @@
  * Used by all dice rollers with consistent styling and behavior.
  * The roll button label should be passed as a translated string from the parent component.
  */
-import { ReactNode } from 'react'
+import { ReactNode, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Settings, BrushCleaningIcon } from 'lucide-react'
@@ -27,61 +27,72 @@ type RollerControlsProps = {
     children?: ReactNode
 }
 
-export function RollerControls({
+const ClearButtonWithTooltip = ({ onClear }: { onClear: () => void }) => {
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
+    const clearButton = (
+        <Button variant="ghost" size="icon" onClick={onClear}>
+            <BrushCleaningIcon className="h-4 w-4" />
+        </Button>
+    )
+
+    if (!mounted) {
+        return clearButton
+    }
+
+    return (
+        <Tooltip delayDuration={700}>
+            <TooltipTrigger asChild>
+                {clearButton}
+            </TooltipTrigger>
+            <TooltipContent>
+                <p>Clear rolls</p>
+            </TooltipContent>
+        </Tooltip>
+    )
+}
+
+const SettingsButton = ({ href }: { href: string }) => {
+    return (
+        <Button variant="ghost" size="icon" asChild>
+            <Link href={href}>
+                <Settings className="h-4 w-4" />
+            </Link>
+        </Button>
+    )
+}
+
+const ActionButtons = ({ onClear, settingsHref }: { onClear: () => void; settingsHref?: string }) => {
+    return (
+        <div className="flex gap-2">
+            <ClearButtonWithTooltip onClear={onClear} />
+            {settingsHref && <SettingsButton href={settingsHref} />}
+        </div>
+    )
+}
+
+export const RollerControls = ({
     onClear,
     onRoll,
     rollDisabled = false,
     rollLabel,
     settingsHref,
     children,
-}: RollerControlsProps) {
-
+}: RollerControlsProps) => {
     return (
         <>
-            {children && (
+            {children ? (
                 <div className="flex items-center justify-between py-2">
                     <div className="flex items-center gap-4">{children}</div>
-                    <div className="flex gap-2">
-                        <Tooltip delayDuration={700}>
-                            <TooltipTrigger asChild>
-                                <Button variant="ghost" size="icon" onClick={onClear}>
-                                    <BrushCleaningIcon className="h-4 w-4" />
-                                </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                <p>Clear rolls</p>
-                            </TooltipContent>
-                        </Tooltip>
-                        {settingsHref && (
-                            <Button variant="ghost" size="icon" asChild>
-                                <Link href={settingsHref}>
-                                    <Settings className="h-4 w-4" />
-                                </Link>
-                            </Button>
-                        )}
-                    </div>
+                    <ActionButtons onClear={onClear} settingsHref={settingsHref} />
                 </div>
-            )}
-            {!children && (
+            ) : (
                 <div className="flex justify-end gap-2 mb-2">
-                    <Tooltip delayDuration={700}>
-                        <TooltipTrigger asChild>
-                            <Button variant="ghost" size="icon" onClick={onClear}>
-                                <BrushCleaningIcon className="h-4 w-4" />
-                            </Button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            <p>Clear rolls</p>
-                        </TooltipContent>
-                    </Tooltip>
-
-                    {settingsHref && (
-                        <Button variant="ghost" size="icon" asChild>
-                            <Link href={settingsHref}>
-                                <Settings className="h-4 w-4" />
-                            </Link>
-                        </Button>
-                    )}
+                    <ActionButtons onClear={onClear} settingsHref={settingsHref} />
                 </div>
             )}
             <Button
