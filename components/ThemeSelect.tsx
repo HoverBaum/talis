@@ -10,6 +10,8 @@ import {
 } from '@/components/ui/select'
 import { useTranslations } from 'next-intl'
 
+type Theme = 'system' | 'light' | 'dark' | 'talisTheme' | 'cyberpunk' | 'shadowrun' | 'synthwave'
+
 type ThemeSelectProps = {
   className?: string
   withLabel?: boolean
@@ -26,7 +28,7 @@ export function ThemeSelect({ className, withLabel = false }: ThemeSelectProps) 
           {t('select')}
         </label>
       )}
-      <Select value={theme} onValueChange={(value) => setTheme(value as any)}>
+      <Select value={theme} onValueChange={(value) => setTheme(value as Theme)}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder={t('select')} />
         </SelectTrigger>

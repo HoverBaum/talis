@@ -15,14 +15,11 @@ export function PWAUpdatePrompt() {
       return
     }
 
-    let registration: ServiceWorkerRegistration | null = null
-
     const handleServiceWorkerUpdate = () => {
       navigator.serviceWorker
         .getRegistration()
         .then((reg) => {
           if (!reg) return
-          registration = reg
 
           // Check if there's a waiting service worker
           if (reg.waiting) {

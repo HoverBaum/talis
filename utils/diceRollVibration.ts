@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const diceRollVibration = (numberOfDice: number) => {
   // Check if the Vibration API is supported in the browser
   if ('vibrate' in navigator) {

@@ -12,17 +12,16 @@ type BeforeInstallPromptEvent = Event & {
 
 export function PWAInstallPrompt() {
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null)
-  const [isInstalled, setIsInstalled] = useState(false)
+  const [isInstalled, setIsInstalled] = useState(() => {
+    if (typeof window === 'undefined') {
+      return false
+    }
+    return window.matchMedia('(display-mode: standalone)').matches
+  })
   const t = useTranslations('PWA')
 
   useEffect(() => {
-    if (typeof window === 'undefined') {
-      return
-    }
-
-    // Check if app is already installed
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      setIsInstalled(true)
+    if (typeof window === 'undefined' || isInstalled) {
       return
     }
 
@@ -51,7 +50,7 @@ export function PWAInstallPrompt() {
       window.removeEventListener('appinstalled', checkInstalled)
       clearInterval(interval)
     }
-  }, [])
+  }, [isInstalled])
 
   const handleInstall = async () => {
     if (!installPrompt) {

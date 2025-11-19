@@ -1,6 +1,6 @@
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
-import { i18n } from '@/i18n/config'
+import { i18n, type Locale } from '@/i18n/config'
 import { ProvidersWrapper } from '@/components/ProvidersWrapper'
 
 export function generateStaticParams() {
@@ -16,7 +16,7 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params
 
-  if (!i18n.locales.includes(locale as any)) {
+  if (!i18n.locales.includes(locale as Locale)) {
     notFound()
   }
 

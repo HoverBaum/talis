@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useTranslations } from 'next-intl'
-import { i18n } from '@/i18n/config'
+import { i18n, type Locale } from '@/i18n/config'
 
 type LanguageSelectProps = {
   className?: string
@@ -24,7 +24,7 @@ export function LanguageSelect({ className }: LanguageSelectProps) {
 
   const handleLanguageChange = (newLocale: string) => {
     const segments = pathname.split('/').filter(Boolean)
-    if (i18n.locales.includes(segments[0] as any)) {
+    if (i18n.locales.includes(segments[0] as Locale)) {
       segments[0] = newLocale
     } else {
       segments.unshift(newLocale)

@@ -12,7 +12,7 @@
  * Used by all dice rollers with consistent styling and behavior.
  * The roll button label should be passed as a translated string from the parent component.
  */
-import { ReactNode, useState, useEffect } from 'react'
+import { ReactNode } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Settings, BrushCleaningIcon } from 'lucide-react'
@@ -28,21 +28,11 @@ type RollerControlsProps = {
 }
 
 const ClearButtonWithTooltip = ({ onClear }: { onClear: () => void }) => {
-    const [mounted, setMounted] = useState(false)
-
-    useEffect(() => {
-        setMounted(true)
-    }, [])
-
     const clearButton = (
         <Button variant="ghost" size="icon" onClick={onClear}>
             <BrushCleaningIcon className="h-4 w-4" />
         </Button>
     )
-
-    if (!mounted) {
-        return clearButton
-    }
 
     return (
         <Tooltip delayDuration={700}>

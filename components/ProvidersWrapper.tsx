@@ -11,7 +11,7 @@ import { PWAUpdatePrompt } from './PWAUpdatePrompt'
 import { RegisterServiceWorker } from '@/app/register-sw'
 
 type ProvidersWrapperProps = {
-  messages: any
+  messages: Record<string, unknown>
   locale: string
   timeZone?: string
   children: React.ReactNode
