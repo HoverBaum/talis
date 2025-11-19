@@ -1,7 +1,10 @@
 {
   "Home": {
     "title": "Dice Roller",
-    "description": "Choose a Dice Roller from the list below."
+    "description": "Choose a Dice Roller from the list below.",
+    "shadowrunDescription": "Shadowrun dice roller",
+    "d6Description": "General purpose D6 roller",
+    "daggerheartDescription": "Daggerheart dice roller"
   },
   "Roller": {
     "Shadowrun": {

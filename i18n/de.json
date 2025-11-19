@@ -1,7 +1,10 @@
 {
   "Home": {
     "title": "Würfel App",
-    "description": "Wähle zwischen folgenden Apps."
+    "description": "Wähle zwischen folgenden Apps.",
+    "shadowrunDescription": "Shadowrun Würfel App",
+    "d6Description": "Allgemeine D6 Würfel App",
+    "daggerheartDescription": "Daggerheart Würfel App"
   },
   "Roller": {
     "Shadowrun": {
