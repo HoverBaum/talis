@@ -8,6 +8,7 @@ import { Separator } from './ui/separator'
 import { PageTitle } from './PageTitle'
 import { PageTitleProvider } from './PageTitleProvider'
 import { PWAUpdatePrompt } from './PWAUpdatePrompt'
+import { RegisterServiceWorker } from '@/app/register-sw'
 
 type ProvidersWrapperProps = {
   messages: any
@@ -45,6 +46,7 @@ export function ProvidersWrapper({
           </SidebarProvider>
         </PageTitleProvider>
       </ThemeProvider>
+      <RegisterServiceWorker />
       <PWAUpdatePrompt />
     </NextIntlClientProvider>
   )

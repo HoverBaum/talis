@@ -15,7 +15,6 @@ export function PWAUpdatePrompt() {
       return
     }
 
-    let updateInterval: NodeJS.Timeout | null = null
     let registration: ServiceWorkerRegistration | null = null
 
     const handleServiceWorkerUpdate = () => {
@@ -31,7 +30,7 @@ export function PWAUpdatePrompt() {
             setUpdateAvailable(true)
           }
 
-          // Listen for updates
+          // Listen for updates (RegisterServiceWorker handles periodic checks)
           const handleUpdateFound = () => {
             const newWorker = reg.installing
             if (!newWorker) return
@@ -48,16 +47,9 @@ export function PWAUpdatePrompt() {
           }
 
           reg.addEventListener('updatefound', handleUpdateFound)
-
-          // Check for updates periodically
-          updateInterval = setInterval(() => {
-            reg.update().catch((error) => {
-              console.error('Error checking for updates:', error)
-            })
-          }, 60000) // Check every minute
         })
         .catch((error) => {
-          console.error('Service worker registration error:', error)
+          console.error('[PWA] Service worker registration error:', error)
         })
     }
 
@@ -79,13 +71,6 @@ export function PWAUpdatePrompt() {
     navigator.serviceWorker.addEventListener('controllerchange', handleControllerChange)
 
     return () => {
-      if (updateInterval) {
-        clearInterval(updateInterval)
-      }
-      if (registration) {
-        // Note: We can't easily remove the updatefound listener as we don't have a reference
-        // This is acceptable as the component will unmount
-      }
       navigator.serviceWorker.removeEventListener('controllerchange', handleControllerChange)
     }
   }, [])

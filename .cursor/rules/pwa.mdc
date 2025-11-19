@@ -8,7 +8,7 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 
 Talis is a **fully offline-capable Progressive Web App (PWA)**:
 
-* **Service Worker:** Automatically registered in production builds (disabled in development)
+* **Service Worker:** Manually implemented service worker registered in production builds (disabled in development)
 * **Offline Functionality:** All dice rollers and features work without internet connection
 * **Install Prompt:** Users can install the app via install button in sidebar
 * **Update Notifications:** Automatic detection and user notification when new versions are available
@@ -23,7 +23,12 @@ Talis is a **fully offline-capable Progressive Web App (PWA)**:
 
 ## PWA Configuration
 
-* Configuration in `next.config.ts` using `@ducanh2912/next-pwa`
-* Manifest file: `public/manifest.json`
-* Icons: `public/icons/` (192x192 and 512x512 required)
-* Service worker: Auto-generated in `public/` directory during build
+* **Service Worker:** Manual implementation in `public/sw.js`
+  * Network-first strategy for HTML/API routes
+  * Cache-first strategy for static assets (CSS, JS, images, fonts)
+  * Cache versioning tied to app version for proper invalidation
+* **Service Worker Registration:** `app/register-sw.tsx` component registers the service worker on app load
+* **Update Detection:** `components/PWAUpdatePrompt.tsx` detects and notifies users of available updates
+* **Manifest file:** `public/manifest.json`
+* **Icons:** `public/icons/` (192x192 and 512x512 required)
+* **Next.js Config:** `images.unoptimized: true` required for offline image support
