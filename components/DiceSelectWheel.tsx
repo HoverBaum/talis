@@ -121,7 +121,8 @@ export function DiceSelectWheel({
             key={number}
             id={`number-${number}`}
             data-number={number}
-            className="snap-center my-4 grow flex justify-center items-center cursor-pointer text-2xl"
+            className={`snap-center my-4 grow flex justify-center items-center cursor-pointer text-2xl ${number === current ? 'font-bold' : ''
+              }`}
             onClick={() => onChange(number)}
           >
             {number}
