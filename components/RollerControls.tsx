@@ -16,6 +16,7 @@ import { ReactNode } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Settings, BrushCleaningIcon } from 'lucide-react'
+import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 
 type RollerControlsProps = {
     onClear: () => void
@@ -41,9 +42,16 @@ export function RollerControls({
                 <div className="flex items-center justify-between py-2">
                     <div className="flex items-center gap-4">{children}</div>
                     <div className="flex gap-2">
-                        <Button variant="ghost" size="icon" onClick={onClear}>
-                            <BrushCleaningIcon className="h-4 w-4" />
-                        </Button>
+                        <Tooltip delayDuration={700}>
+                            <TooltipTrigger asChild>
+                                <Button variant="ghost" size="icon" onClick={onClear}>
+                                    <BrushCleaningIcon className="h-4 w-4" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Clear rolls</p>
+                            </TooltipContent>
+                        </Tooltip>
                         {settingsHref && (
                             <Button variant="ghost" size="icon" asChild>
                                 <Link href={settingsHref}>
@@ -56,9 +64,17 @@ export function RollerControls({
             )}
             {!children && (
                 <div className="flex justify-end gap-2 mb-2">
-                    <Button variant="ghost" size="icon" onClick={onClear}>
-                        <BrushCleaningIcon className="h-4 w-4" />
-                    </Button>
+                    <Tooltip delayDuration={700}>
+                        <TooltipTrigger asChild>
+                            <Button variant="ghost" size="icon" onClick={onClear}>
+                                <BrushCleaningIcon className="h-4 w-4" />
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p>Clear rolls</p>
+                        </TooltipContent>
+                    </Tooltip>
+
                     {settingsHref && (
                         <Button variant="ghost" size="icon" asChild>
                             <Link href={settingsHref}>
