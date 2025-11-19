@@ -1,6 +1,6 @@
 'use client'
 
-import * as React from 'react'
+import { type ComponentProps } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -17,20 +17,27 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  useSidebar,
 } from '@/components/ui/sidebar'
 import { ThemeSelect } from './ThemeSelect'
 import { LanguageSelect } from './LanguageSelect'
 import { PWAInstallPrompt } from './PWAInstallPrompt'
 import talisLogo from '@/public/talis-dice.png'
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
   const locale = useLocale()
   const t = useTranslations('Navigation')
   const tPWA = useTranslations('PWA')
-  
+  const { setOpenMobile } = useSidebar()
+
   // Get version from environment variable (set at build time in next.config.ts)
   const appVersion = process.env.NEXT_PUBLIC_APP_VERSION || '0.1.0'
+
+  // Close sidebar on mobile when navigating
+  const handleMobileNavigation = () => {
+    setOpenMobile(false)
+  }
 
   const mainNav = [
     {
@@ -78,7 +85,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Link href={`/${locale}`} className="flex items-center gap-2">
+              <Link href={`/${locale}`} className="flex items-center gap-2" onClick={handleMobileNavigation}>
                 <Image
                   src={talisLogo}
                   width={32}
@@ -101,7 +108,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               {mainNav.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={isActive(item.url)}>
-                    <Link href={item.url}>{item.title}</Link>
+                    <Link href={item.url} onClick={handleMobileNavigation}>{item.title}</Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -115,7 +122,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               {rollersNav.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={isActive(item.url)}>
-                    <Link href={item.url}>{item.title}</Link>
+                    <Link href={item.url} onClick={handleMobileNavigation}>{item.title}</Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

@@ -24,6 +24,20 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 
 * Prefer arrow functions.
 
+## Imports
+
+* **Do NOT** use the `React.something` pattern. Instead, import functions and types directly from `'react'`:
+
+  ```tsx
+  // Good
+  import { useEffect, type ComponentProps } from 'react'
+  useEffect(() => { ... })
+  ComponentProps<...>
+  ```
+
+* Import hooks, utilities, and types directly by name.
+* Use `type` keyword for type-only imports when appropriate.
+
 ## Component Description Block
 
 Each React component file **must** start with a description block. This description focuses especially on **non-functional requirements** and intended usage.
