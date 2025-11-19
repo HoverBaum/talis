@@ -13,22 +13,6 @@ export function RegisterServiceWorker() {
             return
         }
 
-        // Check if we should register the service worker
-        // In Next.js, NODE_ENV is replaced at build time
-        const isDevelopment = process.env.NODE_ENV === 'development'
-        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-
-        // Register in production, or in development when:
-        // 1. Explicitly enabled via NEXT_PUBLIC_ENABLE_SW=true, OR
-        // 2. Running on localhost (for testing with https)
-        const shouldRegister = !isDevelopment || process.env.NEXT_PUBLIC_ENABLE_SW === 'true' || isLocalhost
-
-        if (!shouldRegister) {
-            console.log('[PWA] Service Worker registration skipped in development mode')
-            console.log('[PWA] Set NEXT_PUBLIC_ENABLE_SW=true to enable in development')
-            return
-        }
-
         let registration: ServiceWorkerRegistration | null = null
 
         const registerServiceWorker = async () => {
