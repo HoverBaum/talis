@@ -15,7 +15,7 @@
 import { ReactNode } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Trash2, Settings } from 'lucide-react'
+import { Settings, BrushCleaningIcon } from 'lucide-react'
 
 type RollerControlsProps = {
     onClear: () => void
@@ -42,7 +42,7 @@ export function RollerControls({
                     <div className="flex items-center gap-4">{children}</div>
                     <div className="flex gap-2">
                         <Button variant="ghost" size="icon" onClick={onClear}>
-                            <Trash2 className="h-4 w-4" />
+                            <BrushCleaningIcon className="h-4 w-4" />
                         </Button>
                         {settingsHref && (
                             <Button variant="ghost" size="icon" asChild>
@@ -57,7 +57,7 @@ export function RollerControls({
             {!children && (
                 <div className="flex justify-end gap-2 mb-2">
                     <Button variant="ghost" size="icon" onClick={onClear}>
-                        <Trash2 className="h-4 w-4" />
+                        <BrushCleaningIcon className="h-4 w-4" />
                     </Button>
                     {settingsHref && (
                         <Button variant="ghost" size="icon" asChild>
