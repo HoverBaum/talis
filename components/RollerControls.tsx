@@ -28,16 +28,12 @@ type RollerControlsProps = {
 }
 
 const ClearButtonWithTooltip = ({ onClear }: { onClear: () => void }) => {
-    const clearButton = (
-        <Button variant="ghost" size="icon" onClick={onClear}>
-            <BrushCleaningIcon className="h-4 w-4" />
-        </Button>
-    )
-
     return (
         <Tooltip delayDuration={700}>
-            <TooltipTrigger asChild>
-                {clearButton}
+            <TooltipTrigger asChild >
+                <Button variant="ghost" size="icon" onClick={onClear} >
+                    <BrushCleaningIcon className="h-4 w-4" />
+                </Button>
             </TooltipTrigger>
             <TooltipContent>
                 <p>Clear rolls</p>
