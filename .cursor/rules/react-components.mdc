@@ -1,6 +1,6 @@
 ---
 description: React component developer guide
-alwaysApply: false
+alwaysApply: true
 ---
 # React Components
 
