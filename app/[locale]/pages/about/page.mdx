@@ -3,6 +3,7 @@ export const metadata = {
 }
 
 import { SetPageTitle } from '@/components/PageTitleProvider'
+import { PWAInstallPrompt } from '@/components/PWAInstallPrompt'
 
 <SetPageTitle title="About" />
 
@@ -18,7 +19,9 @@ Feel free to [reach out](https://hoverbaum.net/me#contact) 😁
 
 Talis is optimized for use on mobile and works fully offline as a Progressive Web App (PWA).
 
-On mobile it will work best if used in "fullscreen" or as an installed application, as it is designed to use your entire screen. You can install it from your browser's menu or use the install button in the sidebar. Once installed, Talis works completely offline - all dice rollers and features are available without an internet connection.
+On mobile it will work best if used in "fullscreen" or as an installed application, as it is designed to use your entire screen. You can install it from your browser's menu or use the install button below. Once installed, Talis works completely offline - all dice rollers and features are available without an internet connection.
+
+<PWAInstallPrompt showInstalledHint={true} />
 
 ## Color Theme
 

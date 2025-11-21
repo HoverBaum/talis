@@ -79,6 +79,7 @@
     "updateNow": "Update Now",
     "dismiss": "Dismiss",
     "installApp": "Install App",
+    "appInstalled": "App installed",
     "version": "Version"
   }
 }
