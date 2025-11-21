@@ -23,6 +23,7 @@ import { ThemeSelect } from './ThemeSelect'
 import { LanguageSelect } from './LanguageSelect'
 import { PWAInstallPrompt } from './PWAInstallPrompt'
 import talisLogo from '@/public/talis-dice.png'
+import packageJson from '@/package.json'
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
@@ -31,8 +32,8 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const tPWA = useTranslations('PWA')
   const { setOpenMobile } = useSidebar()
 
-  // Get version from environment variable (set at build time in next.config.ts)
-  const appVersion = process.env.NEXT_PUBLIC_APP_VERSION || '0.1.0'
+  // Get version from package.json
+  const appVersion = packageJson.version
 
   // Close sidebar on mobile when navigating
   const handleMobileNavigation = () => {
