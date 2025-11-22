@@ -106,6 +106,14 @@ export function DiceSelectWheel({
       {/* Visual indicators showing the selected value area */}
       <div className="absolute left-0 w-full top-1/2 -translate-y-1/2 -mt-6 border-t pointer-events-none z-10"></div>
       <div className="absolute left-0 w-full top-1/2 -translate-y-1/2 mt-6 border-t pointer-events-none z-10"></div>
+      {/* Backdrop filter overlay for magnification effect */}
+      <div 
+        className="absolute left-0 w-full top-1/2 -translate-y-1/2 h-16 pointer-events-none z-20 flex items-center justify-center"
+        style={{
+          backdropFilter: 'contrast(1.3) brightness(1.1)',
+          WebkitBackdropFilter: 'contrast(1.3) brightness(1.1)',
+        }}
+      />
       <div
         ref={wheelContainerRef}
         id="wheelContainer"
@@ -121,8 +129,7 @@ export function DiceSelectWheel({
             key={number}
             id={`number-${number}`}
             data-number={number}
-            className={`snap-center my-4 grow flex justify-center items-center cursor-pointer text-2xl ${number === current ? 'font-bold' : ''
-              }`}
+            className="snap-center my-4 grow flex justify-center items-center cursor-pointer text-2xl"
             onClick={() => onChange(number)}
           >
             {number}
