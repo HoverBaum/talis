@@ -44,6 +44,14 @@
   "Components": {
     "FreeInput": {
       "numberOfDice": "Number of dice:"
+    },
+    "RollerControls": {
+      "clearRolls": "Clear rolls"
+    },
+    "Sidebar": {
+      "title": "Sidebar",
+      "description": "Displays the mobile sidebar.",
+      "toggleSidebar": "Toggle Sidebar"
     }
   },
   "General": {
@@ -81,6 +89,15 @@
     "installApp": "Install App",
     "appInstalled": "App installed",
     "version": "Version"
+  },
+  "Offline": {
+    "title": "You're Offline",
+    "description": "It looks like you're not connected to the internet. Don't worry, Talis works offline! You can still use all the dice rollers you've already visited.",
+    "helpText": "To access new pages or features, please check your internet connection and try again.",
+    "goHome": "Go to Home"
+  },
+  "Footer": {
+    "builtBy": "Built by"
   }
 }
 

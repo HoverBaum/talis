@@ -44,6 +44,14 @@
   "Components": {
     "FreeInput": {
       "numberOfDice": "Würfelanzahl:"
+    },
+    "RollerControls": {
+      "clearRolls": "Würfe löschen"
+    },
+    "Sidebar": {
+      "title": "Seitenleiste",
+      "description": "Zeigt die mobile Seitenleiste an.",
+      "toggleSidebar": "Seitenleiste umschalten"
     }
   },
   "General": {
@@ -81,6 +89,15 @@
     "installApp": "App installieren",
     "appInstalled": "App installiert",
     "version": "Version"
+  },
+  "Offline": {
+    "title": "Du bist offline",
+    "description": "Es sieht so aus, als ob du nicht mit dem Internet verbunden bist. Keine Sorge, Talis funktioniert offline! Du kannst weiterhin alle Würfel-Apps verwenden, die du bereits besucht hast.",
+    "helpText": "Um auf neue Seiten oder Funktionen zuzugreifen, überprüfe bitte deine Internetverbindung und versuche es erneut.",
+    "goHome": "Zur Startseite"
+  },
+  "Footer": {
+    "builtBy": "Entwickelt von"
   }
 }
 
