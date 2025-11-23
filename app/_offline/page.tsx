@@ -3,8 +3,18 @@
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { i18n } from '@/i18n/config'
 
-// Translation strings
+/**
+ * Offline Page - Special Case for PWA Offline Support
+ * 
+ * This page is served by the service worker when the app is offline and accessed outside
+ * the normal routing. Because it exists outside the [locale] directory structure and needs
+ * to work without the Next.js i18n infrastructure being available, translations are 
+ * hardcoded here rather than fetched from the i18n files.
+ * 
+ * These translations mirror the keys in i18n/en.json and i18n/de.json under "Offline".
+ */
 const translations = {
   en: {
     title: "You're Offline",
@@ -21,7 +31,7 @@ const translations = {
 } as const
 
 function getInitialLocale(): 'en' | 'de' {
-  if (typeof window === 'undefined') return 'en'
+  if (typeof window === 'undefined') return i18n.defaultLocale as 'en' | 'de'
   
   // Detect locale from URL or browser settings
   const path = window.location.pathname
@@ -31,7 +41,7 @@ function getInitialLocale(): 'en' | 'de' {
   } else if (navigator.language.startsWith('de')) {
     return 'de'
   }
-  return 'en'
+  return i18n.defaultLocale as 'en' | 'de'
 }
 
 export default function OfflinePage() {
