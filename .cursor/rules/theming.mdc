@@ -93,6 +93,14 @@ Format: `oklch(lightness chroma hue)`
 
 3. **Color Format Mismatch**: Using hex or RGB values instead of `oklch()` can cause color inconsistencies and make it harder to maintain color relationships.
 
+4. **Typography/Prose Theming**: Tailwind Typography's `prose` class uses hardcoded colors by default. Custom CSS overrides in `app/globals.css` ensure prose styles use theme CSS variables (`--foreground`, `--primary`, `--muted-foreground`, etc.) for all themes. **Do NOT use `dark:prose-invert`** in MDX layouts - prose is already theme-aware through CSS variable overrides.
+
+## Typography & Prose Theming
+
+MDX pages automatically use theme CSS variables via Tailwind Typography's `--tw-prose-*` variables (configured in `app/globals.css`). **Do NOT use `dark:prose-invert`** in MDX layouts - prose is already theme-aware.
+
+MDX layouts should use: `<div className="prose prose-sm md:prose-base">`. Prose elements use `--foreground` (text), `--primary` (links), `--muted-foreground` (muted text), `--muted` (code backgrounds), and `--border` (borders).
+
 ### Reference Implementation
 
 See `app/globals.css` for complete examples of theme definitions, e.g.:
