@@ -95,11 +95,8 @@ Format: `oklch(lightness chroma hue)`
 
 ### Reference Implementation
 
-See `app/globals.css` for complete examples of theme definitions:
+See `app/globals.css` for complete examples of theme definitions, e.g.:
 * `:root` - Light theme (class-based)
 * `.dark` - Dark theme (class-based)
-* `[data-theme='talisTheme']` - Custom theme example
-* `[data-theme='cyberpunk']` - Custom theme example
 * `[data-theme='shadowrun']` - Custom theme example
-* `[data-theme='synthwave']` - Custom theme example
 

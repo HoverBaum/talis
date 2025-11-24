@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 
-type Theme = 'system' | 'light' | 'dark' | 'talisTheme' | 'cyberpunk' | 'shadowrun' | 'synthwave'
+export type Theme = 'system' | 'light' | 'dark' | 'shadowrun' | 'synthwave'
 
 type ThemeProviderProps = {
   children: React.ReactNode

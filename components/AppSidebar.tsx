@@ -134,7 +134,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <div className="space-y-4 p-4">
           <LanguageSelect />
-          <ThemeSelect withLabel={true} />
+          <ThemeSelect />
           <PWAInstallPrompt />
           <div className="text-xs text-muted-foreground space-y-1">
             <div>
