@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 
-export type Theme = 'system' | 'light' | 'dark' | 'shadowrun' | 'synthwave'
+export type Theme = 'system' | 'light' | 'dark' | 'shadowrun' | 'synthwave' | 'nature'
 
 type ThemeProviderProps = {
   children: React.ReactNode
@@ -35,7 +35,7 @@ export function ThemeProvider({
   useEffect(() => {
     const root = window.document.documentElement
 
-    root.classList.remove('light', 'dark', 'talisTheme', 'cyberpunk', 'shadowrun', 'synthwave')
+    root.classList.remove('light', 'dark', 'talisTheme', 'cyberpunk', 'shadowrun', 'synthwave', 'nature')
 
     const updateTheme = () => {
       if (theme === 'system') {
