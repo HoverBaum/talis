@@ -117,6 +117,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -127,10 +128,12 @@
     left: -50%;
     width: 30%;
   }
+
   40% {
     left: 25%;
     width: 50%;
   }
+
   100% {
     left: 100%;
     width: 30%;
@@ -141,6 +144,7 @@
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -150,87 +154,22 @@
   .animate-fadeIn {
     animation: fadeIn 0.3s ease-out forwards;
   }
+
   .animate-indeterminate {
     animation: indeterminate 2s infinite linear;
   }
+
   .scrollbar-none {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
   .scrollbar-none::-webkit-scrollbar {
     display: none;
   }
 }
 
 /* Custom Themes */
-[data-theme='talisTheme'] {
-  --primary: oklch(0.7 0.15 280);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.85 0.15 90);
-  --secondary-foreground: oklch(0.205 0 0);
-  --accent: oklch(0.7 0.15 180);
-  --accent-foreground: oklch(0.205 0 0);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.7 0.15 280);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.7 0.15 280);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.7 0.15 280);
-  --chart-1: oklch(0.7 0.15 280);
-  --chart-2: oklch(0.85 0.15 90);
-  --chart-3: oklch(0.7 0.15 180);
-  --chart-4: oklch(0.7 0.15 240);
-  --chart-5: oklch(0.7 0.15 320);
-}
-
-[data-theme='cyberpunk'] {
-  --primary: oklch(0.5 0.2 300);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.6 0.25 30);
-  --secondary-foreground: oklch(0.985 0 0);
-  --accent: oklch(0.6 0.25 150);
-  --accent-foreground: oklch(0.145 0 0);
-  --background: oklch(0.15 0 0);
-  --foreground: oklch(0.9 0 0);
-  --card: oklch(0.2 0 0);
-  --card-foreground: oklch(0.9 0 0);
-  --popover: oklch(0.2 0 0);
-  --popover-foreground: oklch(0.9 0 0);
-  --muted: oklch(0.22 0 0);
-  --muted-foreground: oklch(0.7 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(0.25 0 0);
-  --input: oklch(0.2 0 0);
-  --ring: oklch(0.5 0.2 300);
-  --sidebar: oklch(0.18 0 0);
-  --sidebar-foreground: oklch(0.9 0 0);
-  --sidebar-primary: oklch(0.5 0.2 300);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.22 0 0);
-  --sidebar-accent-foreground: oklch(0.9 0 0);
-  --sidebar-border: oklch(0.25 0 0);
-  --sidebar-ring: oklch(0.5 0.2 300);
-  --chart-1: oklch(0.5 0.2 300);
-  --chart-2: oklch(0.6 0.25 30);
-  --chart-3: oklch(0.6 0.25 150);
-  --chart-4: oklch(0.5 0.2 280);
-  --chart-5: oklch(0.5 0.2 320);
-}
-
 [data-theme='shadowrun'] {
   --primary: oklch(0.5 0.2 330);
   --primary-foreground: oklch(0.985 0 0);
@@ -299,6 +238,40 @@
   --chart-5: oklch(0.6 0.2 260);
 }
 
+[data-theme='nature'] {
+  --primary: oklch(0.5 0.08 145);
+  --primary-foreground: oklch(0.95 0.01 60);
+  --secondary: oklch(0.45 0.04 45);
+  --secondary-foreground: oklch(0.95 0.01 60);
+  --accent: oklch(0.65 0.12 220);
+  --accent-foreground: oklch(0.25 0.01 145);
+  --background: oklch(0.28 0.01 145);
+  --foreground: oklch(0.95 0.01 60);
+  --card: oklch(0.32 0.01 145);
+  --card-foreground: oklch(0.95 0.01 60);
+  --popover: oklch(0.32 0.01 145);
+  --popover-foreground: oklch(0.95 0.01 60);
+  --muted: oklch(0.35 0.02 145);
+  --muted-foreground: oklch(0.7 0.02 60);
+  --destructive: oklch(0.6 0.18 25);
+  --border: oklch(0.38 0.02 145);
+  --input: oklch(0.32 0.01 145);
+  --ring: oklch(0.5 0.08 145);
+  --sidebar: oklch(0.25 0.01 145);
+  --sidebar-foreground: oklch(0.95 0.01 60);
+  --sidebar-primary: oklch(0.5 0.08 145);
+  --sidebar-primary-foreground: oklch(0.95 0.01 60);
+  --sidebar-accent: oklch(0.35 0.02 145);
+  --sidebar-accent-foreground: oklch(0.95 0.01 60);
+  --sidebar-border: oklch(0.38 0.02 145);
+  --sidebar-ring: oklch(0.5 0.08 145);
+  --chart-1: oklch(0.5 0.08 145);
+  --chart-2: oklch(0.45 0.04 45);
+  --chart-3: oklch(0.65 0.12 220);
+  --chart-4: oklch(0.55 0.06 120);
+  --chart-5: oklch(0.6 0.08 180);
+}
+
 @font-face {
   font-family: 'Noto Emoji';
   font-weight: 100 900;
@@ -307,4 +280,26 @@
 
 .font-emoji {
   font-family: 'Noto Emoji', sans-serif;
+}
+
+/* Typography/Prose Theme Support */
+/* Override prose colors to use theme CSS variables for all themes */
+/* Placed outside layers to override Tailwind Typography's utility layer definitions */
+.prose {
+  --tw-prose-body: var(--foreground);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-lead: var(--muted-foreground);
+  --tw-prose-links: var(--primary);
+  --tw-prose-bold: var(--foreground);
+  --tw-prose-counters: var(--muted-foreground);
+  --tw-prose-bullets: var(--muted-foreground);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--foreground);
+  --tw-prose-quote-borders: var(--border);
+  --tw-prose-captions: var(--muted-foreground);
+  --tw-prose-code: var(--foreground);
+  --tw-prose-pre-code: var(--foreground);
+  --tw-prose-pre-bg: var(--muted);
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
 }

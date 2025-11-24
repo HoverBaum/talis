@@ -2,7 +2,14 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 
-type Theme = 'system' | 'light' | 'dark' | 'talisTheme' | 'cyberpunk' | 'shadowrun' | 'synthwave'
+export type Theme = 'system' | 'light' | 'dark' | 'shadowrun' | 'nature'
+
+// Extract all theme values except 'system' (which is not a CSS class)
+type ThemeClass = Exclude<Theme, 'system'>
+
+// Helper to create a const array from the Theme type
+// This ensures all theme classes (except 'system') are included
+const themeClasses: ThemeClass[] = ['light', 'dark', 'shadowrun', 'nature'] as const
 
 type ThemeProviderProps = {
   children: React.ReactNode
@@ -35,7 +42,7 @@ export function ThemeProvider({
   useEffect(() => {
     const root = window.document.documentElement
 
-    root.classList.remove('light', 'dark', 'talisTheme', 'cyberpunk', 'shadowrun', 'synthwave')
+    root.classList.remove(...themeClasses)
 
     const updateTheme = () => {
       if (theme === 'system') {

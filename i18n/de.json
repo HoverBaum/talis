@@ -92,7 +92,8 @@
     "dark": "Dunkel",
     "shadowrun": "Shadowrun",
     "cyberpunk": "Cyberpunk",
-    "synthwave": "Synthwave"
+    "synthwave": "Synthwave",
+    "nature": "Natur"
   },
   "Language": {
     "select": "Sprache",
@@ -118,4 +119,3 @@
     "builtBy": "Entwickelt von"
   }
 }
-

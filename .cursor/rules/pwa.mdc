@@ -17,9 +17,14 @@ Talis is a **fully offline-capable Progressive Web App (PWA)**:
 
 ## Development vs Production
 
-* **Development (`npm run dev`):** PWA features are **disabled** to prevent caching issues during development
-* **Production (`npm run build && npm start`):** PWA features are **enabled** - service worker registers automatically
-* **Testing:** Always test PWA features using production build locally
+* **Development (`npm run dev`):** PWA features are **disabled by default** to prevent caching issues during development
+  * Service workers only register if `NEXT_PUBLIC_ENABLE_SW_DEV=true` environment variable is set
+  * When disabled, any existing service workers are automatically unregistered and caches are cleared
+  * To enable service workers in dev for testing: `NEXT_PUBLIC_ENABLE_SW_DEV=true npm run dev`
+* **Production (`npm run build && npm start`):** PWA features are **always enabled** - service worker registers automatically regardless of environment variables
+* **Testing:** 
+  * For quick PWA testing in dev, use `NEXT_PUBLIC_ENABLE_SW_DEV=true npm run dev`
+  * For full production testing, use `npm run build && npm start`
 
 ## PWA Configuration
 
@@ -28,7 +33,19 @@ Talis is a **fully offline-capable Progressive Web App (PWA)**:
   * Cache-first strategy for static assets (CSS, JS, images, fonts)
   * Cache versioning tied to app version for proper invalidation
 * **Service Worker Registration:** `app/register-sw.tsx` component registers the service worker on app load
+  * Automatically detects development mode (localhost/127.0.0.1)
+  * In dev: Only registers if `NEXT_PUBLIC_ENABLE_SW_DEV=true` is set
+  * In production: Always registers regardless of environment variables
+  * When disabled in dev: Automatically unregisters existing service workers and clears all caches
 * **Update Detection:** `components/PWAUpdatePrompt.tsx` detects and notifies users of available updates
 * **Manifest file:** `public/manifest.json`
 * **Icons:** `public/icons/` (192x192 and 512x512 required)
 * **Next.js Config:** `images.unoptimized: true` required for offline image support
+
+## Environment Variables
+
+* **`NEXT_PUBLIC_ENABLE_SW_DEV`:** Controls service worker registration in development mode
+  * Set to `'true'` to enable service workers during local development
+  * Only affects development (localhost) - production always enables service workers
+  * When not set or set to any other value, service workers are disabled in dev
+  * Example: `NEXT_PUBLIC_ENABLE_SW_DEV=true npm run dev`

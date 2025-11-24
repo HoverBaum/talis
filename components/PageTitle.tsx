@@ -34,6 +34,6 @@ export const PageTitle = () => {
     return null
   }
 
-  return <span className="font-semibold">{title}</span>
+  return <span className="font-semibold"><img src="/talis-dice.png" alt="Talis" className="size-8 inline-block" /> Talis - {title}</span>
 }
 
