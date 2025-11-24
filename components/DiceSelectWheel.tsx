@@ -2,13 +2,13 @@
 
 /**
  * A scrollable wheel component for selecting the number of dice to roll.
- * 
+ *
  * Features:
  * - Snap-to-center scrolling behavior
  * - Responsive height adjustment based on parent container
  * - Visual indicators (border lines) showing the selected value
  * - Click-to-select functionality
- * 
+ *
  * Used by D6 and Shadowrun rollers for dice amount selection.
  * Must be placed in a container with a defined height for proper sizing.
  */
@@ -104,8 +104,8 @@ export function DiceSelectWheel({
   return (
     <>
       {/* Visual indicators showing the selected value area */}
-      <div className="absolute left-0 w-full top-1/2 -translate-y-1/2 -mt-6 border-t pointer-events-none z-10"></div>
-      <div className="absolute left-0 w-full top-1/2 -translate-y-1/2 mt-6 border-t pointer-events-none z-10"></div>
+      <div className="absolute left-0 w-full top-1/2 -translate-y-1/2 -mt-6 border-t-2 pointer-events-none z-10"></div>
+      <div className="absolute left-0 w-full top-1/2 -translate-y-1/2 mt-6 border-t-2 pointer-events-none z-10"></div>
       <div
         ref={wheelContainerRef}
         id="wheelContainer"
@@ -121,8 +121,9 @@ export function DiceSelectWheel({
             key={number}
             id={`number-${number}`}
             data-number={number}
-            className={`snap-center my-4 grow flex justify-center items-center cursor-pointer text-2xl ${number === current ? 'font-bold' : ''
-              }`}
+            className={`snap-center my-4 grow flex justify-center items-center cursor-pointer text-2xl ${
+              number === current ? 'font-bold' : ''
+            }`}
             onClick={() => onChange(number)}
           >
             {number}
@@ -132,4 +133,3 @@ export function DiceSelectWheel({
     </>
   )
 }
-
