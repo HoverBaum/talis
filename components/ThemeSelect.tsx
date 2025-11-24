@@ -34,7 +34,6 @@ export function ThemeSelect({ className }: ThemeSelectProps) {
           <SelectItem value="light">{t('light')}</SelectItem>
           <SelectItem value="dark">{t('dark')}</SelectItem>
           <SelectItem value="shadowrun">{t('shadowrun')}</SelectItem>
-          <SelectItem value="synthwave">{t('synthwave')}</SelectItem>
           <SelectItem value="nature">{t('nature')}</SelectItem>
         </SelectContent>
       </Select>
