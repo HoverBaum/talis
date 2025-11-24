@@ -18,6 +18,20 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
+## Development
+
+### Service Workers
+
+By default, service workers are **disabled** in development mode to prevent caching issues during testing. This means PWA features (offline support, install prompts, etc.) won't work during normal development.
+
+To enable service workers in development for testing PWA features:
+
+```bash
+NEXT_PUBLIC_ENABLE_SW_DEV=true npm run dev
+```
+
+**Note:** Service workers are always enabled in production builds, regardless of this environment variable.
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
