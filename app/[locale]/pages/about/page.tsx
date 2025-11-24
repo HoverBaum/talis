@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import { SetPageTitle } from '@/components/PageTitleProvider'
-import { PWAInstallPrompt } from '@/components/PWAInstallPrompt'
 import AboutEN from './about.en.mdx'
 import AboutDE from './about.de.mdx'
 
@@ -20,7 +19,6 @@ export default async function AboutPage({
     <>
       <SetPageTitle title={locale === 'de' ? 'Über' : 'About'} />
       <AboutContent />
-      <PWAInstallPrompt showInstalledHint={true} />
     </>
   )
 }
