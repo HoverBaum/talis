@@ -25,15 +25,30 @@
  * - Lightweight component with minimal re-renders
  * - Only re-renders when title changes
  */
+import Image from 'next/image'
 import { usePageTitle } from './PageTitleProvider'
+import { useThemeBranding } from '@/lib/theme-config'
 
 export const PageTitle = () => {
   const { title } = usePageTitle()
+  const branding = useThemeBranding()
 
   if (!title) {
     return null
   }
 
-  return <span className="font-semibold"><img src="/talis-dice.png" alt="Talis" className="size-8 inline-block" /> Talis - {title}</span>
+  return (
+    <span className="font-semibold flex items-center gap-2">
+      <Image
+        src={branding.logo}
+        width={32}
+        height={32}
+        alt={`${branding.brandName} Logo`}
+        className="size-8 inline-block"
+      />
+      <span>{branding.brandName} - </span>
+      {title}
+    </span>
+  )
 }
 

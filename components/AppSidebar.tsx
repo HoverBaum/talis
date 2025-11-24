@@ -22,7 +22,7 @@ import {
 import { ThemeSelect } from './ThemeSelect'
 import { LanguageSelect } from './LanguageSelect'
 import { PWAInstallPrompt } from './PWAInstallPrompt'
-import talisLogo from '@/public/talis-dice.png'
+import { useThemeBranding } from '@/lib/theme-config'
 import packageJson from '@/package.json'
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
@@ -32,6 +32,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const tPWA = useTranslations('PWA')
   const tFooter = useTranslations('Footer')
   const { setOpenMobile } = useSidebar()
+  const branding = useThemeBranding()
 
   // Get version from package.json
   const appVersion = packageJson.version
@@ -89,14 +90,14 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
             <SidebarMenuButton size="lg" asChild>
               <Link href={`/${locale}`} className="flex items-center gap-2" onClick={handleMobileNavigation}>
                 <Image
-                  src={talisLogo}
+                  src={branding.logo}
                   width={32}
                   height={32}
-                  alt="Talis Logo"
+                  alt={`${branding.brandName} Logo`}
                   className="rounded"
                 />
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">Talis</span>
+                  <span className="font-semibold">{branding.brandName}</span>
                 </div>
               </Link>
             </SidebarMenuButton>
