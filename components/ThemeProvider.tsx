@@ -2,14 +2,14 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 
-export type Theme = 'system' | 'light' | 'dark' | 'shadowrun' | 'nature'
+export type Theme = 'system' | 'light' | 'dark' | 'shadowrun' | 'nature' | 'spm-dark'
 
 // Extract all theme values except 'system' (which is not a CSS class)
 type ThemeClass = Exclude<Theme, 'system'>
 
 // Helper to create a const array from the Theme type
 // This ensures all theme classes (except 'system') are included
-const themeClasses: ThemeClass[] = ['light', 'dark', 'shadowrun', 'nature'] as const
+const themeClasses: ThemeClass[] = ['light', 'dark', 'shadowrun', 'nature', 'spm-dark'] as const
 
 type ThemeProviderProps = {
   children: React.ReactNode

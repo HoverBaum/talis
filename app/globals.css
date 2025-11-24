@@ -272,6 +272,40 @@
   --chart-5: oklch(0.6 0.08 180);
 }
 
+[data-theme='spm-dark'] {
+  --primary: oklch(0.5 0.13 245);
+  --primary-foreground: oklch(0.95 0 0);
+  --secondary: oklch(0.45 0.1 245);
+  --secondary-foreground: oklch(0.95 0 0);
+  --accent: oklch(0.65 0.15 220);
+  --accent-foreground: oklch(0.2 0.01 245);
+  --background: oklch(0.2 0.02 245);
+  --foreground: oklch(0.95 0 0);
+  --card: oklch(0.25 0.02 245);
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.25 0.02 245);
+  --popover-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.28 0.02 245);
+  --muted-foreground: oklch(0.7 0.01 245);
+  --destructive: oklch(0.6 0.18 25);
+  --border: oklch(0.32 0.02 245);
+  --input: oklch(0.25 0.02 245);
+  --ring: oklch(0.5 0.13 245);
+  --sidebar: oklch(0.18 0.02 245);
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.5 0.13 245);
+  --sidebar-primary-foreground: oklch(0.95 0 0);
+  --sidebar-accent: oklch(0.28 0.02 245);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(0.32 0.02 245);
+  --sidebar-ring: oklch(0.5 0.13 245);
+  --chart-1: oklch(0.5 0.13 245);
+  --chart-2: oklch(0.45 0.1 245);
+  --chart-3: oklch(0.65 0.15 220);
+  --chart-4: oklch(0.55 0.12 230);
+  --chart-5: oklch(0.6 0.14 250);
+}
+
 @font-face {
   font-family: 'Noto Emoji';
   font-weight: 100 900;

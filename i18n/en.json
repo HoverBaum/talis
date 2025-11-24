@@ -93,7 +93,8 @@
     "shadowrun": "Shadowrun",
     "cyberpunk": "Cyberpunk",
     "synthwave": "Synthwave",
-    "nature": "Nature"
+    "nature": "Nature",
+    "spm-dark": "SPM dark"
   },
   "Language": {
     "select": "Language",
