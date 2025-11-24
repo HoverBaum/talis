@@ -21,16 +21,16 @@ export function ShadowrunConfig() {
     <div className="max-w-[40rem] mx-auto space-y-8">
       <div className="flex items-center gap-2">
         <Settings2 className="h-5 w-5 text-muted-foreground" />
-        <h1 className="text-2xl font-semibold">Shadowrun Configuration</h1>
+        <h1 className="text-2xl font-semibold">{t('title')}</h1>
       </div>
 
       <section className="space-y-6">
         <div className="flex items-center gap-2">
           <Monitor className="h-4 w-4 text-muted-foreground" />
-          <h2 className="text-lg font-semibold">Display Settings</h2>
+          <h2 className="text-lg font-semibold">{t('displaySettings')}</h2>
         </div>
         <p className="text-sm text-muted-foreground -mt-4 ml-6">
-          Configure how dice results are displayed and organized
+          {t('displaySettingsDescription')}
         </p>
 
         <div className="space-y-4 ml-6">
@@ -38,7 +38,7 @@ export function ShadowrunConfig() {
             <div className="space-y-0.5">
               <Label htmlFor="newResultsBottom">{t('newResultsAtBottom')}</Label>
               <p className="text-sm text-muted-foreground">
-                Show new results at the bottom of the list
+                {t('newResultsAtBottomDescription')}
               </p>
             </div>
             <Switch
@@ -56,7 +56,7 @@ export function ShadowrunConfig() {
             <div className="space-y-0.5">
               <Label htmlFor="sortDice">{t('sortDice')}</Label>
               <p className="text-sm text-muted-foreground">
-                Automatically sort dice results
+                {t('sortDiceDescription')}
               </p>
             </div>
             <Switch
@@ -73,10 +73,10 @@ export function ShadowrunConfig() {
       <section className="space-y-6">
         <div className="flex items-center gap-2">
           <Keyboard className="h-4 w-4 text-muted-foreground" />
-          <h2 className="text-lg font-semibold">Input Settings</h2>
+          <h2 className="text-lg font-semibold">{t('inputSettings')}</h2>
         </div>
         <p className="text-sm text-muted-foreground -mt-4 ml-6">
-          Configure dice input methods and options
+          {t('inputSettingsDescription')}
         </p>
 
         <div className="space-y-4 ml-6">
@@ -84,7 +84,7 @@ export function ShadowrunConfig() {
             <div className="space-y-0.5">
               <Label htmlFor="freeInput">{t('freeInput')}</Label>
               <p className="text-sm text-muted-foreground">
-                Enable free-form dice input
+                {t('freeInputDescription')}
               </p>
             </div>
             <Switch
@@ -102,7 +102,7 @@ export function ShadowrunConfig() {
             <div className="space-y-0.5">
               <Label htmlFor="quickButtons">{t('quickButtons')}</Label>
               <p className="text-sm text-muted-foreground">
-                Show quick action buttons for common rolls
+                {t('quickButtonsDescription')}
               </p>
             </div>
             <Switch
@@ -122,10 +122,10 @@ export function ShadowrunConfig() {
         <section className="space-y-6">
           <div className="flex items-center gap-2">
             <Zap className="h-4 w-4 text-muted-foreground" />
-            <h2 className="text-lg font-semibold">Quick Buttons</h2>
+            <h2 className="text-lg font-semibold">{t('quickButtonsTitle')}</h2>
           </div>
           <p className="text-sm text-muted-foreground -mt-4 ml-6">
-            Configure quick action buttons for faster dice rolling
+            {t('quickButtonsConfig')}
           </p>
 
           <div className="space-y-4 ml-6">
@@ -142,7 +142,7 @@ export function ShadowrunConfig() {
               </div>
             ) : (
               <div className="text-center py-8 text-muted-foreground text-sm">
-                No quick buttons configured. Add one below to get started.
+                {t('noQuickButtons')}
               </div>
             )}
             <Button
