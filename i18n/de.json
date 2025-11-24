@@ -17,10 +17,22 @@
         "criticalGlitch": "Kritischer Patzer"
       },
       "Config": {
+        "title": "Shadowrun Konfiguration",
+        "displaySettings": "Anzeigeeinstellungen",
+        "displaySettingsDescription": "Konfiguriere, wie Würfelergebnisse angezeigt und organisiert werden",
         "newResultsAtBottom": "Neue Ergebnisse unten",
-        "freeInput": "Würfel Input",
+        "newResultsAtBottomDescription": "Neue Ergebnisse am unteren Ende der Liste anzeigen",
         "sortDice": "Würfel sortieren",
+        "sortDiceDescription": "Würfelergebnisse automatisch sortieren",
+        "inputSettings": "Eingabeeinstellungen",
+        "inputSettingsDescription": "Würfel-Eingabemethoden und -Optionen konfigurieren",
+        "freeInput": "Würfel Input",
+        "freeInputDescription": "Freie Würfeleingabe aktivieren",
         "quickButtons": "Quick buttons",
+        "quickButtonsDescription": "Quick-Action-Buttons für häufige Würfe anzeigen",
+        "quickButtonsTitle": "Quick Buttons",
+        "quickButtonsConfig": "Quick-Action-Buttons für schnelleres Würfeln konfigurieren",
+        "noQuickButtons": "Keine Quick Buttons konfiguriert. Füge unten einen hinzu, um zu beginnen.",
         "addQuickButton": "Quick Button hinzufügen",
         "rollInstantly": "Einmal würfeln",
         "back": "Zurück"
@@ -28,10 +40,16 @@
     },
     "D6": {
       "Config": {
+        "title": "D6 Konfiguration",
+        "displaySettings": "Anzeigeeinstellungen",
+        "displaySettingsDescription": "Konfiguriere, wie Würfelergebnisse angezeigt und organisiert werden",
         "newResultsAtBottom": "Neue Ergebnisse unten",
+        "newResultsAtBottomDescription": "Neue Ergebnisse am unteren Ende der Liste anzeigen",
         "sortDice": "Würfel sortieren",
-        "back": "Zurück",
-        "sumDice": "Würfel addieren"
+        "sortDiceDescription": "Würfelergebnisse automatisch sortieren",
+        "sumDice": "Würfel addieren",
+        "sumDiceDescription": "Die Summe aller Würfelwerte anzeigen",
+        "back": "Zurück"
       }
     },
     "Daggerheart": {
@@ -44,6 +62,14 @@
   "Components": {
     "FreeInput": {
       "numberOfDice": "Würfelanzahl:"
+    },
+    "RollerControls": {
+      "clearRolls": "Würfe löschen"
+    },
+    "Sidebar": {
+      "title": "Seitenleiste",
+      "description": "Zeigt die mobile Seitenleiste an.",
+      "toggleSidebar": "Seitenleiste umschalten"
     }
   },
   "General": {
@@ -82,5 +108,14 @@
     "installApp": "App installieren",
     "appInstalled": "App installiert",
     "version": "Version"
+  },
+  "Offline": {
+    "title": "Du bist offline",
+    "description": "Es sieht so aus, als ob du nicht mit dem Internet verbunden bist. Keine Sorge, Talis funktioniert offline! Du kannst weiterhin alle Würfel-Apps verwenden, die du bereits besucht hast.",
+    "helpText": "Um auf neue Seiten oder Funktionen zuzugreifen, überprüfe bitte deine Internetverbindung und versuche es erneut.",
+    "goHome": "Zur Startseite"
+  },
+  "Footer": {
+    "builtBy": "Entwickelt von"
   }
 }

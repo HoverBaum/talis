@@ -17,10 +17,22 @@
         "criticalGlitch": "Critical Glitch"
       },
       "Config": {
+        "title": "Shadowrun Configuration",
+        "displaySettings": "Display Settings",
+        "displaySettingsDescription": "Configure how dice results are displayed and organized",
         "newResultsAtBottom": "New results at bottom",
-        "freeInput": "Free input",
+        "newResultsAtBottomDescription": "Show new results at the bottom of the list",
         "sortDice": "Sort dice",
+        "sortDiceDescription": "Automatically sort dice results",
+        "inputSettings": "Input Settings",
+        "inputSettingsDescription": "Configure dice input methods and options",
+        "freeInput": "Free input",
+        "freeInputDescription": "Enable free-form dice input",
         "quickButtons": "Quick buttons",
+        "quickButtonsDescription": "Show quick action buttons for common rolls",
+        "quickButtonsTitle": "Quick Buttons",
+        "quickButtonsConfig": "Configure quick action buttons for faster dice rolling",
+        "noQuickButtons": "No quick buttons configured. Add one below to get started.",
         "addQuickButton": "Add Quick Button",
         "rollInstantly": "Roll instantly",
         "back": "Back"
@@ -28,10 +40,16 @@
     },
     "D6": {
       "Config": {
+        "title": "D6 Configuration",
+        "displaySettings": "Display Settings",
+        "displaySettingsDescription": "Configure how dice results are displayed and organized",
         "newResultsAtBottom": "New results at bottom",
+        "newResultsAtBottomDescription": "Show new results at the bottom of the list",
         "sortDice": "Sort dice",
-        "back": "Back",
-        "sumDice": "Sum dice"
+        "sortDiceDescription": "Automatically sort dice results",
+        "sumDice": "Sum dice",
+        "sumDiceDescription": "Display the sum of all dice values",
+        "back": "Back"
       }
     },
     "Daggerheart": {
@@ -44,6 +62,14 @@
   "Components": {
     "FreeInput": {
       "numberOfDice": "Number of dice:"
+    },
+    "RollerControls": {
+      "clearRolls": "Clear rolls"
+    },
+    "Sidebar": {
+      "title": "Sidebar",
+      "description": "Displays the mobile sidebar.",
+      "toggleSidebar": "Toggle Sidebar"
     }
   },
   "General": {
@@ -82,5 +108,14 @@
     "installApp": "Install App",
     "appInstalled": "App installed",
     "version": "Version"
+  },
+  "Offline": {
+    "title": "You're Offline",
+    "description": "It looks like you're not connected to the internet. Don't worry, Talis works offline! You can still use all the dice rollers you've already visited.",
+    "helpText": "To access new pages or features, please check your internet connection and try again.",
+    "goHome": "Go to Home"
+  },
+  "Footer": {
+    "builtBy": "Built by"
   }
 }

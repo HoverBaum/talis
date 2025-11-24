@@ -1,12 +1,3 @@
-export const metadata = {
-  title: 'About - Talis',
-}
-
-import { SetPageTitle } from '@/components/PageTitleProvider'
-import { PWAInstallPrompt } from '@/components/PWAInstallPrompt'
-
-<SetPageTitle title="About" />
-
 # About
 
 Talis is a dice rolling app developed to support multiple games or configurations of dice. It currently supports Shadowrun, D6 dice, and Daggerheart.
@@ -21,8 +12,6 @@ Talis is optimized for use on mobile and works fully offline as a Progressive We
 
 On mobile it will work best if used in "fullscreen" or as an installed application, as it is designed to use your entire screen. You can install it from your browser's menu or use the install button below. Once installed, Talis works completely offline - all dice rollers and features are available without an internet connection.
 
-<PWAInstallPrompt showInstalledHint={true} />
-
 ## Color Theme
 
 You can select your favorite theme from the drop down in the sidebar menu. Themes include system, light, dark, and custom themes like Shadowrun, Cyberpunk, and Synthwave.
@@ -34,9 +23,6 @@ You can change the apps language from the sidebar. Supported languages:
 - English
 - Deutsch
 
-The information pages are currently only available in English though.
-
 ## Sluggish rolling
 
 If rolling becomes sluggish, try clearing the list of results to speed the app up again. Should not happen for the first 1000 rolls or so.
-

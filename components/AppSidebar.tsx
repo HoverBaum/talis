@@ -30,6 +30,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const locale = useLocale()
   const t = useTranslations('Navigation')
   const tPWA = useTranslations('PWA')
+  const tFooter = useTranslations('Footer')
   const { setOpenMobile } = useSidebar()
 
   // Get version from package.json
@@ -144,7 +145,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
             </div>
             <div>
               <span>
-                Built by{' '}
+                {tFooter('builtBy')}{' '}
                 <a
                   href="https://hendrikwallbaum.de/"
                   target="_blank"
