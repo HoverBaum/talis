@@ -50,7 +50,11 @@ export const useD6Store = create<D6State>()(
       updateConfig: (newConfig) =>
         set((state) => {
           const config = { ...state.config, ...newConfig }
-          return { config }
+          let diceAmount = state.diceAmount
+          if (typeof newConfig.maxDice === 'number') {
+            diceAmount = Math.min(diceAmount, newConfig.maxDice)
+          }
+          return { config, diceAmount }
         }),
     }),
     persistConfig: {
@@ -62,4 +66,3 @@ export const useD6Store = create<D6State>()(
     },
   })
 )
-

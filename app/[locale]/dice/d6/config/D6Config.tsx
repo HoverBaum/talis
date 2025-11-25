@@ -13,6 +13,10 @@ export function D6Config() {
   const t = useTranslations('Roller.D6.Config')
   const config = useD6Store((state) => state.config)
   const updateConfig = useD6Store((state) => state.updateConfig)
+  const setMaxDice = (value: number) => {
+    const safe = Math.max(1, Math.floor(value))
+    updateConfig({ maxDice: safe })
+  }
 
   return (
     <div className="max-w-[40rem] mx-auto space-y-8">
@@ -33,7 +37,36 @@ export function D6Config() {
         <div className="space-y-4 ml-6">
           <div className="flex items-center justify-between py-2">
             <div className="space-y-0.5">
-              <Label htmlFor="newResultsBottom">{t('newResultsAtBottom')}</Label>
+              <Label htmlFor="maxDice">{t('maxDice')}</Label>
+              <p className="text-sm text-muted-foreground">
+                {t('maxDiceDescription')}
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <input
+                id="maxDice"
+                type="number"
+                min={1}
+                value={config.maxDice}
+                onChange={(e) => setMaxDice(Number(e.target.value))}
+                className="w-20 h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              />
+              <Button
+                variant="outline"
+                onClick={() => setMaxDice(8)}
+                title={t('resetMaxDiceTooltip')}
+              >
+                {t('resetMaxDice')}
+              </Button>
+            </div>
+          </div>
+
+          <Separator />
+          <div className="flex items-center justify-between py-2">
+            <div className="space-y-0.5">
+              <Label htmlFor="newResultsBottom">
+                {t('newResultsAtBottom')}
+              </Label>
               <p className="text-sm text-muted-foreground">
                 {t('newResultsAtBottomDescription')}
               </p>
@@ -90,4 +123,3 @@ export function D6Config() {
     </div>
   )
 }
-
