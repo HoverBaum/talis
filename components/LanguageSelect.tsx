@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/select'
 import { useTranslations } from 'next-intl'
 import { i18n, type Locale } from '@/i18n/config'
+import { SelectRow } from './SelectRow'
 
 type LanguageSelectProps = {
   className?: string
@@ -34,10 +35,7 @@ export function LanguageSelect({ className }: LanguageSelectProps) {
   }
 
   return (
-    <div className={className}>
-      <label className="text-sm font-medium mb-2 block">
-        {t('select')}
-      </label>
+    <SelectRow label={t('select')} className={className}>
       <Select value={locale} onValueChange={handleLanguageChange}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder={t('select')} />
@@ -50,7 +48,7 @@ export function LanguageSelect({ className }: LanguageSelectProps) {
           ))}
         </SelectContent>
       </Select>
-    </div>
+    </SelectRow>
   )
 }
 

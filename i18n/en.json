@@ -86,7 +86,7 @@
     "daggerheart": "Daggerheart (beta)"
   },
   "Theme": {
-    "select": "Color Theme",
+    "select": "Theme",
     "default": "Default",
     "shadowrun": "Shadowrun",
     "nature": "Nature",
