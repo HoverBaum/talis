@@ -24,6 +24,8 @@
         "newResultsAtBottomDescription": "Neue Ergebnisse am unteren Ende der Liste anzeigen",
         "sortDice": "Würfel sortieren",
         "sortDiceDescription": "Würfelergebnisse automatisch sortieren",
+        "useThemeHighlights": "Theme-Farben verwenden",
+        "useThemeHighlightsDescription": "Erfolge und Patzer mit der aktiven Theme-Palette hervorheben",
         "inputSettings": "Eingabeeinstellungen",
         "inputSettingsDescription": "Würfel-Eingabemethoden und -Optionen konfigurieren",
         "freeInput": "Würfel Input",

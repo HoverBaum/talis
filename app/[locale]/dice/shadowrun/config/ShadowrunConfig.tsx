@@ -54,6 +54,24 @@ export function ShadowrunConfig() {
 
           <div className="flex items-center justify-between py-2">
             <div className="space-y-0.5">
+              <Label htmlFor="themeHighlights">{t('useThemeHighlights')}</Label>
+              <p className="text-sm text-muted-foreground">
+                {t('useThemeHighlightsDescription')}
+              </p>
+            </div>
+            <Switch
+              id="themeHighlights"
+              checked={config.useThemeHighlights}
+              onCheckedChange={(checked) =>
+                updateConfig({ useThemeHighlights: checked })
+              }
+            />
+          </div>
+
+          <Separator />
+
+          <div className="flex items-center justify-between py-2">
+            <div className="space-y-0.5">
               <Label htmlFor="sortDice">{t('sortDice')}</Label>
               <p className="text-sm text-muted-foreground">
                 {t('sortDiceDescription')}

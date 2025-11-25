@@ -18,6 +18,9 @@ export function DiceRollResult({
 }: DiceRollResultProps) {
     const t = useTranslations('Roller.Shadowrun.DiceRollResult')
     const sortDice = useShadowrunStore((state) => state.config.sortDice)
+    const useThemeHighlights = useShadowrunStore(
+        (state) => state.config.useThemeHighlights
+    )
 
     const sortedResults = [...diceRoll.results].sort((a, b) => {
         if (sortDice) {
@@ -36,7 +39,10 @@ export function DiceRollResult({
                 {diceRoll.shadowrun?.hits === 1 ? t('hit') : t('hits')}
             </span>
             {diceRoll.shadowrun?.isGlitch && (
-                <Badge variant="outline" className="mx-2 bg-yellow-500/20">
+                <Badge
+                    variant={useThemeHighlights ? 'secondary' : 'outline'}
+                    className={`mx-2 ${useThemeHighlights ? '' : 'bg-yellow-500/20'}`}
+                >
                     {t('glitch')}
                 </Badge>
             )}
@@ -57,8 +63,12 @@ export function DiceRollResult({
                     return (
                         <span
                             key={j}
-                            className={`mr-1 ${isHit ? 'text-blue-500' : ''
-                                } ${isOne && !isCriticalGlitch ? 'text-yellow-500' : ''
+                    className={`mr-1 ${isHit ? (useThemeHighlights ? 'text-primary' : 'text-blue-500') : ''
+                                } ${isOne && !isCriticalGlitch
+                                    ? useThemeHighlights
+                                        ? 'text-accent'
+                                        : 'text-yellow-500'
+                                    : ''
                                 } ${isCriticalGlitch ? 'text-red-500' : ''
                                 } ${result > 1 && result < 5 ? 'text-muted-foreground' : ''
                                 }`}

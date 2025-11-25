@@ -30,6 +30,7 @@ const DEFAULT_CONFIG = {
   sortDice: false,
   isLoading: false,
   useQuickButtons: true,
+  useThemeHighlights: true,
   maxDiceAmount: MAX_DICE_AMOUNT,
   quickButtons: [
     {

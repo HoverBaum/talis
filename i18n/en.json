@@ -24,6 +24,8 @@
         "newResultsAtBottomDescription": "Show new results at the bottom of the list",
         "sortDice": "Sort dice",
         "sortDiceDescription": "Automatically sort dice results",
+        "useThemeHighlights": "Use theme colors",
+        "useThemeHighlightsDescription": "Highlight successes and failures with the active theme palette",
         "inputSettings": "Input Settings",
         "inputSettingsDescription": "Configure dice input methods and options",
         "freeInput": "Free input",
