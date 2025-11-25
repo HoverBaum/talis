@@ -1,10 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import {
-  useDaggerheartStore,
-  DaggerheartRoll,
-} from './daggerheart-store'
+import { useDaggerheartStore, DaggerheartRoll } from './daggerheart-store'
 import {
   RollerLayout,
   RollerLayoutResultArea,
@@ -59,9 +56,9 @@ export function DaggerheartRoller() {
           onClear={clearRolls}
           onRoll={rollDice}
           rollLabel={t('roll')}
+          settingsHref="daggerheart/config"
         />
       </RollerLayoutFooter>
     </RollerLayout>
   )
 }
-

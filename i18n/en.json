@@ -58,7 +58,14 @@
       "roll": "Roll",
       "hope": "Hope",
       "fear": "Fear",
-      "criticalSuccess": "Critical Success"
+      "criticalSuccess": "Critical Success",
+      "Config": {
+        "title": "Daggerheart Configuration",
+        "displaySettings": "Display Settings",
+        "displaySettingsDescription": "Configure how Hope and Fear dice are displayed",
+        "useThemeColors": "Use theme colors for Hope/Fear",
+        "back": "Back"
+      }
     }
   },
   "Components": {

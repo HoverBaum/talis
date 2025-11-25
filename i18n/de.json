@@ -58,7 +58,14 @@
       "roll": "Würfeln",
       "hope": "Hoffnung",
       "fear": "Furcht",
-      "criticalSuccess": "Kritischer Erfolg"
+      "criticalSuccess": "Kritischer Erfolg",
+      "Config": {
+        "title": "Daggerheart Konfiguration",
+        "displaySettings": "Anzeigeeinstellungen",
+        "displaySettingsDescription": "Konfiguriere wie Hoffnung und Furcht Würfel angezeigt werden",
+        "useThemeColors": "Theme-Farben für Hoffnung/Furcht",
+        "back": "Zurück"
+      }
     }
   },
   "Components": {

@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { DaggerheartRoll } from './daggerheart-store'
+import { DaggerheartRoll, useDaggerheartStore } from './daggerheart-store'
 import { Badge } from '@/components/ui/badge'
 
 type DaggerheartResultDisplayProps = {
@@ -14,6 +14,9 @@ export function DaggerheartResultDisplay({
   isHighlighted = false,
 }: DaggerheartResultDisplayProps) {
   const t = useTranslations('Roller.Daggerheart')
+  const useThemeColors = useDaggerheartStore(
+    (state) => state.config.useThemeColors
+  )
   const isCritical = roll.hope === roll.fear
 
   let hopeGrow = 1
@@ -29,6 +32,13 @@ export function DaggerheartResultDisplay({
     hopeGrow = 1
     fearGrow = 2
   }
+
+  const hopeClasses = useThemeColors
+    ? 'bg-roll-positive text-roll-positive-foreground'
+    : 'bg-blue-200 text-black'
+  const fearClasses = useThemeColors
+    ? 'bg-roll-negative text-roll-negative-foreground'
+    : 'bg-red-200 text-black'
 
   return (
     <div
@@ -47,7 +57,7 @@ export function DaggerheartResultDisplay({
       </div>
       <div className="flex text-center">
         <div
-          className="flex flex-col items-center mx-1 rounded bg-blue-200 text-black p-2"
+          className={`flex flex-col items-center mx-1 rounded p-2 ${hopeClasses}`}
           style={{ flexGrow: hopeGrow }}
         >
           <span className="font-semibold">
@@ -55,7 +65,7 @@ export function DaggerheartResultDisplay({
           </span>
         </div>
         <div
-          className="flex flex-col items-center mx-1 rounded bg-red-200 text-black p-2"
+          className={`flex flex-col items-center mx-1 rounded p-2 ${fearClasses}`}
           style={{ flexGrow: fearGrow }}
         >
           <span className="font-semibold">
@@ -76,4 +86,3 @@ export function DaggerheartResultDisplay({
     </div>
   )
 }
-
