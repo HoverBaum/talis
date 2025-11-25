@@ -73,6 +73,12 @@ Implementation notes:
 ### Chart Variables (5 required)
 * `--chart-1` through `--chart-5` - Chart color palette (5 colors)
 
+### Roll Result Variables (4 required)
+* `--roll-positive` - Highlight color for rolls that are positive for the player
+* `--roll-positive-foreground` - Text/icon color when something sits on top of `--roll-positive`
+* `--roll-negative` - Highlight color for rolls that are negative for the player
+* `--roll-negative-foreground` - Text/icon color used on top of `--roll-negative`
+
 
 **Every theme MUST define both light and dark variants.** Each variant requires all variables.
 
@@ -99,6 +105,14 @@ Format: `oklch(lightness chroma hue)`
 3. **Color Format Mismatch**: Using hex or RGB values instead of `oklch()` can cause color inconsistencies and make it harder to maintain color relationships.
 
 4. **Typography/Prose Theming**: Tailwind Typography's `prose` class uses hardcoded colors by default. Custom CSS overrides in `app/globals.css` ensure prose styles use theme CSS variables (`--foreground`, `--primary`, `--muted-foreground`, etc.) for all themes. **Do NOT use `dark:prose-invert`** in MDX layouts - prose is already theme-aware through CSS variable overrides.
+
+## Roll Result Color Guidance
+
+Roll-aware variables enable dice rollers (starting with Shadowrun) to surface success and failure states without guessing which palette color fits each theme. When creating or updating a theme:
+
+- `--roll-positive` should provide enough difference to `--primary` pop from any background.
+- `--roll-negative` should visually indicate "warning", be less eye-catching than `--roll-positive` and needs to be different from `--destructive`. 
+- Foreground counterparts must maintain WCAG AA contrast (4.5:1 for normal text) against their base color.
 
 ## Typography & Prose Theming
 

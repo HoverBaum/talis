@@ -22,6 +22,13 @@ export function DiceRollResult({
         (state) => state.config.useThemeHighlights
     )
 
+    const rollPositiveClass = useThemeHighlights
+        ? 'text-roll-positive'
+        : 'text-blue-500'
+    const rollNegativeClass = useThemeHighlights
+        ? 'text-roll-negative'
+        : 'text-yellow-500'
+
     const sortedResults = [...diceRoll.results].sort((a, b) => {
         if (sortDice) {
             return b - a
@@ -40,8 +47,8 @@ export function DiceRollResult({
             </span>
             {diceRoll.shadowrun?.isGlitch && (
                 <Badge
-                    variant={useThemeHighlights ? 'secondary' : 'outline'}
-                    className={`mx-2 ${useThemeHighlights ? '' : 'bg-yellow-500/20'}`}
+                    variant='outline'
+                    className={`mx-2 ${useThemeHighlights ? 'bg-roll-negative text-roll-negative-foreground' : 'bg-yellow-500/20'}`}
                 >
                     {t('glitch')}
                 </Badge>
@@ -59,19 +66,18 @@ export function DiceRollResult({
                     const isOne = result === 1
                     const isCriticalGlitch =
                         isOne && diceRoll.shadowrun?.isCriticalGlitch
+                    const faceColorClass = (() => {
+                        if (isHit) return rollPositiveClass
+                        if (isCriticalGlitch) return 'text-destructive'
+                        if (isOne) return rollNegativeClass
+                        if (result > 1 && result < 5) return 'text-muted-foreground'
+                        return ''
+                    })()
 
                     return (
                         <span
                             key={j}
-                    className={`mr-1 ${isHit ? (useThemeHighlights ? 'text-primary' : 'text-blue-500') : ''
-                                } ${isOne && !isCriticalGlitch
-                                    ? useThemeHighlights
-                                        ? 'text-accent'
-                                        : 'text-yellow-500'
-                                    : ''
-                                } ${isCriticalGlitch ? 'text-red-500' : ''
-                                } ${result > 1 && result < 5 ? 'text-muted-foreground' : ''
-                                }`}
+                            className={`mr-1 ${faceColorClass}`}
                         >
                             {d6Mapping[result as 1 | 2 | 3 | 4 | 5 | 6]}
                         </span>
