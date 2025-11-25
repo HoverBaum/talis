@@ -1,5 +1,12 @@
 'use client'
 
+/**
+ * ThemeProvider synchronizes the chosen color mode/theme across the app.
+ * Reads from `localStorage` on the client only and updates `data-mode` /
+ * `data-theme` attributes so global styles react without runtime class churn.
+ * Assumes only the current `talis-mode` / `talis-theme` keys exist; legacy keys
+ * are intentionally ignored.
+ */
 import { createContext, useContext, useEffect, useState } from 'react'
 
 export type Mode = 'system' | 'light' | 'dark'
@@ -9,7 +16,6 @@ type ThemeProviderProps = {
   children: React.ReactNode
   defaultMode?: Mode
   defaultTheme?: Theme
-  storageKey?: string
 }
 
 type ThemeProviderState = {
@@ -28,65 +34,14 @@ const initialState: ThemeProviderState = {
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
-// Migration function to convert old theme values to new mode + theme structure
-function migrateOldTheme(oldTheme: string): { mode: Mode; theme: Theme } {
-  if (oldTheme === 'light' || oldTheme === 'dark' || oldTheme === 'system') {
-    return {
-      mode: oldTheme as Mode,
-      theme: 'default',
-    }
-  }
-
-  // Old custom themes (shadowrun, nature, spm-dark, synthwave) were all dark
-  if (oldTheme === 'shadowrun' || oldTheme === 'nature') {
-    return {
-      mode: 'dark',
-      theme: oldTheme as Theme,
-    }
-  }
-
-  if (oldTheme === 'spm-dark') {
-    return {
-      mode: 'dark',
-      theme: 'spm',
-    }
-  }
-
-  // synthwave is no longer supported, migrate to default
-  if (oldTheme === 'synthwave') {
-    return {
-      mode: 'dark',
-      theme: 'default',
-    }
-  }
-
-  // Default fallback
-  return {
-    mode: 'system',
-    theme: 'default',
-  }
-}
-
 export function ThemeProvider({
   children,
   defaultMode = 'system',
   defaultTheme = 'default',
-  storageKey = 'talis-theme',
   ...props
 }: ThemeProviderProps) {
-  // Initialize state with migration logic
   const [mode, setModeState] = useState<Mode>(() => {
     if (typeof window === 'undefined') return defaultMode
-
-    const oldTheme = localStorage.getItem(storageKey)
-    if (oldTheme) {
-      const migrated = migrateOldTheme(oldTheme)
-      // Clean up old storage key
-      localStorage.removeItem(storageKey)
-      localStorage.setItem('talis-mode', migrated.mode)
-      localStorage.setItem('talis-theme', migrated.theme)
-      return migrated.mode
-    }
 
     const storedMode = localStorage.getItem('talis-mode') as Mode | null
     return storedMode || defaultMode
@@ -94,12 +49,6 @@ export function ThemeProvider({
 
   const [theme, setThemeState] = useState<Theme>(() => {
     if (typeof window === 'undefined') return defaultTheme
-
-    const oldTheme = localStorage.getItem(storageKey)
-    if (oldTheme) {
-      const migrated = migrateOldTheme(oldTheme)
-      return migrated.theme
-    }
 
     const storedTheme = localStorage.getItem('talis-theme') as Theme | null
     return storedTheme || defaultTheme
