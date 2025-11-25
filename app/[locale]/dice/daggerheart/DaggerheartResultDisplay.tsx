@@ -43,10 +43,10 @@ export function DaggerheartResultDisplay({
   return (
     <div
       className={`animate-fadeIn p-2 mb-6 ${
-        isHighlighted ? 'bg-muted p-4 text-xl border-2 rounded-lg' : 'text-md'
+        isHighlighted ? 'bg-muted p-4 text-xl  border-2 rounded-lg' : 'text-md'
       }`}
     >
-      <div>
+      <div className={`${isHighlighted ? 'font-bold mb-2' : ''}`}>
         <span>
           {!isCritical && (
             <span>{roll.fear > roll.hope ? t('fear') : t('hope')}</span>
@@ -75,7 +75,7 @@ export function DaggerheartResultDisplay({
       </div>
       <div className="flex items-center mt-2">
         {isCritical && (
-          <Badge variant="default" className="bg-accent">
+          <Badge variant="default" className="bg-accent text-accent-foreground">
             {t('criticalSuccess')}
           </Badge>
         )}
