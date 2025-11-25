@@ -2,72 +2,139 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 
-export type Theme = 'system' | 'light' | 'dark' | 'shadowrun' | 'nature' | 'spm-dark'
-
-// Extract all theme values except 'system' (which is not a CSS class)
-type ThemeClass = Exclude<Theme, 'system'>
-
-// Helper to create a const array from the Theme type
-// This ensures all theme classes (except 'system') are included
-const themeClasses: ThemeClass[] = ['light', 'dark', 'shadowrun', 'nature', 'spm-dark'] as const
+export type Mode = 'system' | 'light' | 'dark'
+export type Theme = 'default' | 'shadowrun' | 'nature' | 'spm'
 
 type ThemeProviderProps = {
   children: React.ReactNode
+  defaultMode?: Mode
   defaultTheme?: Theme
   storageKey?: string
 }
 
 type ThemeProviderState = {
+  mode: Mode
   theme: Theme
+  setMode: (mode: Mode) => void
   setTheme: (theme: Theme) => void
 }
 
 const initialState: ThemeProviderState = {
-  theme: 'system',
+  mode: 'system',
+  theme: 'default',
+  setMode: () => null,
   setTheme: () => null,
 }
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
+// Migration function to convert old theme values to new mode + theme structure
+function migrateOldTheme(oldTheme: string): { mode: Mode; theme: Theme } {
+  if (oldTheme === 'light' || oldTheme === 'dark' || oldTheme === 'system') {
+    return {
+      mode: oldTheme as Mode,
+      theme: 'default',
+    }
+  }
+
+  // Old custom themes (shadowrun, nature, spm-dark, synthwave) were all dark
+  if (oldTheme === 'shadowrun' || oldTheme === 'nature') {
+    return {
+      mode: 'dark',
+      theme: oldTheme as Theme,
+    }
+  }
+
+  if (oldTheme === 'spm-dark') {
+    return {
+      mode: 'dark',
+      theme: 'spm',
+    }
+  }
+
+  // synthwave is no longer supported, migrate to default
+  if (oldTheme === 'synthwave') {
+    return {
+      mode: 'dark',
+      theme: 'default',
+    }
+  }
+
+  // Default fallback
+  return {
+    mode: 'system',
+    theme: 'default',
+  }
+}
+
 export function ThemeProvider({
   children,
-  defaultTheme = 'system',
+  defaultMode = 'system',
+  defaultTheme = 'default',
   storageKey = 'talis-theme',
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (typeof window !== 'undefined' && (localStorage.getItem(storageKey) as Theme)) || defaultTheme
-  )
+  // Initialize state with migration logic
+  const [mode, setModeState] = useState<Mode>(() => {
+    if (typeof window === 'undefined') return defaultMode
+
+    const oldTheme = localStorage.getItem(storageKey)
+    if (oldTheme) {
+      const migrated = migrateOldTheme(oldTheme)
+      // Clean up old storage key
+      localStorage.removeItem(storageKey)
+      localStorage.setItem('talis-mode', migrated.mode)
+      localStorage.setItem('talis-theme', migrated.theme)
+      return migrated.mode
+    }
+
+    const storedMode = localStorage.getItem('talis-mode') as Mode | null
+    return storedMode || defaultMode
+  })
+
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window === 'undefined') return defaultTheme
+
+    const oldTheme = localStorage.getItem(storageKey)
+    if (oldTheme) {
+      const migrated = migrateOldTheme(oldTheme)
+      return migrated.theme
+    }
+
+    const storedTheme = localStorage.getItem('talis-theme') as Theme | null
+    return storedTheme || defaultTheme
+  })
 
   useEffect(() => {
     const root = window.document.documentElement
 
-    root.classList.remove(...themeClasses)
+    // Remove old class-based approach
+    root.classList.remove('light', 'dark')
 
     const updateTheme = () => {
-      if (theme === 'system') {
-        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+      // Determine actual mode (resolve 'system' to light/dark)
+      let actualMode: 'light' | 'dark'
+      if (mode === 'system') {
+        actualMode = window.matchMedia('(prefers-color-scheme: dark)').matches
           ? 'dark'
           : 'light'
-        root.classList.add(systemTheme)
-        root.removeAttribute('data-theme')
-      } else if (theme === 'light' || theme === 'dark') {
-        root.classList.add(theme)
-        root.removeAttribute('data-theme')
       } else {
-        root.setAttribute('data-theme', theme)
+        actualMode = mode
       }
+
+      // Apply data attributes
+      root.setAttribute('data-theme', theme)
+      root.setAttribute('data-mode', actualMode)
     }
 
     updateTheme()
 
-    if (theme === 'system') {
+    // Listen for system preference changes when mode is 'system'
+    if (mode === 'system') {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
       const handleChange = () => {
-        root.classList.remove('light', 'dark')
-        const systemTheme = mediaQuery.matches ? 'dark' : 'light'
-        root.classList.add(systemTheme)
-        root.removeAttribute('data-theme')
+        const actualMode = mediaQuery.matches ? 'dark' : 'light'
+        root.setAttribute('data-mode', actualMode)
       }
 
       // Use addEventListener for better browser support
@@ -84,13 +151,18 @@ export function ThemeProvider({
         }
       }
     }
-  }, [theme])
+  }, [mode, theme])
 
   const value = {
+    mode,
     theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme)
-      setTheme(theme)
+    setMode: (newMode: Mode) => {
+      localStorage.setItem('talis-mode', newMode)
+      setModeState(newMode)
+    },
+    setTheme: (newTheme: Theme) => {
+      localStorage.setItem('talis-theme', newTheme)
+      setThemeState(newTheme)
     },
   }
 

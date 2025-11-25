@@ -6,16 +6,20 @@ alwaysApply: false
 
 These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
 
-Talis supports multiple color schemes:
+Talis uses a **two-dimensional theming system** that separates **mode** (light/dark/system) from **theme** (color scheme):
 
-* **System theme:**
+* **Mode** - Controls brightness:
+  * `light` - Always use light mode
+  * `dark` - Always use dark mode
+  * `system` - Respects the user's OS setting (light/dark) and automatically switches
 
-  * Respects the user's OS setting (light/dark).
-  * Automatically switches between light and dark.
+* **Theme** - Controls color scheme, e.g.:
+  * `default` - Default Talis color scheme
+  * `shadowrun` - Shadowrun-inspired colors
+  * `nature` - Nature-inspired colors
+  * Additional themes can be added in the future
 
-* **Additional custom color schemes:**
-
-  * Users may select other themes beyond default light/dark.
+**Every theme MUST provide both light and dark variants.** The mode selector determines which variant is used.
 
 Implementation notes:
 
@@ -69,7 +73,8 @@ Implementation notes:
 ### Chart Variables (5 required)
 * `--chart-1` through `--chart-5` - Chart color palette (5 colors)
 
-**Total: 31 required CSS variables per theme**
+
+**Every theme MUST define both light and dark variants.** Each variant requires all variables.
 
 ### Color Format
 
@@ -101,10 +106,45 @@ MDX pages automatically use theme CSS variables via Tailwind Typography's `--tw-
 
 MDX layouts should use: `<div className="prose prose-sm md:prose-base">`. Prose elements use `--foreground` (text), `--primary` (links), `--muted-foreground` (muted text), `--muted` (code backgrounds), and `--border` (borders).
 
+### CSS Selector Pattern
+
+Themes are applied using combined data attributes: `[data-theme="X"][data-mode="Y"]`
+
+Example:
+```css
+/* Default theme, light mode */
+[data-theme='default'][data-mode='light'] {
+  --background: oklch(1 0 0);
+  /* ... all 31 variables ... */
+}
+
+/* Default theme, dark mode */
+[data-theme='default'][data-mode='dark'] {
+  --background: oklch(0.145 0 0);
+  /* ... all 31 variables ... */
+}
+
+/* Shadowrun theme, light mode */
+[data-theme='shadowrun'][data-mode='light'] {
+  --background: oklch(0.98 0.01 330);
+  /* ... all 31 variables ... */
+}
+
+/* Shadowrun theme, dark mode */
+[data-theme='shadowrun'][data-mode='dark'] {
+  --background: oklch(0.15 0.02 330);
+  /* ... all 31 variables ... */
+}
+```
+
 ### Reference Implementation
 
-See `app/globals.css` for complete examples of theme definitions, e.g.:
-* `:root` - Light theme (class-based)
-* `.dark` - Dark theme (class-based)
-* `[data-theme='shadowrun']` - Custom theme example
+See `app/globals.css` for complete examples of theme definitions:
+* `[data-theme='default'][data-mode='light']` - Default theme, light mode
+* `[data-theme='default'][data-mode='dark']` - Default theme, dark mode
+* `[data-theme='shadowrun'][data-mode='light']` - Shadowrun theme, light mode
+* `[data-theme='shadowrun'][data-mode='dark']` - Shadowrun theme, dark mode
+* Similar patterns for `nature` and `spm` themes
+
+The `:root` selector is kept as a fallback for default theme light mode when no data attributes are present.
 

@@ -27,7 +27,7 @@ export function ProvidersWrapper({
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale} timeZone={timeZone}>
-      <ThemeProvider defaultTheme="system" storageKey="talis-theme">
+      <ThemeProvider defaultMode="system" defaultTheme="default">
         <PageTitleProvider>
           <SidebarProvider>
             <AppSidebar />

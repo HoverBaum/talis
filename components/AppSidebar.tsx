@@ -20,6 +20,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 import { ThemeSelect } from './ThemeSelect'
+import { ModeSelect } from './ModeSelect'
 import { LanguageSelect } from './LanguageSelect'
 import { PWAInstallPrompt } from './PWAInstallPrompt'
 import { useThemeBranding } from '@/lib/theme-config'
@@ -136,6 +137,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <div className="space-y-4 p-4">
           <LanguageSelect />
+          <ModeSelect />
           <ThemeSelect />
           <PWAInstallPrompt />
           <div className="text-xs text-muted-foreground space-y-1">

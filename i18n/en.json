@@ -87,14 +87,16 @@
   },
   "Theme": {
     "select": "Color Theme",
-    "system": "System",
-    "light": "Light",
-    "dark": "Dark",
+    "default": "Default",
     "shadowrun": "Shadowrun",
-    "cyberpunk": "Cyberpunk",
-    "synthwave": "Synthwave",
     "nature": "Nature",
-    "spm-dark": "SPM dark"
+    "spm": "SPM",
+    "mode": {
+      "select": "Mode",
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    }
   },
   "Language": {
     "select": "Language",

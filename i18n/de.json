@@ -87,14 +87,16 @@
   },
   "Theme": {
     "select": "Farbschema",
-    "system": "System",
-    "light": "Hell",
-    "dark": "Dunkel",
+    "default": "Standard",
     "shadowrun": "Shadowrun",
-    "cyberpunk": "Cyberpunk",
-    "synthwave": "Synthwave",
     "nature": "Natur",
-    "spm-dark": "SPM dark"
+    "spm": "SPM",
+    "mode": {
+      "select": "Modus",
+      "system": "System",
+      "light": "Hell",
+      "dark": "Dunkel"
+    }
   },
   "Language": {
     "select": "Sprache",

@@ -20,22 +20,18 @@ export function ThemeSelect({ className }: ThemeSelectProps) {
 
   return (
     <div className={className}>
-
       <label className="text-sm font-medium mb-2 block">
         {t('select')}
       </label>
-
       <Select value={theme} onValueChange={(value) => setTheme(value as Theme)}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder={t('select')} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="system">{t('system')}</SelectItem>
-          <SelectItem value="light">{t('light')}</SelectItem>
-          <SelectItem value="dark">{t('dark')}</SelectItem>
+          <SelectItem value="default">{t('default')}</SelectItem>
           <SelectItem value="shadowrun">{t('shadowrun')}</SelectItem>
           <SelectItem value="nature">{t('nature')}</SelectItem>
-          <SelectItem value="spm-dark">{t('spm-dark')}</SelectItem>
+          <SelectItem value="spm">{t('spm')}</SelectItem>
         </SelectContent>
       </Select>
     </div>
