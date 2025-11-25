@@ -34,51 +34,57 @@ export function DaggerheartResultDisplay({
   }
 
   const hopeClasses = useThemeColors
-    ? 'bg-roll-positive text-roll-positive-foreground'
-    : 'bg-blue-200 text-black'
-  const fearClasses = useThemeColors
-    ? 'bg-roll-negative text-roll-negative-foreground'
-    : 'bg-red-200 text-black'
+    ? 'border-roll-positive'
+    : 'border-blue-200'
+  const fearClasses = useThemeColors ? 'border-roll-negative' : 'border-red-200'
 
   return (
     <div
       className={`animate-fadeIn p-2 mb-6 ${
-        isHighlighted ? 'bg-muted p-4 text-xl  border-2 rounded-lg' : 'text-md'
+        isHighlighted ? 'bg-muted p-4 text-xl border-2 rounded-lg' : 'text-md'
       }`}
     >
-      <div className={`${isHighlighted ? 'font-bold mb-2' : ''}`}>
-        <span>
-          {!isCritical && (
-            <span>{roll.fear > roll.hope ? t('fear') : t('hope')}</span>
-          )}
-          {isCritical && <span>{t('criticalSuccess')}</span>}{' '}
-          {roll.fear + roll.hope}
-        </span>
+      <div
+        className={`mb-1 flex items-center ${
+          isHighlighted ? 'font-bold mb-2' : ''
+        }`}
+      >
+        {!isCritical && (
+          <>
+            {roll.hope > roll.fear && (
+              <Badge variant="outline" className={hopeClasses}>
+                {t('hope')}
+              </Badge>
+            )}
+            {roll.fear > roll.hope && (
+              <Badge variant="outline" className={fearClasses}>
+                {t('fear')}
+              </Badge>
+            )}
+          </>
+        )}
+        {isCritical && <Badge variant="default">{t('criticalSuccess')}</Badge>}
+        <span className="ml-1">{roll.fear + roll.hope}</span>
       </div>
       <div className="flex text-center">
         <div
-          className={`flex flex-col items-center mx-1 rounded p-2 ${hopeClasses}`}
+          className={`flex flex-col items-center mx-1 rounded p-2 border ${hopeClasses}`}
           style={{ flexGrow: hopeGrow }}
         >
-          <span className="font-semibold">
+          <span>
             {t('hope')} {roll.hope}
           </span>
         </div>
         <div
-          className={`flex flex-col items-center mx-1 rounded p-2 ${fearClasses}`}
+          className={`flex flex-col items-center mx-1 rounded p-2 border ${fearClasses}`}
           style={{ flexGrow: fearGrow }}
         >
-          <span className="font-semibold">
+          <span>
             {t('fear')} {roll.fear}
           </span>
         </div>
       </div>
       <div className="flex items-center mt-2">
-        {isCritical && (
-          <Badge variant="default" className="bg-accent text-accent-foreground">
-            {t('criticalSuccess')}
-          </Badge>
-        )}
         <span className="text-xs text-muted-foreground ml-2">
           {new Date(roll.timestamp).toLocaleTimeString()}
         </span>
