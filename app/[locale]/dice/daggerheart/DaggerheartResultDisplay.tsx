@@ -65,14 +65,14 @@ export function DaggerheartResultDisplay({
         <div
           className={`flex flex-col items-center rounded p-2 border ${hopeClasses}`}
         >
-          <span>
+          <span className="whitespace-nowrap">
             {t('hope')} {roll.hope}
           </span>
         </div>
         <div
           className={`flex flex-col items-center rounded p-2 border ${fearClasses}`}
         >
-          <span>
+          <span className="whitespace-nowrap">
             {t('fear')} {roll.fear}
           </span>
         </div>
