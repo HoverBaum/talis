@@ -77,6 +77,20 @@ export default async function HomePage({
                             </Button>
                         </CardContent>
                     </Card>
+
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>{navT('polyhedral')}</CardTitle>
+                            <CardDescription>{t('polyhedralDescription')}</CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                            <Button asChild>
+                                <Link href={`/${locale}/dice/polyhedral`}>
+                                    {navT('polyhedral')}
+                                </Link>
+                            </Button>
+                        </CardContent>
+                    </Card>
                 </div>
             </div>
         </>

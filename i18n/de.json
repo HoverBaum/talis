@@ -4,7 +4,8 @@
     "description": "Wähle zwischen folgenden Apps.",
     "shadowrunDescription": "Shadowrun Würfel App",
     "d6Description": "Allgemeine D6 Würfel App",
-    "daggerheartDescription": "Daggerheart Würfel App"
+    "daggerheartDescription": "Daggerheart Würfel App",
+    "polyhedralDescription": "Standard Polyeder Würfel App (d4, d6, d8, d10, d12, d20, d100)"
   },
   "Roller": {
     "Shadowrun": {
@@ -70,6 +71,24 @@
         "useThemeColors": "Theme-Farben für Hoffnung/Furcht",
         "back": "Zurück"
       }
+    },
+    "Polyhedral": {
+      "Config": {
+        "title": "Polyeder Würfel Konfiguration",
+        "diceSelection": "Würfelauswahl",
+        "diceSelectionDescription": "Wähle welche Würfeltypen verfügbar sind und konfiguriere ihre maximale Anzahl",
+        "maxQuantity": "Maximale Anzahl",
+        "maxQuantityDescription": "Maximale Anzahl der Würfel auf dem Rad",
+        "displaySettings": "Anzeigeeinstellungen",
+        "displaySettingsDescription": "Konfiguriere, wie Würfelergebnisse angezeigt und organisiert werden",
+        "newResultsAtBottom": "Neue Ergebnisse unten",
+        "newResultsAtBottomDescription": "Neue Ergebnisse am unteren Ende der Liste anzeigen",
+        "sortDice": "Würfel sortieren",
+        "sortDiceDescription": "Würfelergebnisse automatisch sortieren",
+        "sumDice": "Würfel addieren",
+        "sumDiceDescription": "Die Summe aller Würfelwerte anzeigen",
+        "back": "Zurück"
+      }
     }
   },
   "Components": {
@@ -96,7 +115,8 @@
     "rollers": "Würfel Apps",
     "shadowrun": "Shadowrun",
     "d6": "D6 Würfel",
-    "daggerheart": "Daggerheart"
+    "daggerheart": "Daggerheart",
+    "polyhedral": "Polyeder"
   },
   "Theme": {
     "select": "Theme",

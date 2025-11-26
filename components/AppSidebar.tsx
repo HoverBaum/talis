@@ -77,6 +77,11 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
       url: `/${locale}/dice/daggerheart`,
       icon: null,
     },
+    {
+      title: t('polyhedral'),
+      url: `/${locale}/dice/polyhedral`,
+      icon: null,
+    },
   ]
 
   const isActive = (url: string) => {

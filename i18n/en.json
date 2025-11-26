@@ -4,7 +4,8 @@
     "description": "Choose a Dice Roller from the list below.",
     "shadowrunDescription": "Shadowrun dice roller",
     "d6Description": "General purpose D6 roller",
-    "daggerheartDescription": "Daggerheart dice roller"
+    "daggerheartDescription": "Daggerheart dice roller",
+    "polyhedralDescription": "Standard polyhedral dice roller (d4, d6, d8, d10, d12, d20, d100)"
   },
   "Roller": {
     "Shadowrun": {
@@ -70,6 +71,24 @@
         "useThemeColors": "Use theme colors for Hope/Fear",
         "back": "Back"
       }
+    },
+    "Polyhedral": {
+      "Config": {
+        "title": "Polyhedral Dice Configuration",
+        "diceSelection": "Dice Selection",
+        "diceSelectionDescription": "Choose which dice types are available and configure their maximum quantity",
+        "maxQuantity": "Max quantity",
+        "maxQuantityDescription": "Maximum number of dice available on the wheel",
+        "displaySettings": "Display Settings",
+        "displaySettingsDescription": "Configure how dice results are displayed and organized",
+        "newResultsAtBottom": "New results at bottom",
+        "newResultsAtBottomDescription": "Show new results at the bottom of the list",
+        "sortDice": "Sort dice",
+        "sortDiceDescription": "Automatically sort dice results",
+        "sumDice": "Sum dice",
+        "sumDiceDescription": "Display the sum of all dice values",
+        "back": "Back"
+      }
     }
   },
   "Components": {
@@ -96,7 +115,8 @@
     "rollers": "Rollers",
     "shadowrun": "Shadowrun",
     "d6": "D6 Roller",
-    "daggerheart": "Daggerheart"
+    "daggerheart": "Daggerheart",
+    "polyhedral": "Polyhedral"
   },
   "Theme": {
     "select": "Theme",
