@@ -34,9 +34,11 @@ export function DaggerheartResultDisplay({
   }
 
   const hopeClasses = useThemeColors
-    ? 'border-roll-positive'
-    : 'border-blue-200'
-  const fearClasses = useThemeColors ? 'border-roll-negative' : 'border-red-200'
+    ? 'border-roll-positive bg-roll-positive/50 text-roll-positive-foreground dark:text-foreground dark:bg-roll-positive/10'
+    : 'border-yellow-200 bg-yellow-200/50 text-foreground dark:bg-yellow-900/10'
+  const fearClasses = useThemeColors
+    ? 'border-roll-negative bg-roll-negative/50 text-roll-negative-foreground dark:text-foreground dark:bg-roll-negative/10'
+    : 'border-purple-200 bg-purple-200/50 text-foreground dark:bg-purple-900/10'
 
   return (
     <div
@@ -52,12 +54,12 @@ export function DaggerheartResultDisplay({
         {!isCritical && (
           <>
             {roll.hope > roll.fear && (
-              <Badge variant="outline" className={hopeClasses}>
+              <Badge variant="default" className={hopeClasses}>
                 {t('hope')}
               </Badge>
             )}
             {roll.fear > roll.hope && (
-              <Badge variant="outline" className={fearClasses}>
+              <Badge variant="default" className={fearClasses}>
                 {t('fear')}
               </Badge>
             )}
