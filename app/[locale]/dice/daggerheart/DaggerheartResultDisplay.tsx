@@ -19,18 +19,11 @@ export function DaggerheartResultDisplay({
   )
   const isCritical = roll.hope === roll.fear
 
-  let hopeGrow = 1
-  let fearGrow = 1
-
-  if (isCritical) {
-    hopeGrow = 1
-    fearGrow = 1
-  } else if (roll.hope > roll.fear) {
-    hopeGrow = 2
-    fearGrow = 1
-  } else if (roll.fear > roll.hope) {
-    hopeGrow = 1
-    fearGrow = 2
+  // Determine grid columns based on which value is larger
+  let gridCols = 'grid-cols-2' // Default for critical (equal values)
+  if (!isCritical) {
+    gridCols =
+      roll.hope > roll.fear ? 'grid-cols-[2fr_1fr]' : 'grid-cols-[1fr_2fr]'
   }
 
   const hopeClasses = useThemeColors
@@ -68,18 +61,16 @@ export function DaggerheartResultDisplay({
         {isCritical && <Badge variant="default">{t('criticalSuccess')}</Badge>}
         <span className="ml-1">{roll.fear + roll.hope}</span>
       </div>
-      <div className="flex text-center">
+      <div className={`grid ${gridCols} gap-2 text-center`}>
         <div
-          className={`flex flex-col items-center mx-1 rounded p-2 border ${hopeClasses}`}
-          style={{ flexGrow: hopeGrow }}
+          className={`flex flex-col items-center rounded p-2 border ${hopeClasses}`}
         >
           <span>
             {t('hope')} {roll.hope}
           </span>
         </div>
         <div
-          className={`flex flex-col items-center mx-1 rounded p-2 border ${fearClasses}`}
-          style={{ flexGrow: fearGrow }}
+          className={`flex flex-col items-center rounded p-2 border ${fearClasses}`}
         >
           <span>
             {t('fear')} {roll.fear}
