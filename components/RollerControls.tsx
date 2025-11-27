@@ -75,9 +75,13 @@ export const RollerControls = ({
     return (
         <>
             {children ? (
-                <div className="flex items-center justify-between py-2">
-                    <div className="flex items-center gap-4">{children}</div>
-                    <ActionButtons onClear={onClear} settingsHref={settingsHref} />
+                <div className="flex items-center justify-between py-2 overflow-hidden gap-2">
+                    <div className="flex items-center gap-2 min-w-0 overflow-x-auto scrollbar-none">
+                        {children}
+                    </div>
+                    <div className="flex-shrink-0">
+                        <ActionButtons onClear={onClear} settingsHref={settingsHref} />
+                    </div>
                 </div>
             ) : (
                 <div className="flex justify-end gap-2 mb-2">

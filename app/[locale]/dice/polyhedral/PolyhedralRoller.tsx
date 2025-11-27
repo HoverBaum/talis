@@ -125,7 +125,7 @@ export function PolyhedralRoller() {
                     rollLabel={t('roll')}
                     settingsHref="polyhedral/config"
                 >
-                    <div className="flex gap-2 overflow-x-auto">
+                    <div className="flex gap-2">
                         {config.enabledDice.map((diceType) => (
                             <Button
                                 key={diceType}
