@@ -94,6 +94,8 @@ export function DaggerheartRoller() {
 
   useAutoScroll('d12Results', true, [rolls])
 
+  const hasEnabledPolyhedralDice = (config.enabledDice || []).length > 0
+
   return (
     <RollerLayout>
       <RollerLayoutContent>
@@ -147,30 +149,32 @@ export function DaggerheartRoller() {
           rollLabel={tGeneral('roll')}
           settingsHref="daggerheart/config"
         >
-          <div className="flex gap-2">
-            <Button
-              variant={rollMode === 'daggerheart' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setRollMode('daggerheart')}
-              className={rollMode === 'daggerheart' ? 'border border-transparent' : ''}
-            >
-              {t('roll')}
-            </Button>
-            {(config.enabledDice || []).map((diceType) => {
-              const isSelected = rollMode === 'polyhedral' && selectedDiceType === diceType
-              return (
-                <Button
-                  key={diceType}
-                  variant={isSelected ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => handleDiceTypeSelect(diceType as PolyhedralDiceType)}
-                  className={isSelected ? 'border border-transparent' : ''}
-                >
-                  d{diceType}
-                </Button>
-              )
-            })}
-          </div>
+          {hasEnabledPolyhedralDice && (
+            <div className="flex gap-2">
+              <Button
+                variant={rollMode === 'daggerheart' ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setRollMode('daggerheart')}
+                className={rollMode === 'daggerheart' ? 'border border-transparent' : ''}
+              >
+                {t('roll')}
+              </Button>
+              {(config.enabledDice || []).map((diceType) => {
+                const isSelected = rollMode === 'polyhedral' && selectedDiceType === diceType
+                return (
+                  <Button
+                    key={diceType}
+                    variant={isSelected ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => handleDiceTypeSelect(diceType as PolyhedralDiceType)}
+                    className={isSelected ? 'border border-transparent' : ''}
+                  >
+                    d{diceType}
+                  </Button>
+                )
+              })}
+            </div>
+          )}
         </RollerControls>
       </RollerLayoutFooter>
     </RollerLayout>
