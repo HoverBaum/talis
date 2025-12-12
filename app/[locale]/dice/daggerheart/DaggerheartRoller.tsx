@@ -124,13 +124,18 @@ export function DaggerheartRoller() {
             })}
           </RollerLayoutResultArea>
           <RollerLayoutControlArea className="col-span-2">
-            {rollMode === 'polyhedral' && (
+            <div
+              className={`transition-opacity duration-300 ease-out h-full ${rollMode === 'polyhedral'
+                ? 'opacity-100 pointer-events-auto'
+                : 'opacity-0 pointer-events-none'
+                }`}
+            >
               <DiceSelectWheel
                 max={maxQuantity}
                 current={currentQuantity}
                 onChange={handleQuantityChange}
               />
-            )}
+            </div>
           </RollerLayoutControlArea>
         </div>
       </RollerLayoutContent>
