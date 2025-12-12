@@ -160,7 +160,6 @@ export const useDaggerheartStore = create<DaggerheartState>()(
       name: 'daggerheart-storage',
       partialize: (state) => ({
         config: state.config,
-        rolls: state.rolls,
         rollMode: state.rollMode,
         selectedDiceType: state.selectedDiceType,
         diceQuantities: state.diceQuantities,
