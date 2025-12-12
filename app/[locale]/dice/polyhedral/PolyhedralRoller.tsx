@@ -132,6 +132,7 @@ export function PolyhedralRoller() {
                                 variant={selectedDiceType === diceType ? 'default' : 'outline'}
                                 size="sm"
                                 onClick={() => setSelectedDiceType(diceType as PolyhedralDiceType)}
+                                className={selectedDiceType === diceType ? 'border border-transparent' : ''}
                             >
                                 d{diceType}
                             </Button>
