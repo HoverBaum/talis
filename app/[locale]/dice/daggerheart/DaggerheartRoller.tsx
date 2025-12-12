@@ -16,7 +16,7 @@ import {
 } from '@/components/RollerLayout'
 import { RollerControls } from '@/components/RollerControls'
 import { DaggerheartResultDisplay } from './DaggerheartResultDisplay'
-import { PolyhedralResultDisplay } from '../polyhedral/PolyhedralResultDisplay'
+import { PolyhedralResultDisplay } from '@/components/PolyhedralResultDisplay'
 import { DiceSelectWheel } from '@/components/DiceSelectWheel'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'

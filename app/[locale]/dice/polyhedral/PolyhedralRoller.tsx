@@ -42,7 +42,7 @@ import {
     RollerLayoutContent,
 } from '@/components/RollerLayout'
 import { RollerControls } from '@/components/RollerControls'
-import { PolyhedralResultDisplay } from './PolyhedralResultDisplay'
+import { PolyhedralResultDisplay } from '@/components/PolyhedralResultDisplay'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
 import { Button } from '@/components/ui/button'

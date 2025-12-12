@@ -18,10 +18,10 @@
  * - Expects a valid PolyhedralRollResult with results array and diceType
  * - Assumes results array contains numbers within valid range for the dice type
  * 
- * Used by PolyhedralRoller to display roll history in the result area.
+ * Used by PolyhedralRoller and DaggerheartRoller to display polyhedral dice roll history in the result area.
  */
 import { useTranslations } from 'next-intl'
-import { PolyhedralRollResult, usePolyhedralStore } from './polyhedral-store'
+import { PolyhedralRollResult, usePolyhedralStore } from '@/app/[locale]/dice/polyhedral/polyhedral-store'
 
 type PolyhedralResultDisplayProps = {
     diceRoll: PolyhedralRollResult
