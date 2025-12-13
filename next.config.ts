@@ -1,3 +1,4 @@
+import { withPostHogConfig } from "@posthog/nextjs-config"
 import type { NextConfig } from 'next'
 import createMDX from '@next/mdx'
 import createNextIntlPlugin from 'next-intl/plugin'
@@ -44,5 +45,12 @@ const withMDX = createMDX({
   // Add markdown plugins here, as desired
 })
 
-// Wrap MDX and Next.js config with each other
-export default withNextIntl(withMDX(nextConfig))
+export default withPostHogConfig(withNextIntl(withMDX(nextConfig)), {
+  personalApiKey: 'phx_bfbkRalWjWTZzqQ3VHaMWNlFT8Vdwp5hkEISilOHH0LPep7', // Your personal API key from PostHog settings
+  envId: '108492', // Your environment ID (project ID)
+  host: 'https://eu.i.posthog.com', // Optional: Your PostHog instance URL, defaults to https://us.posthog.com
+  sourcemaps: { // Optional
+    enabled: true, // Optional: Enable sourcemaps generation and upload, defaults to true on production builds
+    deleteAfterUpload: true, // Optional: Delete sourcemaps after upload, defaults to true
+  },
+});
