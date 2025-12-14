@@ -156,7 +156,7 @@
   },
   "About": {
     "rollerBroken": "Roller Broken",
-    "rollerBrokenDescription": "If a roller is not working correctly, you can clear its cache to try and fix it. This will reset all settings for all rollers, but your theme and mode preferences will be preserved.",
+    "rollerBrokenDescription": "If a roller is not working correctly, you can clear the cache to try and fix it. This will reset all settings for all rollers, but your theme and mode preferences will be preserved.",
     "clearCacheButton": "Clear All Roller Cache",
     "clearCacheDialogTitle": "Clear All Roller Cache?",
     "clearCacheDialogDescription": "This will clear all settings for all rollers. Your theme and mode preferences will be preserved. This action cannot be undone.",
