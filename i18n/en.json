@@ -162,15 +162,5 @@
     "clearCacheDialogDescription": "This will clear all settings for all rollers. Your theme and mode preferences will be preserved. This action cannot be undone.",
     "clearCacheCancel": "Cancel",
     "clearCacheConfirm": "Clear Cache"
-  },
-  "Store": {
-    "validationError": "Roller settings reset due to validation failure",
-    "validationErrorDescription": "The {rollerName} settings were invalid and have been reset to defaults.",
-    "migrationError": "Roller settings reset due to migration failure",
-    "migrationErrorDescription": "The {rollerName} settings could not be migrated and have been reset to defaults.",
-    "corruptionError": "Roller settings reset due to data corruption",
-    "corruptionErrorDescription": "The {rollerName} settings were corrupted and have been reset to defaults.",
-    "loadError": "Roller settings reset due to error",
-    "loadErrorDescription": "An error occurred while loading {rollerName} settings. They have been reset to defaults."
   }
 }

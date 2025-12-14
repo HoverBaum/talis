@@ -9,7 +9,6 @@ import { PageTitle } from './PageTitle'
 import { PageTitleProvider } from './PageTitleProvider'
 import { PWAUpdatePrompt } from './PWAUpdatePrompt'
 import { RegisterServiceWorker } from '@/app/register-sw'
-import { Toaster } from './ui/sonner'
 
 type ProvidersWrapperProps = {
   messages: Record<string, unknown>
@@ -51,7 +50,6 @@ export function ProvidersWrapper({
       </ThemeProvider>
       <RegisterServiceWorker />
       <PWAUpdatePrompt />
-      <Toaster />
     </NextIntlClientProvider>
   )
 }
