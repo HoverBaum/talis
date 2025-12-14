@@ -162,5 +162,15 @@
     "clearCacheDialogDescription": "Dies löscht alle Einstellungen für alle Würfel-Apps. Deine Theme- und Modus-Präferenzen bleiben erhalten. Diese Aktion kann nicht rückgängig gemacht werden.",
     "clearCacheCancel": "Abbrechen",
     "clearCacheConfirm": "Cache löschen"
+  },
+  "Store": {
+    "validationError": "Würfel-App-Einstellungen aufgrund eines Validierungsfehlers zurückgesetzt",
+    "validationErrorDescription": "Die {rollerName}-Einstellungen waren ungültig und wurden auf die Standardwerte zurückgesetzt.",
+    "migrationError": "Würfel-App-Einstellungen aufgrund eines Migrationsfehlers zurückgesetzt",
+    "migrationErrorDescription": "Die {rollerName}-Einstellungen konnten nicht migriert werden und wurden auf die Standardwerte zurückgesetzt.",
+    "corruptionError": "Würfel-App-Einstellungen aufgrund von Datenkorruption zurückgesetzt",
+    "corruptionErrorDescription": "Die {rollerName}-Einstellungen waren beschädigt und wurden auf die Standardwerte zurückgesetzt.",
+    "loadError": "Würfel-App-Einstellungen aufgrund eines Fehlers zurückgesetzt",
+    "loadErrorDescription": "Beim Laden der {rollerName}-Einstellungen ist ein Fehler aufgetreten. Sie wurden auf die Standardwerte zurückgesetzt."
   }
 }

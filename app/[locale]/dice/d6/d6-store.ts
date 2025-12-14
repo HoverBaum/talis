@@ -1,6 +1,7 @@
 'use client'
 
 import { create } from 'zustand'
+import { z } from 'zod'
 import { createStoreMiddleware } from '@/utils/store-utils'
 
 const MAX_DICE_AMOUNT = 8
@@ -15,7 +16,34 @@ export type D6RollResult = {
   id: string
 }
 
-const DEFAULT_CONFIG = {
+/**
+ * Schema for persisted state (matches partialize output).
+ * This is the single source of truth for the persisted state structure.
+ */
+const persistedStateSchema = z.object({
+  config: z.object({
+    maxDice: z.number().min(1).max(50),
+    showNewResultBottom: z.boolean(),
+    sortDice: z.boolean(),
+    isLoading: z.boolean(),
+    sumDice: z.boolean(),
+  }),
+  diceAmount: z.number().min(1).max(50),
+})
+
+/**
+ * Type derived from schema - ensures type safety matches validation.
+ * This is the single source of truth for persisted state structure.
+ */
+export type PersistedD6State = z.infer<typeof persistedStateSchema>
+
+/**
+ * Config type derived from schema - ensures type safety matches validation.
+ * This is the single source of truth for config structure.
+ */
+export type D6ConfigType = PersistedD6State['config']
+
+const DEFAULT_CONFIG: D6ConfigType = {
   maxDice: MAX_DICE_AMOUNT,
   showNewResultBottom: true,
   sortDice: false,
@@ -23,12 +51,10 @@ const DEFAULT_CONFIG = {
   sumDice: false,
 }
 
-export type D6ConfigType = typeof DEFAULT_CONFIG
-
-export interface D6State {
+export interface D6State extends PersistedD6State {
+  config: D6ConfigType
   diceAmount: number
   rolls: D6RollResult[]
-  config: D6ConfigType
   setDiceAmount: (amount: number) => void
   clearRolls: () => void
   addRoll: (roll: D6RollResult) => void
@@ -36,8 +62,8 @@ export interface D6State {
 }
 
 export const useD6Store = create<D6State>()(
-  createStoreMiddleware({
-    stateCreator: (set) => ({
+  createStoreMiddleware<D6State>({
+    stateCreator: (set, get) => ({
       diceAmount: INITIAL_DICE_AMOUNT,
       rolls: [],
       config: DEFAULT_CONFIG,
@@ -59,7 +85,10 @@ export const useD6Store = create<D6State>()(
     }),
     persistConfig: {
       name: 'd6-storage',
-      partialize: (state) => ({
+      version: 1,
+      migrations: [],
+      schema: persistedStateSchema,
+      partialize: (state): PersistedD6State => ({
         config: state.config,
         diceAmount: state.diceAmount,
       }),

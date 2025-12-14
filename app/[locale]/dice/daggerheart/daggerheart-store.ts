@@ -1,6 +1,7 @@
 'use client'
 
 import { create } from 'zustand'
+import { z } from 'zod'
 import { createStoreMiddleware } from '@/utils/store-utils'
 import {
   type PolyhedralRollResult,
@@ -20,7 +21,41 @@ export type DaggerheartRollResult = DaggerheartRoll | PolyhedralRollResult
 const DEFAULT_DICE_TYPES: PolyhedralDiceType[] = [4, 6, 8, 10, 12, 20, 100]
 const DEFAULT_MAX_QUANTITY = 8
 
-const DEFAULT_CONFIG = {
+export type RollMode = 'daggerheart' | 'polyhedral'
+
+/**
+ * Schema for persisted state (matches partialize output).
+ * This is the single source of truth for the persisted state structure.
+ */
+const persistedStateSchema = z.object({
+  config: z.object({
+    useThemeColors: z.boolean(),
+    enabledDice: z.array(z.union([z.literal(4), z.literal(6), z.literal(8), z.literal(10), z.literal(12), z.literal(20), z.literal(100)])),
+    diceSettings: z.record(
+      z.union([z.literal(4), z.literal(6), z.literal(8), z.literal(10), z.literal(12), z.literal(20), z.literal(100)]),
+      z.object({
+        maxQuantity: z.number().min(1).max(100),
+      })
+    ),
+  }),
+  rollMode: z.union([z.literal('daggerheart'), z.literal('polyhedral')]),
+  selectedDiceType: z.union([z.literal(4), z.literal(6), z.literal(8), z.literal(10), z.literal(12), z.literal(20), z.literal(100)]),
+  diceQuantities: z.record(z.number(), z.number()),
+})
+
+/**
+ * Type derived from schema - ensures type safety matches validation.
+ * This is the single source of truth for persisted state structure.
+ */
+export type PersistedDaggerheartState = z.infer<typeof persistedStateSchema>
+
+/**
+ * Config type derived from schema - ensures type safety matches validation.
+ * This is the single source of truth for config structure.
+ */
+export type DaggerheartConfigType = PersistedDaggerheartState['config']
+
+const DEFAULT_CONFIG: DaggerheartConfigType = {
   useThemeColors: false,
   enabledDice: DEFAULT_DICE_TYPES,
   diceSettings: DEFAULT_DICE_TYPES.reduce(
@@ -32,16 +67,12 @@ const DEFAULT_CONFIG = {
   ),
 }
 
-export type DaggerheartConfigType = typeof DEFAULT_CONFIG
-
-export type RollMode = 'daggerheart' | 'polyhedral'
-
-export interface DaggerheartState {
-  rolls: DaggerheartRollResult[]
+export interface DaggerheartState extends PersistedDaggerheartState {
   config: DaggerheartConfigType
   rollMode: RollMode
   selectedDiceType: PolyhedralDiceType
   diceQuantities: Record<number, number>
+  rolls: DaggerheartRollResult[]
   clearRolls: () => void
   addRoll: (roll: DaggerheartRollResult) => void
   updateConfig: (config: Partial<DaggerheartConfigType>) => void
@@ -53,7 +84,7 @@ export interface DaggerheartState {
 }
 
 export const useDaggerheartStore = create<DaggerheartState>()(
-  createStoreMiddleware({
+  createStoreMiddleware<DaggerheartState>({
     stateCreator: (set, get) => ({
       rolls: [],
       config: DEFAULT_CONFIG,
@@ -158,7 +189,10 @@ export const useDaggerheartStore = create<DaggerheartState>()(
     }),
     persistConfig: {
       name: 'daggerheart-storage',
-      partialize: (state) => ({
+      version: 1,
+      migrations: [],
+      schema: persistedStateSchema,
+      partialize: (state): PersistedDaggerheartState => ({
         config: state.config,
         rollMode: state.rollMode,
         selectedDiceType: state.selectedDiceType,
