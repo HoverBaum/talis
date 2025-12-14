@@ -3,20 +3,7 @@
 import { StateCreator } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
-/**
- * Registry of all storage names created via createStoreMiddleware.
- * This enables automatic discovery of all roller stores for operations
- * like cache clearing without hardcoding storage keys.
- */
-const storageRegistry = new Set<string>()
-
-/**
- * Gets all registered storage names.
- * @returns Array of all registered storage keys
- */
-export function getAllRegisteredStorageNames(): string[] {
-  return Array.from(storageRegistry)
-}
+export const STORAGE_PREFIX = 'talis_deletable'
 
 /**
  * Configuration options for creating a Zustand store with optional persistence
@@ -88,7 +75,9 @@ export interface StoreConfig<T> {
  * )
  * ```
  */
-export function createStoreMiddleware<T extends object>(config: StoreConfig<T>): StateCreator<T> {
+export function createStoreMiddleware<T extends object>(
+  config: StoreConfig<T>
+): StateCreator<T> {
   const { stateCreator, persistConfig, devtoolsName } = config
 
   // Determine the DevTools name
@@ -96,11 +85,8 @@ export function createStoreMiddleware<T extends object>(config: StoreConfig<T>):
 
   // If persistence is configured, wrap state creator with persist first
   if (persistConfig) {
-    // Register the storage name in the registry
-    storageRegistry.add(persistConfig.name)
-
     const persistedMiddleware = persist<T, [], [], Partial<T>>(stateCreator, {
-      name: persistConfig.name,
+      name: `${STORAGE_PREFIX}-${persistConfig.name}`,
       ...(persistConfig.partialize && {
         partialize: persistConfig.partialize,
       }),
@@ -123,4 +109,3 @@ export function createStoreMiddleware<T extends object>(config: StoreConfig<T>):
   // Cast to StateCreator to satisfy create<T>()() type requirements
   return devtoolsMiddleware as unknown as StateCreator<T>
 }
-
