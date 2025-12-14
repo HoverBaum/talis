@@ -153,5 +153,14 @@
   },
   "Footer": {
     "builtBy": "Entwickelt von"
+  },
+  "About": {
+    "rollerBroken": "Würfel-App defekt",
+    "rollerBrokenDescription": "Wenn eine Würfel-App nicht korrekt funktioniert, kannst du den Cache löschen, um es zu beheben. Dies setzt alle Einstellungen für alle Würfel-Apps zurück, aber deine Theme- und Modus-Präferenzen bleiben erhalten.",
+    "clearCacheButton": "Alle Würfel-App Caches löschen",
+    "clearCacheDialogTitle": "Alle Würfel-App Caches löschen?",
+    "clearCacheDialogDescription": "Dies löscht alle Einstellungen für alle Würfel-Apps. Deine Theme- und Modus-Präferenzen bleiben erhalten. Diese Aktion kann nicht rückgängig gemacht werden.",
+    "clearCacheCancel": "Abbrechen",
+    "clearCacheConfirm": "Cache löschen"
   }
 }

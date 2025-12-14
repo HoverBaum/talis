@@ -8,10 +8,12 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 
 * Each roller has its **own Zustand store slice**, scoped and typed for that roller.
 * State for each roller is **persisted** (e.g. last used settings and results if desired).
-* Stores must use the centrally provided createStoreMiddleware.
+* Stores must use the centrally provided `createStoreMiddleware` from `utils/store-utils.ts`.
 * Store files should live close to their roller, for example:
 
   * `app/dice/[rollerName]/store.ts`
+
+* **Storage Registry**: `createStoreMiddleware` automatically registers storage names when `persistConfig` is provided. This enables automatic discovery of all roller stores for operations like cache clearing without hardcoding storage keys. Use `getAllRegisteredStorageNames()` to retrieve all registered storage keys.
 
 * When adding new state:
 

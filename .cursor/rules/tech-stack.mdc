@@ -19,6 +19,7 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 
 * **NEVER modify files in `components/ui/**`** - These are shadcn/ui components and should remain unchanged.
 * If customization is needed, create wrapper components or use composition patterns instead of modifying the base components.
+* **ALWAYS use shadcn/ui components** - Never use browser UI components like `confirm()`, `alert()`, `prompt()`, etc. Use shadcn/ui Dialog, Alert, or other appropriate components instead.
 
 > When generating code (by hand or via AI), always assume this stack and follow the conventions in the other rule files.
 
