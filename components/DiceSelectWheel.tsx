@@ -139,6 +139,8 @@ export const DiceSelectWheel = ({
   const { height: windowHeight, lastHeight: lastWindowHeight } = useWindowSize()
   const wheelContainerRef = useRef<HTMLDivElement>(null)
   const scrollTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
+  // Track which item is "passed" during scroll for haptic feedback
+  const lastScrolledItemRef = useRef<number>(current)
 
   // Update container height when window resizes
   useEffect(() => {
@@ -170,6 +172,31 @@ export const DiceSelectWheel = ({
     wheelContainer.scrollTo({ top: targetScrollPosition, behavior: 'smooth' })
   }, [current, height])
 
+  // Haptic feedback while scrolling - vibrate when passing each number
+  useEffect(() => {
+    if (height === 0) return
+
+    const wheelContainer = wheelContainerRef.current
+    if (!wheelContainer) return
+
+    const handleScrollFeedback = () => {
+      const scrollTop = wheelContainer.scrollTop
+      const centeredIndex = Math.round(scrollTop / ITEM_HEIGHT)
+      const centeredValue = Math.max(1, Math.min(max, centeredIndex + 1))
+
+      // Vibrate when we cross to a new number
+      if (centeredValue !== lastScrolledItemRef.current) {
+        lastScrolledItemRef.current = centeredValue
+        vibrateTick()
+      }
+    }
+
+    wheelContainer.addEventListener('scroll', handleScrollFeedback)
+    return () => {
+      wheelContainer.removeEventListener('scroll', handleScrollFeedback)
+    }
+  }, [height, max])
+
   // Detect which item is centered after scrolling truly stops
   useEffect(() => {
     if (height === 0) return
@@ -184,7 +211,6 @@ export const DiceSelectWheel = ({
       const newValue = Math.max(1, Math.min(max, centeredIndex + 1))
 
       if (newValue !== current) {
-        vibrateTick()
         onChange(newValue)
       }
     }
