@@ -59,6 +59,11 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
       url: `/${locale}/pages/changelog`,
       icon: null,
     },
+    {
+      title: t('settings'),
+      url: `/${locale}/pages/settings`,
+      icon: null,
+    },
   ]
 
   const rollersNav = [

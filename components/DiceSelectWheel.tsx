@@ -19,10 +19,14 @@
 import { useEffect, useRef, useState, type RefObject } from 'react'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { useWindowSize } from '@/utils/use-window-size'
+import { useSettingsStore } from '@/app/[locale]/pages/settings/settings-store'
 
 /** Short haptic tick for selection feedback on mobile */
 const vibrateTick = () => {
-  if ('vibrate' in navigator) {
+  // Check if select wheel vibration is enabled in settings
+  const vibrationEnabled = useSettingsStore.getState().vibration.selectWheel
+
+  if (vibrationEnabled && 'vibrate' in navigator) {
     navigator.vibrate(15)
   }
 }

@@ -112,6 +112,7 @@
     "home": "Startseite",
     "about": "Über",
     "changelog": "Changelog",
+    "settings": "Einstellungen",
     "rollers": "Würfel Apps",
     "shadowrun": "Shadowrun",
     "d6": "D6 Würfel",
@@ -162,5 +163,16 @@
     "clearCacheDialogDescription": "Dies löscht alle Einstellungen für alle Würfel-Apps. Deine Theme- und Modus-Präferenzen bleiben erhalten. Diese Aktion kann nicht rückgängig gemacht werden.",
     "clearCacheCancel": "Abbrechen",
     "clearCacheConfirm": "Cache löschen"
+  },
+  "Settings": {
+    "title": "Einstellungen",
+    "vibrationSettings": "Vibrationseinstellungen",
+    "vibrationSettingsDescription": "Haptisches Feedback für Würfeln und Auswahl konfigurieren",
+    "enableAllVibration": "Alle Vibrationen aktivieren",
+    "enableAllVibrationDescription": "Alle Vibrations-Feedback-Optionen auf einmal aktivieren oder deaktivieren",
+    "diceRollVibration": "Würfel-Vibration",
+    "diceRollVibrationDescription": "Vibrations-Feedback beim Würfeln aktivieren",
+    "selectWheelVibration": "Rad-Auswahl-Vibration",
+    "selectWheelVibrationDescription": "Vibrations-Feedback beim Auswählen der Würfelanzahl auf dem Rad aktivieren"
   }
 }

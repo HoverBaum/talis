@@ -112,6 +112,7 @@
     "home": "Home",
     "about": "About",
     "changelog": "Changelog",
+    "settings": "Settings",
     "rollers": "Rollers",
     "shadowrun": "Shadowrun",
     "d6": "D6 Roller",
@@ -162,5 +163,16 @@
     "clearCacheDialogDescription": "This will clear all settings for all rollers. Your theme and mode preferences will be preserved. This action cannot be undone.",
     "clearCacheCancel": "Cancel",
     "clearCacheConfirm": "Clear Cache"
+  },
+  "Settings": {
+    "title": "Settings",
+    "vibrationSettings": "Vibration Settings",
+    "vibrationSettingsDescription": "Configure haptic feedback for dice rolling and selection",
+    "enableAllVibration": "Enable all vibration",
+    "enableAllVibrationDescription": "Enable or disable all vibration feedback options at once",
+    "diceRollVibration": "Dice roll vibration",
+    "diceRollVibrationDescription": "Enable vibration feedback when rolling dice",
+    "selectWheelVibration": "Select wheel vibration",
+    "selectWheelVibrationDescription": "Enable vibration feedback when selecting dice amounts on the wheel"
   }
 }
