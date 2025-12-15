@@ -17,8 +17,15 @@
  * Uses Motion (formerly Framer Motion) for hardware-accelerated animations.
  */
 import { useEffect, useRef, useState, type RefObject } from 'react'
-import { motion, useScroll, useTransform, type MotionValue } from 'motion/react'
+import { motion, useScroll, useTransform } from 'motion/react'
 import { useWindowSize } from '@/utils/use-window-size'
+
+/** Short haptic tick for selection feedback on mobile */
+const vibrateTick = () => {
+  if ('vibrate' in navigator) {
+    navigator.vibrate(15)
+  }
+}
 
 type DiceSelectWheelProps = {
   max: number
@@ -111,7 +118,10 @@ const WheelItem = ({
           stiffness: 500,
           damping: 25,
         }}
-        onClick={onClick}
+        onClick={() => {
+          vibrateTick()
+          onClick()
+        }}
       >
         {number}
       </motion.div>
@@ -174,6 +184,7 @@ export const DiceSelectWheel = ({
       const newValue = Math.max(1, Math.min(max, centeredIndex + 1))
 
       if (newValue !== current) {
+        vibrateTick()
         onChange(newValue)
       }
     }
