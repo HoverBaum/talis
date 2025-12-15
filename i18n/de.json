@@ -173,6 +173,7 @@
     "diceRollVibration": "Würfel-Vibration",
     "diceRollVibrationDescription": "Vibrations-Feedback beim Würfeln aktivieren",
     "selectWheelVibration": "Rad-Auswahl-Vibration",
-    "selectWheelVibrationDescription": "Vibrations-Feedback beim Auswählen der Würfelanzahl auf dem Rad aktivieren"
+    "selectWheelVibrationDescription": "Vibrations-Feedback beim Auswählen der Würfelanzahl auf dem Rad aktivieren",
+    "vibrationPlatformNote": "Hinweis: Vibrations-Feedback funktioniert nur auf Android-Geräten. iOS unterstützt die Vibration API nicht."
   }
 }

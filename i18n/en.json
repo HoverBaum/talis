@@ -173,6 +173,7 @@
     "diceRollVibration": "Dice roll vibration",
     "diceRollVibrationDescription": "Enable vibration feedback when rolling dice",
     "selectWheelVibration": "Select wheel vibration",
-    "selectWheelVibrationDescription": "Enable vibration feedback when selecting dice amounts on the wheel"
+    "selectWheelVibrationDescription": "Enable vibration feedback when selecting dice amounts on the wheel",
+    "vibrationPlatformNote": "Note: Vibration feedback only works on Android devices. iOS does not support the Vibration API."
   }
 }

@@ -5,7 +5,8 @@ import { useSettingsStore } from './settings-store'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
-import { Settings2, Vibrate } from 'lucide-react'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Settings2, Vibrate, Info } from 'lucide-react'
 
 export default function SettingsPage() {
   const t = useTranslations('Settings')
@@ -34,6 +35,11 @@ export default function SettingsPage() {
             {t('vibrationSettingsDescription')}
           </p>
 
+          <Alert className="ml-6">
+            <Info className="h-4 w-4" />
+            <AlertDescription>{t('vibrationPlatformNote')}</AlertDescription>
+          </Alert>
+
           <div className="space-y-4 ml-6">
             <div className="flex items-center justify-between py-2">
               <div className="space-y-0.5">
@@ -51,36 +57,38 @@ export default function SettingsPage() {
 
             <Separator />
 
-            <div className="flex items-center justify-between py-2">
-              <div className="space-y-0.5">
-                <Label htmlFor="diceRollVibration">{t('diceRollVibration')}</Label>
-                <p className="text-sm text-muted-foreground">
-                  {t('diceRollVibrationDescription')}
-                </p>
+            <div className="ml-6 space-y-4 border-l-2 border-muted pl-4">
+              <div className="flex items-center justify-between py-2">
+                <div className="space-y-0.5">
+                  <Label htmlFor="diceRollVibration">{t('diceRollVibration')}</Label>
+                  <p className="text-sm text-muted-foreground">
+                    {t('diceRollVibrationDescription')}
+                  </p>
+                </div>
+                <Switch
+                  id="diceRollVibration"
+                  checked={vibration.diceRoll}
+                  onCheckedChange={(checked) => setDiceRollVibration(checked)}
+                />
               </div>
-              <Switch
-                id="diceRollVibration"
-                checked={vibration.diceRoll}
-                onCheckedChange={(checked) => setDiceRollVibration(checked)}
-              />
-            </div>
 
-            <Separator />
+              <Separator />
 
-            <div className="flex items-center justify-between py-2">
-              <div className="space-y-0.5">
-                <Label htmlFor="selectWheelVibration">
-                  {t('selectWheelVibration')}
-                </Label>
-                <p className="text-sm text-muted-foreground">
-                  {t('selectWheelVibrationDescription')}
-                </p>
+              <div className="flex items-center justify-between py-2">
+                <div className="space-y-0.5">
+                  <Label htmlFor="selectWheelVibration">
+                    {t('selectWheelVibration')}
+                  </Label>
+                  <p className="text-sm text-muted-foreground">
+                    {t('selectWheelVibrationDescription')}
+                  </p>
+                </div>
+                <Switch
+                  id="selectWheelVibration"
+                  checked={vibration.selectWheel}
+                  onCheckedChange={(checked) => setSelectWheelVibration(checked)}
+                />
               </div>
-              <Switch
-                id="selectWheelVibration"
-                checked={vibration.selectWheel}
-                onCheckedChange={(checked) => setSelectWheelVibration(checked)}
-              />
             </div>
           </div>
         </section>
