@@ -160,7 +160,7 @@ export const DiceSelectWheel = ({
     wheelContainer.scrollTo({ top: targetScrollPosition, behavior: 'smooth' })
   }, [current, height])
 
-  // Detect which item is centered after scrolling stops
+  // Detect which item is centered after scrolling truly stops
   useEffect(() => {
     if (height === 0) return
 
@@ -178,16 +178,28 @@ export const DiceSelectWheel = ({
       }
     }
 
-    const handleScroll = () => {
-      clearTimeout(scrollTimeoutRef.current)
-      // Reduced debounce for snappier feel
-      scrollTimeoutRef.current = setTimeout(findCurrentElement, 80)
-    }
+    // Use scrollend event for accurate detection of when scrolling truly stops
+    // (including momentum scrolling on trackpads)
+    const supportsScrollEnd = 'onscrollend' in window
 
-    wheelContainer.addEventListener('scroll', handleScroll)
-    return () => {
-      wheelContainer.removeEventListener('scroll', handleScroll)
-      clearTimeout(scrollTimeoutRef.current)
+    if (supportsScrollEnd) {
+      // Modern browsers: use scrollend for precise detection
+      wheelContainer.addEventListener('scrollend', findCurrentElement)
+      return () => {
+        wheelContainer.removeEventListener('scrollend', findCurrentElement)
+      }
+    } else {
+      // Fallback for older browsers: use debounced scroll with longer timeout
+      const handleScroll = () => {
+        clearTimeout(scrollTimeoutRef.current)
+        scrollTimeoutRef.current = setTimeout(findCurrentElement, 150)
+      }
+
+      wheelContainer.addEventListener('scroll', handleScroll)
+      return () => {
+        wheelContainer.removeEventListener('scroll', handleScroll)
+        clearTimeout(scrollTimeoutRef.current)
+      }
     }
   }, [height, onChange, current, max])
 
