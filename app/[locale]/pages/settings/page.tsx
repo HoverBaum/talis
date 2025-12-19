@@ -19,28 +19,30 @@ export default function SettingsPage() {
   const allVibrationEnabled = vibration.diceRoll && vibration.selectWheel
 
   return (
-    <div className="p-4 md:p-8">
-      <div className="max-w-[40rem] mx-auto space-y-8">
-        <div className="flex items-center gap-2">
-          <Settings2 className="h-5 w-5 text-muted-foreground" />
-          <h1 className="text-2xl font-semibold">{t('title')}</h1>
+    <div className="space-y-8">
+      <div className="flex items-center gap-3">
+        <Settings2 className="h-6 w-6 text-primary" />
+        <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
+      </div>
+
+      <section className="space-y-6">
+        <div className="flex items-center gap-3 border-b pb-4">
+          <Vibrate className="h-5 w-5 text-primary" />
+          <div className="space-y-1">
+            <h2 className="text-xl font-semibold">{t('vibrationSettings')}</h2>
+            <p className="text-sm text-muted-foreground">
+              {t('vibrationSettingsDescription')}
+            </p>
+          </div>
         </div>
 
-        <section className="space-y-6">
-          <div className="flex items-center gap-2">
-            <Vibrate className="h-4 w-4 text-muted-foreground" />
-            <h2 className="text-lg font-semibold">{t('vibrationSettings')}</h2>
-          </div>
-          <p className="text-sm text-muted-foreground -mt-4 ml-6">
-            {t('vibrationSettingsDescription')}
-          </p>
-
-          <Alert className="ml-6">
+        <div className="space-y-6">
+          <Alert>
             <Info className="h-4 w-4" />
             <AlertDescription>{t('vibrationPlatformNote')}</AlertDescription>
           </Alert>
 
-          <div className="space-y-4 ml-6">
+          <div className="space-y-4">
             <div className="flex items-center justify-between py-2">
               <div className="space-y-0.5">
                 <Label htmlFor="enableAllVibration">{t('enableAllVibration')}</Label>
@@ -57,10 +59,10 @@ export default function SettingsPage() {
 
             <Separator />
 
-            <div className="ml-6 space-y-4 border-l-2 border-muted pl-4">
+            <div className="space-y-4 border-l-2 border-muted pl-6 ml-2">
               <div className="flex items-center justify-between py-2">
                 <div className="space-y-0.5">
-                  <Label htmlFor="diceRollVibration">{t('diceRollVibration')}</Label>
+                  <Label htmlFor="diceRollVibration" className="text-base">{t('diceRollVibration')}</Label>
                   <p className="text-sm text-muted-foreground">
                     {t('diceRollVibrationDescription')}
                   </p>
@@ -76,7 +78,7 @@ export default function SettingsPage() {
 
               <div className="flex items-center justify-between py-2">
                 <div className="space-y-0.5">
-                  <Label htmlFor="selectWheelVibration">
+                  <Label htmlFor="selectWheelVibration" className="text-base">
                     {t('selectWheelVibration')}
                   </Label>
                   <p className="text-sm text-muted-foreground">
@@ -91,8 +93,8 @@ export default function SettingsPage() {
               </div>
             </div>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   )
 }

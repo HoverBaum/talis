@@ -4,7 +4,7 @@ export default function AboutLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="p-4 md:p-8 max-w-4xl mx-auto prose prose-sm md:prose-base">
+    <div className="p-4 md:p-8 max-w-3xl mx-auto">
       {children}
     </div>
   )
