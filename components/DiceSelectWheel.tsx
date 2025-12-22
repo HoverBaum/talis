@@ -261,12 +261,7 @@ export const DiceSelectWheel = ({
     if (withinCenter && centeredValue !== lastCenteredInThresholdRef.current) {
       lastCenteredInThresholdRef.current = centeredValue
       lastScrolledItemRef.current = centeredValue
-      // Map velocity to vibration duration (10ms..30ms)
-      const vibDuration = Math.max(
-        10,
-        Math.min(30, Math.round(10 + velocity * 20))
-      )
-      vibrateTick(vibrationEnabled, vibDuration)
+      vibrateTick(vibrationEnabled, 7)
     } else if (!withinCenter) {
       // Allow re-trigger when exiting and re-entering next item
       lastScrolledItemRef.current = centeredValue
