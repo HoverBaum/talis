@@ -16,7 +16,13 @@
  *
  * Uses Motion (formerly Framer Motion) for hardware-accelerated animations.
  */
-import { useEffect, useRef, useState, type RefObject } from 'react'
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type RefObject,
+} from 'react'
 import {
   motion,
   useScroll,
@@ -25,14 +31,15 @@ import {
 } from 'motion/react'
 import { useWindowSize } from '@/utils/use-window-size'
 import { useSettingsStore } from '@/app/[locale]/pages/settings/settings-store'
+import { Skeleton } from '@/components/ui/skeleton'
 
-/** Short haptic tick for selection feedback on mobile */
-const vibrateTick = () => {
-  // Check if select wheel vibration is enabled in settings
-  const vibrationEnabled = useSettingsStore.getState().vibration.selectWheel
-
-  if (vibrationEnabled && 'vibrate' in navigator) {
-    navigator.vibrate(15)
+/**
+ * Haptic tick utility. Duration is varied for velocity-based feedback.
+ * Pass `enabled` to avoid store reads on each call.
+ */
+const vibrateTick = (enabled: boolean, duration: number = 15) => {
+  if (enabled && 'vibrate' in navigator) {
+    navigator.vibrate(Math.max(0, Math.min(60, Math.round(duration))))
   }
 }
 
@@ -47,13 +54,24 @@ const ITEM_HEIGHT = 40
 // Strictness for considering an item truly centered (0.xx -> within xx% of item height)
 const CENTER_THRESHOLD = 0.2
 
+// Animation constants
+const SCALE_FAR = 0.7
+const SCALE_CENTER = 1.15
+const OPACITY_FAR = 0.3
+const OPACITY_CENTER = 1
+const TAP_SCALE = 0.85
+const SELECT_POP_SCALE = 1.1
+const SPRING_STIFFNESS = 500
+const SPRING_DAMPING = 25
+
 type WheelItemProps = {
   number: number
   isSelected: boolean
-  onClick: () => void
+  onChange: (value: number) => void
   containerRef: RefObject<HTMLDivElement | null>
   containerHeight: number
   index: number
+  reduceMotion: boolean
 }
 
 /**
@@ -66,10 +84,11 @@ type WheelItemProps = {
 const WheelItem = ({
   number,
   isSelected,
-  onClick,
+  onChange,
   containerRef,
   containerHeight,
   index,
+  reduceMotion,
 }: WheelItemProps) => {
   // Track scroll position of the container
   const { scrollY } = useScroll({ container: containerRef })
@@ -95,7 +114,7 @@ const WheelItem = ({
       itemCenterScrollPosition,
       itemCenterScrollPosition + animationRange,
     ],
-    [0.7, 1.15, 0.7]
+    [SCALE_FAR, SCALE_CENTER, SCALE_FAR]
   )
 
   // Transform scroll position to opacity: items at center are fully visible, items far away fade
@@ -106,7 +125,7 @@ const WheelItem = ({
       itemCenterScrollPosition,
       itemCenterScrollPosition + animationRange,
     ],
-    [0.3, 1, 0.3]
+    [OPACITY_FAR, OPACITY_CENTER, OPACITY_FAR]
   )
 
   return (
@@ -115,10 +134,12 @@ const WheelItem = ({
       id={`number-${number}`}
       data-number={number}
       className="snap-center flex justify-center items-center"
+      role="option"
+      aria-selected={isSelected}
       style={{
         height: ITEM_HEIGHT,
-        scale: scrollScale,
-        opacity,
+        scale: reduceMotion ? 1 : scrollScale,
+        opacity: reduceMotion ? 1 : opacity,
       }}
     >
       {/* Inner layer: tap feedback and selection animations */}
@@ -128,18 +149,17 @@ const WheelItem = ({
         }`}
         // Selection "pop" animation - bouncy spring when becoming selected
         animate={{
-          scale: isSelected ? 1.1 : 1,
+          scale: reduceMotion ? 1 : isSelected ? SELECT_POP_SCALE : 1,
         }}
         // Tap feedback: quick scale down
-        whileTap={{ scale: 0.85 }}
+        whileTap={reduceMotion ? undefined : { scale: TAP_SCALE }}
         transition={{
           type: 'spring',
-          stiffness: 500,
-          damping: 25,
+          stiffness: SPRING_STIFFNESS,
+          damping: SPRING_DAMPING,
         }}
         onClick={() => {
-          vibrateTick()
-          onClick()
+          onChange(number)
         }}
       >
         {number}
@@ -147,6 +167,8 @@ const WheelItem = ({
     </motion.div>
   )
 }
+
+const MemoWheelItem = React.memo(WheelItem)
 
 export const DiceSelectWheel = ({
   max,
@@ -157,9 +179,32 @@ export const DiceSelectWheel = ({
   const [height, setHeight] = useState(0)
   const { height: windowHeight, lastHeight: lastWindowHeight } = useWindowSize()
   const wheelContainerRef = useRef<HTMLDivElement>(null)
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined
+  )
   // Track which item is "passed" during scroll for haptic feedback
   const lastScrolledItemRef = useRef<number>(current)
+  const lastScrollTopRef = useRef(0)
+  const lastScrollTimeRef = useRef<number>(0)
+
+  // Subscribe once to store value for select wheel vibration
+  const vibrationEnabled = useSettingsStore((s) => s.vibration.selectWheel)
+
+  // Respect prefers-reduced-motion
+  const [reduceMotion, setReduceMotion] = useState(false)
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => setReduceMotion(media.matches)
+    update()
+    media.addEventListener?.('change', update)
+    return () => media.removeEventListener?.('change', update)
+  }, [])
+
+  // Initialize scroll time reference once after mount
+  useEffect(() => {
+    lastScrollTimeRef.current = performance.now()
+  }, [])
 
   // Update container height when window resizes
   useEffect(() => {
@@ -180,7 +225,8 @@ export const DiceSelectWheel = ({
   }, [windowHeight, lastWindowHeight])
 
   // Scroll to current selection when it changes externally
-  useEffect(() => {
+  // Ensure we have layout information before initial scroll to `current`
+  useLayoutEffect(() => {
     if (height === 0 || current === 0) return
 
     const wheelContainer = wheelContainerRef.current
@@ -200,13 +246,25 @@ export const DiceSelectWheel = ({
 
     const handleScrollFeedback = () => {
       const scrollTop = wheelContainer.scrollTop
+      const now = Date.now()
+      const dt = Math.max(1, now - lastScrollTimeRef.current)
+      const dy = Math.abs(scrollTop - lastScrollTopRef.current)
+      const velocity = dy / dt // px per ms
+      lastScrollTopRef.current = scrollTop
+      lastScrollTimeRef.current = now
+
       const centeredIndex = Math.round(scrollTop / ITEM_HEIGHT)
       const centeredValue = Math.max(1, Math.min(max, centeredIndex + 1))
 
       // Vibrate when we cross to a new number
       if (centeredValue !== lastScrolledItemRef.current) {
         lastScrolledItemRef.current = centeredValue
-        vibrateTick()
+        // Map velocity to vibration duration (10ms..30ms)
+        const vibDuration = Math.max(
+          10,
+          Math.min(30, Math.round(10 + velocity * 20))
+        )
+        vibrateTick(vibrationEnabled, vibDuration)
       }
     }
 
@@ -214,7 +272,7 @@ export const DiceSelectWheel = ({
     return () => {
       wheelContainer.removeEventListener('scroll', handleScrollFeedback)
     }
-  }, [height, max])
+  }, [height, max, vibrationEnabled])
 
   // Detect which item is centered after scrolling truly stops
   useEffect(() => {
@@ -259,8 +317,23 @@ export const DiceSelectWheel = ({
     }
   }, [height, onChange, current, max])
 
+  // Clear any pending timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  // Keyboard navigation temporarily disabled per request
+
   return (
     <>
+      {/* Screen reader announcement of current selection */}
+      <div className="sr-only" aria-live="polite" role="status">
+        Selected: {current}
+      </div>
       {/* Visual indicators showing the selected value area */}
       <div className="absolute left-0 w-full top-1/2 -translate-y-1/2 -mt-5 border-t-2 pointer-events-none z-10" />
       <div className="absolute left-0 w-full top-1/2 -translate-y-1/2 mt-5 border-t-2 pointer-events-none z-10" />
@@ -268,23 +341,34 @@ export const DiceSelectWheel = ({
         ref={wheelContainerRef}
         id="wheelContainer"
         className="overflow-y-scroll scrollbar-none relative snap-y snap-mandatory"
+        role="listbox"
+        aria-label="Select number of dice"
+        aria-activedescendant={`number-${current}`}
+        tabIndex={-1}
         style={{
           height: `${height}px`,
           paddingTop: `${height / 2 - ITEM_HEIGHT / 2}px`,
           paddingBottom: `${height / 2 - ITEM_HEIGHT / 2}px`,
         }}
       >
-        {diceNumberChoices.map((number, index) => (
-          <WheelItem
-            key={number}
-            number={number}
-            index={index}
-            isSelected={number === current}
-            onClick={() => onChange(number)}
-            containerRef={wheelContainerRef}
-            containerHeight={height}
-          />
-        ))}
+        {height === 0 ? (
+          <div className="px-4 py-6">
+            <Skeleton className="h-32 w-full" />
+          </div>
+        ) : (
+          diceNumberChoices.map((number, index) => (
+            <MemoWheelItem
+              key={number}
+              number={number}
+              index={index}
+              isSelected={number === current}
+              onChange={onChange}
+              containerRef={wheelContainerRef}
+              containerHeight={height}
+              reduceMotion={reduceMotion}
+            />
+          ))
+        )}
       </div>
     </>
   )
