@@ -312,7 +312,7 @@ export const DiceSelectWheel = ({
         clearTimeout(scrollTimeoutRef.current)
       }
     }
-  }, [height, onChange, current, max])
+  }, [height, onChange, current, max, vibrationEnabled])
 
   // Clear any pending timeout on unmount
   useEffect(() => {
