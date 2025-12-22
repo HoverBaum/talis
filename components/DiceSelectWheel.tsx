@@ -286,6 +286,9 @@ export const DiceSelectWheel = ({
       const centeredIndex = Math.round(scrollTop / ITEM_HEIGHT)
       const newValue = Math.max(1, Math.min(max, centeredIndex + 1))
 
+      // Always give a final tick when the wheel settles on a value
+      vibrateTick(vibrationEnabled, 18)
+
       if (newValue !== current) {
         onChange(newValue)
       }
