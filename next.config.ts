@@ -1,4 +1,4 @@
-import { withPostHogConfig } from "@posthog/nextjs-config"
+import { withPostHogConfig } from '@posthog/nextjs-config'
 import type { NextConfig } from 'next'
 import createMDX from '@next/mdx'
 import createNextIntlPlugin from 'next-intl/plugin'
@@ -45,12 +45,20 @@ const withMDX = createMDX({
   // Add markdown plugins here, as desired
 })
 
-export default withPostHogConfig(withNextIntl(withMDX(nextConfig)), {
-  personalApiKey: 'phx_bfbkRalWjWTZzqQ3VHaMWNlFT8Vdwp5hkEISilOHH0LPep7', // Your personal API key from PostHog settings
-  envId: '108492', // Your environment ID (project ID)
-  host: 'https://eu.i.posthog.com', // Optional: Your PostHog instance URL, defaults to https://us.posthog.com
-  sourcemaps: { // Optional
-    enabled: true, // Optional: Enable sourcemaps generation and upload, defaults to true on production builds
-    deleteAfterUpload: true, // Optional: Delete sourcemaps after upload, defaults to true
-  },
-});
+let config: NextConfig = withNextIntl(withMDX(nextConfig))
+
+// Only apply PostHog config in production (not during `next dev`)
+if (process.env.NODE_ENV === 'production') {
+  config = withPostHogConfig(config, {
+    personalApiKey: 'phx_bfbkRalWjWTZzqQ3VHaMWNlFT8Vdwp5hkEISilOHH0LPep7', // Your personal API key from PostHog settings
+    envId: '108492', // Your environment ID (project ID)
+    host: 'https://eu.i.posthog.com', // Optional: Your PostHog instance URL, defaults to https://us.posthog.com
+    sourcemaps: {
+      // Optional
+      enabled: true, // Optional: Enable sourcemaps generation and upload, defaults to true on production builds
+      deleteAfterUpload: true, // Optional: Delete sourcemaps after upload, defaults to true
+    },
+  })
+}
+
+export default config
