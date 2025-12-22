@@ -184,8 +184,11 @@ export const DiceSelectWheel = ({
   )
   // Track which item is "passed" during scroll for haptic feedback
   const lastScrolledItemRef = useRef<number>(current)
+  const lastCenteredInThresholdRef = useRef<number>(current)
   const lastScrollTopRef = useRef(0)
   const lastScrollTimeRef = useRef<number>(0)
+  // Scroll position for haptics, shared with motion-based highlighting
+  const { scrollY } = useScroll({ container: wheelContainerRef })
 
   // Subscribe once to store value for select wheel vibration
   const vibrationEnabled = useSettingsStore((s) => s.vibration.selectWheel)
@@ -237,42 +240,38 @@ export const DiceSelectWheel = ({
     wheelContainer.scrollTo({ top: targetScrollPosition, behavior: 'smooth' })
   }, [current, height])
 
-  // Haptic feedback while scrolling - vibrate when passing each number
-  useEffect(() => {
+  // Haptic feedback while scrolling - align with motion-based centering
+  useMotionValueEvent(scrollY, 'change', (latest) => {
     if (height === 0) return
 
-    const wheelContainer = wheelContainerRef.current
-    if (!wheelContainer) return
+    const now = performance.now()
+    const dt = Math.max(1, now - lastScrollTimeRef.current)
+    const dy = Math.abs(latest - lastScrollTopRef.current)
+    const velocity = dy / dt // px per ms
+    lastScrollTopRef.current = latest
+    lastScrollTimeRef.current = now
 
-    const handleScrollFeedback = () => {
-      const scrollTop = wheelContainer.scrollTop
-      const now = Date.now()
-      const dt = Math.max(1, now - lastScrollTimeRef.current)
-      const dy = Math.abs(scrollTop - lastScrollTopRef.current)
-      const velocity = dy / dt // px per ms
-      lastScrollTopRef.current = scrollTop
-      lastScrollTimeRef.current = now
+    const centeredIndex = Math.round(latest / ITEM_HEIGHT)
+    const centeredValue = Math.max(1, Math.min(max, centeredIndex + 1))
+    const centerDistance = Math.abs(latest - centeredIndex * ITEM_HEIGHT)
 
-      const centeredIndex = Math.round(scrollTop / ITEM_HEIGHT)
-      const centeredValue = Math.max(1, Math.min(max, centeredIndex + 1))
+    // Only trigger when the value sits inside the same threshold that bolding uses
+    const withinCenter = centerDistance <= ITEM_HEIGHT * CENTER_THRESHOLD
 
-      // Vibrate when we cross to a new number
-      if (centeredValue !== lastScrolledItemRef.current) {
-        lastScrolledItemRef.current = centeredValue
-        // Map velocity to vibration duration (10ms..30ms)
-        const vibDuration = Math.max(
-          10,
-          Math.min(30, Math.round(10 + velocity * 20))
-        )
-        vibrateTick(vibrationEnabled, vibDuration)
-      }
+    if (withinCenter && centeredValue !== lastCenteredInThresholdRef.current) {
+      lastCenteredInThresholdRef.current = centeredValue
+      lastScrolledItemRef.current = centeredValue
+      // Map velocity to vibration duration (10ms..30ms)
+      const vibDuration = Math.max(
+        10,
+        Math.min(30, Math.round(10 + velocity * 20))
+      )
+      vibrateTick(vibrationEnabled, vibDuration)
+    } else if (!withinCenter) {
+      // Allow re-trigger when exiting and re-entering next item
+      lastScrolledItemRef.current = centeredValue
     }
-
-    wheelContainer.addEventListener('scroll', handleScrollFeedback)
-    return () => {
-      wheelContainer.removeEventListener('scroll', handleScrollFeedback)
-    }
-  }, [height, max, vibrationEnabled])
+  })
 
   // Detect which item is centered after scrolling truly stops
   useEffect(() => {
