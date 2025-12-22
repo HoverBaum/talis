@@ -185,8 +185,7 @@ export const DiceSelectWheel = ({
   // Track which item is "passed" during scroll for haptic feedback
   const lastScrolledItemRef = useRef<number>(current)
   const lastCenteredInThresholdRef = useRef<number>(current)
-  const lastScrollTopRef = useRef(0)
-  const lastScrollTimeRef = useRef<number>(0)
+
   // Scroll position for haptics, shared with motion-based highlighting
   const { scrollY } = useScroll({ container: wheelContainerRef })
 
@@ -202,11 +201,6 @@ export const DiceSelectWheel = ({
     update()
     media.addEventListener?.('change', update)
     return () => media.removeEventListener?.('change', update)
-  }, [])
-
-  // Initialize scroll time reference once after mount
-  useEffect(() => {
-    lastScrollTimeRef.current = performance.now()
   }, [])
 
   // Update container height when window resizes
@@ -243,13 +237,6 @@ export const DiceSelectWheel = ({
   // Haptic feedback while scrolling - align with motion-based centering
   useMotionValueEvent(scrollY, 'change', (latest) => {
     if (height === 0) return
-
-    const now = performance.now()
-    const dt = Math.max(1, now - lastScrollTimeRef.current)
-    const dy = Math.abs(latest - lastScrollTopRef.current)
-    const velocity = dy / dt // px per ms
-    lastScrollTopRef.current = latest
-    lastScrollTimeRef.current = now
 
     const centeredIndex = Math.round(latest / ITEM_HEIGHT)
     const centeredValue = Math.max(1, Math.min(max, centeredIndex + 1))
