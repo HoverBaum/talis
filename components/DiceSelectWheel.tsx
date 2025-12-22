@@ -17,7 +17,12 @@
  * Uses Motion (formerly Framer Motion) for hardware-accelerated animations.
  */
 import { useEffect, useRef, useState, type RefObject } from 'react'
-import { motion, useScroll, useTransform } from 'motion/react'
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValueEvent,
+} from 'motion/react'
 import { useWindowSize } from '@/utils/use-window-size'
 import { useSettingsStore } from '@/app/[locale]/pages/settings/settings-store'
 
@@ -39,6 +44,8 @@ type DiceSelectWheelProps = {
 
 // Height of each wheel item in pixels (should match the visual spacing)
 const ITEM_HEIGHT = 40
+// Strictness for considering an item truly centered (0.xx -> within xx% of item height)
+const CENTER_THRESHOLD = 0.2
 
 type WheelItemProps = {
   number: number
@@ -66,6 +73,13 @@ const WheelItem = ({
 }: WheelItemProps) => {
   // Track scroll position of the container
   const { scrollY } = useScroll({ container: containerRef })
+
+  // Track whether this item is currently centered in the viewport
+  const [isCentered, setIsCentered] = useState(false)
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    const diff = Math.abs(latest - itemCenterScrollPosition)
+    setIsCentered(diff <= ITEM_HEIGHT * CENTER_THRESHOLD)
+  })
 
   // Calculate the scroll position where this item would be centered
   const itemCenterScrollPosition = index * ITEM_HEIGHT
@@ -109,8 +123,9 @@ const WheelItem = ({
     >
       {/* Inner layer: tap feedback and selection animations */}
       <motion.div
-        className={`cursor-pointer text-2xl select-none ${isSelected ? 'font-bold' : ''
-          }`}
+        className={`cursor-pointer text-2xl select-none ${
+          isSelected || isCentered ? 'font-bold' : ''
+        }`}
         // Selection "pop" animation - bouncy spring when becoming selected
         animate={{
           scale: isSelected ? 1.1 : 1,
