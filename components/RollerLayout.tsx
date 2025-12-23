@@ -14,6 +14,7 @@
  */
 import * as React from 'react'
 import { cn } from '@/lib/utils'
+import { useSettingsStore } from '@/app/[locale]/pages/settings/settings-store'
 
 type RollerLayoutResultAreaProps = {
   id: string
@@ -108,14 +109,36 @@ export const RollerLayoutFooter = ({
  */
 export const RollerLayoutContent = ({
   className,
+  children,
   ...props
 }: React.ComponentProps<'div'>) => {
+  const diceWheelOnRight = useSettingsStore((state) => state.diceWheelOnRight)
+  const childrenArray = React.Children.toArray(children)
+  const [resultArea, controlArea] = childrenArray
   return (
     <div
       data-slot="roller-layout-content"
       className={cn('flex-grow flex flex-col h-0', className)}
       {...props}
-    />
+    >
+      {resultArea && controlArea ? (
+        <div className="flex-grow grid grid-cols-12 h-0 pb-4">
+          {diceWheelOnRight ? (
+            <>
+              {resultArea}
+              {controlArea}
+            </>
+          ) : (
+            <>
+              {controlArea}
+              {resultArea}
+            </>
+          )}
+        </div>
+      ) : (
+        children
+      )}
+    </div>
   )
 }
 
@@ -144,4 +167,3 @@ export const RollerLayout = ({ className, children, ...props }: React.ComponentP
     </div>
   )
 }
-

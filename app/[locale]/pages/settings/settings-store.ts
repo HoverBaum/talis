@@ -8,10 +8,12 @@ export interface SettingsState {
     diceRoll: boolean
     selectWheel: boolean
   }
+  diceWheelOnRight: boolean
   setVibration: (vibration: Partial<SettingsState['vibration']>) => void
   setDiceRollVibration: (enabled: boolean) => void
   setSelectWheelVibration: (enabled: boolean) => void
   setAllVibration: (enabled: boolean) => void
+  setDiceWheelOnRight: (enabled: boolean) => void
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -22,6 +24,7 @@ export const useSettingsStore = create<SettingsState>()(
           diceRoll: true,
           selectWheel: true,
         },
+        diceWheelOnRight: true,
         setVibration: (newVibration) =>
           set((state) => ({
             vibration: { ...state.vibration, ...newVibration },
@@ -41,11 +44,16 @@ export const useSettingsStore = create<SettingsState>()(
               selectWheel: enabled,
             },
           }),
+        setDiceWheelOnRight: (enabled) =>
+          set({
+            diceWheelOnRight: enabled,
+          }),
       }),
       {
         name: 'talis-settings',
         partialize: (state) => ({
           vibration: state.vibration,
+          diceWheelOnRight: state.diceWheelOnRight,
         }),
       }
     ),

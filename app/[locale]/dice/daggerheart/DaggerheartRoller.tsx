@@ -99,47 +99,45 @@ export function DaggerheartRoller() {
   return (
     <RollerLayout>
       <RollerLayoutContent>
-        <div className="flex-grow grid grid-cols-12 h-0 pb-4">
-          <RollerLayoutResultArea
-            id="d12Results"
-            showNewResultBottom={true}
-            className="col-span-10"
+        <RollerLayoutResultArea
+          id="d12Results"
+          showNewResultBottom={true}
+          className="col-span-10"
+        >
+          {[...rolls].reverse().map((roll, index) => {
+            if (isDaggerheartRoll(roll)) {
+              return (
+                <DaggerheartResultDisplay
+                  key={roll.id}
+                  roll={roll}
+                  isHighlighted={index === 0}
+                />
+              )
+            } else {
+              return (
+                <PolyhedralResultDisplay
+                  key={roll.id}
+                  diceRoll={roll}
+                  isHighlighted={index === 0}
+                />
+              )
+            }
+          })}
+        </RollerLayoutResultArea>
+        <RollerLayoutControlArea className="col-span-2">
+          <div
+            className={`transition-opacity duration-300 ease-out h-full ${rollMode === 'polyhedral'
+              ? 'opacity-100 pointer-events-auto'
+              : 'opacity-0 pointer-events-none'
+              }`}
           >
-            {[...rolls].reverse().map((roll, index) => {
-              if (isDaggerheartRoll(roll)) {
-                return (
-                  <DaggerheartResultDisplay
-                    key={roll.id}
-                    roll={roll}
-                    isHighlighted={index === 0}
-                  />
-                )
-              } else {
-                return (
-                  <PolyhedralResultDisplay
-                    key={roll.id}
-                    diceRoll={roll}
-                    isHighlighted={index === 0}
-                  />
-                )
-              }
-            })}
-          </RollerLayoutResultArea>
-          <RollerLayoutControlArea className="col-span-2">
-            <div
-              className={`transition-opacity duration-300 ease-out h-full ${rollMode === 'polyhedral'
-                ? 'opacity-100 pointer-events-auto'
-                : 'opacity-0 pointer-events-none'
-                }`}
-            >
-              <DiceSelectWheel
-                max={maxQuantity}
-                current={currentQuantity}
-                onChange={handleQuantityChange}
-              />
-            </div>
-          </RollerLayoutControlArea>
-        </div>
+            <DiceSelectWheel
+              max={maxQuantity}
+              current={currentQuantity}
+              onChange={handleQuantityChange}
+            />
+          </div>
+        </RollerLayoutControlArea>
       </RollerLayoutContent>
       <RollerLayoutFooter>
         <RollerControls

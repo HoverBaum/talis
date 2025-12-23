@@ -64,29 +64,27 @@ export function ShadowrunRoller() {
   return (
     <RollerLayout>
       <RollerLayoutContent>
-        <div className="flex-grow grid grid-cols-12 h-0 pb-4">
-          <RollerLayoutResultArea
-            id="d6Results"
-            showNewResultBottom={config.showNewResultBottom}
-            className="col-span-10"
-          >
-            {[...rolls].reverse().map((roll, index) => (
-              <DiceRollResult
-                diceRoll={roll}
-                isFaded={index > 1}
-                isHighlighted={index === 0}
-                key={roll.timestamp}
-              />
-            ))}
-          </RollerLayoutResultArea>
-          <RollerLayoutControlArea className="col-span-2">
-            <DiceSelectWheel
-              max={config.maxDiceAmount}
-              current={numberOfDice}
-              onChange={setNumberOfDice}
+        <RollerLayoutResultArea
+          id="d6Results"
+          showNewResultBottom={config.showNewResultBottom}
+          className="col-span-10"
+        >
+          {[...rolls].reverse().map((roll, index) => (
+            <DiceRollResult
+              diceRoll={roll}
+              isFaded={index > 1}
+              isHighlighted={index === 0}
+              key={roll.timestamp}
             />
-          </RollerLayoutControlArea>
-        </div>
+          ))}
+        </RollerLayoutResultArea>
+        <RollerLayoutControlArea className="col-span-2">
+          <DiceSelectWheel
+            max={config.maxDiceAmount}
+            current={numberOfDice}
+            onChange={setNumberOfDice}
+          />
+        </RollerLayoutControlArea>
       </RollerLayoutContent>
       <RollerLayoutFooter>
         <RollerControls
@@ -130,4 +128,3 @@ export function ShadowrunRoller() {
     </RollerLayout>
   )
 }
-

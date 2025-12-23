@@ -48,28 +48,26 @@ export function D6Roller() {
   return (
     <RollerLayout>
       <RollerLayoutContent>
-        <div className="flex-grow grid grid-cols-12 h-0 pb-4">
-          <RollerLayoutResultArea
-            id="d6Results"
-            showNewResultBottom={config.showNewResultBottom}
-            className="col-span-10"
-          >
-            {[...rolls].reverse().map((roll, index) => (
-              <D6ResultDisplay
-                isHighlighted={index === 0}
-                key={roll.id}
-                diceRoll={roll}
-              />
-            ))}
-          </RollerLayoutResultArea>
-          <RollerLayoutControlArea className="col-span-2">
-            <DiceSelectWheel
-              max={config.maxDice}
-              current={numberOfDice}
-              onChange={setNumberOfDice}
+        <RollerLayoutResultArea
+          id="d6Results"
+          showNewResultBottom={config.showNewResultBottom}
+          className="col-span-10"
+        >
+          {[...rolls].reverse().map((roll, index) => (
+            <D6ResultDisplay
+              isHighlighted={index === 0}
+              key={roll.id}
+              diceRoll={roll}
             />
-          </RollerLayoutControlArea>
-        </div>
+          ))}
+        </RollerLayoutResultArea>
+        <RollerLayoutControlArea className="col-span-2">
+          <DiceSelectWheel
+            max={config.maxDice}
+            current={numberOfDice}
+            onChange={setNumberOfDice}
+          />
+        </RollerLayoutControlArea>
       </RollerLayoutContent>
       <RollerLayoutFooter>
         <RollerControls
@@ -83,4 +81,3 @@ export function D6Roller() {
     </RollerLayout>
   )
 }
-

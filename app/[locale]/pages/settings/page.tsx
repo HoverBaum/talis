@@ -6,7 +6,7 @@ import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Settings2, Vibrate, Info } from 'lucide-react'
+import { Settings2, Vibrate, Info, MoveHorizontal } from 'lucide-react'
 
 export default function SettingsPage() {
   const t = useTranslations('Settings')
@@ -14,6 +14,8 @@ export default function SettingsPage() {
   const setDiceRollVibration = useSettingsStore((state) => state.setDiceRollVibration)
   const setSelectWheelVibration = useSettingsStore((state) => state.setSelectWheelVibration)
   const setAllVibration = useSettingsStore((state) => state.setAllVibration)
+  const diceWheelOnRight = useSettingsStore((state) => state.diceWheelOnRight)
+  const setDiceWheelOnRight = useSettingsStore((state) => state.setDiceWheelOnRight)
 
   // Check if all vibration options are enabled
   const allVibrationEnabled = vibration.diceRoll && vibration.selectWheel
@@ -92,6 +94,34 @@ export default function SettingsPage() {
                 />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="space-y-6">
+        <div className="flex items-center gap-3 border-b pb-4">
+          <MoveHorizontal className="h-5 w-5 text-primary" />
+          <div className="space-y-1">
+            <h2 className="text-xl font-semibold">{t('inputSettings')}</h2>
+            <p className="text-sm text-muted-foreground">
+              {t('inputSettingsDescription')}
+            </p>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div className="flex items-center justify-between py-2">
+            <div className="space-y-0.5">
+              <Label htmlFor="diceWheelOnRight">{t('diceWheelOnRight')}</Label>
+              <p className="text-sm text-muted-foreground">
+                {t('diceWheelOnRightDescription')}
+              </p>
+            </div>
+            <Switch
+              id="diceWheelOnRight"
+              checked={diceWheelOnRight}
+              onCheckedChange={(checked) => setDiceWheelOnRight(checked)}
+            />
           </div>
         </div>
       </section>
