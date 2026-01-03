@@ -1,4 +1,4 @@
-import { Layers, Square, Pentagon, Sparkles } from 'lucide-react'
+import { Layers, Dices, Pentagon, SquareSplitHorizontal } from 'lucide-react'
 
 export interface Roller {
   id: string
@@ -12,8 +12,8 @@ export interface Roller {
  * Roller definitions for Talis dice rollers.
  * Icons represent dice mechanics, not brands:
  * - Shadowrun: Layers (representing layered dice mechanics)
- * - D6: Square (representing standard six-sided dice)
- * - Daggerheart: Sparkles (representing narrative/hope & fear mechanics)
+ * - D6: Dices (representing standard six-sided dice)
+ * - Daggerheart: SquareSplitHorizontal (representing dual/split dice mechanics)
  * - Polyhedral: Pentagon (representing various geometric dice shapes)
  */
 export const rollers: Roller[] = [
@@ -27,14 +27,14 @@ export const rollers: Roller[] = [
   {
     id: 'd6',
     link: '/dice/d6',
-    icon: Square,
+    icon: Dices,
     nameKey: 'Navigation.d6',
     subtitleKey: 'Home.d6Description',
   },
   {
     id: 'daggerheart',
     link: '/dice/daggerheart',
-    icon: Sparkles,
+    icon: SquareSplitHorizontal,
     nameKey: 'Navigation.daggerheart',
     subtitleKey: 'Home.daggerheartDescription',
   },
