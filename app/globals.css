@@ -199,6 +199,18 @@
   .scrollbar-none::-webkit-scrollbar {
     display: none;
   }
+
+  /* Respect user's motion preferences for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .transition-transform,
+    .transition-shadow,
+    .animate-fadeIn,
+    .animate-fadeOut,
+    .animate-indeterminate {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
 }
 
 /* Shadowrun Theme - Light Mode */
