@@ -1,7 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Link from 'next/link'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { SetPageTitle } from '@/components/PageTitleProvider'
 
 export async function generateMetadata({
@@ -39,58 +38,54 @@ export default async function HomePage({
                     <p className="text-muted-foreground">{t('description')}</p>
                 </div>
 
-                <div className="grid gap-4 md:grid-cols-3 mt-8">
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>{navT('shadowrun')}</CardTitle>
-                            <CardDescription>{t('shadowrunDescription')}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <Button asChild>
-                                <Link href={`/${locale}/dice/shadowrun`}>{navT('shadowrun')}</Link>
-                            </Button>
-                        </CardContent>
-                    </Card>
+                <div className="grid grid-cols-2 gap-4 mt-8 md:grid-cols-3 lg:grid-cols-4">
+                    <Link 
+                        href={`/${locale}/dice/shadowrun`}
+                        className="transition-transform hover:scale-105 active:scale-95"
+                    >
+                        <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow">
+                            <CardHeader>
+                                <CardTitle>{navT('shadowrun')}</CardTitle>
+                                <CardDescription>{t('shadowrunDescription')}</CardDescription>
+                            </CardHeader>
+                        </Card>
+                    </Link>
 
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>{navT('d6')}</CardTitle>
-                            <CardDescription>{t('d6Description')}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <Button asChild>
-                                <Link href={`/${locale}/dice/d6`}>{navT('d6')}</Link>
-                            </Button>
-                        </CardContent>
-                    </Card>
+                    <Link 
+                        href={`/${locale}/dice/d6`}
+                        className="transition-transform hover:scale-105 active:scale-95"
+                    >
+                        <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow">
+                            <CardHeader>
+                                <CardTitle>{navT('d6')}</CardTitle>
+                                <CardDescription>{t('d6Description')}</CardDescription>
+                            </CardHeader>
+                        </Card>
+                    </Link>
 
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>{navT('daggerheart')}</CardTitle>
-                            <CardDescription>{t('daggerheartDescription')}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <Button asChild>
-                                <Link href={`/${locale}/dice/daggerheart`}>
-                                    {navT('daggerheart')}
-                                </Link>
-                            </Button>
-                        </CardContent>
-                    </Card>
+                    <Link 
+                        href={`/${locale}/dice/daggerheart`}
+                        className="transition-transform hover:scale-105 active:scale-95"
+                    >
+                        <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow">
+                            <CardHeader>
+                                <CardTitle>{navT('daggerheart')}</CardTitle>
+                                <CardDescription>{t('daggerheartDescription')}</CardDescription>
+                            </CardHeader>
+                        </Card>
+                    </Link>
 
-                    <Card>
-                        <CardHeader>
-                            <CardTitle>{navT('polyhedral')}</CardTitle>
-                            <CardDescription>{t('polyhedralDescription')}</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <Button asChild>
-                                <Link href={`/${locale}/dice/polyhedral`}>
-                                    {navT('polyhedral')}
-                                </Link>
-                            </Button>
-                        </CardContent>
-                    </Card>
+                    <Link 
+                        href={`/${locale}/dice/polyhedral`}
+                        className="transition-transform hover:scale-105 active:scale-95"
+                    >
+                        <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow">
+                            <CardHeader>
+                                <CardTitle>{navT('polyhedral')}</CardTitle>
+                                <CardDescription>{t('polyhedralDescription')}</CardDescription>
+                            </CardHeader>
+                        </Card>
+                    </Link>
                 </div>
             </div>
         </>
