@@ -1,7 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { PolyhedralRoller } from './PolyhedralRoller'
 import { SetPageTitle } from '@/components/PageTitleProvider'
-import { getRollerById } from '@/lib/rollers'
 
 export async function generateMetadata({
   params,
@@ -25,11 +24,10 @@ export default async function PolyhedralPage({
   const { locale } = await params
   setRequestLocale(locale)
   const t = await getTranslations('Navigation')
-  const roller = getRollerById('polyhedral')
 
   return (
     <>
-      <SetPageTitle title={t('polyhedral')} iconName={roller?.iconName} />
+      <SetPageTitle title={t('polyhedral')} rollerId="polyhedral" />
       <PolyhedralRoller />
     </>
   )

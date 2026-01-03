@@ -1,7 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { DaggerheartRoller } from './DaggerheartRoller'
 import { SetPageTitle } from '@/components/PageTitleProvider'
-import { getRollerById } from '@/lib/rollers'
 
 export async function generateMetadata({
   params,
@@ -25,11 +24,10 @@ export default async function DaggerheartPage({
   const { locale } = await params
   setRequestLocale(locale)
   const t = await getTranslations('Navigation')
-  const roller = getRollerById('daggerheart')
 
   return (
     <>
-      <SetPageTitle title={t('daggerheart')} iconName={roller?.iconName} />
+      <SetPageTitle title={t('daggerheart')} rollerId="daggerheart" />
       <DaggerheartRoller />
     </>
   )

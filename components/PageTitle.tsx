@@ -26,27 +26,20 @@
  * - Only re-renders when title changes
  */
 import Image from 'next/image'
-import { Layers, Dices, Pentagon, SquareSplitHorizontal } from 'lucide-react'
 import { usePageTitle } from './PageTitleProvider'
 import { useThemeBranding } from '@/lib/theme-config'
-import type { IconName } from '@/lib/rollers'
-
-const iconMap = {
-  Layers,
-  Dices,
-  Pentagon,
-  SquareSplitHorizontal,
-} as const
+import { getRollerById } from '@/lib/rollers'
 
 export const PageTitle = () => {
-  const { title, iconName } = usePageTitle()
+  const { title, rollerId } = usePageTitle()
   const branding = useThemeBranding()
 
   if (!title) {
     return null
   }
 
-  const Icon = iconName ? iconMap[iconName] : null
+  const roller = rollerId ? getRollerById(rollerId) : null
+  const Icon = roller?.icon
 
   return (
     <span className="font-semibold flex items-center gap-2">

@@ -20,31 +20,30 @@
  * - Pages should set their title using SetPageTitle component
  */
 import * as React from 'react'
-import type { IconName } from '@/lib/rollers'
 
 type PageTitleContextType = {
   title: string | null
-  iconName: IconName | null
-  setTitle: (title: string | null, iconName?: IconName | null) => void
+  rollerId: string | null
+  setTitle: (title: string | null, rollerId?: string | null) => void
 }
 
 const PageTitleContext = React.createContext<PageTitleContextType>({
   title: null,
-  iconName: null,
+  rollerId: null,
   setTitle: () => {},
 })
 
 export function PageTitleProvider({ children }: { children: React.ReactNode }) {
   const [title, setTitleState] = React.useState<string | null>(null)
-  const [iconName, setIconNameState] = React.useState<IconName | null>(null)
+  const [rollerId, setRollerIdState] = React.useState<string | null>(null)
 
-  const setTitle = React.useCallback((newTitle: string | null, newIconName?: IconName | null) => {
+  const setTitle = React.useCallback((newTitle: string | null, newRollerId?: string | null) => {
     setTitleState(newTitle)
-    setIconNameState(newIconName ?? null)
+    setRollerIdState(newRollerId ?? null)
   }, [])
 
   return (
-    <PageTitleContext.Provider value={{ title, iconName, setTitle }}>
+    <PageTitleContext.Provider value={{ title, rollerId, setTitle }}>
       {children}
     </PageTitleContext.Provider>
   )
@@ -60,19 +59,19 @@ export function usePageTitle() {
  * Client component that pages can use to set their navbar title.
  * 
  * Usage:
- * - Import and render in page components: <SetPageTitle title="My Page" iconName="Dices" />
+ * - Import and render in page components: <SetPageTitle title="My Page" rollerId="d6" />
  * - Title will be displayed in the navbar via PageTitle component
  * - Automatically clears when component unmounts
  */
-export function SetPageTitle({ title, iconName }: { title: string | null; iconName?: IconName | null }) {
+export function SetPageTitle({ title, rollerId }: { title: string | null; rollerId?: string | null }) {
   const { setTitle } = usePageTitle()
 
   React.useEffect(() => {
-    setTitle(title, iconName)
+    setTitle(title, rollerId)
     return () => {
       setTitle(null, null)
     }
-  }, [title, iconName, setTitle])
+  }, [title, rollerId, setTitle])
 
   return null
 }
