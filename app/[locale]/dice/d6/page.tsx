@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { D6Roller } from './D6Roller'
 import { SetPageTitle } from '@/components/PageTitleProvider'
+import { getRollerById } from '@/lib/rollers'
 
 export async function generateMetadata({
   params,
@@ -24,10 +25,11 @@ export default async function D6Page({
   const { locale } = await params
   setRequestLocale(locale)
   const t = await getTranslations('Navigation')
+  const roller = getRollerById('d6')
 
   return (
     <>
-      <SetPageTitle title={t('d6')} />
+      <SetPageTitle title={t('d6')} icon={roller?.icon} />
       <D6Roller />
     </>
   )

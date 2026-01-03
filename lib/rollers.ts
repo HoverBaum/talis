@@ -46,3 +46,10 @@ export const rollers: Roller[] = [
     subtitleKey: 'Home.polyhedralDescription',
   },
 ]
+
+/**
+ * Get roller information by ID
+ */
+export function getRollerById(id: string): Roller | undefined {
+  return rollers.find((roller) => roller.id === id)
+}

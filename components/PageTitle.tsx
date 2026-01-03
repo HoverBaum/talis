@@ -30,7 +30,7 @@ import { usePageTitle } from './PageTitleProvider'
 import { useThemeBranding } from '@/lib/theme-config'
 
 export const PageTitle = () => {
-  const { title } = usePageTitle()
+  const { title, icon: Icon } = usePageTitle()
   const branding = useThemeBranding()
 
   if (!title) {
@@ -47,6 +47,7 @@ export const PageTitle = () => {
         className="size-8 inline-block"
       />
       <span>{branding.brandName} - </span>
+      {Icon && <Icon className="w-5 h-5" />}
       {title}
     </span>
   )
