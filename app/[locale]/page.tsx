@@ -52,9 +52,9 @@ export default async function HomePage({
                                     <CardHeader>
                                         <div className="flex items-center gap-2">
                                             <Icon className="w-5 h-5" />
-                                            <CardTitle>{navT(roller.id as 'shadowrun' | 'd6' | 'daggerheart' | 'polyhedral')}</CardTitle>
+                                            <CardTitle>{navT(roller.id as any)}</CardTitle>
                                         </div>
-                                        <CardDescription>{t(`${roller.id}Description` as 'shadowrunDescription' | 'd6Description' | 'daggerheartDescription' | 'polyhedralDescription')}</CardDescription>
+                                        <CardDescription>{t(`${roller.id}Description` as any)}</CardDescription>
                                     </CardHeader>
                                 </Card>
                             </Link>

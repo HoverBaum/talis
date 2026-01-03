@@ -30,7 +30,7 @@ import { rollers } from '@/lib/rollers'
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
   const locale = useLocale()
-  const t = useTranslations('Navigation')
+  const navT = useTranslations('Navigation')
   const tPWA = useTranslations('PWA')
   const tFooter = useTranslations('Footer')
   const { setOpenMobile } = useSidebar()
@@ -46,29 +46,29 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
 
   const mainNav = [
     {
-      title: t('home'),
+      title: navT('home'),
       url: `/${locale}`,
       icon: null,
     },
     {
-      title: t('about'),
+      title: navT('about'),
       url: `/${locale}/pages/about`,
       icon: null,
     },
     {
-      title: t('changelog'),
+      title: navT('changelog'),
       url: `/${locale}/pages/changelog`,
       icon: null,
     },
     {
-      title: t('settings'),
+      title: navT('settings'),
       url: `/${locale}/pages/settings`,
       icon: null,
     },
   ]
 
   const rollersNav = rollers.map((roller) => ({
-    title: t(roller.id as 'shadowrun' | 'd6' | 'daggerheart' | 'polyhedral'),
+    title: navT(roller.id as any),
     url: `/${locale}${roller.link}`,
     icon: roller.icon,
   }))
@@ -114,7 +114,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel>{t('rollers')}</SidebarGroupLabel>
+          <SidebarGroupLabel>{navT('rollers')}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {rollersNav.map((item) => {
