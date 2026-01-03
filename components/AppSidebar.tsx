@@ -25,6 +25,7 @@ import { LanguageSelect } from './LanguageSelect'
 import { PWAInstallPrompt } from './PWAInstallPrompt'
 import { useThemeBranding } from '@/lib/theme-config'
 import packageJson from '@/package.json'
+import { rollers } from '@/lib/rollers'
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
@@ -66,28 +67,11 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
     },
   ]
 
-  const rollersNav = [
-    {
-      title: t('shadowrun'),
-      url: `/${locale}/dice/shadowrun`,
-      icon: null,
-    },
-    {
-      title: t('d6'),
-      url: `/${locale}/dice/d6`,
-      icon: null,
-    },
-    {
-      title: t('daggerheart'),
-      url: `/${locale}/dice/daggerheart`,
-      icon: null,
-    },
-    {
-      title: t('polyhedral'),
-      url: `/${locale}/dice/polyhedral`,
-      icon: null,
-    },
-  ]
+  const rollersNav = rollers.map((roller) => ({
+    title: t(roller.id as 'shadowrun' | 'd6' | 'daggerheart' | 'polyhedral'),
+    url: `/${locale}${roller.link}`,
+    icon: roller.icon,
+  }))
 
   const isActive = (url: string) => {
     return pathname === url
@@ -133,13 +117,19 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
           <SidebarGroupLabel>{t('rollers')}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {rollersNav.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={isActive(item.url)}>
-                    <Link href={item.url} onClick={handleMobileNavigation}>{item.title}</Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {rollersNav.map((item) => {
+                const Icon = item.icon
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild isActive={isActive(item.url)}>
+                      <Link href={item.url} onClick={handleMobileNavigation}>
+                        {Icon && <Icon />}
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                )
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

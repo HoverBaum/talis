@@ -2,6 +2,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import Link from 'next/link'
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { SetPageTitle } from '@/components/PageTitleProvider'
+import { rollers } from '@/lib/rollers'
 
 export async function generateMetadata({
     params,
@@ -39,53 +40,26 @@ export default async function HomePage({
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mt-8 md:grid-cols-3 lg:grid-cols-4">
-                    <Link 
-                        href={`/${locale}/dice/shadowrun`}
-                        className="transition-transform hover:scale-105 active:scale-95"
-                    >
-                        <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow">
-                            <CardHeader>
-                                <CardTitle>{navT('shadowrun')}</CardTitle>
-                                <CardDescription>{t('shadowrunDescription')}</CardDescription>
-                            </CardHeader>
-                        </Card>
-                    </Link>
-
-                    <Link 
-                        href={`/${locale}/dice/d6`}
-                        className="transition-transform hover:scale-105 active:scale-95"
-                    >
-                        <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow">
-                            <CardHeader>
-                                <CardTitle>{navT('d6')}</CardTitle>
-                                <CardDescription>{t('d6Description')}</CardDescription>
-                            </CardHeader>
-                        </Card>
-                    </Link>
-
-                    <Link 
-                        href={`/${locale}/dice/daggerheart`}
-                        className="transition-transform hover:scale-105 active:scale-95"
-                    >
-                        <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow">
-                            <CardHeader>
-                                <CardTitle>{navT('daggerheart')}</CardTitle>
-                                <CardDescription>{t('daggerheartDescription')}</CardDescription>
-                            </CardHeader>
-                        </Card>
-                    </Link>
-
-                    <Link 
-                        href={`/${locale}/dice/polyhedral`}
-                        className="transition-transform hover:scale-105 active:scale-95"
-                    >
-                        <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow">
-                            <CardHeader>
-                                <CardTitle>{navT('polyhedral')}</CardTitle>
-                                <CardDescription>{t('polyhedralDescription')}</CardDescription>
-                            </CardHeader>
-                        </Card>
-                    </Link>
+                    {rollers.map((roller) => {
+                        const Icon = roller.icon
+                        return (
+                            <Link 
+                                key={roller.id}
+                                href={`/${locale}${roller.link}`}
+                                className="transition-transform hover:scale-105 active:scale-95"
+                            >
+                                <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow">
+                                    <CardHeader>
+                                        <div className="flex items-center gap-2">
+                                            <Icon className="w-5 h-5" />
+                                            <CardTitle>{navT(roller.id as 'shadowrun' | 'd6' | 'daggerheart' | 'polyhedral')}</CardTitle>
+                                        </div>
+                                        <CardDescription>{t(`${roller.id}Description` as 'shadowrunDescription' | 'd6Description' | 'daggerheartDescription' | 'polyhedralDescription')}</CardDescription>
+                                    </CardHeader>
+                                </Card>
+                            </Link>
+                        )
+                    })}
                 </div>
             </div>
         </>
