@@ -29,7 +29,7 @@ export default async function PolyhedralPage({
 
   return (
     <>
-      <SetPageTitle title={t('polyhedral')} icon={roller?.icon} />
+      <SetPageTitle title={t('polyhedral')} iconName={roller?.iconName} />
       <PolyhedralRoller />
     </>
   )

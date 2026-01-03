@@ -29,7 +29,7 @@ export default async function DaggerheartPage({
 
   return (
     <>
-      <SetPageTitle title={t('daggerheart')} icon={roller?.icon} />
+      <SetPageTitle title={t('daggerheart')} iconName={roller?.iconName} />
       <DaggerheartRoller />
     </>
   )

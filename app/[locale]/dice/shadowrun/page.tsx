@@ -29,7 +29,7 @@ export default async function ShadowrunPage({
 
   return (
     <>
-      <SetPageTitle title={t('shadowrun')} icon={roller?.icon} />
+      <SetPageTitle title={t('shadowrun')} iconName={roller?.iconName} />
       <ShadowrunRoller />
     </>
   )

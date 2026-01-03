@@ -29,7 +29,7 @@ export default async function D6Page({
 
   return (
     <>
-      <SetPageTitle title={t('d6')} icon={roller?.icon} />
+      <SetPageTitle title={t('d6')} iconName={roller?.iconName} />
       <D6Roller />
     </>
   )

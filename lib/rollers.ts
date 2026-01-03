@@ -1,9 +1,12 @@
 import { Layers, Dices, Pentagon, SquareSplitHorizontal } from 'lucide-react'
 
+export type IconName = 'Layers' | 'Dices' | 'Pentagon' | 'SquareSplitHorizontal'
+
 export interface Roller {
   id: string
   link: string
   icon: typeof Layers
+  iconName: IconName
   nameKey: string
   subtitleKey: string
 }
@@ -21,6 +24,7 @@ export const rollers: Roller[] = [
     id: 'shadowrun',
     link: '/dice/shadowrun',
     icon: Layers,
+    iconName: 'Layers',
     nameKey: 'Navigation.shadowrun',
     subtitleKey: 'Home.shadowrunDescription',
   },
@@ -28,6 +32,7 @@ export const rollers: Roller[] = [
     id: 'd6',
     link: '/dice/d6',
     icon: Dices,
+    iconName: 'Dices',
     nameKey: 'Navigation.d6',
     subtitleKey: 'Home.d6Description',
   },
@@ -35,6 +40,7 @@ export const rollers: Roller[] = [
     id: 'daggerheart',
     link: '/dice/daggerheart',
     icon: SquareSplitHorizontal,
+    iconName: 'SquareSplitHorizontal',
     nameKey: 'Navigation.daggerheart',
     subtitleKey: 'Home.daggerheartDescription',
   },
@@ -42,6 +48,7 @@ export const rollers: Roller[] = [
     id: 'polyhedral',
     link: '/dice/polyhedral',
     icon: Pentagon,
+    iconName: 'Pentagon',
     nameKey: 'Navigation.polyhedral',
     subtitleKey: 'Home.polyhedralDescription',
   },
