@@ -1,8 +1,8 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import Link from 'next/link'
-import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { SetPageTitle } from '@/components/PageTitleProvider'
+import { HomeCard } from '@/components/HomeCard'
 import { rollers } from '@/lib/rollers'
+import { Settings2 } from 'lucide-react'
 
 export async function generateMetadata({
     params,
@@ -41,28 +41,26 @@ export default async function HomePage({
 
                 <div className="grid grid-cols-2 gap-4 mt-8 md:grid-cols-3 lg:grid-cols-4">
                     {rollers.map((roller) => {
-                        const Icon = roller.icon
                         // Extract keys from nameKey (e.g., "Navigation.shadowrun" -> "shadowrun")
                         const nameKeyPart = roller.nameKey.split('.')[1]
                         const subtitleKeyPart = roller.subtitleKey.split('.')[1]
                         return (
-                            <Link 
+                            <HomeCard
                                 key={roller.id}
                                 href={`/${locale}${roller.link}`}
-                                className="transition-transform hover:scale-105 active:scale-95"
-                            >
-                                <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow">
-                                    <CardHeader>
-                                        <div className="flex items-center gap-2">
-                                            <Icon className="w-5 h-5" />
-                                            <CardTitle>{navT(nameKeyPart as any)}</CardTitle>
-                                        </div>
-                                        <CardDescription>{t(subtitleKeyPart as any)}</CardDescription>
-                                    </CardHeader>
-                                </Card>
-                            </Link>
+                                icon={roller.icon}
+                                title={navT(nameKeyPart as any)}
+                                description={t(subtitleKeyPart as any)}
+                            />
                         )
                     })}
+                    {/* Settings Card - Always Last */}
+                    <HomeCard
+                        href={`/${locale}/pages/settings`}
+                        icon={Settings2}
+                        title={navT('settings')}
+                        description={t('settingsDescription')}
+                    />
                 </div>
             </div>
         </>
