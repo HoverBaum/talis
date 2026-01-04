@@ -1,9 +1,9 @@
-import { Layers, Dices, Pentagon, SquareSplitHorizontal } from 'lucide-react'
+import { Layers, Dices, Pentagon, SquareSplitHorizontal, type LucideIcon } from 'lucide-react'
 
 export interface Roller {
   id: string
   link: string
-  icon: typeof Layers
+  icon: LucideIcon
   nameKey: string
   subtitleKey: string
 }
