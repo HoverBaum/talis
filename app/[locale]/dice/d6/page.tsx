@@ -27,7 +27,7 @@ export default async function D6Page({
 
   return (
     <>
-      <SetPageTitle title={t('d6')} />
+      <SetPageTitle title={t('d6')} rollerId="d6" />
       <D6Roller />
     </>
   )

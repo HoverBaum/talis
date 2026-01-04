@@ -28,14 +28,18 @@
 import Image from 'next/image'
 import { usePageTitle } from './PageTitleProvider'
 import { useThemeBranding } from '@/lib/theme-config'
+import { getRollerById } from '@/lib/rollers'
 
 export const PageTitle = () => {
-  const { title } = usePageTitle()
+  const { title, rollerId } = usePageTitle()
   const branding = useThemeBranding()
 
   if (!title) {
     return null
   }
+
+  const roller = rollerId ? getRollerById(rollerId) : null
+  const Icon = roller?.icon
 
   return (
     <span className="font-semibold flex items-center gap-2">
@@ -47,6 +51,7 @@ export const PageTitle = () => {
         className="size-8 inline-block"
       />
       <span>{branding.brandName} - </span>
+      {Icon && <Icon className="w-5 h-5" />}
       {title}
     </span>
   )

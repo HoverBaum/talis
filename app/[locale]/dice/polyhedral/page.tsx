@@ -27,7 +27,7 @@ export default async function PolyhedralPage({
 
   return (
     <>
-      <SetPageTitle title={t('polyhedral')} />
+      <SetPageTitle title={t('polyhedral')} rollerId="polyhedral" />
       <PolyhedralRoller />
     </>
   )

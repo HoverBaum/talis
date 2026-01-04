@@ -27,7 +27,7 @@ export default async function DaggerheartPage({
 
   return (
     <>
-      <SetPageTitle title={t('daggerheart')} />
+      <SetPageTitle title={t('daggerheart')} rollerId="daggerheart" />
       <DaggerheartRoller />
     </>
   )

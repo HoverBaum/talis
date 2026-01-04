@@ -23,19 +23,27 @@ import * as React from 'react'
 
 type PageTitleContextType = {
   title: string | null
-  setTitle: (title: string | null) => void
+  rollerId: string | null
+  setTitle: (title: string | null, rollerId?: string | null) => void
 }
 
 const PageTitleContext = React.createContext<PageTitleContextType>({
   title: null,
+  rollerId: null,
   setTitle: () => {},
 })
 
 export function PageTitleProvider({ children }: { children: React.ReactNode }) {
-  const [title, setTitle] = React.useState<string | null>(null)
+  const [title, setTitleState] = React.useState<string | null>(null)
+  const [rollerId, setRollerIdState] = React.useState<string | null>(null)
+
+  const setTitle = React.useCallback((newTitle: string | null, newRollerId?: string | null) => {
+    setTitleState(newTitle)
+    setRollerIdState(newRollerId ?? null)
+  }, [])
 
   return (
-    <PageTitleContext.Provider value={{ title, setTitle }}>
+    <PageTitleContext.Provider value={{ title, rollerId, setTitle }}>
       {children}
     </PageTitleContext.Provider>
   )
@@ -51,19 +59,19 @@ export function usePageTitle() {
  * Client component that pages can use to set their navbar title.
  * 
  * Usage:
- * - Import and render in page components: <SetPageTitle title="My Page" />
+ * - Import and render in page components: <SetPageTitle title="My Page" rollerId="d6" />
  * - Title will be displayed in the navbar via PageTitle component
  * - Automatically clears when component unmounts
  */
-export function SetPageTitle({ title }: { title: string | null }) {
+export function SetPageTitle({ title, rollerId }: { title: string | null; rollerId?: string | null }) {
   const { setTitle } = usePageTitle()
 
   React.useEffect(() => {
-    setTitle(title)
+    setTitle(title, rollerId)
     return () => {
-      setTitle(null)
+      setTitle(null, null)
     }
-  }, [title, setTitle])
+  }, [title, rollerId, setTitle])
 
   return null
 }

@@ -27,7 +27,7 @@ export default async function ShadowrunPage({
 
   return (
     <>
-      <SetPageTitle title={t('shadowrun')} />
+      <SetPageTitle title={t('shadowrun')} rollerId="shadowrun" />
       <ShadowrunRoller />
     </>
   )
