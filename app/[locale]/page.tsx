@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { SetPageTitle } from '@/components/PageTitleProvider'
 import { rollers } from '@/lib/rollers'
+import { Settings2 } from 'lucide-react'
 
 export async function generateMetadata({
     params,
@@ -63,6 +64,21 @@ export default async function HomePage({
                             </Link>
                         )
                     })}
+                    {/* Settings Card - Always Last */}
+                    <Link 
+                        href={`/${locale}/pages/settings`}
+                        className="transition-transform hover:scale-105 active:scale-95"
+                    >
+                        <Card className="h-full cursor-pointer hover:shadow-lg transition-shadow">
+                            <CardHeader>
+                                <div className="flex items-center gap-2">
+                                    <Settings2 className="w-5 h-5" />
+                                    <CardTitle>{navT('settings')}</CardTitle>
+                                </div>
+                                <CardDescription>{t('settingsDescription')}</CardDescription>
+                            </CardHeader>
+                        </Card>
+                    </Link>
                 </div>
             </div>
         </>

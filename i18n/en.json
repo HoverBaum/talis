@@ -5,7 +5,8 @@
     "shadowrunDescription": "Shadowrun dice roller",
     "d6Description": "General purpose D6 roller",
     "daggerheartDescription": "Daggerheart dice roller",
-    "polyhedralDescription": "Standard polyhedral dice roller (d4, d6, d8, d10, d12, d20, d100)"
+    "polyhedralDescription": "Standard polyhedral dice roller (d4, d6, d8, d10, d12, d20, d100)",
+    "settingsDescription": "Configure app settings and preferences"
   },
   "Roller": {
     "Shadowrun": {
