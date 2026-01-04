@@ -42,6 +42,9 @@ export default async function HomePage({
                 <div className="grid grid-cols-2 gap-4 mt-8 md:grid-cols-3 lg:grid-cols-4">
                     {rollers.map((roller) => {
                         const Icon = roller.icon
+                        // Extract keys from nameKey (e.g., "Navigation.shadowrun" -> "shadowrun")
+                        const nameKeyPart = roller.nameKey.split('.')[1]
+                        const subtitleKeyPart = roller.subtitleKey.split('.')[1]
                         return (
                             <Link 
                                 key={roller.id}
@@ -52,9 +55,9 @@ export default async function HomePage({
                                     <CardHeader>
                                         <div className="flex items-center gap-2">
                                             <Icon className="w-5 h-5" />
-                                            <CardTitle>{navT(roller.id as any)}</CardTitle>
+                                            <CardTitle>{navT(nameKeyPart as any)}</CardTitle>
                                         </div>
-                                        <CardDescription>{t(`${roller.id}Description` as any)}</CardDescription>
+                                        <CardDescription>{t(subtitleKeyPart as any)}</CardDescription>
                                     </CardHeader>
                                 </Card>
                             </Link>

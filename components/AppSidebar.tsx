@@ -67,11 +67,15 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
     },
   ]
 
-  const rollersNav = rollers.map((roller) => ({
-    title: navT(roller.id as any),
-    url: `/${locale}${roller.link}`,
-    icon: roller.icon,
-  }))
+  const rollersNav = rollers.map((roller) => {
+    // Extract key from nameKey (e.g., "Navigation.shadowrun" -> "shadowrun")
+    const nameKeyPart = roller.nameKey.split('.')[1]
+    return {
+      title: navT(nameKeyPart as any),
+      url: `/${locale}${roller.link}`,
+      icon: roller.icon,
+    }
+  })
 
   const isActive = (url: string) => {
     return pathname === url
