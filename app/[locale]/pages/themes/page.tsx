@@ -18,24 +18,24 @@ const sampleRoll = {
 
 // Color definitions to showcase
 const colorVariables = [
-  { name: 'Background', var: '--background' },
-  { name: 'Foreground', var: '--foreground' },
-  { name: 'Primary', var: '--primary' },
-  { name: 'Primary Foreground', var: '--primary-foreground' },
-  { name: 'Secondary', var: '--secondary' },
-  { name: 'Secondary Foreground', var: '--secondary-foreground' },
-  { name: 'Accent', var: '--accent' },
-  { name: 'Accent Foreground', var: '--accent-foreground' },
-  { name: 'Muted', var: '--muted' },
-  { name: 'Muted Foreground', var: '--muted-foreground' },
-  { name: 'Card', var: '--card' },
-  { name: 'Card Foreground', var: '--card-foreground' },
-  { name: 'Border', var: '--border' },
-  { name: 'Destructive', var: '--destructive' },
-  { name: 'Roll Positive', var: '--roll-positive' },
-  { name: 'Roll Positive Foreground', var: '--roll-positive-foreground' },
-  { name: 'Roll Negative', var: '--roll-negative' },
-  { name: 'Roll Negative Foreground', var: '--roll-negative-foreground' },
+  { name: 'Background', var: '--background', className: 'bg-background' },
+  { name: 'Foreground', var: '--foreground', className: 'bg-foreground' },
+  { name: 'Primary', var: '--primary', className: 'bg-primary' },
+  { name: 'Primary Foreground', var: '--primary-foreground', className: 'bg-primary-foreground' },
+  { name: 'Secondary', var: '--secondary', className: 'bg-secondary' },
+  { name: 'Secondary Foreground', var: '--secondary-foreground', className: 'bg-secondary-foreground' },
+  { name: 'Accent', var: '--accent', className: 'bg-accent' },
+  { name: 'Accent Foreground', var: '--accent-foreground', className: 'bg-accent-foreground' },
+  { name: 'Muted', var: '--muted', className: 'bg-muted' },
+  { name: 'Muted Foreground', var: '--muted-foreground', className: 'bg-muted-foreground' },
+  { name: 'Card', var: '--card', className: 'bg-card' },
+  { name: 'Card Foreground', var: '--card-foreground', className: 'bg-card-foreground' },
+  { name: 'Border', var: '--border', className: 'bg-border' },
+  { name: 'Destructive', var: '--destructive', className: 'bg-destructive' },
+  { name: 'Roll Positive', var: '--roll-positive', className: 'bg-roll-positive' },
+  { name: 'Roll Positive Foreground', var: '--roll-positive-foreground', className: 'bg-roll-positive-foreground' },
+  { name: 'Roll Negative', var: '--roll-negative', className: 'bg-roll-negative' },
+  { name: 'Roll Negative Foreground', var: '--roll-negative-foreground', className: 'bg-roll-negative-foreground' },
 ]
 
 function ThemeShowcase({ theme, mode }: { theme: Theme; mode: 'light' | 'dark' }) {
@@ -129,12 +129,7 @@ function ThemeShowcase({ theme, mode }: { theme: Theme; mode: 'light' | 'dark' }
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
               {colorVariables.map((color) => (
                 <div key={color.var} className="flex items-center gap-2">
-                  <div
-                    className="w-8 h-8 rounded border"
-                    style={{
-                      backgroundColor: `oklch(var(${color.var}))`,
-                    }}
-                  />
+                  <div className={`w-8 h-8 rounded border ${color.className}`} />
                   <div className="flex-1 min-w-0">
                     <div className="font-medium truncate">{color.name}</div>
                     <div className="text-xs text-muted-foreground">{color.var}</div>
