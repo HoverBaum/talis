@@ -1,12 +1,11 @@
 'use client'
 
 /**
- * Displays the result of a coin flip with color differentiation for heads/tails.
+ * Displays the result of a coin flip with optional color differentiation for heads/tails.
  *
  * Features:
- * - Shows the flip result (heads or tails value) with appropriate color
- * - Heads are displayed with success/primary color
- * - Tails are displayed with destructive/danger color
+ * - Shows the flip result (heads or tails value) with appropriate color (configurable)
+ * - When colored results enabled: Heads use roll-positive color, Tails use roll-negative color
  * - Shows timestamp and coin type in a small note below
  * - Highlights the most recent flip with larger text and background styling
  *
@@ -21,7 +20,7 @@
  * Used by CoinRoller to display coin flip history in the result area.
  */
 import { useTranslations } from 'next-intl'
-import { type CoinFlipResult } from './coin-store'
+import { type CoinFlipResult, useCoinStore } from './coin-store'
 
 type CoinResultDisplayProps = {
   flip: CoinFlipResult
@@ -48,6 +47,7 @@ export const CoinResultDisplay = ({
   isHighlighted = false,
 }: CoinResultDisplayProps) => {
   const t = useTranslations('Roller')
+  const useColoredResults = useCoinStore((state) => state.config.useColoredResults)
 
   const displayValue =
     flip.result === 'heads'
@@ -56,10 +56,13 @@ export const CoinResultDisplay = ({
 
   const coinDisplayName = getDisplayValue(flip.coinType.displayName, t)
 
-  // Color classes based on result
+  // Color classes based on result (only when colored results are enabled)
   // Using roll-positive for heads (success/positive outcome) and roll-negative for tails
-  const colorClass =
-    flip.result === 'heads' ? 'text-roll-positive' : 'text-roll-negative'
+  const colorClass = useColoredResults
+    ? flip.result === 'heads'
+      ? 'text-roll-positive'
+      : 'text-roll-negative'
+    : ''
 
   return (
     <div

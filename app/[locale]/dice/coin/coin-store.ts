@@ -25,7 +25,7 @@ export type CoinFlipResult = {
 
 /**
  * Default coin types that are always available.
- * The 'heads-tails' coin uses translation keys.
+ * Coins with translation keys (starting with 'Coin.') will be translated.
  */
 export const DEFAULT_COINS: CoinType[] = [
   {
@@ -40,10 +40,17 @@ export const DEFAULT_COINS: CoinType[] = [
     headsValue: '0',
     tailsValue: '1',
   },
+  {
+    id: 'yes-no',
+    displayName: 'Coin.yesNoLabel',
+    headsValue: 'Coin.yes',
+    tailsValue: 'Coin.no',
+  },
 ]
 
 const DEFAULT_CONFIG = {
   showNewResultBottom: true,
+  useColoredResults: true,
   customCoins: [] as CoinType[],
 }
 

@@ -102,6 +102,26 @@ export const CoinConfig = () => {
               }
             />
           </div>
+
+          <Separator />
+
+          <div className="flex items-center justify-between py-2">
+            <div className="space-y-0.5">
+              <Label htmlFor="useColoredResults">
+                {t('useColoredResults')}
+              </Label>
+              <p className="text-sm text-muted-foreground">
+                {t('useColoredResultsDescription')}
+              </p>
+            </div>
+            <Switch
+              id="useColoredResults"
+              checked={config.useColoredResults}
+              onCheckedChange={(checked) =>
+                updateConfig({ useColoredResults: checked })
+              }
+            />
+          </div>
         </div>
       </section>
 
