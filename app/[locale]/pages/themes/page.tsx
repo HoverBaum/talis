@@ -5,6 +5,8 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { d6Mapping } from '@/utils/dice-constants'
 import type { Theme } from '@/components/ThemeProvider'
+import { getThemeBranding } from '@/lib/theme-config'
+import Image from 'next/image'
 
 const themes: Theme[] = ['default', 'shadowrun', 'nature', 'spm']
 
@@ -39,6 +41,8 @@ const colorVariables = [
 ]
 
 function ThemeShowcase({ theme, mode }: { theme: Theme; mode: 'light' | 'dark' }) {
+  const branding = getThemeBranding(theme)
+
   return (
     <div
       data-theme={theme}
@@ -46,14 +50,23 @@ function ThemeShowcase({ theme, mode }: { theme: Theme; mode: 'light' | 'dark' }
       className="p-6 rounded-lg border bg-background text-foreground"
     >
       <div className="space-y-6">
-        {/* Theme Header */}
-        <div>
-          <h3 className="text-2xl font-bold capitalize mb-1">
-            {theme} - {mode}
-          </h3>
-          <p className="text-sm text-muted-foreground">
-            Theme colors and component showcase
-          </p>
+        {/* Theme Header with Logo */}
+        <div className="flex items-center gap-4">
+          <Image
+            src={branding.logo}
+            alt={`${branding.brandName} logo`}
+            width={48}
+            height={48}
+            className="rounded"
+          />
+          <div>
+            <h3 className="text-2xl font-bold capitalize mb-1">
+              {theme} - {mode}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {branding.brandName} theme showcase
+            </p>
+          </div>
         </div>
 
         {/* Sample Dice Roll */}
@@ -91,6 +104,34 @@ function ThemeShowcase({ theme, mode }: { theme: Theme; mode: 'light' | 'dark' }
                     </span>
                   )
                 })}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Roll Color Examples */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Roll Colors</CardTitle>
+            <CardDescription>Positive and negative roll colors with text</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="p-4 rounded bg-roll-positive">
+                <p className="text-roll-positive-foreground font-bold text-lg">
+                  Success Roll (Positive)
+                </p>
+                <p className="text-roll-positive-foreground text-sm mt-1">
+                  This text uses roll-positive-foreground on roll-positive background
+                </p>
+              </div>
+              <div className="p-4 rounded bg-roll-negative">
+                <p className="text-roll-negative-foreground font-bold text-lg">
+                  Glitch Roll (Negative)
+                </p>
+                <p className="text-roll-negative-foreground text-sm mt-1">
+                  This text uses roll-negative-foreground on roll-negative background
+                </p>
               </div>
             </div>
           </CardContent>
