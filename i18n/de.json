@@ -6,6 +6,7 @@
     "d6Description": "Allgemeine D6 Würfel App",
     "daggerheartDescription": "Daggerheart Würfel App",
     "polyhedralDescription": "Standard Polyeder Würfel App (d4, d6, d8, d10, d12, d20, d100)",
+    "coinDescription": "Münzen werfen mit anpassbaren Seiten",
     "settingsDescription": "App-Einstellungen und Präferenzen konfigurieren"
   },
   "Roller": {
@@ -90,6 +91,30 @@
         "sumDiceDescription": "Die Summe aller Würfelwerte anzeigen",
         "back": "Zurück"
       }
+    },
+    "Coin": {
+      "flip": "Werfen",
+      "heads": "Kopf",
+      "tails": "Zahl",
+      "headsLabel": "Kopf/Zahl",
+      "Config": {
+        "title": "Münz-Konfiguration",
+        "displaySettings": "Anzeigeeinstellungen",
+        "displaySettingsDescription": "Konfiguriere, wie Wurfergebnisse angezeigt werden",
+        "newResultsAtBottom": "Neue Ergebnisse unten",
+        "newResultsAtBottomDescription": "Neue Ergebnisse am unteren Ende der Liste anzeigen",
+        "customCoins": "Eigene Münzen",
+        "customCoinsDescription": "Füge eigene Münztypen mit verschiedenen Werten hinzu",
+        "addNewCoin": "Neue Münze hinzufügen",
+        "coinDisplayName": "Anzeigename",
+        "coinDisplayNamePlaceholder": "z.B. Ja/Nein",
+        "headsValue": "Kopf-Wert",
+        "headsValuePlaceholder": "z.B. Ja",
+        "tailsValue": "Zahl-Wert",
+        "tailsValuePlaceholder": "z.B. Nein",
+        "addCoin": "Münze hinzufügen",
+        "back": "Zurück"
+      }
     }
   },
   "Components": {
@@ -118,7 +143,8 @@
     "shadowrun": "Shadowrun",
     "d6": "D6 Würfel",
     "daggerheart": "Daggerheart",
-    "polyhedral": "Polyeder"
+    "polyhedral": "Polyeder",
+    "coin": "Münzwurf"
   },
   "Theme": {
     "select": "Theme",
