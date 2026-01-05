@@ -1,4 +1,4 @@
-import { Layers, Dices, Pentagon, SquareSplitHorizontal, type LucideIcon } from 'lucide-react'
+import { Layers, Dices, Pentagon, SquareSplitHorizontal, Coins, type LucideIcon } from 'lucide-react'
 
 export interface Roller {
   id: string
@@ -44,6 +44,13 @@ export const rollers: Roller[] = [
     icon: Pentagon,
     nameKey: 'Navigation.polyhedral',
     subtitleKey: 'Home.polyhedralDescription',
+  },
+  {
+    id: 'coin',
+    link: '/dice/coin',
+    icon: Coins,
+    nameKey: 'Navigation.coin',
+    subtitleKey: 'Home.coinDescription',
   },
 ]
 

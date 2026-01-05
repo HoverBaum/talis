@@ -6,6 +6,7 @@
     "d6Description": "General purpose D6 roller",
     "daggerheartDescription": "Daggerheart dice roller",
     "polyhedralDescription": "Standard polyhedral dice roller (d4, d6, d8, d10, d12, d20, d100)",
+    "coinDescription": "Flip coins with customizable sides",
     "settingsDescription": "Configure app settings and preferences"
   },
   "Roller": {
@@ -90,6 +91,35 @@
         "sumDiceDescription": "Display the sum of all dice values",
         "back": "Back"
       }
+    },
+    "Coin": {
+      "flip": "Flip",
+      "heads": "Heads",
+      "tails": "Tails",
+      "headsLabel": "Heads/Tails",
+      "yes": "Yes",
+      "no": "No",
+      "yesNoLabel": "Yes/No",
+      "Config": {
+        "title": "Coin Configuration",
+        "displaySettings": "Display Settings",
+        "displaySettingsDescription": "Configure how flip results are displayed",
+        "newResultsAtBottom": "New results at bottom",
+        "newResultsAtBottomDescription": "Show new results at the bottom of the list",
+        "useColoredResults": "Colored results",
+        "useColoredResultsDescription": "Use different colors for heads and tails results",
+        "customCoins": "Custom Coins",
+        "customCoinsDescription": "Add your own custom coin types with different values",
+        "addNewCoin": "Add New Coin",
+        "coinDisplayName": "Display Name",
+        "coinDisplayNamePlaceholder": "e.g., Left/Right",
+        "headsValue": "Heads Value",
+        "headsValuePlaceholder": "e.g., Left",
+        "tailsValue": "Tails Value",
+        "tailsValuePlaceholder": "e.g., Right",
+        "addCoin": "Add Coin",
+        "back": "Back"
+      }
     }
   },
   "Components": {
@@ -118,7 +148,8 @@
     "shadowrun": "Shadowrun",
     "d6": "D6 Roller",
     "daggerheart": "Daggerheart",
-    "polyhedral": "Polyhedral"
+    "polyhedral": "Polyhedral",
+    "coin": "Coin Flipper"
   },
   "Theme": {
     "select": "Theme",
