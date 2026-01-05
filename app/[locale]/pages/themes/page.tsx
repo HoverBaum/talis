@@ -54,7 +54,7 @@ function ThemeShowcase({ theme, mode }: { theme: Theme; mode: 'light' | 'dark' }
         <div className="flex items-center gap-4">
           <Image
             src={branding.logo}
-            alt={`${branding.brandName} logo`}
+            alt={`${branding.brandName} theme logo`}
             width={48}
             height={48}
             className="rounded"
