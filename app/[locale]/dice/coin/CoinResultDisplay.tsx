@@ -8,7 +8,7 @@
  * - When colored results enabled: Heads use roll-positive color, Tails use roll-negative color
  * - Shows timestamp and coin type in a small note below
  * - Highlights the most recent flip with larger text and background styling
- * - Older (non-highlighted) results are shown with reduced opacity for visual hierarchy
+ * - Older (non-highlighted) results have their display value shown with reduced opacity
  *
  * Performance considerations:
  * - Rendered in a list that can grow with flip history
@@ -68,12 +68,12 @@ export const CoinResultDisplay = ({
   return (
     <div
       className={`animate-fadeIn p-2 mb-4 ${
-        isHighlighted ? 'bg-muted border-2 rounded-lg' : 'opacity-50'
+        isHighlighted && 'bg-muted border-2 rounded-lg'
       }`}
     >
       <div className="flex items-baseline gap-2 flex-wrap">
         <span
-          className={`${isHighlighted ? 'text-5xl' : 'text-4xl'} font-bold ${colorClass}`}
+          className={`${isHighlighted ? 'text-5xl' : 'text-4xl opacity-50'} font-bold ${colorClass}`}
         >
           {displayValue}
         </span>
