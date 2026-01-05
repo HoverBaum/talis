@@ -109,34 +109,6 @@ function ThemeShowcase({ theme, mode }: { theme: Theme; mode: 'light' | 'dark' }
           </CardContent>
         </Card>
 
-        {/* Roll Color Examples */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Roll Colors</CardTitle>
-            <CardDescription>Positive and negative roll colors with text</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="p-4 rounded bg-roll-positive">
-                <p className="text-roll-positive-foreground font-bold text-lg">
-                  Success Roll (Positive)
-                </p>
-                <p className="text-roll-positive-foreground text-sm mt-1">
-                  This text uses roll-positive-foreground on roll-positive background
-                </p>
-              </div>
-              <div className="p-4 rounded bg-roll-negative">
-                <p className="text-roll-negative-foreground font-bold text-lg">
-                  Glitch Roll (Negative)
-                </p>
-                <p className="text-roll-negative-foreground text-sm mt-1">
-                  This text uses roll-negative-foreground on roll-negative background
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Component Showcase */}
         <Card>
           <CardHeader>
@@ -144,18 +116,33 @@ function ThemeShowcase({ theme, mode }: { theme: Theme; mode: 'light' | 'dark' }
             <CardDescription>Common UI elements</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-wrap gap-2">
-              <Button variant="default">Primary</Button>
-              <Button variant="secondary">Secondary</Button>
-              <Button variant="outline">Outline</Button>
-              <Button variant="ghost">Ghost</Button>
-              <Button variant="destructive">Destructive</Button>
-            </div>
-            <div className="flex flex-wrap gap-2 mt-4">
-              <Badge variant="default">Default</Badge>
-              <Badge variant="secondary">Secondary</Badge>
-              <Badge variant="outline">Outline</Badge>
-              <Badge variant="destructive">Destructive</Badge>
+            <div className="space-y-4">
+              {/* Buttons */}
+              <div className="flex flex-wrap gap-2">
+                <Button variant="default">Primary</Button>
+                <Button variant="secondary">Secondary</Button>
+                <Button variant="outline">Outline</Button>
+                <Button variant="ghost">Ghost</Button>
+                <Button variant="destructive">Destructive</Button>
+              </div>
+
+              {/* Badges */}
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="default">Default</Badge>
+                <Badge variant="secondary">Secondary</Badge>
+                <Badge variant="outline">Outline</Badge>
+                <Badge variant="destructive">Destructive</Badge>
+              </div>
+
+              {/* Roll Colors */}
+              <div className="flex flex-wrap gap-2">
+                <Badge className="bg-roll-positive text-roll-positive-foreground">
+                  Success (Positive)
+                </Badge>
+                <Badge className="bg-roll-negative text-roll-negative-foreground">
+                  Glitch (Negative)
+                </Badge>
+              </div>
             </div>
           </CardContent>
         </Card>
