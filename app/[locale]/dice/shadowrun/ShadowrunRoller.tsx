@@ -18,6 +18,7 @@ import { QuickButton } from './QuickButton'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { DiceRollType } from './shadowrun-store'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
+import { nanoid } from 'nanoid'
 
 export function ShadowrunRoller() {
   const t = useTranslations('Roller.Shadowrun')
@@ -48,7 +49,7 @@ export function ShadowrunRoller() {
         results: diceRolls,
         type: 'Shadowrun',
         timestamp: Date.now(),
-        id: rolls.length + 1,
+        id: nanoid(),
         shadowrun: { hits, isGlitch, isCriticalGlitch },
       }
       addRoll(result)

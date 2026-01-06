@@ -34,6 +34,7 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Input } from '@/components/ui/input'
 import { Settings2, ArrowLeft, Monitor, Coins, Plus, Trash2, Check } from 'lucide-react'
+import { nanoid } from 'nanoid'
 
 /**
  * Reusable button component for color mode selection options.
@@ -98,7 +99,7 @@ export const CoinConfig = () => {
     }
 
     const newCoin: CoinType = {
-      id: `custom-${Date.now()}`,
+      id: nanoid(),
       displayName: newCoinName.trim(),
       headsValue: newCoinHeads.trim(),
       tailsValue: newCoinTails.trim(),

@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button'
 import { QuickButtonConfig } from './QuickButtonConfig'
 import { Separator } from '@/components/ui/separator'
 import { Settings2, ArrowLeft, Plus, Zap, Monitor, Keyboard } from 'lucide-react'
+import { nanoid } from 'nanoid'
 
 export function ShadowrunConfig() {
   const t = useTranslations('Roller.Shadowrun.Config')
@@ -172,7 +173,7 @@ export function ShadowrunConfig() {
                   quickButtons: [
                     ...config.quickButtons,
                     {
-                      id: Math.random().toString(36).substring(5),
+                      id: nanoid(),
                       amount: 8,
                       type: 'setAmount',
                     },

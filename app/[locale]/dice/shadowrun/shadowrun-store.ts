@@ -16,7 +16,7 @@ export type DiceRollType = {
   results: number[]
   type: 'Shadowrun'
   timestamp: number
-  id: number
+  id: string
   shadowrun?: {
     hits: number
     isGlitch: boolean

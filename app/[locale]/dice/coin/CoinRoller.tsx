@@ -45,6 +45,7 @@ import { CoinResultDisplay } from './CoinResultDisplay'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
 import { Button } from '@/components/ui/button'
+import { nanoid } from 'nanoid'
 
 /**
  * Helper to get the display value for a coin, handling translation keys.
@@ -80,8 +81,7 @@ export const CoinRoller = () => {
       coinType: selectedCoin,
       result,
       timestamp: Date.now(),
-      id:
-        Date.now().toString() + (Math.random() * 100).toString().slice(0, 2),
+      id: nanoid(),
     }
 
     addFlip(flip)

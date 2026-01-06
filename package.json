@@ -26,6 +26,7 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.553.0",
     "motion": "^12.23.26",
+    "nanoid": "^5.1.6",
     "next": "16.0.10",
     "next-intl": "^4.5.3",
     "posthog-js": "^1.306.1",

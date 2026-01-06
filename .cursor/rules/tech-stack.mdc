@@ -14,6 +14,7 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 * **State Management:** Zustand (with persistence per roller)
 * **Content:** MDX for docs/guides/changelogs under `pages/`
 * **PWA:** `@ducanh2912/next-pwa` for offline support and Progressive Web App features
+* **ID Generation:** nanoid - Use `nanoid()` directly for all dynamically generated unique identifiers (e.g., roll result IDs, custom coin IDs, quick button IDs)
 
 ## shadcn/ui Components
 

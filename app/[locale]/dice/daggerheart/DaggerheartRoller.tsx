@@ -21,6 +21,7 @@ import { DiceSelectWheel } from '@/components/DiceSelectWheel'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
 import { Button } from '@/components/ui/button'
+import { nanoid } from 'nanoid'
 
 export function DaggerheartRoller() {
   const t = useTranslations('Roller.Daggerheart')
@@ -56,7 +57,7 @@ export function DaggerheartRoller() {
         hope,
         fear,
         timestamp: Date.now(),
-        id: `${rolls.length + 1}`,
+        id: nanoid(),
         type: 'Daggerheart',
       }
       addRoll(roll)
@@ -76,8 +77,7 @@ export function DaggerheartRoller() {
       diceType,
       type: 'Polyhedral',
       timestamp: Date.now(),
-      id:
-        Date.now().toString() + (Math.random() * 100).toString().slice(0, 2),
+      id: nanoid(),
     }
 
     addRoll(result)

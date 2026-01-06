@@ -14,6 +14,7 @@ import { RollerControls } from '@/components/RollerControls'
 import { D6ResultDisplay } from './D6ResultDisplay'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
+import { nanoid } from 'nanoid'
 
 export function D6Roller() {
   const t = useTranslations('General')
@@ -34,7 +35,7 @@ export function D6Roller() {
       results: diceRolls,
       type: 'D6',
       timestamp: Date.now(),
-      id: Date.now().toString() + (Math.random() * 100).toString().slice(0, 2),
+      id: nanoid(),
     }
 
     addRoll(result)
