@@ -8,7 +8,7 @@
  * - Color modes:
  *   - None: No color classes applied
  *   - Positive/Negative: Heads use roll-positive color, Tails use roll-negative color
- *   - Primary/Accent: Heads use primary color, Tails use accent color
+ *   - Theme: Heads use chart-1 color, Tails use chart-2 color (theme-aware colors)
  * - Shows timestamp and coin type in a small note below
  * - Highlights the most recent flip with larger text and background styling
  * - Older (non-highlighted) results have their display value shown with reduced opacity
@@ -71,9 +71,8 @@ export const CoinResultDisplay = ({
 
   return (
     <div
-      className={`animate-fadeIn p-2 mb-4 ${
-        isHighlighted && 'bg-muted border-2 rounded-lg'
-      }`}
+      className={`animate-fadeIn p-2 mb-4 ${isHighlighted && 'bg-muted border-2 rounded-lg'
+        }`}
     >
       <div className="flex items-baseline gap-2 flex-wrap">
         <span
