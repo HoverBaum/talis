@@ -99,8 +99,8 @@ if (typeof window !== 'undefined') {
         if ('useColoredResults' in config && !('resultColorMode' in config)) {
           const migratedConfig = {
             ...config,
-            resultColorMode: config.useColoredResults 
-              ? 'positive-negative' 
+            resultColorMode: config.useColoredResults
+              ? 'positive-negative'
               : 'none',
           }
           delete migratedConfig.useColoredResults
@@ -129,51 +129,45 @@ export const useCoinStore = create<CoinState>()(
             flips: [...state.flips, flip],
           })),
         updateConfig: (newConfig) => {
-          // #region agent log
-          fetch('http://127.0.0.1:7242/ingest/8cc1bcb1-7050-4aae-9727-46d9013cd8c8',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'coin-store.ts:152',message:'updateConfig called',data:{newConfig:JSON.stringify(newConfig),currentConfig:JSON.stringify(get().config)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-          // #endregion
           return set((state) => {
             const updated = { ...state.config, ...newConfig };
-            // #region agent log
-            fetch('http://127.0.0.1:7242/ingest/8cc1bcb1-7050-4aae-9727-46d9013cd8c8',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'coin-store.ts:156',message:'Config updated',data:{updatedConfig:JSON.stringify(updated),hasResultColorMode:'resultColorMode' in updated},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-            // #endregion
             return { config: updated };
           });
         },
-      addCustomCoin: (coin: CoinType) =>
-        set((state) => ({
-          config: {
-            ...state.config,
-            customCoins: [...state.config.customCoins, coin],
-          },
-        })),
-      removeCustomCoin: (coinId: string) =>
-        set((state) => {
-          const newCustomCoins = state.config.customCoins.filter(
-            (c) => c.id !== coinId
-          )
-          // If the removed coin was selected, switch to default
-          const needsSwitch =
-            state.selectedCoinId === coinId
-              ? { selectedCoinId: 'heads-tails' }
-              : {}
-          return {
-            ...needsSwitch,
+        addCustomCoin: (coin: CoinType) =>
+          set((state) => ({
             config: {
               ...state.config,
-              customCoins: newCustomCoins,
+              customCoins: [...state.config.customCoins, coin],
             },
-          }
-        }),
-      updateCustomCoin: (coinId: string, updates: Partial<CoinType>) =>
-        set((state) => ({
-          config: {
-            ...state.config,
-            customCoins: state.config.customCoins.map((c) =>
-              c.id === coinId ? { ...c, ...updates } : c
-            ),
-          },
-        })),
+          })),
+        removeCustomCoin: (coinId: string) =>
+          set((state) => {
+            const newCustomCoins = state.config.customCoins.filter(
+              (c) => c.id !== coinId
+            )
+            // If the removed coin was selected, switch to default
+            const needsSwitch =
+              state.selectedCoinId === coinId
+                ? { selectedCoinId: 'heads-tails' }
+                : {}
+            return {
+              ...needsSwitch,
+              config: {
+                ...state.config,
+                customCoins: newCustomCoins,
+              },
+            }
+          }),
+        updateCustomCoin: (coinId: string, updates: Partial<CoinType>) =>
+          set((state) => ({
+            config: {
+              ...state.config,
+              customCoins: state.config.customCoins.map((c) =>
+                c.id === coinId ? { ...c, ...updates } : c
+              ),
+            },
+          })),
       }
     },
     persistConfig: {
