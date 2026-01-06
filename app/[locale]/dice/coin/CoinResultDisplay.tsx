@@ -5,7 +5,10 @@
  *
  * Features:
  * - Shows the flip result (heads or tails value) with appropriate color (configurable)
- * - When colored results enabled: Heads use roll-positive color, Tails use roll-negative color
+ * - Color modes:
+ *   - None: No color classes applied
+ *   - Positive/Negative: Heads use roll-positive color, Tails use roll-negative color
+ *   - Primary/Accent: Heads use primary color, Tails use accent color
  * - Shows timestamp and coin type in a small note below
  * - Highlights the most recent flip with larger text and background styling
  * - Older (non-highlighted) results have their display value shown with reduced opacity
@@ -48,7 +51,7 @@ export const CoinResultDisplay = ({
   isHighlighted = false,
 }: CoinResultDisplayProps) => {
   const t = useTranslations('Roller')
-  const useColoredResults = useCoinStore((state) => state.config.useColoredResults)
+  const resultColorMode = useCoinStore((state) => state.config.resultColorMode)
 
   const displayValue =
     flip.result === 'heads'
@@ -57,13 +60,14 @@ export const CoinResultDisplay = ({
 
   const coinDisplayName = getDisplayValue(flip.coinType.displayName, t)
 
-  // Color classes based on result (only when colored results are enabled)
-  // Using roll-positive for heads (success/positive outcome) and roll-negative for tails
-  const colorClass = useColoredResults
-    ? flip.result === 'heads'
-      ? 'text-roll-positive'
-      : 'text-roll-negative'
-    : ''
+  // Color classes based on result and color mode
+  let colorClass = ''
+  if (resultColorMode === 'positive-negative') {
+    colorClass = flip.result === 'heads' ? 'text-roll-positive' : 'text-roll-negative'
+  } else if (resultColorMode === 'primary-accent') {
+    colorClass = flip.result === 'heads' ? 'text-accent' : 'text-primary-foreground'
+  }
+  // 'none' mode: no color class applied
 
   return (
     <div

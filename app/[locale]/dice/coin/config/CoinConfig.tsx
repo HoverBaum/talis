@@ -33,10 +33,12 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Input } from '@/components/ui/input'
-import { Settings2, ArrowLeft, Monitor, Coins, Plus, Trash2 } from 'lucide-react'
+import { Card, CardContent } from '@/components/ui/card'
+import { Settings2, ArrowLeft, Monitor, Coins, Plus, Trash2, Check } from 'lucide-react'
 
 export const CoinConfig = () => {
   const t = useTranslations('Roller.Coin.Config')
+  const tCoin = useTranslations('Roller.Coin')
   const config = useCoinStore((state) => state.config)
   const updateConfig = useCoinStore((state) => state.updateConfig)
   const addCustomCoin = useCoinStore((state) => state.addCustomCoin)
@@ -105,22 +107,115 @@ export const CoinConfig = () => {
 
           <Separator />
 
-          <div className="flex items-center justify-between py-2">
+          <div className="space-y-3">
             <div className="space-y-0.5">
-              <Label htmlFor="useColoredResults">
-                {t('useColoredResults')}
-              </Label>
+              <Label>{t('resultColorMode')}</Label>
               <p className="text-sm text-muted-foreground">
-                {t('useColoredResultsDescription')}
+                {t('resultColorModeDescription')}
               </p>
             </div>
-            <Switch
-              id="useColoredResults"
-              checked={config.useColoredResults}
-              onCheckedChange={(checked) =>
-                updateConfig({ useColoredResults: checked })
-              }
-            />
+            <div className="grid grid-cols-1 gap-3">
+              {/* No Color Option */}
+              <Card
+                className={`cursor-pointer transition-all hover:border-primary ${
+                  (config.resultColorMode ?? 'positive-negative') === 'none'
+                    ? 'border-primary border-2'
+                    : 'border'
+                }`}
+                onClick={() => updateConfig({ resultColorMode: 'none' })}
+              >
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="font-medium">{t('colorModeNone')}</h3>
+                        {(config.resultColorMode ?? 'positive-negative') === 'none' && (
+                          <Check className="h-4 w-4 text-primary" />
+                        )}
+                      </div>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-2xl font-bold">
+                          {tCoin('heads')}
+                        </span>
+                        <span className="text-2xl font-bold">
+                          {tCoin('tails')}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Positive/Negative Option */}
+              <Card
+                className={`cursor-pointer transition-all hover:border-primary ${
+                  (config.resultColorMode ?? 'positive-negative') === 'positive-negative'
+                    ? 'border-primary border-2'
+                    : 'border'
+                }`}
+                onClick={() =>
+                  updateConfig({ resultColorMode: 'positive-negative' })
+                }
+              >
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="font-medium">
+                          {t('colorModePositiveNegative')}
+                        </h3>
+                        {(config.resultColorMode ?? 'positive-negative') === 'positive-negative' && (
+                          <Check className="h-4 w-4 text-primary" />
+                        )}
+                      </div>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-2xl font-bold text-roll-positive">
+                          {tCoin('heads')}
+                        </span>
+                        <span className="text-2xl font-bold text-roll-negative">
+                          {tCoin('tails')}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Primary/Accent Option */}
+              <Card
+                className={`cursor-pointer transition-all hover:border-primary ${
+                  (config.resultColorMode ?? 'positive-negative') === 'primary-accent'
+                    ? 'border-primary border-2'
+                    : 'border'
+                }`}
+                onClick={() =>
+                  updateConfig({ resultColorMode: 'primary-accent' })
+                }
+              >
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="font-medium">
+                          {t('colorModePrimaryAccent')}
+                        </h3>
+                        {(config.resultColorMode ?? 'positive-negative') === 'primary-accent' && (
+                          <Check className="h-4 w-4 text-primary" />
+                        )}
+                      </div>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-2xl font-bold text-accent">
+                          {tCoin('heads')}
+                        </span>
+                        <span className="text-2xl font-bold text-primary-foreground">
+                          {tCoin('tails')}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
