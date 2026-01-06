@@ -66,7 +66,6 @@ export interface CoinState {
   updateConfig: (config: Partial<CoinConfigType>) => void
   addCustomCoin: (coin: CoinType) => void
   removeCustomCoin: (coinId: string) => void
-  updateCustomCoin: (coinId: string, coin: Partial<CoinType>) => void
 }
 
 /**
@@ -158,16 +157,7 @@ export const useCoinStore = create<CoinState>()(
                 customCoins: newCustomCoins,
               },
             }
-          }),
-        updateCustomCoin: (coinId: string, updates: Partial<CoinType>) =>
-          set((state) => ({
-            config: {
-              ...state.config,
-              customCoins: state.config.customCoins.map((c) =>
-                c.id === coinId ? { ...c, ...updates } : c
-              ),
-            },
-          })),
+          })
       }
     },
     persistConfig: {
