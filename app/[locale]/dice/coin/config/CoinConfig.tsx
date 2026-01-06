@@ -35,6 +35,50 @@ import { Separator } from '@/components/ui/separator'
 import { Input } from '@/components/ui/input'
 import { Settings2, ArrowLeft, Monitor, Coins, Plus, Trash2, Check } from 'lucide-react'
 
+/**
+ * Reusable button component for color mode selection options.
+ *
+ * Displays a selectable option with label, preview content, and check indicator.
+ * Used for choosing result color display modes in coin configuration.
+ *
+ * Performance: Lightweight component, no performance concerns.
+ * Accessibility: Button element with proper keyboard navigation.
+ */
+type ColorModeOptionButtonProps = {
+  value: string
+  currentValue: string
+  label: string
+  onClick: () => void
+  preview: React.ReactNode
+}
+
+const ColorModeOptionButton = ({
+  value,
+  currentValue,
+  label,
+  onClick,
+  preview,
+}: ColorModeOptionButtonProps) => {
+  const isSelected = currentValue === value
+
+  return (
+    <button
+      type="button"
+      className={`relative p-3 rounded-lg border-2 transition-colors text-left ${isSelected
+        ? 'border-primary bg-primary/5'
+        : 'border-transparent bg-muted/50 hover:bg-muted'
+        }`}
+      onClick={onClick}
+    >
+      <span className="text-xs text-muted-foreground block mb-1">{label}</span>
+      <div className="flex gap-1">{preview}</div>
+      {isSelected && (
+        <Check className="absolute top-2 right-2 h-3 w-3 text-primary" />
+      )}
+    </button>
+  )
+}
+
 export const CoinConfig = () => {
   const t = useTranslations('Roller.Coin.Config')
   const tCoin = useTranslations('Roller.Coin')
@@ -114,68 +158,52 @@ export const CoinConfig = () => {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-              {/* No Color Option */}
-              <button
-                type="button"
-                className={`relative p-3 rounded-lg border-2 transition-colors text-left ${(config.resultColorMode ?? 'positive-negative') === 'none'
-                  ? 'border-primary bg-primary/5'
-                  : 'border-transparent bg-muted/50 hover:bg-muted'
-                  }`}
+              <ColorModeOptionButton
+                value="none"
+                currentValue={config.resultColorMode ?? 'positive-negative'}
+                label={t('colorModeNone')}
                 onClick={() => updateConfig({ resultColorMode: 'none' })}
-              >
-                <span className="text-xs text-muted-foreground block mb-1">
-                  {t('colorModeNone')}
-                </span>
-                <div className="flex gap-1">
-                  <span className="text-lg font-bold">{tCoin('heads')}</span>
-                  <span className="text-lg font-bold">{tCoin('tails')}</span>
-                </div>
-                {(config.resultColorMode ?? 'positive-negative') === 'none' && (
-                  <Check className="absolute top-2 right-2 h-3 w-3 text-primary" />
-                )}
-              </button>
+                preview={
+                  <>
+                    <span className="text-lg font-bold">{tCoin('heads')}</span>
+                    <span className="text-lg font-bold">{tCoin('tails')}</span>
+                  </>
+                }
+              />
 
-              {/* Success/Failure Option */}
-              <button
-                type="button"
-                className={`relative p-3 rounded-lg border-2 transition-colors text-left ${(config.resultColorMode ?? 'positive-negative') === 'positive-negative'
-                  ? 'border-primary bg-primary/5'
-                  : 'border-transparent bg-muted/50 hover:bg-muted'
-                  }`}
+              <ColorModeOptionButton
+                value="positive-negative"
+                currentValue={config.resultColorMode ?? 'positive-negative'}
+                label={t('colorModePositiveNegative')}
                 onClick={() => updateConfig({ resultColorMode: 'positive-negative' })}
-              >
-                <span className="text-xs text-muted-foreground block mb-1">
-                  {t('colorModePositiveNegative')}
-                </span>
-                <div className="flex gap-1">
-                  <span className="text-lg font-bold text-roll-positive">{tCoin('heads')}</span>
-                  <span className="text-lg font-bold text-roll-negative">{tCoin('tails')}</span>
-                </div>
-                {(config.resultColorMode ?? 'positive-negative') === 'positive-negative' && (
-                  <Check className="absolute top-2 right-2 h-3 w-3 text-primary" />
-                )}
-              </button>
+                preview={
+                  <>
+                    <span className="text-lg font-bold text-roll-positive">
+                      {tCoin('heads')}
+                    </span>
+                    <span className="text-lg font-bold text-roll-negative">
+                      {tCoin('tails')}
+                    </span>
+                  </>
+                }
+              />
 
-              {/* Theme Colors Option */}
-              <button
-                type="button"
-                className={`relative p-3 rounded-lg border-2 transition-colors text-left ${(config.resultColorMode ?? 'positive-negative') === 'primary-accent'
-                  ? 'border-primary bg-primary/5'
-                  : 'border-transparent bg-muted/50 hover:bg-muted'
-                  }`}
+              <ColorModeOptionButton
+                value="primary-accent"
+                currentValue={config.resultColorMode ?? 'positive-negative'}
+                label={t('colorModePrimaryAccent')}
                 onClick={() => updateConfig({ resultColorMode: 'primary-accent' })}
-              >
-                <span className="text-xs text-muted-foreground block mb-1">
-                  {t('colorModePrimaryAccent')}
-                </span>
-                <div className="flex gap-1">
-                  <span className="text-lg font-bold text-accent">{tCoin('heads')}</span>
-                  <span className="text-lg font-bold text-primary-foreground">{tCoin('tails')}</span>
-                </div>
-                {(config.resultColorMode ?? 'positive-negative') === 'primary-accent' && (
-                  <Check className="absolute top-2 right-2 h-3 w-3 text-primary" />
-                )}
-              </button>
+                preview={
+                  <>
+                    <span className="text-lg font-bold text-accent">
+                      {tCoin('heads')}
+                    </span>
+                    <span className="text-lg font-bold text-primary-foreground">
+                      {tCoin('tails')}
+                    </span>
+                  </>
+                }
+              />
             </div>
           </div>
         </div>
