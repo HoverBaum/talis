@@ -14,11 +14,13 @@ export default async function AboutPage({
 }) {
   const { locale } = await params
   const AboutContent = locale === 'de' ? AboutDE : AboutEN
-  
+
   return (
     <>
       <SetPageTitle title={locale === 'de' ? 'Über' : 'About'} />
-      <AboutContent />
+      <div className="prose prose-sm md:prose-base">
+        <AboutContent />
+      </div>
     </>
   )
 }
