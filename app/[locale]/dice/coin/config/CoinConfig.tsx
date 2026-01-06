@@ -113,7 +113,7 @@ export const CoinConfig = () => {
                 {t('resultColorModeDescription')}
               </p>
             </div>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
               {/* No Color Option */}
               <button
                 type="button"
