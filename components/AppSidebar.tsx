@@ -1,6 +1,6 @@
 'use client'
 
-import { type ComponentProps } from 'react'
+import { useEffect, useState, type ComponentProps } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -35,6 +35,13 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const tFooter = useTranslations('Footer')
   const { setOpenMobile } = useSidebar()
   const branding = useThemeBranding()
+  const [isClient, setIsClient] = useState(false)
+
+  // We need client info because we render based on localstorage.
+  // https://nextjs.org/docs/messages/react-hydration-error
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   // Get version from package.json
   const appVersion = packageJson.version
@@ -79,6 +86,10 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
 
   const isActive = (url: string) => {
     return pathname === url
+  }
+
+  if (!isClient) {
+    return null
   }
 
   return (

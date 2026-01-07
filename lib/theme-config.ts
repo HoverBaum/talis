@@ -5,9 +5,10 @@ import type { Theme } from '@/components/ThemeProvider'
 import { useTheme } from '@/components/ThemeProvider'
 import talisLogo from '@/public/talis-dice.png'
 import spmLogo from '@/public/spm-logo.png'
+import talisNatureLogo from '@/public/talis-nature.png'
 
 export type ThemeBranding = {
-  logo: typeof talisLogo | typeof spmLogo
+  logo: typeof talisLogo | typeof spmLogo | typeof talisNatureLogo
   brandName: string
 }
 
@@ -21,10 +22,11 @@ const defaultBranding: ThemeBranding = {
 const themeBranding: Record<Theme, ThemeBranding> = {
   default: defaultBranding,
   shadowrun: defaultBranding,
-  nature: defaultBranding,
+  nature: { ...defaultBranding, logo: talisNatureLogo },
   spm: {
+    ...defaultBranding,
     logo: spmLogo,
-    brandName: 'SPM',
+    brandName: 'SPM'
   },
 }
 
