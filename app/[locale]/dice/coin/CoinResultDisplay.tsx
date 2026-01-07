@@ -65,7 +65,7 @@ export const CoinResultDisplay = ({
   if (resultColorMode === 'positive-negative') {
     colorClass = flip.result === 'heads' ? 'text-roll-positive' : 'text-roll-negative'
   } else if (resultColorMode === 'primary-accent') {
-    colorClass = flip.result === 'heads' ? 'text-accent' : 'text-primary-foreground'
+    colorClass = flip.result === 'heads' ? 'text-accent' : 'text-muted-foreground'
   }
   // 'none' mode: no color class applied
 

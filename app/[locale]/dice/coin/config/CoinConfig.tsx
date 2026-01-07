@@ -199,7 +199,7 @@ export const CoinConfig = () => {
                     <span className="text-lg font-bold text-accent">
                       {tCoin('heads')}
                     </span>
-                    <span className="text-lg font-bold text-primary-foreground">
+                    <span className="text-lg font-bold text-muted-foreground">
                       {tCoin('tails')}
                     </span>
                   </>
