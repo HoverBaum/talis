@@ -1,24 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Talis
 
-## Getting Started
+Talis is a dice rolling app for Pen & Paper tabletop roleplaying games. It supports multiple game systems and dice configurations, making it easy to roll dice for your favorite games.
 
-First, run the development server:
+**Try it out:** [talis.wallbaum.dev](https://talis.wallbaum.dev)
+
+## Rollers
+
+- **Shadowrun** - Shadowrun dice roller with edge, glitches, and hit counting
+- **Daggerheart** - Dedicated Daggerheart dice roller
+- **D6 Roller** - General purpose D6 roller for any game
+- **Polyhedral** - Standard polyhedral dice (d4, d6, d8, d10, d12, d20, d100)
+- **Coin Flipper** - Flip coins with customizable sides
+
+## Features
+
+- Works fully offline as a Progressive Web App (PWA) 📱
+- Supports dark mode 🌗
+- Multi-language support (English & German) 🌍
+- Multiple color themes 🎨
+
+### Install as App (PWA)
+
+Talis is optimized for mobile use and works fully offline as a Progressive Web App. For the best experience, install it to your device - it's designed to use your entire screen.
+
+#### Android
+
+In Chrome, tap the three dots "..." in the top right corner and select "Add to home screen".
+
+#### iOS
+
+In Safari, tap the share icon (square with arrow) at the bottom of the screen and select "Add to Home Screen".
+
+---
+
+## Development
+
+This is a [Next.js](https://nextjs.org) PWA with [shadcn/ui](https://ui.shadcn.com/) and Tailwind v4.
+
+The repo is setup for development in Cursor.
+
+### Getting Started
+
 
 ```bash
+npm i
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-## Development
 
 ### Service Workers
 
@@ -32,19 +61,7 @@ NEXT_PUBLIC_ENABLE_SW_DEV=true npm run dev
 
 **Note:** Service workers are always enabled in production builds, regardless of this environment variable.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Contributing
 
-## Learn More
+Talis is open source. Feel free to check out the code, open issues, or submit pull requests.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
