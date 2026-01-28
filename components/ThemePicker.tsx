@@ -3,39 +3,28 @@
 /**
  * ThemePicker
  * - Sophisticated theme selector with visual previews
- * - Shows theme logo, name, and color palettes for both light and dark modes
- * - Color strips display key theme colors side by side for easy comparison
+ * - Shows theme logo, name, and color palette
+ * - Color strip uses Tailwind classes that automatically respect the global mode
  * - Responsive grid layout, works down to 320px
  */
 
 import { Theme, useTheme } from './ThemeProvider'
 import { getThemeBranding } from '@/lib/theme-config'
 import { useTranslations } from 'next-intl'
-import { Check, Sun, Moon } from 'lucide-react'
+import { Check } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
 const themes: Theme[] = ['default', 'shadowrun', 'nature', 'spm']
 
-// Color strip showing key theme colors for a specific mode
-const ColorStrip = ({ theme, mode }: { theme: Theme; mode: 'light' | 'dark' }) => {
+// Color strip showing key theme colors using global mode
+const ColorStrip = () => {
   return (
-    <div
-      data-theme={theme}
-      data-mode={mode}
-      className="flex items-center gap-1.5 px-2 py-1.5 rounded bg-background"
-    >
-      {mode === 'light' ? (
-        <Sun className="h-3 w-3 text-muted-foreground shrink-0" />
-      ) : (
-        <Moon className="h-3 w-3 text-muted-foreground shrink-0" />
-      )}
-      <div className="flex gap-0.5 flex-1">
-        <div className="h-4 flex-1 rounded-sm bg-primary" title="Primary" />
-        <div className="h-4 flex-1 rounded-sm bg-secondary" title="Secondary" />
-        <div className="h-4 flex-1 rounded-sm bg-roll-positive" title="Success" />
-        <div className="h-4 flex-1 rounded-sm bg-roll-negative" title="Glitch" />
-      </div>
+    <div className="flex gap-0.5 px-2 py-1.5 rounded bg-background">
+      <div className="h-4 flex-1 rounded-sm bg-primary" title="Primary" />
+      <div className="h-4 flex-1 rounded-sm bg-secondary" title="Secondary" />
+      <div className="h-4 flex-1 rounded-sm bg-roll-positive" title="Success" />
+      <div className="h-4 flex-1 rounded-sm bg-roll-negative" title="Glitch" />
     </div>
   )
 }
@@ -84,11 +73,8 @@ const ThemePreviewCard = ({
         <span className="font-medium">{label}</span>
       </div>
 
-      {/* Color palettes for light and dark modes */}
-      <div className="space-y-1.5">
-        <ColorStrip theme={theme} mode="light" />
-        <ColorStrip theme={theme} mode="dark" />
-      </div>
+      {/* Color palette using global mode */}
+      <ColorStrip />
     </button>
   )
 }
