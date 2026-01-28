@@ -71,10 +71,11 @@ const ThemePreviewCard = ({
   const actualMode = mode === 'system' ? systemMode : mode
 
   return (
-    <div data-theme={theme} data-mode={actualMode}>
+    <div data-theme={theme} data-mode={actualMode} className="[color-scheme:inherit]">
       <button
         type="button"
         onClick={onSelect}
+        style={{ color: 'var(--foreground)' }}
         className={cn(
           'relative w-full rounded-lg border-2 p-3 text-left transition-all bg-card',
           'hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',

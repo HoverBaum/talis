@@ -11,7 +11,7 @@
 
 import { type Mode, useTheme } from './ThemeProvider'
 import { useTranslations } from 'next-intl'
-import { Check, Sun, Moon, Monitor } from 'lucide-react'
+import { Check, Sun, Moon, SunMoonIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useEffect, useState } from 'react'
 
@@ -31,7 +31,7 @@ const ModePreviewCard = ({
   label,
 }: ModePreviewCardProps) => {
   const { theme } = useTheme()
-  const ModeIcon = mode === 'light' ? Sun : mode === 'dark' ? Moon : Monitor
+  const ModeIcon = mode === 'light' ? Sun : mode === 'dark' ? Moon : SunMoonIcon
   const [systemMode, setSystemMode] = useState<'light' | 'dark'>('light')
 
   useEffect(() => {
@@ -56,10 +56,11 @@ const ModePreviewCard = ({
   const previewMode = mode === 'system' ? systemMode : mode
 
   return (
-    <div data-theme={theme} data-mode={previewMode}>
+    <div data-theme={theme} data-mode={previewMode} className="[color-scheme:inherit]">
       <button
         type="button"
         onClick={onSelect}
+        style={{ color: 'var(--foreground)' }}
         className={cn(
           'relative w-full rounded-lg border-2 p-4 text-left transition-all bg-card',
           'hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
@@ -75,15 +76,8 @@ const ModePreviewCard = ({
 
         {/* Mode display with icon and name */}
         <div className="flex items-center gap-3">
-          {mode === 'system' ? (
-            <div className="flex items-center gap-1.5">
-              <Sun className="h-5 w-5 text-muted-foreground" />
-              <Moon className="h-5 w-5 text-muted-foreground" />
-            </div>
-          ) : (
-            <ModeIcon className="h-5 w-5 text-muted-foreground" />
-          )}
-          <span className="font-medium">{label}</span>
+          <ModeIcon className="h-5 w-5" style={{ color: 'var(--foreground)' }} />
+          <span className="font-medium" style={{ color: 'var(--foreground)' }}>{label}</span>
         </div>
       </button>
     </div>
