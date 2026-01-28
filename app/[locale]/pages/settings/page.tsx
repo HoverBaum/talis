@@ -50,16 +50,20 @@ export default function SettingsPage() {
         <div className="space-y-6 ml-7">
           {/* Theme Picker */}
           <div className="space-y-3">
-            <Label className="text-base font-medium">{tTheme('select')}</Label>
-            <ThemePicker />
+            <Label id="theme-picker-label" className="text-base font-medium">
+              {tTheme('select')}
+            </Label>
+            <ThemePicker groupLabelId="theme-picker-label" />
           </div>
 
           <Separator />
 
           {/* Mode Picker */}
           <div className="space-y-3">
-            <Label className="text-base font-medium">{tMode('select')}</Label>
-            <ModePicker />
+            <Label id="mode-picker-label" className="text-base font-medium">
+              {tMode('select')}
+            </Label>
+            <ModePicker groupLabelId="mode-picker-label" />
           </div>
 
           <Separator />

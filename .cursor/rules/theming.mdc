@@ -120,6 +120,26 @@ MDX pages automatically use theme CSS variables via Tailwind Typography's `--tw-
 
 MDX layouts should use: `<div className="prose prose-sm md:prose-base">`. Prose elements use `--foreground` (text), `--primary` (links), `--muted-foreground` (muted text), `--muted` (code backgrounds), and `--border` (borders).
 
+## Adding a New Theme Checklist
+
+When introducing a new theme, follow this checklist to keep ThemePicker, branding, and tokens in sync:
+
+1. **CSS variables**
+   - Add light and dark blocks in `app/globals.css` using the `[data-theme='NAME'][data-mode='light']` / `[data-theme='NAME'][data-mode='dark']` pattern.
+   - Define all required variables (core, component, palette, sidebar, chart, roll result).
+
+2. **Theme type and list**
+   - Update `Theme` and `THEMES` in `components/ThemeProvider.tsx` so the app recognizes the new theme.
+
+3. **Branding**
+   - Add any logo assets in `public/` and update `lib/theme-config.ts` with `logo` and `brandName` entries.
+
+4. **Localization**
+   - Add theme labels in `i18n/en.json` and `i18n/de.json` under the `Theme` namespace.
+
+5. **Preview verification**
+   - Confirm the new theme appears in the ThemePicker and that light/dark previews are visually correct.
+
 ### CSS Selector Pattern
 
 Themes are applied using combined data attributes: `[data-theme="X"][data-mode="Y"]`

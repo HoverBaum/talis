@@ -4,16 +4,21 @@
  * ThemeProvider synchronizes the chosen color mode/theme across the app.
  * Reads from `localStorage` on the client only and updates `data-mode` /
  * `data-theme` attributes so global styles react without runtime class churn.
+ * Exposes `systemMode` and `resolvedMode` so pickers can preview consistently
+ * without setting up their own matchMedia listeners.
  * Assumes only the current `talis-mode` / `talis-theme` keys exist; legacy keys
  * are intentionally ignored.
  */
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 
 export type Mode = 'system' | 'light' | 'dark'
 export type Theme = 'default' | 'shadowrun' | 'nature' | 'spm'
+export type ResolvedMode = 'light' | 'dark'
+
+export const THEMES: Theme[] = ['default', 'shadowrun', 'nature', 'spm']
 
 type ThemeProviderProps = {
-  children: React.ReactNode
+  children: ReactNode
   defaultMode?: Mode
   defaultTheme?: Theme
 }
@@ -21,6 +26,8 @@ type ThemeProviderProps = {
 type ThemeProviderState = {
   mode: Mode
   theme: Theme
+  systemMode: ResolvedMode
+  resolvedMode: ResolvedMode
   setMode: (mode: Mode) => void
   setTheme: (theme: Theme) => void
 }
@@ -28,6 +35,8 @@ type ThemeProviderState = {
 const initialState: ThemeProviderState = {
   mode: 'system',
   theme: 'default',
+  systemMode: 'light',
+  resolvedMode: 'light',
   setMode: () => null,
   setTheme: () => null,
 }
@@ -54,57 +63,49 @@ export function ThemeProvider({
     return storedTheme || defaultTheme
   })
 
+  const [systemMode, setSystemMode] = useState<ResolvedMode>(() => {
+    if (typeof window === 'undefined') return 'light'
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  })
+
   useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const updateMode = () => {
+      setSystemMode(mediaQuery.matches ? 'dark' : 'light')
+    }
+
+    updateMode()
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', updateMode)
+      return () => mediaQuery.removeEventListener('change', updateMode)
+    } else {
+      mediaQuery.addListener(updateMode)
+      return () => mediaQuery.removeListener(updateMode)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
     const root = window.document.documentElement
 
     // Remove old class-based approach
     root.classList.remove('light', 'dark')
 
-    const updateTheme = () => {
-      // Determine actual mode (resolve 'system' to light/dark)
-      let actualMode: 'light' | 'dark'
-      if (mode === 'system') {
-        actualMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-          ? 'dark'
-          : 'light'
-      } else {
-        actualMode = mode
-      }
+    const resolvedMode = mode === 'system' ? systemMode : mode
+    root.setAttribute('data-theme', theme)
+    root.setAttribute('data-mode', resolvedMode)
+  }, [mode, theme, systemMode])
 
-      // Apply data attributes
-      root.setAttribute('data-theme', theme)
-      root.setAttribute('data-mode', actualMode)
-    }
-
-    updateTheme()
-
-    // Listen for system preference changes when mode is 'system'
-    if (mode === 'system') {
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-      const handleChange = () => {
-        const actualMode = mediaQuery.matches ? 'dark' : 'light'
-        root.setAttribute('data-mode', actualMode)
-      }
-
-      // Use addEventListener for better browser support
-      if (mediaQuery.addEventListener) {
-        mediaQuery.addEventListener('change', handleChange)
-        return () => {
-          mediaQuery.removeEventListener('change', handleChange)
-        }
-      } else {
-        // Fallback for older browsers
-        mediaQuery.addListener(handleChange)
-        return () => {
-          mediaQuery.removeListener(handleChange)
-        }
-      }
-    }
-  }, [mode, theme])
-
+  const resolvedMode: ResolvedMode = mode === 'system' ? systemMode : mode
   const value = {
     mode,
     theme,
+    systemMode,
+    resolvedMode,
     setMode: (newMode: Mode) => {
       localStorage.setItem('talis-mode', newMode)
       setModeState(newMode)

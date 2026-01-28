@@ -6,14 +6,14 @@
  * - Displays mode icons and labels with visual highlighting
  * - Each mode button displays that mode's appearance (not the current mode)
  * - System mode shows both light and dark icons and displays based on system preference
+ * - Uses radiogroup semantics for accessible single selection
  * - Responsive layout, works down to 320px
  */
 
-import { type Mode, useTheme } from './ThemeProvider'
+import { type Mode, type ResolvedMode, useTheme } from './ThemeProvider'
 import { useTranslations } from 'next-intl'
 import { Check, Sun, Moon, SunMoonIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useEffect, useState } from 'react'
 
 const modes: Mode[] = ['light', 'dark', 'system']
 
@@ -22,6 +22,7 @@ type ModePreviewCardProps = {
   isSelected: boolean
   onSelect: () => void
   label: string
+  systemMode: ResolvedMode
 }
 
 const ModePreviewCard = ({
@@ -29,28 +30,10 @@ const ModePreviewCard = ({
   isSelected,
   onSelect,
   label,
+  systemMode,
 }: ModePreviewCardProps) => {
   const { theme } = useTheme()
   const ModeIcon = mode === 'light' ? Sun : mode === 'dark' ? Moon : SunMoonIcon
-  const [systemMode, setSystemMode] = useState<'light' | 'dark'>('light')
-
-  useEffect(() => {
-    // Always track system preference for system mode preview
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    const updateMode = () => {
-      setSystemMode(mediaQuery.matches ? 'dark' : 'light')
-    }
-
-    updateMode()
-
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', updateMode)
-      return () => mediaQuery.removeEventListener('change', updateMode)
-    } else {
-      mediaQuery.addListener(updateMode)
-      return () => mediaQuery.removeListener(updateMode)
-    }
-  }, [])
 
   // Determine actual mode for preview (resolve 'system' to light/dark)
   const previewMode = mode === 'system' ? systemMode : mode
@@ -60,9 +43,10 @@ const ModePreviewCard = ({
       <button
         type="button"
         onClick={onSelect}
-        style={{ color: 'var(--foreground)' }}
+        role="radio"
+        aria-checked={isSelected}
         className={cn(
-          'relative w-full rounded-lg border-2 p-4 text-left transition-all bg-card',
+          'relative w-full min-h-[64px] rounded-lg border-2 p-4 text-left text-foreground transition-all bg-card',
           'hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
           isSelected ? 'border-primary ring-2 ring-primary/20' : 'border-border'
         )}
@@ -76,8 +60,8 @@ const ModePreviewCard = ({
 
         {/* Mode display with icon and name */}
         <div className="flex items-center gap-3">
-          <ModeIcon className="h-5 w-5" style={{ color: 'var(--foreground)' }} />
-          <span className="font-medium" style={{ color: 'var(--foreground)' }}>{label}</span>
+          <ModeIcon className="h-5 w-5" />
+          <span className="font-medium">{label}</span>
         </div>
       </button>
     </div>
@@ -86,14 +70,19 @@ const ModePreviewCard = ({
 
 type ModePickerProps = {
   className?: string
+  groupLabelId?: string
 }
 
-export const ModePicker = ({ className }: ModePickerProps) => {
-  const { mode: currentMode, setMode } = useTheme()
+export const ModePicker = ({ className, groupLabelId }: ModePickerProps) => {
+  const { mode: currentMode, setMode, systemMode } = useTheme()
   const t = useTranslations('Theme.mode')
 
   return (
-    <div className={cn('grid grid-cols-3 gap-3', className)}>
+    <div
+      role="radiogroup"
+      aria-labelledby={groupLabelId}
+      className={cn('grid grid-cols-1 gap-3 sm:grid-cols-3', className)}
+    >
       {modes.map((mode) => (
         <ModePreviewCard
           key={mode}
@@ -101,6 +90,7 @@ export const ModePicker = ({ className }: ModePickerProps) => {
           isSelected={currentMode === mode}
           onSelect={() => setMode(mode)}
           label={t(mode)}
+          systemMode={systemMode}
         />
       ))}
     </div>

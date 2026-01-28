@@ -6,18 +6,16 @@
  * - Shows theme logo, name, and color palette
  * - Each theme button displays that theme's colors (not the current theme)
  * - Theme previews use the current mode (light/dark) to show how each theme looks
+ * - Uses radiogroup semantics for accessible single selection
  * - Responsive grid layout, works down to 320px
  */
 
-import { Theme, useTheme, type Mode } from './ThemeProvider'
+import { THEMES, type ResolvedMode, type Theme, useTheme } from './ThemeProvider'
 import { getThemeBranding } from '@/lib/theme-config'
 import { useTranslations } from 'next-intl'
 import { Check } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
-import { useEffect, useState } from 'react'
-
-const themes: Theme[] = ['default', 'shadowrun', 'nature', 'spm']
 
 // Color strip showing key theme colors using global mode
 const ColorStrip = () => {
@@ -36,6 +34,7 @@ type ThemePreviewCardProps = {
   isSelected: boolean
   onSelect: () => void
   label: string
+  resolvedMode: ResolvedMode
 }
 
 const ThemePreviewCard = ({
@@ -43,41 +42,19 @@ const ThemePreviewCard = ({
   isSelected,
   onSelect,
   label,
+  resolvedMode,
 }: ThemePreviewCardProps) => {
   const branding = getThemeBranding(theme)
-  const { mode } = useTheme()
-  const [systemMode, setSystemMode] = useState<'light' | 'dark'>('light')
-
-  useEffect(() => {
-    if (mode !== 'system') return
-
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    const updateMode = () => {
-      setSystemMode(mediaQuery.matches ? 'dark' : 'light')
-    }
-
-    updateMode()
-
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', updateMode)
-      return () => mediaQuery.removeEventListener('change', updateMode)
-    } else {
-      mediaQuery.addListener(updateMode)
-      return () => mediaQuery.removeListener(updateMode)
-    }
-  }, [mode])
-
-  // Determine actual mode (resolve 'system' to light/dark)
-  const actualMode = mode === 'system' ? systemMode : mode
 
   return (
-    <div data-theme={theme} data-mode={actualMode} className="[color-scheme:inherit]">
+    <div data-theme={theme} data-mode={resolvedMode} className="[color-scheme:inherit]">
       <button
         type="button"
         onClick={onSelect}
-        style={{ color: 'var(--foreground)' }}
+        role="radio"
+        aria-checked={isSelected}
         className={cn(
-          'relative w-full rounded-lg border-2 p-3 text-left transition-all bg-card',
+          'relative w-full min-h-[88px] rounded-lg border-2 p-3 text-left text-foreground transition-all bg-card',
           'hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
           isSelected ? 'border-primary ring-2 ring-primary/20' : 'border-border'
         )}
@@ -110,21 +87,27 @@ const ThemePreviewCard = ({
 
 type ThemePickerProps = {
   className?: string
+  groupLabelId?: string
 }
 
-export const ThemePicker = ({ className }: ThemePickerProps) => {
-  const { theme: currentTheme, setTheme } = useTheme()
+export const ThemePicker = ({ className, groupLabelId }: ThemePickerProps) => {
+  const { theme: currentTheme, setTheme, resolvedMode } = useTheme()
   const t = useTranslations('Theme')
 
   return (
-    <div className={cn('grid grid-cols-2 gap-3', className)}>
-      {themes.map((theme) => (
+    <div
+      role="radiogroup"
+      aria-labelledby={groupLabelId}
+      className={cn('grid grid-cols-1 gap-3 sm:grid-cols-2', className)}
+    >
+      {THEMES.map((theme) => (
         <ThemePreviewCard
           key={theme}
           theme={theme}
           isSelected={currentTheme === theme}
           onSelect={() => setTheme(theme)}
           label={t(theme)}
+          resolvedMode={resolvedMode}
         />
       ))}
     </div>
