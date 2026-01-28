@@ -2,9 +2,9 @@
 
 /**
  * SelectRow
- *  - Provides consistent horizontal layout for label + select controls in the sidebar.
+ *  - Provides consistent horizontal layout for label + select controls.
  *  - Keeps label muted and left-aligned while reserving fixed spacing between label and control.
- *  - Designed for short labels (<= 10 characters) and medium-width selects.
+ *  - Used in sidebar and settings pages.
  *  - Responsive down to 320px: row collapses only when parent enforces stacking.
  */
 
@@ -22,7 +22,7 @@ export function SelectRow({
   label,
   children,
   className,
-  controlClassName = 'w-28',
+  controlClassName = 'w-32',
 }: SelectRowProps) {
   return (
     <div className={`flex items-center justify-between gap-2 ${className || ''}`}>

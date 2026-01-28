@@ -201,14 +201,16 @@
   },
   "Settings": {
     "title": "Einstellungen",
-    "vibrationSettings": "Vibrationseinstellungen",
+    "appearance": "Darstellung",
+    "appearanceDescription": "Sprache, Theme und Farbmodus anpassen",
+    "vibrationSettings": "Vibration",
     "vibrationSettingsDescription": "Haptisches Feedback für Würfeln und Auswahl konfigurieren",
     "enableAllVibration": "Alle Vibrationen aktivieren",
-    "enableAllVibrationDescription": "Alle Vibrations-Feedback-Optionen auf einmal aktivieren oder deaktivieren",
+    "enableAllVibrationDescription": "Alle Vibrations-Optionen auf einmal aktivieren oder deaktivieren",
     "diceRollVibration": "Würfel-Vibration",
-    "diceRollVibrationDescription": "Vibrations-Feedback beim Würfeln aktivieren",
+    "diceRollVibrationDescription": "Vibration beim Würfeln",
     "selectWheelVibration": "Rad-Auswahl-Vibration",
-    "selectWheelVibrationDescription": "Vibrations-Feedback beim Auswählen der Würfelanzahl auf dem Rad aktivieren",
-    "vibrationPlatformNote": "Hinweis: Vibrations-Feedback funktioniert nur auf Android-Geräten (muss an sein). iOS unterstützt die Vibration API nicht."
+    "selectWheelVibrationDescription": "Vibration beim Auswählen der Würfelanzahl",
+    "vibrationPlatformNote": "Vibration funktioniert nur auf Android-Geräten. iOS unterstützt die Vibration API nicht."
   }
 }

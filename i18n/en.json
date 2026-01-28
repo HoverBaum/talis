@@ -201,14 +201,16 @@
   },
   "Settings": {
     "title": "Settings",
-    "vibrationSettings": "Vibration Settings",
+    "appearance": "Appearance",
+    "appearanceDescription": "Customize language, theme, and color mode",
+    "vibrationSettings": "Vibration",
     "vibrationSettingsDescription": "Configure haptic feedback for dice rolling and selection",
     "enableAllVibration": "Enable all vibration",
     "enableAllVibrationDescription": "Enable or disable all vibration feedback options at once",
     "diceRollVibration": "Dice roll vibration",
-    "diceRollVibrationDescription": "Enable vibration feedback when rolling dice",
+    "diceRollVibrationDescription": "Vibrate when rolling dice",
     "selectWheelVibration": "Select wheel vibration",
-    "selectWheelVibrationDescription": "Enable vibration feedback when selecting dice amounts on the wheel",
-    "vibrationPlatformNote": "Note: Vibration feedback only works on Android devices (needs to be turned on). iOS does not support the Vibration API."
+    "selectWheelVibrationDescription": "Vibrate when selecting dice amounts",
+    "vibrationPlatformNote": "Vibration only works on Android devices. iOS does not support the Vibration API."
   }
 }

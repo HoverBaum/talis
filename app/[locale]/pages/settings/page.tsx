@@ -1,97 +1,124 @@
 'use client'
 
+/**
+ * SettingsPage
+ * - Central configuration page for app-wide settings
+ * - Organized by importance: Theme, Mode, Language, then Vibration
+ * - Uses clean section layout without cards for better readability
+ * - Responsive down to 320px width
+ */
+
 import { useTranslations } from 'next-intl'
 import { useSettingsStore } from './settings-store'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Settings2, Vibrate, Info } from 'lucide-react'
+import { LanguageSelect } from '@/components/LanguageSelect'
+import { ThemePicker } from '@/components/ThemePicker'
+import { ModePicker } from '@/components/ModePicker'
+import { Settings2, Palette, Vibrate, Info } from 'lucide-react'
 
 export default function SettingsPage() {
   const t = useTranslations('Settings')
+  const tTheme = useTranslations('Theme')
+  const tMode = useTranslations('Theme.mode')
   const vibration = useSettingsStore((state) => state.vibration)
   const setDiceRollVibration = useSettingsStore((state) => state.setDiceRollVibration)
   const setSelectWheelVibration = useSettingsStore((state) => state.setSelectWheelVibration)
-  const setAllVibration = useSettingsStore((state) => state.setAllVibration)
-
-  // Check if all vibration options are enabled
-  const allVibrationEnabled = vibration.diceRoll && vibration.selectWheel
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
+      {/* Page Header */}
       <div className="flex items-center gap-3">
         <Settings2 className="h-6 w-6 text-primary" />
-        <h1 className="text-3xl font-bold tracking-tight">{t('title')}</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
       </div>
 
+      {/* Appearance Section */}
       <section className="space-y-6">
-        <div className="flex items-center gap-3 border-b pb-4">
-          <Vibrate className="h-5 w-5 text-primary" />
-          <div className="space-y-1">
-            <h2 className="text-xl font-semibold">{t('vibrationSettings')}</h2>
+        <div className="flex items-center gap-2">
+          <Palette className="h-5 w-5 text-muted-foreground" />
+          <div>
+            <h2 className="text-lg font-semibold">{t('appearance')}</h2>
+            <p className="text-sm text-muted-foreground">
+              {t('appearanceDescription')}
+            </p>
+          </div>
+        </div>
+
+        <div className="space-y-6 ml-7">
+          {/* Theme Picker */}
+          <div className="space-y-3">
+            <Label className="text-base font-medium">{tTheme('select')}</Label>
+            <ThemePicker />
+          </div>
+
+          <Separator />
+
+          {/* Mode Picker */}
+          <div className="space-y-3">
+            <Label className="text-base font-medium">{tMode('select')}</Label>
+            <ModePicker />
+          </div>
+
+          <Separator />
+
+          {/* Language Select - uses SelectRow which includes its own label */}
+          <LanguageSelect className="py-1" />
+        </div>
+      </section>
+
+      {/* Vibration Section */}
+      <section className="space-y-6">
+        <div className="flex items-center gap-2">
+          <Vibrate className="h-5 w-5 text-muted-foreground" />
+          <div>
+            <h2 className="text-lg font-semibold">{t('vibrationSettings')}</h2>
             <p className="text-sm text-muted-foreground">
               {t('vibrationSettingsDescription')}
             </p>
           </div>
         </div>
 
-        <div className="space-y-6">
-          <Alert>
+        <div className="space-y-4 ml-7">
+          <Alert variant="default" className="bg-muted/50">
             <Info className="h-4 w-4" />
-            <AlertDescription>{t('vibrationPlatformNote')}</AlertDescription>
+            <AlertDescription className="text-sm">
+              {t('vibrationPlatformNote')}
+            </AlertDescription>
           </Alert>
 
-          <div className="space-y-4">
-            <div className="flex items-center justify-between py-2">
-              <div className="space-y-0.5">
-                <Label htmlFor="enableAllVibration">{t('enableAllVibration')}</Label>
-                <p className="text-sm text-muted-foreground">
-                  {t('enableAllVibrationDescription')}
-                </p>
-              </div>
-              <Switch
-                id="enableAllVibration"
-                checked={allVibrationEnabled}
-                onCheckedChange={(checked) => setAllVibration(checked)}
-              />
+          <div className="flex items-center justify-between py-2">
+            <div className="space-y-0.5">
+              <Label htmlFor="diceRollVibration">{t('diceRollVibration')}</Label>
+              <p className="text-sm text-muted-foreground">
+                {t('diceRollVibrationDescription')}
+              </p>
             </div>
+            <Switch
+              id="diceRollVibration"
+              checked={vibration.diceRoll}
+              onCheckedChange={(checked) => setDiceRollVibration(checked)}
+            />
+          </div>
 
-            <Separator />
+          <Separator />
 
-            <div className="space-y-4 border-l-2 border-muted pl-6 ml-2">
-              <div className="flex items-center justify-between py-2">
-                <div className="space-y-0.5">
-                  <Label htmlFor="diceRollVibration" className="text-base">{t('diceRollVibration')}</Label>
-                  <p className="text-sm text-muted-foreground">
-                    {t('diceRollVibrationDescription')}
-                  </p>
-                </div>
-                <Switch
-                  id="diceRollVibration"
-                  checked={vibration.diceRoll}
-                  onCheckedChange={(checked) => setDiceRollVibration(checked)}
-                />
-              </div>
-
-              <Separator />
-
-              <div className="flex items-center justify-between py-2">
-                <div className="space-y-0.5">
-                  <Label htmlFor="selectWheelVibration" className="text-base">
-                    {t('selectWheelVibration')}
-                  </Label>
-                  <p className="text-sm text-muted-foreground">
-                    {t('selectWheelVibrationDescription')}
-                  </p>
-                </div>
-                <Switch
-                  id="selectWheelVibration"
-                  checked={vibration.selectWheel}
-                  onCheckedChange={(checked) => setSelectWheelVibration(checked)}
-                />
-              </div>
+          <div className="flex items-center justify-between py-2">
+            <div className="space-y-0.5">
+              <Label htmlFor="selectWheelVibration">
+                {t('selectWheelVibration')}
+              </Label>
+              <p className="text-sm text-muted-foreground">
+                {t('selectWheelVibrationDescription')}
+              </p>
             </div>
+            <Switch
+              id="selectWheelVibration"
+              checked={vibration.selectWheel}
+              onCheckedChange={(checked) => setSelectWheelVibration(checked)}
+            />
           </div>
         </div>
       </section>
