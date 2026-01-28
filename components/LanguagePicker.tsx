@@ -12,9 +12,10 @@ import { useLocale } from 'next-intl'
 import { usePathname, useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { i18n, type Locale } from '@/i18n/config'
-import { Check, Languages } from 'lucide-react'
+import { Languages } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useEffect, useState } from 'react'
+import { SelectionCard } from './SelectionCard'
 
 type LanguagePreviewCardProps = {
   locale: Locale
@@ -30,30 +31,12 @@ const LanguagePreviewCard = ({
   label,
 }: LanguagePreviewCardProps) => {
   return (
-    <button
-      type="button"
-      onClick={onSelect}
-      role="radio"
-      aria-checked={isSelected}
-      className={cn(
-        'relative w-full min-h-[64px] rounded-lg border-2 p-4 text-left text-foreground transition-all bg-card',
-        'hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-        isSelected ? 'border-primary border-2 ring-2 ring-primary/20' : 'border-border'
-      )}
-    >
-      {/* Selected indicator */}
-      {isSelected && (
-        <div className="absolute -top-2 -right-2 rounded-full bg-primary p-1 z-20">
-          <Check className="h-3 w-3 text-primary-foreground" />
-        </div>
-      )}
-
-      {/* Language display with icon and name */}
+    <SelectionCard isSelected={isSelected} onSelect={onSelect}>
       <div className="flex items-center gap-3">
         <Languages className="h-5 w-5" />
         <span className="font-medium">{label}</span>
       </div>
-    </button>
+    </SelectionCard>
   )
 }
 

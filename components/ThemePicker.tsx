@@ -18,10 +18,10 @@ import {
 } from './ThemeProvider'
 import { getThemeBranding } from '@/lib/theme-config'
 import { useTranslations } from 'next-intl'
-import { Check } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { useEffect, useState } from 'react'
+import { SelectionCard } from './SelectionCard'
 
 // Color strip showing key theme colors using global mode
 const ColorStrip = () => {
@@ -57,41 +57,26 @@ const ThemePreviewCard = ({
       data-mode={resolvedMode}
       className="[color-scheme:inherit]"
     >
-      <button
-        type="button"
-        onClick={onSelect}
-        role="radio"
-        aria-checked={isSelected}
-        className={cn(
-          'relative w-full min-h-[88px] rounded-lg border-2 p-3 text-left text-foreground transition-all bg-card',
-          'hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-          isSelected
-            ? 'border-primary border-2 ring-2 ring-primary/20'
-            : 'border-border',
-        )}
+      <SelectionCard
+        isSelected={isSelected}
+        onSelect={onSelect}
+        sizeClass="min-h-[88px] p-3"
       >
-        {/* Selected indicator */}
-        {isSelected && (
-          <div className="absolute -top-2 -right-2 rounded-full bg-primary p-1 z-20">
-            <Check className="h-3 w-3 text-primary-foreground" />
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center gap-2">
+            <Image
+              src={branding.logo}
+              alt={`${label} theme`}
+              width={28}
+              height={28}
+              className="rounded"
+            />
+            <span className="font-medium">{label}</span>
           </div>
-        )}
 
-        {/* Theme header with logo and name */}
-        <div className="flex items-center gap-2 mb-3">
-          <Image
-            src={branding.logo}
-            alt={`${label} theme`}
-            width={28}
-            height={28}
-            className="rounded"
-          />
-          <span className="font-medium">{label}</span>
+          <ColorStrip />
         </div>
-
-        {/* Color palette using the preview theme's mode */}
-        <ColorStrip />
-      </button>
+      </SelectionCard>
     </div>
   )
 }
