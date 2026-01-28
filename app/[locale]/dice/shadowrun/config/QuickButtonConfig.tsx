@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl'
 import { QuickButtonType } from '../shadowrun-store'
 import { FreeDiceInput } from '../FreeDiceInput'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/Button'
 import { Trash2 } from 'lucide-react'
 import { useShadowrunStore } from '../shadowrun-store'
 import { Separator } from '@/components/ui/separator'
@@ -60,9 +60,9 @@ export function QuickButtonConfig({
           </div>
 
           <Button
-            variant="ghost"
+            variant="destructive"
             size="icon"
-            className="h-9 w-9 text-destructive hover:text-destructive"
+            className="h-9 w-9 "
             onClick={() => onDelete(quickButton.id)}
           >
             <Trash2 className="h-4 w-4" />

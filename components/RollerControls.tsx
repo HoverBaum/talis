@@ -15,7 +15,7 @@
 import { ReactNode } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/Button'
 import { Settings, BrushCleaningIcon } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 
@@ -30,7 +30,7 @@ type RollerControlsProps = {
 
 const ClearButtonWithTooltip = ({ onClear }: { onClear: () => void }) => {
     const t = useTranslations('Components.RollerControls')
-    
+
     return (
         <Tooltip delayDuration={700}>
             <TooltipTrigger asChild >

@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/Button'
 import { i18n } from '@/i18n/config'
 
 /**
@@ -32,7 +32,7 @@ const translations = {
 
 function getInitialLocale(): 'en' | 'de' {
   if (typeof window === 'undefined') return i18n.defaultLocale as 'en' | 'de'
-  
+
   // Detect locale from URL or browser settings
   const path = window.location.pathname
   const urlLocale = path.match(/^\/(en|de)/)

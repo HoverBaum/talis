@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/Button'
 import { Input } from '@/components/ui/input'
 import { Minus, Plus } from 'lucide-react'
 

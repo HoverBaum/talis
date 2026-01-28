@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/Button'
 import { d6Mapping } from '@/utils/dice-constants'
 import type { Theme } from '@/components/ThemeProvider'
 import { getThemeBranding } from '@/lib/theme-config'
@@ -187,7 +187,7 @@ export default function ThemesPage() {
         {themes.map((theme) => (
           <div key={theme} className="space-y-6">
             <h2 className="text-3xl font-bold capitalize">{theme} Theme</h2>
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <ThemeShowcase theme={theme} mode="light" />
               <ThemeShowcase theme={theme} mode="dark" />
