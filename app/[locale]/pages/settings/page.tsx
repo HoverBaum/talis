@@ -17,6 +17,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { LanguageSelect } from '@/components/LanguageSelect'
 import { ThemePicker } from '@/components/ThemePicker'
 import { ModePicker } from '@/components/ModePicker'
+import { SetPageTitle } from '@/components/PageTitleProvider'
 import { Settings2, Palette, Vibrate, Info } from 'lucide-react'
 
 export default function SettingsPage() {
@@ -28,12 +29,14 @@ export default function SettingsPage() {
   const setSelectWheelVibration = useSettingsStore((state) => state.setSelectWheelVibration)
 
   return (
-    <div className="space-y-10">
-      {/* Page Header */}
-      <div className="flex items-center gap-3">
-        <Settings2 className="h-6 w-6 text-primary" />
-        <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
-      </div>
+    <>
+      <SetPageTitle title={t('title')} />
+      <div className="space-y-10">
+        {/* Page Header */}
+        <div className="flex items-center gap-3">
+          <Settings2 className="h-6 w-6 text-primary" />
+          <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
+        </div>
 
       {/* Appearance Section */}
       <section className="space-y-6">
@@ -126,6 +129,7 @@ export default function SettingsPage() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   )
 }
