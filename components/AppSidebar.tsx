@@ -22,6 +22,7 @@ import {
 import { ThemeSelect } from './ThemeSelect'
 import { ModeSelect } from './ModeSelect'
 import { LanguageSelect } from './LanguageSelect'
+import { SelectRow } from './SelectRow'
 import { PWAInstallPrompt } from './PWAInstallPrompt'
 import { useThemeBranding } from '@/lib/theme-config'
 import packageJson from '@/package.json'
@@ -33,6 +34,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const navT = useTranslations('Navigation')
   const tPWA = useTranslations('PWA')
   const tFooter = useTranslations('Footer')
+  const tLanguage = useTranslations('Language')
   const { setOpenMobile } = useSidebar()
   const branding = useThemeBranding()
   const [isClient, setIsClient] = useState(false)
@@ -151,7 +153,9 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarFooter>
         <div className="space-y-4 p-4">
-          <LanguageSelect />
+          <SelectRow label={tLanguage('select')}>
+            <LanguageSelect />
+          </SelectRow>
           <ModeSelect />
           <ThemeSelect />
           <PWAInstallPrompt />

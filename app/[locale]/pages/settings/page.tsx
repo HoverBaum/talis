@@ -14,7 +14,7 @@ import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { LanguageSelect } from '@/components/LanguageSelect'
+import { LanguagePicker } from '@/components/LanguagePicker'
 import { ThemePicker } from '@/components/ThemePicker'
 import { ModePicker } from '@/components/ModePicker'
 import { SetPageTitle } from '@/components/PageTitleProvider'
@@ -24,6 +24,7 @@ export default function SettingsPage() {
   const t = useTranslations('Settings')
   const tTheme = useTranslations('Theme')
   const tMode = useTranslations('Theme.mode')
+  const tLanguage = useTranslations('Language')
   const vibration = useSettingsStore((state) => state.vibration)
   const setDiceRollVibration = useSettingsStore((state) => state.setDiceRollVibration)
   const setSelectWheelVibration = useSettingsStore((state) => state.setSelectWheelVibration)
@@ -71,8 +72,13 @@ export default function SettingsPage() {
 
           <Separator />
 
-          {/* Language Select - uses SelectRow which includes its own label */}
-          <LanguageSelect className="py-1" />
+          {/* Language Picker */}
+          <div className="space-y-3">
+            <Label id="language-picker-label" className="text-base font-medium">
+              {tLanguage('select')}
+            </Label>
+            <LanguagePicker groupLabelId="language-picker-label" />
+          </div>
         </div>
       </section>
 

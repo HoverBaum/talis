@@ -14,6 +14,7 @@ import { type Mode, type ResolvedMode, useTheme } from './ThemeProvider'
 import { useTranslations } from 'next-intl'
 import { Check, Sun, Moon, SunMoonIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useEffect, useState } from 'react'
 
 const modes: Mode[] = ['light', 'dark', 'system']
 
@@ -76,6 +77,34 @@ type ModePickerProps = {
 export const ModePicker = ({ className, groupLabelId }: ModePickerProps) => {
   const { mode: currentMode, setMode, systemMode } = useTheme()
   const t = useTranslations('Theme.mode')
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return (
+      <div
+        role="radiogroup"
+        aria-labelledby={groupLabelId}
+        className={cn('grid grid-cols-1 gap-3 sm:grid-cols-3', className)}
+      >
+        {modes.map((mode) => (
+          <div
+            key={mode}
+            className="relative w-full min-h-[64px] rounded-lg border-2 p-4 bg-card border-border"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-5 h-5 bg-muted rounded animate-pulse" />
+              <div className="h-5 w-16 bg-muted rounded animate-pulse" />
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
 
   return (
     <div

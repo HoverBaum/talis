@@ -16,6 +16,7 @@ import { useTranslations } from 'next-intl'
 import { Check } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
+import { useEffect, useState } from 'react'
 
 // Color strip showing key theme colors using global mode
 const ColorStrip = () => {
@@ -93,6 +94,40 @@ type ThemePickerProps = {
 export const ThemePicker = ({ className, groupLabelId }: ThemePickerProps) => {
   const { theme: currentTheme, setTheme, resolvedMode } = useTheme()
   const t = useTranslations('Theme')
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return (
+      <div
+        role="radiogroup"
+        aria-labelledby={groupLabelId}
+        className={cn('grid grid-cols-1 gap-3 sm:grid-cols-2', className)}
+      >
+        {THEMES.map((theme) => (
+          <div
+            key={theme}
+            className="relative w-full min-h-[88px] rounded-lg border-2 p-3 bg-card border-border"
+          >
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-7 h-7 rounded bg-muted animate-pulse" />
+              <div className="h-5 w-20 bg-muted rounded animate-pulse" />
+            </div>
+            <div className="flex gap-0.5 px-2 py-1.5 rounded bg-background">
+              <div className="h-4 flex-1 rounded-sm bg-muted animate-pulse" />
+              <div className="h-4 flex-1 rounded-sm bg-muted animate-pulse" />
+              <div className="h-4 flex-1 rounded-sm bg-muted animate-pulse" />
+              <div className="h-4 flex-1 rounded-sm bg-muted animate-pulse" />
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
 
   return (
     <div
