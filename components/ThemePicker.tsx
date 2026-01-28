@@ -10,7 +10,12 @@
  * - Responsive grid layout, works down to 320px
  */
 
-import { THEMES, type ResolvedMode, type Theme, useTheme } from './ThemeProvider'
+import {
+  THEMES,
+  type ResolvedMode,
+  type Theme,
+  useTheme,
+} from './ThemeProvider'
 import { getThemeBranding } from '@/lib/theme-config'
 import { useTranslations } from 'next-intl'
 import { Check } from 'lucide-react'
@@ -21,9 +26,8 @@ import { useEffect, useState } from 'react'
 // Color strip showing key theme colors using global mode
 const ColorStrip = () => {
   return (
-    <div className="flex gap-0.5 px-2 py-1.5 rounded bg-background">
+    <div className="flex gap-0.5 px-2 py-1.5">
       <div className="h-4 flex-1 rounded-sm bg-primary" title="Primary" />
-      <div className="h-4 flex-1 rounded-sm bg-secondary" title="Secondary" />
       <div className="h-4 flex-1 rounded-sm bg-roll-positive" title="Success" />
       <div className="h-4 flex-1 rounded-sm bg-roll-negative" title="Glitch" />
     </div>
@@ -48,7 +52,11 @@ const ThemePreviewCard = ({
   const branding = getThemeBranding(theme)
 
   return (
-    <div data-theme={theme} data-mode={resolvedMode} className="[color-scheme:inherit]">
+    <div
+      data-theme={theme}
+      data-mode={resolvedMode}
+      className="[color-scheme:inherit]"
+    >
       <button
         type="button"
         onClick={onSelect}
@@ -57,7 +65,9 @@ const ThemePreviewCard = ({
         className={cn(
           'relative w-full min-h-[88px] rounded-lg border-2 p-3 text-left text-foreground transition-all bg-card',
           'hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-          isSelected ? 'border-primary ring-2 ring-primary/20' : 'border-border'
+          isSelected
+            ? 'border-primary ring-2 ring-primary/20'
+            : 'border-border',
         )}
       >
         {/* Selected indicator */}
