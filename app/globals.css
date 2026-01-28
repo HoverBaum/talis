@@ -136,8 +136,13 @@
     @apply border-border outline-ring/50;
   }
 
+  html {
+    background-color: var(--background, oklch(1 0 0));
+  }
+
   body {
     @apply bg-background text-foreground;
+    min-height: 100vh;
   }
 }
 
