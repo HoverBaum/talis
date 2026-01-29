@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/Button'
+import { Button } from '@/components/ui/button'
 import { X } from 'lucide-react'
 
 export function PWAUpdatePrompt() {

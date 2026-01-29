@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
-import { Button } from '@/components/Button'
+import { Button } from '@/components/ui/button'
 import { i18n } from '@/i18n/config'
 
 /**

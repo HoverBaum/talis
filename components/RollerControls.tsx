@@ -15,7 +15,7 @@
 import { ReactNode } from 'react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/Button'
+import { Button } from '@/components/ui/button'
 import { Settings, BrushCleaningIcon } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 

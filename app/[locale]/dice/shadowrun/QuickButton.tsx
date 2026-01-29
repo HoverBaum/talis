@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/Button'
+import { Button } from '@/components/ui/button'
 import { QuickButtonType } from './shadowrun-store'
 
 type QuickButtonProps = {

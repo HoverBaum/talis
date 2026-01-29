@@ -20,7 +20,7 @@ import { PolyhedralResultDisplay } from '@/components/PolyhedralResultDisplay'
 import { DiceSelectWheel } from '@/components/DiceSelectWheel'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
-import { Button } from '@/components/Button'
+import { Button } from '@/components/ui/button'
 import { nanoid } from 'nanoid'
 
 export function DaggerheartRoller() {

@@ -44,7 +44,7 @@ import { RollerControls } from '@/components/RollerControls'
 import { CoinResultDisplay } from './CoinResultDisplay'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
-import { Button } from '@/components/Button'
+import { Button } from '@/components/ui/button'
 import { nanoid } from 'nanoid'
 
 /**

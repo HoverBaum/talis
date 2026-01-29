@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl"
 
 import { useIsMobile } from "@/utils/use-mobile"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/Button"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 import {

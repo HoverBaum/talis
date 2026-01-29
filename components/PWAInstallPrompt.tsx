@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/Button'
+import { Button } from '@/components/ui/button'
 import { Alert, AlertTitle } from '@/components/ui/alert'
 import { Download, CheckCircle2 } from 'lucide-react'
 

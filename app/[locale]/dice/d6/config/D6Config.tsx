@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useD6Store } from '../d6-store'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
-import { Button } from '@/components/Button'
+import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Settings2, ArrowLeft, Monitor } from 'lucide-react'
 
