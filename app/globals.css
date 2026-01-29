@@ -329,7 +329,7 @@
   --chart-3: oklch(0.65 0.12 220);
   --chart-4: oklch(0.55 0.06 120);
   --chart-5: oklch(0.6 0.08 180);
-  --roll-positive: oklch(0.7 0.2 145);
+  --roll-positive: oklch(0.7 0.18 145);
   --roll-positive-foreground: oklch(0.2 0.02 145);
   --roll-negative: oklch(0.8 0.2 90);
   --roll-negative-foreground: oklch(0.2 0.02 330);
