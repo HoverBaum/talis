@@ -50,7 +50,7 @@ export const DEFAULT_COINS: CoinType[] = [
 
 const DEFAULT_CONFIG = {
   showNewResultBottom: true,
-  resultColorMode: 'positive-negative' as 'none' | 'positive-negative' | 'primary-accent',
+  resultColorMode: 'positive-negative' as 'none' | 'positive-negative',
   customCoins: [] as CoinType[],
 }
 
@@ -102,8 +102,14 @@ if (typeof window !== 'undefined') {
               ? 'positive-negative'
               : 'none',
           }
-          delete migratedConfig.useColoredResults
-          // Update localStorage with migrated data
+          delete (migratedConfig as Record<string, unknown>).useColoredResults
+          parsed.state.config = migratedConfig
+          localStorage.setItem(storageKey, JSON.stringify(parsed))
+        }
+        // Remove deprecated primary-accent if present
+        const currentConfig = parsed.state.config
+        if (currentConfig.resultColorMode === 'primary-accent') {
+          const migratedConfig = { ...currentConfig, resultColorMode: 'positive-negative' }
           parsed.state.config = migratedConfig
           localStorage.setItem(storageKey, JSON.stringify(parsed))
         }

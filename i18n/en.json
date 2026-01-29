@@ -110,7 +110,6 @@
         "resultColorModeDescription": "Choose how results are colored",
         "colorModeNone": "None",
         "colorModePositiveNegative": "Success",
-        "colorModePrimaryAccent": "Theme",
         "customCoins": "Custom Coins",
         "customCoinsDescription": "Add your own custom coin types with different values",
         "addNewCoin": "Add New Coin",

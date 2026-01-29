@@ -37,13 +37,7 @@ import { Settings2, ArrowLeft, Monitor, Coins, Plus, Trash2, Check } from 'lucid
 import { nanoid } from 'nanoid'
 
 /**
- * Reusable button component for color mode selection options.
- *
- * Displays a selectable option with label, preview content, and check indicator.
- * Used for choosing result color display modes in coin configuration.
- *
- * Performance: Lightweight component, no performance concerns.
- * Accessibility: Button element with proper keyboard navigation.
+ * Button for selecting a result color mode (None or Positive/Negative).
  */
 type ColorModeOptionButtonProps = {
   value: string
@@ -61,7 +55,6 @@ const ColorModeOptionButton = ({
   preview,
 }: ColorModeOptionButtonProps) => {
   const isSelected = currentValue === value
-
   return (
     <button
       type="button"
@@ -158,7 +151,7 @@ export const CoinConfig = () => {
                 {t('resultColorModeDescription')}
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               <ColorModeOptionButton
                 value="none"
                 currentValue={config.resultColorMode ?? 'positive-negative'}
@@ -171,7 +164,6 @@ export const CoinConfig = () => {
                   </>
                 }
               />
-
               <ColorModeOptionButton
                 value="positive-negative"
                 currentValue={config.resultColorMode ?? 'positive-negative'}
@@ -183,23 +175,6 @@ export const CoinConfig = () => {
                       {tCoin('heads')}
                     </span>
                     <span className="text-lg font-bold text-roll-negative">
-                      {tCoin('tails')}
-                    </span>
-                  </>
-                }
-              />
-
-              <ColorModeOptionButton
-                value="primary-accent"
-                currentValue={config.resultColorMode ?? 'positive-negative'}
-                label={t('colorModePrimaryAccent')}
-                onClick={() => updateConfig({ resultColorMode: 'primary-accent' })}
-                preview={
-                  <>
-                    <span className="text-lg font-bold text-accent">
-                      {tCoin('heads')}
-                    </span>
-                    <span className="text-lg font-bold text-muted-foreground">
                       {tCoin('tails')}
                     </span>
                   </>

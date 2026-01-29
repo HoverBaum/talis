@@ -5,10 +5,7 @@
  *
  * Features:
  * - Shows the flip result (heads or tails value) with appropriate color (configurable)
- * - Color modes:
- *   - None: No color classes applied
- *   - Positive/Negative: Heads use roll-positive color, Tails use roll-negative color
- *   - Theme: Heads use chart-1 color, Tails use chart-2 color (theme-aware colors)
+ * - Color modes: None (no color classes), Positive/Negative (heads = roll-positive, tails = roll-negative)
  * - Shows timestamp and coin type in a small note below
  * - Highlights the most recent flip with larger text and background styling
  * - Older (non-highlighted) results have their display value shown with reduced opacity
@@ -60,14 +57,13 @@ export const CoinResultDisplay = ({
 
   const coinDisplayName = getDisplayValue(flip.coinType.displayName, t)
 
-  // Color classes based on result and color mode
-  let colorClass = ''
-  if (resultColorMode === 'positive-negative') {
-    colorClass = flip.result === 'heads' ? 'text-roll-positive' : 'text-roll-negative'
-  } else if (resultColorMode === 'primary-accent') {
-    colorClass = flip.result === 'heads' ? 'text-accent' : 'text-muted-foreground'
-  }
-  // 'none' mode: no color class applied
+  const mode = resultColorMode ?? 'positive-negative'
+  const colorClass =
+    mode === 'positive-negative'
+      ? flip.result === 'heads'
+        ? 'text-roll-positive'
+        : 'text-roll-negative'
+      : ''
 
   return (
     <div
