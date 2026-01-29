@@ -166,37 +166,19 @@ function ThemeShowcase({ theme, mode }: { theme: Theme; mode: 'light' | 'dark' }
                 <Badge variant="destructive">Destructive</Badge>
               </div>
 
-              {/* Select + Skeleton + Dialog */}
+              {/* Select */}
               <div className="flex flex-wrap items-center gap-4">
-                <Select defaultValue="alpha">
+                <Select defaultValue="alpha" >
                   <SelectTrigger className="min-w-[10rem]">
                     <SelectValue placeholder="Select item" />
                   </SelectTrigger>
-                  <SelectContent>
+                  {/* We need to pass the theme and mode to the select content to ensure the colors are correct */}
+                  <SelectContent data-theme={theme} data-mode={mode}>
                     <SelectItem value="alpha">Alpha</SelectItem>
                     <SelectItem value="beta">Beta</SelectItem>
                     <SelectItem value="gamma">Gamma</SelectItem>
                   </SelectContent>
                 </Select>
-
-                <div className="space-y-2 w-[12rem]">
-                  <Skeleton className="h-4 w-full" />
-                  <Skeleton className="h-4 w-3/4" />
-                </div>
-
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="outline">Open Dialog</Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Theme QA Dialog</DialogTitle>
-                      <DialogDescription>
-                        Validate accent and secondary surface colors in dialogs.
-                      </DialogDescription>
-                    </DialogHeader>
-                  </DialogContent>
-                </Dialog>
               </div>
 
               {/* Roll Colors */}
