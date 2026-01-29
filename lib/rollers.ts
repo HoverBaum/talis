@@ -1,8 +1,8 @@
 import { Layers, Dices, Pentagon, SquareSplitHorizontal, Coins, type LucideIcon } from 'lucide-react'
 import type Messages from '@/i18n/en.json'
 
-type NavigationKey = keyof Messages['Navigation']
-type HomeKey = keyof Messages['Home']
+type NavigationKey = Extract<keyof Messages['Navigation'], string>
+type HomeKey = Extract<keyof Messages['Home'], string>
 
 export interface Roller {
   id: string
