@@ -16,13 +16,15 @@
  *
  * Uses Motion (formerly Framer Motion) for hardware-accelerated animations.
  */
-import React, {
+import {
+  memo,
   useEffect,
   useLayoutEffect,
   useRef,
   useState,
   type RefObject,
 } from 'react'
+import { useTranslations } from 'next-intl'
 import {
   motion,
   useScroll,
@@ -93,15 +95,15 @@ const WheelItem = ({
   // Track scroll position of the container
   const { scrollY } = useScroll({ container: containerRef })
 
+  // Calculate the scroll position where this item would be centered
+  const itemCenterScrollPosition = index * ITEM_HEIGHT
+
   // Track whether this item is currently centered in the viewport
   const [isCentered, setIsCentered] = useState(false)
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const diff = Math.abs(latest - itemCenterScrollPosition)
     setIsCentered(diff <= ITEM_HEIGHT * CENTER_THRESHOLD)
   })
-
-  // Calculate the scroll position where this item would be centered
-  const itemCenterScrollPosition = index * ITEM_HEIGHT
 
   // Range over which the animation transitions (items within this range will be partially scaled)
   const animationRange = containerHeight / 2
@@ -168,13 +170,14 @@ const WheelItem = ({
   )
 }
 
-const MemoWheelItem = React.memo(WheelItem)
+const MemoWheelItem = memo(WheelItem)
 
 export const DiceSelectWheel = ({
   max,
   current,
   onChange,
 }: DiceSelectWheelProps) => {
+  const t = useTranslations('Components.DiceSelectWheel')
   const diceNumberChoices = Array.from(Array(max).keys()).map((i) => i + 1)
   const [height, setHeight] = useState(0)
   const { height: windowHeight, lastHeight: lastWindowHeight } = useWindowSize()
@@ -316,7 +319,7 @@ export const DiceSelectWheel = ({
     <>
       {/* Screen reader announcement of current selection */}
       <div className="sr-only" aria-live="polite" role="status">
-        Selected: {current}
+        {t('selectedAnnouncement', { value: current })}
       </div>
       {/* Visual indicators showing the selected value area */}
       <div className="absolute left-0 w-full top-1/2 -translate-y-1/2 -mt-5 border-t-2 pointer-events-none z-10" />
@@ -326,7 +329,7 @@ export const DiceSelectWheel = ({
         id="wheelContainer"
         className="overflow-y-scroll scrollbar-none relative snap-y snap-mandatory"
         role="listbox"
-        aria-label="Select number of dice"
+        aria-label={t('ariaLabel')}
         aria-activedescendant={`number-${current}`}
         tabIndex={-1}
         style={{

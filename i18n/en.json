@@ -131,6 +131,10 @@
     "RollerControls": {
       "clearRolls": "Clear rolls"
     },
+    "DiceSelectWheel": {
+      "ariaLabel": "Select number of dice",
+      "selectedAnnouncement": "Selected: {value}"
+    },
     "Sidebar": {
       "title": "Sidebar",
       "description": "Displays the mobile sidebar.",

@@ -1,3 +1,12 @@
+/**
+ * HomePage renders the localized landing page with roller cards.
+ *
+ * Purpose: introduce the app and provide entry points to each roller.
+ * Performance: maps a small, static roller list on the server.
+ * Accessibility: uses semantic headings and descriptive text.
+ * Constraints: requires locale params and translation messages.
+ * Usage: default route for each locale segment.
+ */
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { SetPageTitle } from '@/components/PageTitleProvider'
 import { HomeCard } from '@/components/HomeCard'
@@ -40,20 +49,15 @@ export default async function HomePage({
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mt-8 md:grid-cols-3 lg:grid-cols-4">
-                    {rollers.map((roller) => {
-                        // Extract keys from nameKey (e.g., "Navigation.shadowrun" -> "shadowrun")
-                        const nameKeyPart = roller.nameKey.split('.')[1]
-                        const subtitleKeyPart = roller.subtitleKey.split('.')[1]
-                        return (
-                            <HomeCard
-                                key={roller.id}
-                                href={`/${locale}${roller.link}`}
-                                icon={roller.icon}
-                                title={navT(nameKeyPart as any)}
-                                description={t(subtitleKeyPart as any)}
-                            />
-                        )
-                    })}
+                    {rollers.map((roller) => (
+                        <HomeCard
+                            key={roller.id}
+                            href={`/${locale}${roller.link}`}
+                            icon={roller.icon}
+                            title={navT(roller.nameKey)}
+                            description={t(roller.subtitleKey)}
+                        />
+                    ))}
                     {/* Settings Card - Always Last */}
                     <HomeCard
                         href={`/${locale}/pages/settings`}

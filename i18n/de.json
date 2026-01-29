@@ -131,6 +131,10 @@
     "RollerControls": {
       "clearRolls": "Würfe löschen"
     },
+    "DiceSelectWheel": {
+      "ariaLabel": "Wähle die Anzahl der Würfel",
+      "selectedAnnouncement": "Ausgewählt: {value}"
+    },
     "Sidebar": {
       "title": "Seitenleiste",
       "description": "Zeigt die mobile Seitenleiste an.",

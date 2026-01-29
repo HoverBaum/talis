@@ -1,5 +1,14 @@
 'use client'
 
+/**
+ * AppSidebar renders the primary navigation and settings sidebar.
+ *
+ * Purpose: shows locale-aware links, roller navigation, and app controls.
+ * Performance: mounted on most pages; avoids rendering until client hydration.
+ * Accessibility: relies on Sidebar primitives and semantic links.
+ * Constraints: depends on client-side storage for theme/mode state.
+ * Usage: composed in the root layout within SidebarProvider.
+ */
 import { useEffect, useState, type ComponentProps } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -76,15 +85,11 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
     },
   ]
 
-  const rollersNav = rollers.map((roller) => {
-    // Extract key from nameKey (e.g., "Navigation.shadowrun" -> "shadowrun")
-    const nameKeyPart = roller.nameKey.split('.')[1]
-    return {
-      title: navT(nameKeyPart as any),
-      url: `/${locale}${roller.link}`,
-      icon: roller.icon,
-    }
-  })
+  const rollersNav = rollers.map((roller) => ({
+    title: navT(roller.nameKey),
+    url: `/${locale}${roller.link}`,
+    icon: roller.icon,
+  }))
 
   const isActive = (url: string) => {
     return pathname === url
