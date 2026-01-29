@@ -71,7 +71,7 @@ export function RegisterServiceWorker() {
     }
 
     let registration: ServiceWorkerRegistration | null = null
-    let updateInterval: ReturnType<typeof setInterval> | null = null
+    let updateInterval: ReturnType<typeof window.setInterval> | null = null
     let updateFoundHandler: (() => void) | null = null
 
     const registerServiceWorker = async () => {
@@ -129,7 +129,7 @@ export function RegisterServiceWorker() {
         handleControllerChange
       )
       if (updateInterval) {
-        clearInterval(updateInterval)
+        window.clearInterval(updateInterval)
       }
       if (registration && updateFoundHandler) {
         registration.removeEventListener('updatefound', updateFoundHandler)
