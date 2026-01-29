@@ -1,8 +1,40 @@
+/**
+ * Theme showcase page that renders all themes in light/dark modes.
+ *
+ * Purpose:
+ * - Provide a visual QA surface for theme tokens, including interactive states.
+ *
+ * Accessibility:
+ * - Uses standard shadcn/ui components to ensure focus and keyboard behavior.
+ *
+ * Constraints:
+ * - Must render correctly across all themes and modes on small screens.
+ * - Should stay lightweight; sample data only.
+ *
+ * Intended usage:
+ * - Manual verification when adjusting theme tokens in `app/globals.css`.
+ */
 'use client'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/Button'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Skeleton } from '@/components/ui/skeleton'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 import { d6Mapping } from '@/utils/dice-constants'
 import type { Theme } from '@/components/ThemeProvider'
 import { getThemeBranding } from '@/lib/theme-config'
@@ -132,6 +164,39 @@ function ThemeShowcase({ theme, mode }: { theme: Theme; mode: 'light' | 'dark' }
                 <Badge variant="secondary">Secondary</Badge>
                 <Badge variant="outline">Outline</Badge>
                 <Badge variant="destructive">Destructive</Badge>
+              </div>
+
+              {/* Select + Skeleton + Dialog */}
+              <div className="flex flex-wrap items-center gap-4">
+                <Select defaultValue="alpha">
+                  <SelectTrigger className="min-w-[10rem]">
+                    <SelectValue placeholder="Select item" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="alpha">Alpha</SelectItem>
+                    <SelectItem value="beta">Beta</SelectItem>
+                    <SelectItem value="gamma">Gamma</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <div className="space-y-2 w-[12rem]">
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-3/4" />
+                </div>
+
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="outline">Open Dialog</Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Theme QA Dialog</DialogTitle>
+                      <DialogDescription>
+                        Validate accent and secondary surface colors in dialogs.
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
               </div>
 
               {/* Roll Colors */}

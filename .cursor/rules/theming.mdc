@@ -30,6 +30,29 @@ Implementation notes:
   * Avoid hard-coded colors.
   * Use theme-aware classes and shadcn/ui tokens.
 
+## Token Semantics (Surface Roles)
+
+Treat palette tokens as **roles**, not extra brand colors. Each theme should follow the same
+surface ladder so interactive states are consistent across modes.
+
+**Surface ladder (relative to `--background`)**
+
+1. `--background` - Page base
+2. `--card` / `--popover` - Elevated surfaces (small delta from background)
+3. `--muted` - Subtle surface (slightly stronger delta than card/popover)
+4. `--accent` - Interactive surface (hover/selected/focus backgrounds)
+5. `--secondary` - Low-emphasis filled controls (secondary buttons/badges)
+
+**Relationship to `--primary`**
+
+* `--primary` is the brand/action color (CTAs, links, primary buttons).
+* `--accent` should **not** be a second brand color by default; it is a **surface state color**
+  that sits behind text/icons in menus, lists, and hover states.
+* `--secondary` should be **distinct from `--accent`** and less prominent than `--primary`,
+  but more visible than `--muted`.
+* For custom themes, it is fine if `--accent`/`--secondary` carry a light theme tint (same hue
+  family as `--primary`), but their primary job is **state visibility + contrast**, not branding.
+
 ## Required CSS Variables
 
 **Every theme MUST define ALL of the following CSS variables** for shadcn/ui components to work correctly. Missing variables will cause components to fall back to `:root` defaults, resulting in inconsistent theming (e.g., sidebar not matching the selected theme).
