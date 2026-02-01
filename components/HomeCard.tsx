@@ -11,7 +11,7 @@ interface HomeCardProps {
 
 export function HomeCard({ href, icon: Icon, title, description }: HomeCardProps) {
   return (
-    <Link 
+    <Link
       href={href}
       className="transition-transform hover:scale-105 active:scale-95"
     >

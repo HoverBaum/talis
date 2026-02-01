@@ -39,7 +39,8 @@ export default async function HomePage({
                     <p className="text-muted-foreground">{t('description')}</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 mt-8 md:grid-cols-3 lg:grid-cols-4">
+                {/* Custom breakpoints so that text does not overflow on smaller devices. */}
+                <div className="grid max-[374px]:grid-cols-1 grid-cols-2 gap-4 mt-8 md:grid-cols-3 lg:grid-cols-4">
                     {rollers.map((roller) => {
                         // Extract keys from nameKey (e.g., "Navigation.shadowrun" -> "shadowrun")
                         const nameKeyPart = roller.nameKey.split('.')[1]
