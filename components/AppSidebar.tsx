@@ -166,7 +166,9 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
           )}
           {sidebarOptions === 'condensed' && (
             <div className="flex flex-wrap items-center gap-3">
-              <ThemeSelect variant="compact" />
+              <div className="min-w-0 flex-1">
+                <ThemeSelect variant="compact" />
+              </div>
               <ModeSelect variant="iconOnly" />
             </div>
           )}

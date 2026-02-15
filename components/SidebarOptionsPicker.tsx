@@ -40,13 +40,13 @@ const FullPreview = () => (
 
 const CondensedPreview = () => (
   <div className="flex items-center gap-2">
-    <div className="h-6 flex-1 min-w-0 rounded border border-border bg-muted/50" />
-    <div className="h-6 w-6 shrink-0 rounded border border-border bg-muted/50" />
+    <div className="h-5 min-w-0 flex-1 rounded border border-border bg-muted/50" />
+    <div className="size-5 shrink-0 rounded border border-border bg-muted/50" />
   </div>
 )
 
 const NonePreview = () => (
-  <div className="flex items-center justify-center py-1">
+  <div className="flex items-center justify-center py-[0.1rem]">
     <span className="text-xs text-muted-foreground">—</span>
   </div>
 )
@@ -73,7 +73,7 @@ export const SidebarOptionsPicker = ({
           sizeClass="min-h-[88px] p-3"
         >
           <div className="flex h-full flex-col gap-3">
-            <div className="flex min-h-[2.75rem] shrink-0 items-start">
+            <div className="flex min-h-[3rem] shrink-0 items-start">
               <span className="font-medium">
                 {optionValue === 'full'
                   ? t('sidebarOptionsFull')
