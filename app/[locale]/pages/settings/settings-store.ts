@@ -3,15 +3,19 @@
 import { create } from 'zustand'
 import { persist, devtools } from 'zustand/middleware'
 
+export type SidebarOptions = 'full' | 'condensed' | 'none'
+
 export interface SettingsState {
   vibration: {
     diceRoll: boolean
     selectWheel: boolean
   }
+  sidebarOptions: SidebarOptions
   setVibration: (vibration: Partial<SettingsState['vibration']>) => void
   setDiceRollVibration: (enabled: boolean) => void
   setSelectWheelVibration: (enabled: boolean) => void
   setAllVibration: (enabled: boolean) => void
+  setSidebarOptions: (value: SidebarOptions) => void
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -22,6 +26,7 @@ export const useSettingsStore = create<SettingsState>()(
           diceRoll: true,
           selectWheel: true,
         },
+        sidebarOptions: 'full',
         setVibration: (newVibration) =>
           set((state) => ({
             vibration: { ...state.vibration, ...newVibration },
@@ -41,11 +46,13 @@ export const useSettingsStore = create<SettingsState>()(
               selectWheel: enabled,
             },
           }),
+        setSidebarOptions: (value) => set({ sidebarOptions: value }),
       }),
       {
         name: 'talis-settings',
         partialize: (state) => ({
           vibration: state.vibration,
+          sidebarOptions: state.sidebarOptions,
         }),
       }
     ),

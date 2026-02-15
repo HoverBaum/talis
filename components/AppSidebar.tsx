@@ -25,6 +25,7 @@ import { LanguageSelect } from './LanguageSelect'
 import { SelectRow } from './SelectRow'
 import { PWAInstallPrompt } from './PWAInstallPrompt'
 import { useThemeBranding } from '@/lib/theme-config'
+import { useSettingsStore } from '@/app/[locale]/pages/settings/settings-store'
 import packageJson from '@/package.json'
 import { rollers } from '@/lib/rollers'
 
@@ -37,6 +38,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const tLanguage = useTranslations('Language')
   const { setOpenMobile } = useSidebar()
   const branding = useThemeBranding()
+  const sidebarOptions = useSettingsStore((state) => state.sidebarOptions)
   const [isClient, setIsClient] = useState(false)
 
   // We need client info because we render based on localstorage.
@@ -153,11 +155,21 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarFooter>
         <div className="space-y-4 p-4">
-          <SelectRow label={tLanguage('select')}>
-            <LanguageSelect />
-          </SelectRow>
-          <ModeSelect />
-          <ThemeSelect />
+          {sidebarOptions === 'full' && (
+            <>
+              <SelectRow label={tLanguage('select')}>
+                <LanguageSelect />
+              </SelectRow>
+              <ModeSelect />
+              <ThemeSelect />
+            </>
+          )}
+          {sidebarOptions === 'condensed' && (
+            <div className="flex flex-wrap items-center gap-3">
+              <ThemeSelect variant="compact" />
+              <ModeSelect variant="iconOnly" />
+            </div>
+          )}
           <PWAInstallPrompt />
           <div className="text-xs text-muted-foreground space-y-1">
             <div>

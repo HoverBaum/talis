@@ -18,7 +18,8 @@ import { LanguagePicker } from '@/components/LanguagePicker'
 import { ThemePicker } from '@/components/ThemePicker'
 import { ModePicker } from '@/components/ModePicker'
 import { SetPageTitle } from '@/components/PageTitleProvider'
-import { Settings2, Palette, Vibrate, Info } from 'lucide-react'
+import { SidebarOptionsPicker } from '@/components/SidebarOptionsPicker'
+import { Settings2, Palette, PanelLeft, Vibrate, Info } from 'lucide-react'
 
 export default function SettingsPage() {
   const t = useTranslations('Settings')
@@ -26,8 +27,10 @@ export default function SettingsPage() {
   const tMode = useTranslations('Theme.mode')
   const tLanguage = useTranslations('Language')
   const vibration = useSettingsStore((state) => state.vibration)
+  const sidebarOptions = useSettingsStore((state) => state.sidebarOptions)
   const setDiceRollVibration = useSettingsStore((state) => state.setDiceRollVibration)
   const setSelectWheelVibration = useSettingsStore((state) => state.setSelectWheelVibration)
+  const setSidebarOptions = useSettingsStore((state) => state.setSidebarOptions)
 
   return (
     <>
@@ -78,6 +81,32 @@ export default function SettingsPage() {
                 {tLanguage('select')}
               </Label>
               <LanguagePicker groupLabelId="language-picker-label" />
+            </div>
+          </div>
+        </section>
+
+        {/* Sidebar Section */}
+        <section className="space-y-6">
+          <div className="flex items-center gap-2">
+            <PanelLeft className="h-5 w-5 text-muted-foreground" />
+            <div>
+              <h2 className="text-lg font-semibold">{t('sidebarOptions')}</h2>
+              <p className="text-sm text-muted-foreground">
+                {t('sidebarOptionsDescription')}
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-4 ml-7">
+            <div className="space-y-3">
+              <Label id="sidebar-options-label" className="text-base font-medium">
+                {t('sidebarOptionsLabel')}
+              </Label>
+              <SidebarOptionsPicker
+                value={sidebarOptions}
+                onValueChange={setSidebarOptions}
+                groupLabelId="sidebar-options-label"
+              />
             </div>
           </div>
         </section>
