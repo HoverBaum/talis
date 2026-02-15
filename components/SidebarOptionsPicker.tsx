@@ -46,7 +46,7 @@ const CondensedPreview = () => (
 )
 
 const NonePreview = () => (
-  <div className="flex items-center justify-center py-2">
+  <div className="flex items-center justify-center py-1">
     <span className="text-xs text-muted-foreground">—</span>
   </div>
 )
@@ -63,7 +63,7 @@ export const SidebarOptionsPicker = ({
     <div
       role="radiogroup"
       aria-labelledby={groupLabelId}
-      className={cn('grid grid-cols-1 gap-3 sm:grid-cols-3', className)}
+      className={cn('grid grid-cols-1 items-stretch gap-3 sm:grid-cols-3', className)}
     >
       {options.map((optionValue) => (
         <SelectionCard
@@ -72,15 +72,17 @@ export const SidebarOptionsPicker = ({
           onSelect={() => onValueChange(optionValue)}
           sizeClass="min-h-[88px] p-3"
         >
-          <div className="flex flex-col gap-3">
-            <span className="font-medium">
-              {optionValue === 'full'
-                ? t('sidebarOptionsFull')
-                : optionValue === 'condensed'
-                  ? t('sidebarOptionsCondensed')
-                  : t('sidebarOptionsNone')}
-            </span>
-            <div className="rounded-md border border-dashed border-muted-foreground/30 bg-muted/20 p-2">
+          <div className="flex h-full flex-col gap-3">
+            <div className="flex min-h-[2.75rem] shrink-0 items-start">
+              <span className="font-medium">
+                {optionValue === 'full'
+                  ? t('sidebarOptionsFull')
+                  : optionValue === 'condensed'
+                    ? t('sidebarOptionsCondensed')
+                    : t('sidebarOptionsNone')}
+              </span>
+            </div>
+            <div className="shrink-0 rounded-md border border-dashed border-muted-foreground/30 bg-muted/20 p-2">
               {optionValue === 'full' && <FullPreview />}
               {optionValue === 'condensed' && <CondensedPreview />}
               {optionValue === 'none' && <NonePreview />}
