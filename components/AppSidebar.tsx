@@ -166,10 +166,12 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
           )}
           {sidebarOptions === 'condensed' && (
             <div className="flex flex-wrap items-center gap-3">
-              <div className="min-w-0 flex-1">
+              <div className="flex min-w-0 flex-1 items-center">
                 <ThemeSelect variant="compact" />
               </div>
-              <ModeSelect variant="iconOnly" />
+              <div className="flex shrink-0 items-center">
+                <ModeSelect variant="iconOnly" />
+              </div>
             </div>
           )}
           <PWAInstallPrompt />

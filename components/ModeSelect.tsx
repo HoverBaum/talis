@@ -39,7 +39,7 @@ export function ModeSelect({ className, variant = 'full' }: ModeSelectProps) {
       <SelectTrigger
         className={
           variant === 'iconOnly'
-            ? 'size-8 w-8 p-0 [&>svg:last-of-type]:hidden'
+            ? 'size-9 w-9 justify-center p-0 [&>svg:last-of-type]:hidden'
             : 'w-full'
         }
         aria-label={t('select')}

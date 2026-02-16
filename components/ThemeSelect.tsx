@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useTranslations } from 'next-intl'
+import { cn } from '@/lib/utils'
 import { SelectRow } from './SelectRow'
 
 type ThemeSelectProps = {
@@ -42,7 +43,9 @@ export function ThemeSelect({ className, variant = 'full' }: ThemeSelectProps) {
   )
 
   if (variant === 'compact') {
-    return <div className={className}>{selectContent}</div>
+    return (
+      <div className={cn('min-w-0 w-full', className)}>{selectContent}</div>
+    )
   }
 
   return (
