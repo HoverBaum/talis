@@ -138,11 +138,16 @@
 
   html {
     background-color: var(--background, oklch(1 0 0));
+    height: 100%;
+    overflow: hidden;
   }
 
   body {
     @apply bg-background text-foreground;
+    height: 100%;
     min-height: 100vh;
+    min-height: 100dvh;
+    overflow: hidden;
   }
 }
 
