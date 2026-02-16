@@ -110,6 +110,22 @@ function SidebarProvider({
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [toggleSidebar])
 
+  // Back navigation closes the mobile sidebar (Android back button, browser back).
+  React.useEffect(() => {
+    if (!isMobile) return
+
+    if (openMobile) {
+      history.pushState({ mobileSidebar: true }, "")
+    }
+
+    const handlePopState = () => {
+      setOpenMobile(false)
+    }
+
+    window.addEventListener("popstate", handlePopState)
+    return () => window.removeEventListener("popstate", handlePopState)
+  }, [isMobile, openMobile, setOpenMobile])
+
   // We add a state so that we can do data-state="expanded" or "collapsed".
   // This makes it easier to style the sidebar with Tailwind classes.
   const state = open ? "expanded" : "collapsed"
