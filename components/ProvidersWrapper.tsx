@@ -30,7 +30,7 @@ export function ProvidersWrapper({
     <NextIntlClientProvider messages={messages} locale={locale} timeZone={timeZone}>
       <ThemeProvider defaultMode="system" defaultTheme="default">
         <PageTitleProvider>
-          <SidebarProvider className="flex-1 min-h-0">
+          <SidebarProvider>
             <AppSidebar />
             <MobileSwipeSidebar direction="close-overlay" />
             <MobileSwipeSidebar direction="open">

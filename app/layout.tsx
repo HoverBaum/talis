@@ -37,16 +37,14 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full min-h-dvh overflow-hidden flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <script
           dangerouslySetInnerHTML={{
             __html: themeInitScript,
           }}
         />
-        <div className="flex-1 min-h-0 flex flex-col">
-          {children}
-        </div>
+        {children}
       </body>
     </html>
   )
