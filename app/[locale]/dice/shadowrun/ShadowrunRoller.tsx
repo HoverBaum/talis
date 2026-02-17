@@ -65,8 +65,7 @@ export function ShadowrunRoller() {
   return (
     <RollerLayout>
       <RollerLayoutContent>
-        <div className="flex-grow min-h-0 grid grid-cols-12 auto-rows-fr h-0 pb-4">
-          <RollerLayoutResultArea
+        <RollerLayoutResultArea
             id="d6Results"
             showNewResultBottom={config.showNewResultBottom}
             className="col-span-10"
@@ -87,7 +86,6 @@ export function ShadowrunRoller() {
               onChange={setNumberOfDice}
             />
           </RollerLayoutControlArea>
-        </div>
       </RollerLayoutContent>
       <RollerLayoutFooter>
         <RollerControls

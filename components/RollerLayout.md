@@ -19,6 +19,8 @@ Root container component for dice roller layouts. Use this as the outermost wrap
 
 Wrapper for the main content area (results and controls). Use this component to wrap `RollerLayoutResultArea` and optionally `RollerLayoutControlArea`.
 
+Layout adapts automatically based on children: when `RollerLayoutControlArea` is present, a 12-column grid is used; otherwise a single-column layout.
+
 ### RollerLayoutResultArea
 
 Scrollable area for displaying dice roll results. Use this component to wrap the list of roll results.
@@ -49,18 +51,16 @@ Should be placed as the last child of `RollerLayout`.
 ```tsx
 <RollerLayout>
   <RollerLayoutContent>
-    <div className="flex-grow min-h-0 grid grid-cols-12 auto-rows-fr h-0 pb-4">
-      <RollerLayoutResultArea
-        id="results"
-        showNewResultBottom={true}
-        className="col-span-10"
-      >
-        {/* Roll results */}
-      </RollerLayoutResultArea>
-      <RollerLayoutControlArea className="col-span-2">
-        {/* Dice selector or other controls */}
-      </RollerLayoutControlArea>
-    </div>
+    <RollerLayoutResultArea
+      id="results"
+      showNewResultBottom={true}
+      className="col-span-10"
+    >
+      {/* Roll results */}
+    </RollerLayoutResultArea>
+    <RollerLayoutControlArea className="col-span-2">
+      {/* Dice selector or other controls */}
+    </RollerLayoutControlArea>
   </RollerLayoutContent>
   <RollerLayoutFooter>
     {/* Action buttons */}
@@ -91,5 +91,7 @@ Should be placed as the last child of `RollerLayout`.
 
 - D6 Roller
 - Daggerheart Roller
+- Polyhedral Roller
 - Shadowrun Roller
+- Coin Roller
 
