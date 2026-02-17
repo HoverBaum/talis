@@ -29,6 +29,7 @@ import Image from 'next/image'
 import { usePageTitle } from './PageTitleProvider'
 import { useThemeBranding } from '@/lib/theme-config'
 import { getRollerById } from '@/lib/rollers'
+import Link from 'next/link'
 
 export const PageTitle = () => {
   const { title, rollerId } = usePageTitle()
@@ -43,14 +44,16 @@ export const PageTitle = () => {
 
   return (
     <span className="font-semibold flex items-center gap-2">
-      <Image
-        src={branding.logo}
-        width={32}
-        height={32}
-        alt={`${branding.brandName} Logo`}
-        className="size-8 inline-block"
-      />
-      <span>{branding.brandName} - </span>
+      <Link href="/" className='flex items-center gap-2'>
+        <Image
+          src={branding.logo}
+          width={32}
+          height={32}
+          alt={`${branding.brandName} Logo`}
+          className="size-8 inline-block"
+        />
+
+        <span>{branding.brandName}</span></Link><span> - </span>
       {Icon && <Icon className="w-5 h-5" />}
       {title}
     </span>
