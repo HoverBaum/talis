@@ -19,7 +19,7 @@ Root container component for dice roller layouts. Use this as the outermost wrap
 
 Wrapper for the main content area (results and controls). Use this component to wrap `RollerLayoutResultArea` and optionally `RollerLayoutControlArea`.
 
-Layout adapts automatically based on children: when `RollerLayoutControlArea` is present, a 12-column grid is used; otherwise a single-column layout.
+Always uses grid. Layout adapts based on children: when `RollerLayoutControlArea` is present, a 12-column grid is used; otherwise a single-column grid (grid item stretches by default).
 
 ### RollerLayoutResultArea
 
@@ -30,7 +30,7 @@ Scrollable area for displaying dice roll results. Use this component to wrap the
 - `showNewResultBottom` (optional): Boolean to control scroll direction (default: `true`)
 
 When used in a grid layout with `RollerLayoutControlArea`, add `className="col-span-10"`.  
-When used alone, add `className="h-0 pb-2"` for proper spacing.
+When used alone, add `className="pb-2"` for spacing.
 
 ### RollerLayoutControlArea
 
@@ -76,7 +76,7 @@ Should be placed as the last child of `RollerLayout`.
     <RollerLayoutResultArea
       id="results"
       showNewResultBottom={true}
-      className="h-0 pb-2"
+      className="pb-2"
     >
       {/* Roll results */}
     </RollerLayoutResultArea>

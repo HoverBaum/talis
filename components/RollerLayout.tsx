@@ -29,7 +29,7 @@ type RollerLayoutResultAreaProps = {
  * - Required `id` prop for auto-scroll hooks
  * 
  * When used in a grid layout with RollerLayoutControlArea, add `className = "col-span-10"`.
- * When used alone, add `className = "h-0 pb-2"` for proper spacing.
+ * When used alone, add `className = "pb-2"` for spacing.
  */
 export const RollerLayoutResultArea = ({
   id,
@@ -104,9 +104,9 @@ export const RollerLayoutFooter = ({
  * RollerLayoutControlArea. It provides the flex-grow container that takes
  * up available space between the layout padding and footer.
  *
- * Layout adapts automatically based on children:
+ * Always uses grid. Layout adapts based on children:
  * - With RollerLayoutControlArea: 12-column grid (use col-span-10 on ResultArea, col-span-2 on ControlArea)
- * - ResultArea only: single-column layout (use h-0 pb-2 on ResultArea for proper spacing)
+ * - ResultArea only: single-column grid (use pb-2 on ResultArea for spacing; grid item stretches by default)
  *
  * Place this as the first child of RollerLayout, before RollerLayoutFooter.
  */
@@ -118,8 +118,7 @@ export const RollerLayoutContent = ({
     <div
       data-slot="roller-layout-content"
       className={cn(
-        'flex-grow min-h-0 grid auto-rows-fr h-0',
-        'grid-cols-1',
+        'flex-grow min-h-0 h-0 grid grid-cols-1 auto-rows-fr',
         'has-[[data-slot=roller-layout-control-area]]:grid-cols-12 has-[[data-slot=roller-layout-control-area]]:pb-4',
         className
       )}

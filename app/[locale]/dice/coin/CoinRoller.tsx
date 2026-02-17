@@ -98,7 +98,7 @@ export const CoinRoller = () => {
         <RollerLayoutResultArea
           id="coinResults"
           showNewResultBottom={config.showNewResultBottom}
-          className="h-0 pb-2"
+          className="pb-2"
         >
           {[...flips].reverse().map((flip, index) => (
             <CoinResultDisplay
