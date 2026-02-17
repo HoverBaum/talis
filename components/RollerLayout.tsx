@@ -42,7 +42,7 @@ export const RollerLayoutResultArea = ({
       data-slot="roller-layout-result-area"
       id={id}
       className={cn(
-        'flex-grow overflow-y-auto scrollbar-none pr-2 flex',
+        'flex-grow min-h-0 overflow-y-auto scrollbar-none pr-2 flex',
         showNewResultBottom ? 'flex-col-reverse' : 'flex-col',
         className
       )}
@@ -136,8 +136,8 @@ export const RollerLayout = ({ className, children, ...props }: React.ComponentP
       className={cn('h-full min-h-0 flex flex-col', className)}
       {...props}
     >
-      <div className="flex-grow basis-0 p-2 md:p-4">
-        <div className="h-full flex flex-col">
+      <div className="flex-grow basis-0 min-h-0 p-2 md:p-4">
+        <div className="h-full min-h-0 flex flex-col">
           {children}
         </div>
       </div>

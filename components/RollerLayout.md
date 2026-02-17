@@ -49,7 +49,7 @@ Should be placed as the last child of `RollerLayout`.
 ```tsx
 <RollerLayout>
   <RollerLayoutContent>
-    <div className="flex-grow grid grid-cols-12 h-0 pb-4">
+    <div className="flex-grow min-h-0 grid grid-cols-12 auto-rows-fr h-0 pb-4">
       <RollerLayoutResultArea
         id="results"
         showNewResultBottom={true}
