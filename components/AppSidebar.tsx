@@ -51,9 +51,11 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   // Get version from package.json
   const appVersion = packageJson.version
 
-  // Close sidebar on mobile when navigating
+  // Close sidebar on mobile when navigating.
+  // Pop the history state pushed when opening (line 65) to keep history consistent.
   const handleMobileNavigation = () => {
     setOpenMobile(false)
+    history.back()
   }
 
   // Back navigation closes the mobile sidebar (Android back button, browser back).
