@@ -52,10 +52,8 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const appVersion = packageJson.version
 
   // Close sidebar on mobile when navigating.
-  // Pop the history state pushed when opening (line 65) to keep history consistent.
   const handleMobileNavigation = () => {
     setOpenMobile(false)
-    history.back()
   }
 
   // Back navigation closes the mobile sidebar (Android back button, browser back).
@@ -177,23 +175,23 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
         <SidebarFooter>
           <div className="space-y-4 p-4">
             {sidebarOptions === 'full' && (
-            <>
-              <SelectRow label={tLanguage('select')}>
-                <LanguageSelect />
-              </SelectRow>
-              <ModeSelect />
-              <ThemeSelect />
-            </>
+              <>
+                <SelectRow label={tLanguage('select')}>
+                  <LanguageSelect />
+                </SelectRow>
+                <ModeSelect />
+                <ThemeSelect />
+              </>
             )}
             {sidebarOptions === 'condensed' && (
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="flex min-w-0 flex-1 items-center">
-                <ThemeSelect variant="compact" />
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex min-w-0 flex-1 items-center">
+                  <ThemeSelect variant="compact" />
+                </div>
+                <div className="flex shrink-0 items-center">
+                  <ModeSelect variant="iconOnly" />
+                </div>
               </div>
-              <div className="flex shrink-0 items-center">
-                <ModeSelect variant="iconOnly" />
-              </div>
-            </div>
             )}
             <PWAInstallPrompt />
             <div className="text-xs text-muted-foreground space-y-1">
@@ -205,7 +203,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
               <div>
                 <span>
                   {tFooter('builtBy')}{' '}
-                    <a
+                  <a
                     href="https://hendrikwallbaum.de/"
                     target="_blank"
                     rel="noopener noreferrer"
