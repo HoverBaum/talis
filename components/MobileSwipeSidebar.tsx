@@ -81,6 +81,7 @@ export const MobileSwipeSidebar = ({
           Math.abs(deltaX) > Math.abs(deltaY)
         ) {
           setOpenMobile(false)
+          history.back()
         }
       }
 
@@ -95,6 +96,7 @@ export const MobileSwipeSidebar = ({
 
   const handleOverlayClick = React.useCallback(() => {
     setOpenMobile(false)
+    history.back()
   }, [setOpenMobile])
 
   if (isCloseOverlay) {

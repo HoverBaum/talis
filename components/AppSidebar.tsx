@@ -37,7 +37,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const tPWA = useTranslations('PWA')
   const tFooter = useTranslations('Footer')
   const tLanguage = useTranslations('Language')
-  const { setOpenMobile } = useSidebar()
+  const { isMobile, openMobile, setOpenMobile } = useSidebar()
   const branding = useThemeBranding()
   const sidebarOptions = useSettingsStore((state) => state.sidebarOptions)
   const [isClient, setIsClient] = useState(false)
@@ -55,6 +55,23 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const handleMobileNavigation = () => {
     setOpenMobile(false)
   }
+
+  // Back navigation closes the mobile sidebar (Android back button, browser back).
+  // MobileSwipeSidebar pops the pushed state when closing via overlay or swipe.
+  useEffect(() => {
+    if (!isMobile) return
+
+    if (openMobile) {
+      history.pushState({ mobileSidebar: true }, '')
+    }
+
+    const handlePopState = () => {
+      setOpenMobile(false)
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [isMobile, openMobile, setOpenMobile])
 
   const mainNav = [
     {
