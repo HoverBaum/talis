@@ -29,7 +29,7 @@ type RollerLayoutResultAreaProps = {
  * - Required `id` prop for auto-scroll hooks
  * 
  * When used in a grid layout with RollerLayoutControlArea, add `className = "col-span-10"`.
- * When used alone, add `className = "h-0 pb-2"` for proper spacing.
+ * When used alone, add `className = "pb-2"` for spacing.
  */
 export const RollerLayoutResultArea = ({
   id,
@@ -42,7 +42,7 @@ export const RollerLayoutResultArea = ({
       data-slot="roller-layout-result-area"
       id={id}
       className={cn(
-        'flex-grow overflow-y-auto scrollbar-none pr-2 flex',
+        'flex-grow min-h-0 overflow-y-auto scrollbar-none pr-2 flex',
         showNewResultBottom ? 'flex-col-reverse' : 'flex-col',
         className
       )}
@@ -99,11 +99,15 @@ export const RollerLayoutFooter = ({
 
 /**
  * Wrapper for the main content area (results and controls).
- * 
+ *
  * Use this component to wrap RollerLayoutResultArea and optionally
  * RollerLayoutControlArea. It provides the flex-grow container that takes
  * up available space between the layout padding and footer.
- * 
+ *
+ * Always uses grid. Layout adapts based on children:
+ * - With RollerLayoutControlArea: 12-column grid (use col-span-10 on ResultArea, col-span-2 on ControlArea)
+ * - ResultArea only: single-column grid (use pb-2 on ResultArea for spacing; grid item stretches by default)
+ *
  * Place this as the first child of RollerLayout, before RollerLayoutFooter.
  */
 export const RollerLayoutContent = ({
@@ -113,7 +117,11 @@ export const RollerLayoutContent = ({
   return (
     <div
       data-slot="roller-layout-content"
-      className={cn('flex-grow flex flex-col h-0', className)}
+      className={cn(
+        'flex-grow min-h-0 h-0 grid grid-cols-1 auto-rows-fr',
+        'has-[[data-slot=roller-layout-control-area]]:grid-cols-12 has-[[data-slot=roller-layout-control-area]]:pb-4',
+        className
+      )}
       {...props}
     />
   )
@@ -136,8 +144,8 @@ export const RollerLayout = ({ className, children, ...props }: React.ComponentP
       className={cn('h-full min-h-0 flex flex-col', className)}
       {...props}
     >
-      <div className="flex-grow basis-0 p-2 md:p-4">
-        <div className="h-full flex flex-col">
+      <div className="flex-grow basis-0 min-h-0 p-2 md:p-4">
+        <div className="h-full min-h-0 flex flex-col">
           {children}
         </div>
       </div>

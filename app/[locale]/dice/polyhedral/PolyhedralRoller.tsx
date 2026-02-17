@@ -94,28 +94,26 @@ export function PolyhedralRoller() {
     return (
         <RollerLayout>
             <RollerLayoutContent>
-                <div className="flex-grow grid grid-cols-12 h-0 pb-4">
-                    <RollerLayoutResultArea
-                        id="polyhedralResults"
-                        showNewResultBottom={config.showNewResultBottom}
-                        className="col-span-10"
-                    >
-                        {[...rolls].reverse().map((roll, index) => (
-                            <PolyhedralResultDisplay
-                                isHighlighted={index === 0}
-                                key={roll.id}
-                                diceRoll={roll}
-                            />
-                        ))}
-                    </RollerLayoutResultArea>
-                    <RollerLayoutControlArea className="col-span-2">
-                        <DiceSelectWheel
-                            max={maxQuantity}
-                            current={currentQuantity}
-                            onChange={handleQuantityChange}
+                <RollerLayoutResultArea
+                    id="polyhedralResults"
+                    showNewResultBottom={config.showNewResultBottom}
+                    className="col-span-10"
+                >
+                    {[...rolls].reverse().map((roll, index) => (
+                        <PolyhedralResultDisplay
+                            isHighlighted={index === 0}
+                            key={roll.id}
+                            diceRoll={roll}
                         />
-                    </RollerLayoutControlArea>
-                </div>
+                    ))}
+                </RollerLayoutResultArea>
+                <RollerLayoutControlArea className="col-span-2">
+                    <DiceSelectWheel
+                        max={maxQuantity}
+                        current={currentQuantity}
+                        onChange={handleQuantityChange}
+                    />
+                </RollerLayoutControlArea>
             </RollerLayoutContent>
             <RollerLayoutFooter>
                 <RollerControls
