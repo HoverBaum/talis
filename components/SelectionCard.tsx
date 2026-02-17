@@ -47,7 +47,7 @@ export const SelectionCard = ({
       )}
     >
       {isSelected && (
-        <div className="absolute -top-2 -right-2 rounded-full bg-primary p-1 z-20">
+        <div className="absolute -top-2 -right-2 rounded-full bg-primary p-1">
           <Check className="h-3 w-3 text-primary-foreground" />
         </div>
       )}
