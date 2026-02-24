@@ -3,6 +3,7 @@
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *, [data-mode='dark'] *));
+@custom-variant standalone (@media (display-mode: standalone));
 
 @theme inline {
   --color-background: var(--background);
@@ -142,7 +143,6 @@
 
   body {
     @apply bg-background text-foreground;
-    min-height: 100dvh;
   }
 }
 
