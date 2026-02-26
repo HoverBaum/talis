@@ -14,6 +14,8 @@
  * - Uses native touch events (no dependencies)
  * - Requires 80px horizontal distance and mostly-horizontal gesture to avoid scroll conflicts
  * - Does not call preventDefault so native scrolling continues to work
+ * - Suppresses the open gesture when the touch originates within a horizontally scrollable element
+ *   (e.g. roller footer controls) to avoid conflicts with horizontal scrolling
  */
 
 import * as React from 'react'
@@ -25,6 +27,20 @@ import { cn } from '@/lib/utils'
 
 const SWIPE_THRESHOLD_PX = 80
 const SIDEBAR_WIDTH_MOBILE = '18rem'
+
+const isWithinHorizontalScroller = (target: EventTarget | null): boolean => {
+  let el = target as HTMLElement | null
+  while (el) {
+    if (el.scrollWidth > el.clientWidth) {
+      const overflowX = getComputedStyle(el).overflowX
+      if (overflowX === 'auto' || overflowX === 'scroll') {
+        return true
+      }
+    }
+    el = el.parentElement
+  }
+  return false
+}
 
 type MobileSwipeSidebarProps = React.ComponentProps<'div'> & {
   children?: React.ReactNode
@@ -51,12 +67,13 @@ export const MobileSwipeSidebar = ({
   const handleTouchStart = React.useCallback(
     (e: React.TouchEvent) => {
       if (!isActive) return
+      if (isOpenGesture && isWithinHorizontalScroller(e.target)) return
       const touch = e.touches[0]
       if (touch) {
         touchStartRef.current = { x: touch.clientX, y: touch.clientY }
       }
     },
-    [isActive]
+    [isActive, isOpenGesture]
   )
 
   const handleTouchEnd = React.useCallback(
