@@ -14,10 +14,15 @@ import { RollerControls } from '@/components/RollerControls'
 import { D6ResultDisplay } from './D6ResultDisplay'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
+import {
+  useHasHydrated,
+  type StoreWithPersist,
+} from '@/hooks/useStoreHydration'
 import { nanoid } from 'nanoid'
 
 export function D6Roller() {
   const t = useTranslations('General')
+  const hasHydrated = useHasHydrated(useD6Store as unknown as StoreWithPersist)
   const rolls = useD6Store((state) => state.rolls)
   const config = useD6Store((state) => state.config)
   const numberOfDice = useD6Store((state) => state.diceAmount)
@@ -50,25 +55,28 @@ export function D6Roller() {
     <RollerLayout>
       <RollerLayoutContent>
         <RollerLayoutResultArea
-            id="d6Results"
-            showNewResultBottom={config.showNewResultBottom}
-            className="col-span-10"
-          >
-            {[...rolls].reverse().map((roll, index) => (
-              <D6ResultDisplay
-                isHighlighted={index === 0}
-                key={roll.id}
-                diceRoll={roll}
-              />
-            ))}
-          </RollerLayoutResultArea>
-          <RollerLayoutControlArea className="col-span-2">
+          id="d6Results"
+          showNewResultBottom={config.showNewResultBottom}
+          className="col-span-10"
+        >
+          {[...rolls].reverse().map((roll, index) => (
+            <D6ResultDisplay
+              isHighlighted={index === 0}
+              key={roll.id}
+              diceRoll={roll}
+            />
+          ))}
+        </RollerLayoutResultArea>
+        <RollerLayoutControlArea className="col-span-2">
+          {/* Wait for hydration before rendering config-dependent maxDice */}
+          {hasHydrated && (
             <DiceSelectWheel
               max={config.maxDice}
               current={numberOfDice}
               onChange={setNumberOfDice}
             />
-          </RollerLayoutControlArea>
+          )}
+        </RollerLayoutControlArea>
       </RollerLayoutContent>
       <RollerLayoutFooter>
         <RollerControls
@@ -82,4 +90,3 @@ export function D6Roller() {
     </RollerLayout>
   )
 }
-

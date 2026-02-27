@@ -44,6 +44,10 @@ import { RollerControls } from '@/components/RollerControls'
 import { CoinResultDisplay } from './CoinResultDisplay'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
+import {
+  useHasHydrated,
+  type StoreWithPersist,
+} from '@/hooks/useStoreHydration'
 import { Button } from '@/components/ui/button'
 import { nanoid } from 'nanoid'
 
@@ -52,7 +56,7 @@ import { nanoid } from 'nanoid'
  */
 const getCoinDisplayName = (
   displayName: string,
-  t: ReturnType<typeof useTranslations<'Roller'>>
+  t: ReturnType<typeof useTranslations<'Roller'>>,
 ): string => {
   if (displayName.startsWith('Coin.')) {
     const key = displayName.replace('Coin.', '')
@@ -63,6 +67,9 @@ const getCoinDisplayName = (
 
 export const CoinRoller = () => {
   const tRoller = useTranslations('Roller')
+  const hasHydrated = useHasHydrated(
+    useCoinStore as unknown as StoreWithPersist,
+  )
   const flips = useCoinStore((state) => state.flips)
   const config = useCoinStore((state) => state.config)
   const selectedCoinId = useCoinStore((state) => state.selectedCoinId)
@@ -116,21 +123,26 @@ export const CoinRoller = () => {
           rollLabel={tRoller('Coin.flip')}
           settingsHref="coin/config"
         >
-          <div className="flex gap-2">
-            {allCoins.map((coin) => (
-              <Button
-                key={coin.id}
-                variant={selectedCoinId === coin.id ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => setSelectedCoinId(coin.id)}
-                className={
-                  selectedCoinId === coin.id ? 'border border-transparent' : ''
-                }
-              >
-                {getCoinDisplayName(coin.displayName, tRoller)}
-              </Button>
-            ))}
-          </div>
+          {/* Wait for hydration before rendering config-dependent custom coins */}
+          {hasHydrated && (
+            <div className="flex gap-2">
+              {allCoins.map((coin) => (
+                <Button
+                  key={coin.id}
+                  variant={selectedCoinId === coin.id ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setSelectedCoinId(coin.id)}
+                  className={
+                    selectedCoinId === coin.id
+                      ? 'border border-transparent'
+                      : ''
+                  }
+                >
+                  {getCoinDisplayName(coin.displayName, tRoller)}
+                </Button>
+              ))}
+            </div>
+          )}
         </RollerControls>
       </RollerLayoutFooter>
     </RollerLayout>

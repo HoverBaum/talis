@@ -89,14 +89,12 @@ export function ShadowrunRoller() {
         </RollerLayoutResultArea>
         <RollerLayoutControlArea className="col-span-2">
           {/* Wait for hydration before rendering config-dependent maxDiceAmount */}
-          {hasHydrated ? (
+          {hasHydrated && (
             <DiceSelectWheel
               max={config.maxDiceAmount}
               current={numberOfDice}
               onChange={setNumberOfDice}
             />
-          ) : (
-            <Skeleton className="h-80 w-full rounded-lg" />
           )}
         </RollerLayoutControlArea>
       </RollerLayoutContent>

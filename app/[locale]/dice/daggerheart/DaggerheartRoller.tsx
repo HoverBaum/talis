@@ -6,7 +6,10 @@ import {
   DaggerheartRoll,
   type DaggerheartRollResult,
 } from './daggerheart-store'
-import { type PolyhedralDiceType, type PolyhedralRollResult } from '../polyhedral/polyhedral-store'
+import {
+  type PolyhedralDiceType,
+  type PolyhedralRollResult,
+} from '../polyhedral/polyhedral-store'
 import {
   RollerLayout,
   RollerLayoutResultArea,
@@ -20,19 +23,28 @@ import { PolyhedralResultDisplay } from '@/components/PolyhedralResultDisplay'
 import { DiceSelectWheel } from '@/components/DiceSelectWheel'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
+import {
+  useHasHydrated,
+  type StoreWithPersist,
+} from '@/hooks/useStoreHydration'
 import { Button } from '@/components/ui/button'
 import { nanoid } from 'nanoid'
 
 export function DaggerheartRoller() {
   const t = useTranslations('Roller.Daggerheart')
   const tGeneral = useTranslations('General')
+  const hasHydrated = useHasHydrated(
+    useDaggerheartStore as unknown as StoreWithPersist,
+  )
   const rolls = useDaggerheartStore((state) => state.rolls)
   const config = useDaggerheartStore((state) => state.config)
   const rollMode = useDaggerheartStore((state) => state.rollMode)
   const setRollMode = useDaggerheartStore((state) => state.setRollMode)
-  const selectedDiceType = useDaggerheartStore((state) => state.selectedDiceType)
+  const selectedDiceType = useDaggerheartStore(
+    (state) => state.selectedDiceType,
+  )
   const setSelectedDiceType = useDaggerheartStore(
-    (state) => state.setSelectedDiceType
+    (state) => state.setSelectedDiceType,
   )
   const diceQuantities = useDaggerheartStore((state) => state.diceQuantities)
   const setDiceQuantity = useDaggerheartStore((state) => state.setDiceQuantity)
@@ -40,12 +52,13 @@ export function DaggerheartRoller() {
   const addRoll = useDaggerheartStore((state) => state.addRoll)
 
   // Type guard to check if a roll is a DaggerheartRoll
-  const isDaggerheartRoll = (roll: DaggerheartRollResult): roll is DaggerheartRoll => {
+  const isDaggerheartRoll = (
+    roll: DaggerheartRollResult,
+  ): roll is DaggerheartRoll => {
     return roll.type === 'Daggerheart'
   }
 
-  const maxQuantity =
-    config.diceSettings?.[selectedDiceType]?.maxQuantity ?? 8
+  const maxQuantity = config.diceSettings?.[selectedDiceType]?.maxQuantity ?? 8
   const currentQuantity = diceQuantities[selectedDiceType] ?? 1
 
   const rollDice = () => {
@@ -66,7 +79,10 @@ export function DaggerheartRoller() {
     }
   }
 
-  const rollPolyhedralDice = (diceType: PolyhedralDiceType, quantity: number) => {
+  const rollPolyhedralDice = (
+    diceType: PolyhedralDiceType,
+    quantity: number,
+  ) => {
     diceRollVibration(quantity)
     const diceRolls: number[] = []
     for (let i = 0; i < quantity; i++) {
@@ -100,36 +116,39 @@ export function DaggerheartRoller() {
     <RollerLayout>
       <RollerLayoutContent>
         <RollerLayoutResultArea
-            id="d12Results"
-            showNewResultBottom={true}
-            className="col-span-10"
-          >
-            {[...rolls].reverse().map((roll, index) => {
-              if (isDaggerheartRoll(roll)) {
-                return (
-                  <DaggerheartResultDisplay
-                    key={roll.id}
-                    roll={roll}
-                    isHighlighted={index === 0}
-                  />
-                )
-              } else {
-                return (
-                  <PolyhedralResultDisplay
-                    key={roll.id}
-                    diceRoll={roll}
-                    isHighlighted={index === 0}
-                  />
-                )
-              }
-            })}
-          </RollerLayoutResultArea>
-          <RollerLayoutControlArea className="col-span-2">
+          id="d12Results"
+          showNewResultBottom={true}
+          className="col-span-10"
+        >
+          {[...rolls].reverse().map((roll, index) => {
+            if (isDaggerheartRoll(roll)) {
+              return (
+                <DaggerheartResultDisplay
+                  key={roll.id}
+                  roll={roll}
+                  isHighlighted={index === 0}
+                />
+              )
+            } else {
+              return (
+                <PolyhedralResultDisplay
+                  key={roll.id}
+                  diceRoll={roll}
+                  isHighlighted={index === 0}
+                />
+              )
+            }
+          })}
+        </RollerLayoutResultArea>
+        <RollerLayoutControlArea className="col-span-2">
+          {/* Wait for hydration before rendering config-dependent dice wheel */}
+          {hasHydrated && (
             <div
-              className={`transition-opacity duration-300 ease-out h-full ${rollMode === 'polyhedral'
-                ? 'opacity-100 pointer-events-auto'
-                : 'opacity-0 pointer-events-none'
-                }`}
+              className={`transition-opacity duration-300 ease-out h-full ${
+                rollMode === 'polyhedral'
+                  ? 'opacity-100 pointer-events-auto'
+                  : 'opacity-0 pointer-events-none'
+              }`}
             >
               <DiceSelectWheel
                 max={maxQuantity}
@@ -137,7 +156,8 @@ export function DaggerheartRoller() {
                 onChange={handleQuantityChange}
               />
             </div>
-          </RollerLayoutControlArea>
+          )}
+        </RollerLayoutControlArea>
       </RollerLayoutContent>
       <RollerLayoutFooter>
         <RollerControls
@@ -147,24 +167,30 @@ export function DaggerheartRoller() {
           rollLabel={tGeneral('roll')}
           settingsHref="daggerheart/config"
         >
-          {hasEnabledPolyhedralDice && (
+          {/* Wait for hydration before rendering config-dependent enabled dice */}
+          {hasHydrated && hasEnabledPolyhedralDice && (
             <div className="flex gap-2">
               <Button
                 variant={rollMode === 'daggerheart' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setRollMode('daggerheart')}
-                className={rollMode === 'daggerheart' ? 'border border-transparent' : ''}
+                className={
+                  rollMode === 'daggerheart' ? 'border border-transparent' : ''
+                }
               >
                 {t('roll')}
               </Button>
               {(config.enabledDice || []).map((diceType) => {
-                const isSelected = rollMode === 'polyhedral' && selectedDiceType === diceType
+                const isSelected =
+                  rollMode === 'polyhedral' && selectedDiceType === diceType
                 return (
                   <Button
                     key={diceType}
                     variant={isSelected ? 'default' : 'outline'}
                     size="sm"
-                    onClick={() => handleDiceTypeSelect(diceType as PolyhedralDiceType)}
+                    onClick={() =>
+                      handleDiceTypeSelect(diceType as PolyhedralDiceType)
+                    }
                     className={isSelected ? 'border border-transparent' : ''}
                   >
                     d{diceType}
