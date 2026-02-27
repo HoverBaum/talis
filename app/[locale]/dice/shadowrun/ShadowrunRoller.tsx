@@ -18,10 +18,18 @@ import { QuickButton } from './QuickButton'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { DiceRollType } from './shadowrun-store'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
+import {
+  useHasHydrated,
+  type StoreWithPersist,
+} from '@/hooks/useStoreHydration'
+import { Skeleton } from '@/components/ui/skeleton'
 import { nanoid } from 'nanoid'
 
 export function ShadowrunRoller() {
   const t = useTranslations('Roller.Shadowrun')
+  const hasHydrated = useHasHydrated(
+    useShadowrunStore as unknown as StoreWithPersist,
+  )
   const rolls = useShadowrunStore((state) => state.rolls)
   const config = useShadowrunStore((state) => state.config)
   const numberOfDice = useShadowrunStore((state) => state.diceAmount)
@@ -39,7 +47,7 @@ export function ShadowrunRoller() {
 
       const hits = diceRolls.reduce(
         (hits, roll) => (roll >= 5 ? hits + 1 : hits),
-        0
+        0,
       )
 
       const isGlitch = diceRolls.filter((roll) => roll === 1).length >= dice / 2
@@ -54,7 +62,7 @@ export function ShadowrunRoller() {
       }
       addRoll(result)
     },
-    [rolls.length, addRoll]
+    [rolls.length, addRoll],
   )
 
   useAutoScroll('d6Results', config.showNewResultBottom, [
@@ -66,26 +74,31 @@ export function ShadowrunRoller() {
     <RollerLayout>
       <RollerLayoutContent>
         <RollerLayoutResultArea
-            id="d6Results"
-            showNewResultBottom={config.showNewResultBottom}
-            className="col-span-10"
-          >
-            {[...rolls].reverse().map((roll, index) => (
-              <DiceRollResult
-                diceRoll={roll}
-                isFaded={index > 1}
-                isHighlighted={index === 0}
-                key={roll.timestamp}
-              />
-            ))}
-          </RollerLayoutResultArea>
-          <RollerLayoutControlArea className="col-span-2">
+          id="d6Results"
+          showNewResultBottom={config.showNewResultBottom}
+          className="col-span-10"
+        >
+          {[...rolls].reverse().map((roll, index) => (
+            <DiceRollResult
+              diceRoll={roll}
+              isFaded={index > 1}
+              isHighlighted={index === 0}
+              key={roll.timestamp}
+            />
+          ))}
+        </RollerLayoutResultArea>
+        <RollerLayoutControlArea className="col-span-2">
+          {/* Wait for hydration before rendering config-dependent maxDiceAmount */}
+          {hasHydrated ? (
             <DiceSelectWheel
               max={config.maxDiceAmount}
               current={numberOfDice}
               onChange={setNumberOfDice}
             />
-          </RollerLayoutControlArea>
+          ) : (
+            <Skeleton className="h-80 w-full rounded-lg" />
+          )}
+        </RollerLayoutControlArea>
       </RollerLayoutContent>
       <RollerLayoutFooter>
         <RollerControls
@@ -95,38 +108,42 @@ export function ShadowrunRoller() {
           rollLabel={t('roll')}
           settingsHref="shadowrun/config"
         >
-          {config.useFreeInput && (
-            <FreeDiceInput
-              numberOfDice={numberOfDice}
-              onNewNumber={setNumberOfDice}
-              maxDiceAmount={config.maxDiceAmount}
-            />
-          )}
-
-          {config.useFreeInput && config.useQuickButtons && (
-            <div className="h-8 w-px bg-border" />
-          )}
-
-          {config.useQuickButtons && (
-            <div className="flex">
-              {config.quickButtons.map((quickButton) => (
-                <QuickButton
-                  quickButton={quickButton}
-                  key={quickButton.id}
-                  onClick={() => {
-                    if (quickButton.type === 'instantRoll') {
-                      rollD6(quickButton.amount)
-                    } else {
-                      setNumberOfDice(quickButton.amount)
-                    }
-                  }}
+          {/* Wait for hydration before rendering config-dependent UI */}
+          {hasHydrated && (
+            <>
+              {config.useFreeInput && (
+                <FreeDiceInput
+                  numberOfDice={numberOfDice}
+                  onNewNumber={setNumberOfDice}
+                  maxDiceAmount={config.maxDiceAmount}
                 />
-              ))}
-            </div>
+              )}
+
+              {config.useFreeInput && config.useQuickButtons && (
+                <div className="h-8 w-px bg-border" />
+              )}
+
+              {config.useQuickButtons && (
+                <div className="flex">
+                  {config.quickButtons.map((quickButton) => (
+                    <QuickButton
+                      quickButton={quickButton}
+                      key={quickButton.id}
+                      onClick={() => {
+                        if (quickButton.type === 'instantRoll') {
+                          rollD6(quickButton.amount)
+                        } else {
+                          setNumberOfDice(quickButton.amount)
+                        }
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </RollerControls>
       </RollerLayoutFooter>
     </RollerLayout>
   )
 }
-
