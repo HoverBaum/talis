@@ -76,7 +76,7 @@ export const RollerControls = ({
         <>
             {children ? (
                 <div className="flex items-center justify-between py-2 overflow-hidden gap-2">
-                    <div className="flex items-center gap-2 min-w-0 overflow-x-auto scrollbar-none">
+                    <div className="flex items-center gap-2 min-w-0 overflow-x-auto scrollbar-none [&>*]:shrink-0">
                         {children}
                     </div>
                     <div className="flex-shrink-0">

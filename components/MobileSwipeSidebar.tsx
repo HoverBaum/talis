@@ -14,6 +14,8 @@
  * - Uses native touch events (no dependencies)
  * - Requires 80px horizontal distance and mostly-horizontal gesture to avoid scroll conflicts
  * - Does not call preventDefault so native scrolling continues to work
+ * - Suppresses the open gesture when the touch originates within a horizontally scrollable element
+ *   (e.g. roller footer controls) to avoid conflicts with horizontal scrolling
  */
 
 import * as React from 'react'
@@ -25,6 +27,33 @@ import { cn } from '@/lib/utils'
 
 const SWIPE_THRESHOLD_PX = 80
 const SIDEBAR_WIDTH_MOBILE = '18rem'
+
+const isWithinHorizontalScroller = (target: EventTarget | null): boolean => {
+  // Only proceed for HTMLElements; non-element targets cannot be scrollers.
+  const doc = typeof document !== 'undefined' ? document : null
+  let el = target instanceof HTMLElement ? target : null
+
+  while (el && doc && el !== doc.body && el !== doc.documentElement) {
+    // Fast-path: check inline styles first; very cheap and doesn't trigger layout.
+    const inlineOverflowX = el.style.overflowX || el.style.overflow
+    let overflowX = inlineOverflowX
+
+    if (!overflowX || overflowX === 'visible') {
+      // Fall back to computed style if inline style is not informative.
+      overflowX = getComputedStyle(el).overflowX
+    }
+
+    if (overflowX === 'auto' || overflowX === 'scroll') {
+      // Only measure widths when horizontal overflow is enabled.
+      if (el.scrollWidth > el.clientWidth) {
+        return true
+      }
+    }
+
+    el = el.parentElement
+  }
+  return false
+}
 
 type MobileSwipeSidebarProps = React.ComponentProps<'div'> & {
   children?: React.ReactNode
@@ -50,13 +79,16 @@ export const MobileSwipeSidebar = ({
 
   const handleTouchStart = React.useCallback(
     (e: React.TouchEvent) => {
+      // Always reset touchStartRef at the beginning of a touch sequence
+      touchStartRef.current = null
       if (!isActive) return
+      if (isOpenGesture && isWithinHorizontalScroller(e.target)) return
       const touch = e.touches[0]
       if (touch) {
         touchStartRef.current = { x: touch.clientX, y: touch.clientY }
       }
     },
-    [isActive]
+    [isActive, isOpenGesture]
   )
 
   const handleTouchEnd = React.useCallback(
