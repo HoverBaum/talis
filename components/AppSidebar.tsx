@@ -19,7 +19,6 @@ import {
   SidebarRail,
   useSidebar,
 } from '@/components/ui/sidebar'
-import { MobileSwipeSidebar } from './MobileSwipeSidebar'
 import { ThemeSelect } from './ThemeSelect'
 import { ModeSelect } from './ModeSelect'
 import { LanguageSelect } from './LanguageSelect'
@@ -37,7 +36,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const tPWA = useTranslations('PWA')
   const tFooter = useTranslations('Footer')
   const tLanguage = useTranslations('Language')
-  const { isMobile, openMobile, setOpenMobile } = useSidebar()
+  const { setOpenMobile } = useSidebar()
   const branding = useThemeBranding()
   const sidebarOptions = useSettingsStore((state) => state.sidebarOptions)
   const [isClient, setIsClient] = useState(false)
@@ -55,23 +54,6 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const handleMobileNavigation = () => {
     setOpenMobile(false)
   }
-
-  // Back navigation closes the mobile sidebar (Android back button, browser back).
-  // MobileSwipeSidebar pops the pushed state when closing via overlay or swipe.
-  useEffect(() => {
-    if (!isMobile) return
-
-    if (openMobile) {
-      history.pushState({ mobileSidebar: true }, '')
-    }
-
-    const handlePopState = () => {
-      setOpenMobile(false)
-    }
-
-    window.addEventListener('popstate', handlePopState)
-    return () => window.removeEventListener('popstate', handlePopState)
-  }, [isMobile, openMobile, setOpenMobile])
 
   const mainNav = [
     {
@@ -116,117 +98,115 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar {...props}>
-      <MobileSwipeSidebar direction="close">
-        <SidebarHeader>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton size="lg" asChild>
-                <Link href={`/${locale}`} className="flex items-center gap-2" onClick={handleMobileNavigation}>
-                  <Image
-                    src={branding.logo}
-                    width={32}
-                    height={32}
-                    alt={`${branding.brandName} Logo`}
-                    className="rounded"
-                  />
-                  <div className="flex flex-col gap-0.5 leading-none">
-                    <span className="font-semibold">{branding.brandName}</span>
-                  </div>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {mainNav.map((item) => (
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" asChild>
+              <Link href={`/${locale}`} className="flex items-center gap-2" onClick={handleMobileNavigation}>
+                <Image
+                  src={branding.logo}
+                  width={32}
+                  height={32}
+                  alt={`${branding.brandName} Logo`}
+                  className="rounded"
+                />
+                <div className="flex flex-col gap-0.5 leading-none">
+                  <span className="font-semibold">{branding.brandName}</span>
+                </div>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {mainNav.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild isActive={isActive(item.url)}>
+                    <Link href={item.url} onClick={handleMobileNavigation}>{item.title}</Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>{navT('rollers')}</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {rollersNav.map((item) => {
+                const Icon = item.icon
+                return (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild isActive={isActive(item.url)}>
-                      <Link href={item.url} onClick={handleMobileNavigation}>{item.title}</Link>
+                      <Link href={item.url} onClick={handleMobileNavigation}>
+                        {Icon && <Icon />}
+                        <span>{item.title}</span>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-          <SidebarGroup>
-            <SidebarGroupLabel>{navT('rollers')}</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {rollersNav.map((item) => {
-                  const Icon = item.icon
-                  return (
-                    <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild isActive={isActive(item.url)}>
-                        <Link href={item.url} onClick={handleMobileNavigation}>
-                          {Icon && <Icon />}
-                          <span>{item.title}</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  )
-                })}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        </SidebarContent>
-        <SidebarFooter>
-          <div className="space-y-4 p-4">
-            {sidebarOptions === 'full' && (
-              <>
-                <SelectRow label={tLanguage('select')}>
-                  <LanguageSelect />
-                </SelectRow>
-                <ModeSelect />
-                <ThemeSelect />
-              </>
-            )}
-            {sidebarOptions === 'condensed' && (
-              <div className="flex flex-wrap items-center gap-3">
-                <div className="flex min-w-0 flex-1 items-center">
-                  <ThemeSelect variant="compact" />
-                </div>
-                <div className="flex shrink-0 items-center">
-                  <ModeSelect variant="iconOnly" />
-                </div>
+                )
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter>
+        <div className="space-y-4 p-4">
+          {sidebarOptions === 'full' && (
+            <>
+              <SelectRow label={tLanguage('select')}>
+                <LanguageSelect />
+              </SelectRow>
+              <ModeSelect />
+              <ThemeSelect />
+            </>
+          )}
+          {sidebarOptions === 'condensed' && (
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="flex min-w-0 flex-1 items-center">
+                <ThemeSelect variant="compact" />
               </div>
-            )}
-            <PWAInstallPrompt />
-            <div className="text-xs text-muted-foreground space-y-1">
-              <div>
-                <span>
-                  {tPWA('version')}: {appVersion}
-                </span>
-              </div>
-              <div>
-                <span>
-                  {tFooter('builtBy')}{' '}
-                  <a
-                    href="https://hendrikwallbaum.de/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:text-foreground"
-                  >
-                    Hendrik
-                  </a>{' '}
-                  on{' '}
-                  <a
-                    href="https://github.com/HoverBaum/talis"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline hover:text-foreground"
-                  >
-                    GitHub
-                  </a>
-                </span>
+              <div className="flex shrink-0 items-center">
+                <ModeSelect variant="iconOnly" />
               </div>
             </div>
+          )}
+          <PWAInstallPrompt />
+          <div className="text-xs text-muted-foreground space-y-1">
+            <div>
+              <span>
+                {tPWA('version')}: {appVersion}
+              </span>
+            </div>
+            <div>
+              <span>
+                {tFooter('builtBy')}{' '}
+                <a
+                  href="https://hendrikwallbaum.de/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-foreground"
+                >
+                  Hendrik
+                </a>{' '}
+                on{' '}
+                <a
+                  href="https://github.com/HoverBaum/talis"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:text-foreground"
+                >
+                  GitHub
+                </a>
+              </span>
+            </div>
           </div>
-        </SidebarFooter>
-        <SidebarRail />
-      </MobileSwipeSidebar>
+        </div>
+      </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   )
 }
