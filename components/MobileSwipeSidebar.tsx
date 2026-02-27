@@ -79,6 +79,8 @@ export const MobileSwipeSidebar = ({
 
   const handleTouchStart = React.useCallback(
     (e: React.TouchEvent) => {
+      // Always reset touchStartRef at the beginning of a touch sequence
+      touchStartRef.current = null
       if (!isActive) return
       if (isOpenGesture && isWithinHorizontalScroller(e.target)) return
       const touch = e.touches[0]
