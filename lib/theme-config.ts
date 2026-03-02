@@ -28,6 +28,7 @@ const themeBranding: Record<Theme, ThemeBranding> = {
     logo: spmLogo,
     brandName: 'SPM'
   },
+  brutalism: defaultBranding,
 }
 
 /**

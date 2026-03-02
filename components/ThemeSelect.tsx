@@ -5,9 +5,10 @@
  * - Theme selector for sidebar and settings
  * - variant="full": label + select dropdown
  * - variant="compact": dropdown only, no label (for condensed sidebar)
+ * - Options are derived from `THEMES` in `ThemeProvider` to avoid implicit coupling.
  */
 
-import { Theme, useTheme } from './ThemeProvider'
+import { THEMES, type Theme, useTheme } from './ThemeProvider'
 import {
   Select,
   SelectContent,
@@ -34,10 +35,11 @@ export function ThemeSelect({ className, variant = 'full' }: ThemeSelectProps) {
         <SelectValue placeholder={t('select')} />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="default">{t('default')}</SelectItem>
-        <SelectItem value="shadowrun">{t('shadowrun')}</SelectItem>
-        <SelectItem value="nature">{t('nature')}</SelectItem>
-        <SelectItem value="spm">{t('spm')}</SelectItem>
+        {THEMES.map((themeKey) => (
+          <SelectItem key={themeKey} value={themeKey}>
+            {t(themeKey)}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   )

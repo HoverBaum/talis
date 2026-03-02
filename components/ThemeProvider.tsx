@@ -12,10 +12,10 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 
 export type Mode = 'system' | 'light' | 'dark'
-export type Theme = 'default' | 'shadowrun' | 'nature' | 'spm'
+export type Theme = 'default' | 'shadowrun' | 'nature' | 'spm' | 'brutalism'
 export type ResolvedMode = 'light' | 'dark'
 
-export const THEMES: Theme[] = ['default', 'shadowrun', 'nature', 'spm']
+export const THEMES: Theme[] = ['default', 'shadowrun', 'nature', 'spm', 'brutalism']
 
 type ThemeProviderProps = {
   children: ReactNode

@@ -40,7 +40,7 @@ import type { Theme } from '@/components/ThemeProvider'
 import { getThemeBranding } from '@/lib/theme-config'
 import Image from 'next/image'
 
-const themes: Theme[] = ['default', 'shadowrun', 'nature', 'spm']
+const themes: Theme[] = ['default', 'shadowrun', 'nature', 'spm', 'brutalism']
 
 // Sample dice roll result - same for all themes
 const sampleRoll = {
