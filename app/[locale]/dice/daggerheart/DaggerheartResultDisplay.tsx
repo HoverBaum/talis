@@ -27,22 +27,20 @@ export function DaggerheartResultDisplay({
   }
 
   const hopeClasses = useThemeColors
-    ? 'border-roll-positive bg-roll-positive/50 text-roll-positive-foreground dark:text-foreground dark:bg-roll-positive/10'
+    ? 'border-roll-positive bg-roll-positive text-roll-positive-foreground '
     : 'border-yellow-200 bg-yellow-200/50 text-foreground dark:bg-yellow-900/10'
   const fearClasses = useThemeColors
-    ? 'border-roll-negative bg-roll-negative/50 text-roll-negative-foreground dark:text-foreground dark:bg-roll-negative/10'
+    ? 'border-roll-negative bg-roll-negative text-roll-negative-foreground '
     : 'border-purple-200 bg-purple-200/50 text-foreground dark:bg-purple-900/10'
 
   return (
     <div
-      className={`animate-fadeIn p-2 mb-6 ${
-        isHighlighted ? 'bg-muted p-4 text-xl border-2 rounded-lg' : 'text-md'
-      }`}
+      className={`animate-fadeIn p-2 mb-6 ${isHighlighted ? 'bg-muted p-4 text-xl border-2 rounded-lg' : 'text-md'
+        }`}
     >
       <div
-        className={`mb-1 flex items-center ${
-          isHighlighted ? 'font-bold mb-2' : ''
-        }`}
+        className={`mb-1 flex items-center ${isHighlighted ? 'font-bold mb-2' : ''
+          }`}
       >
         {!isCritical && (
           <>
