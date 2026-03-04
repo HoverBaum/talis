@@ -40,7 +40,11 @@
         "noQuickButtons": "No quick buttons configured. Add one below to get started.",
         "addQuickButton": "Add Quick Button",
         "rollInstantly": "Roll instantly",
-        "back": "Back"
+        "back": "Back",
+        "maxDiceAmount": "Max dice on wheel",
+        "maxDiceAmountDescription": "Maximum number of dice selectable on the wheel",
+        "resetMaxDiceAmount": "Reset",
+        "resetMaxDiceAmountTooltip": "Reset to default ({amount})"
       }
     },
     "D6": {

@@ -3,7 +3,7 @@
 import { create } from 'zustand'
 import { createStoreMiddleware } from '@/utils/store-utils'
 
-const MAX_DICE_AMOUNT = 50
+export const MAX_DICE_AMOUNT = 30
 
 export type QuickButtonTypes = 'instantRoll' | 'setAmount'
 export type QuickButtonType = {
@@ -79,7 +79,7 @@ export const useShadowrunStore = create<ShadowrunState>()(
           const config = {
             ...state.config,
             quickButtons: state.config.quickButtons.filter(
-              (button) => button.id !== id
+              (button) => button.id !== id,
             ),
           }
           return { config }
@@ -108,6 +108,5 @@ export const useShadowrunStore = create<ShadowrunState>()(
         diceAmount: state.diceAmount,
       }),
     },
-  })
+  }),
 )
-

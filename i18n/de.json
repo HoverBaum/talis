@@ -40,7 +40,11 @@
         "noQuickButtons": "Keine Quick Buttons konfiguriert. Füge unten einen hinzu, um zu beginnen.",
         "addQuickButton": "Quick Button hinzufügen",
         "rollInstantly": "Einmal würfeln",
-        "back": "Zurück"
+        "back": "Zurück",
+        "maxDiceAmount": "Max. Würfel am Rad",
+        "maxDiceAmountDescription": "Maximale Anzahl an Würfeln, die am Rad auswählbar sind",
+        "resetMaxDiceAmount": "Zurücksetzen",
+        "resetMaxDiceAmountTooltip": "Auf Standard zurücksetzen ({amount})"
       }
     },
     "D6": {
