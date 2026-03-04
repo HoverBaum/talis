@@ -19,7 +19,8 @@ import { ThemePicker } from '@/components/ThemePicker'
 import { ModePicker } from '@/components/ModePicker'
 import { SetPageTitle } from '@/components/PageTitleProvider'
 import { SidebarOptionsPicker } from '@/components/SidebarOptionsPicker'
-import { Settings2, Palette, PanelLeft, Vibrate, Info } from 'lucide-react'
+import { useIOSNavigation } from '@/hooks/use-ios-navigation'
+import { Settings2, Palette, PanelLeft, Vibrate, Info, Smartphone } from 'lucide-react'
 
 export default function SettingsPage() {
   const t = useTranslations('Settings')
@@ -31,6 +32,11 @@ export default function SettingsPage() {
   const setDiceRollVibration = useSettingsStore((state) => state.setDiceRollVibration)
   const setSelectWheelVibration = useSettingsStore((state) => state.setSelectWheelVibration)
   const setSidebarOptions = useSettingsStore((state) => state.setSidebarOptions)
+  const iosNavigationEnabled = useSettingsStore((state) => state.iosNavigationEnabled)
+  const setIosNavigationEnabled = useSettingsStore((state) => state.setIosNavigationEnabled)
+  const { isResolved: isIOSNavigationResolved } = useIOSNavigation()
+
+  const isIOSNavigationEnabled = iosNavigationEnabled ?? false
 
   return (
     <>
@@ -98,6 +104,28 @@ export default function SettingsPage() {
           </div>
 
           <div className="space-y-4 ml-7">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between py-2">
+                <div className="space-y-0.5">
+                  <Label htmlFor="iosNavigationEnabled" className="flex items-center gap-2">
+                    <Smartphone className="h-4 w-4 text-muted-foreground" />
+                    {t('iosNavigation')}
+                  </Label>
+                  <p className="text-sm text-muted-foreground">
+                    {t('iosNavigationDescription')}
+                  </p>
+                </div>
+                <Switch
+                  id="iosNavigationEnabled"
+                  checked={isIOSNavigationEnabled}
+                  disabled={!isIOSNavigationResolved}
+                  onCheckedChange={(checked) => setIosNavigationEnabled(checked)}
+                />
+              </div>
+            </div>
+
+            <Separator />
+
             <div className="space-y-3">
               <Label id="sidebar-options-label" className="text-base font-medium">
                 {t('sidebarOptionsLabel')}
@@ -105,8 +133,14 @@ export default function SettingsPage() {
               <SidebarOptionsPicker
                 value={sidebarOptions}
                 onValueChange={setSidebarOptions}
+                disabled={isIOSNavigationEnabled}
                 groupLabelId="sidebar-options-label"
               />
+              {isIOSNavigationEnabled && (
+                <p className="text-sm text-muted-foreground">
+                  {t('sidebarOptionsDisabledByIosNavigation')}
+                </p>
+              )}
             </div>
           </div>
         </section>

@@ -15,6 +15,7 @@ import type { SidebarOptions } from '@/app/[locale]/pages/settings/settings-stor
 type SidebarOptionsPickerProps = {
   value: SidebarOptions
   onValueChange: (value: SidebarOptions) => void
+  disabled?: boolean
   className?: string
   groupLabelId?: string
 }
@@ -54,6 +55,7 @@ const NonePreview = () => (
 export const SidebarOptionsPicker = ({
   value,
   onValueChange,
+  disabled = false,
   className,
   groupLabelId,
 }: SidebarOptionsPickerProps) => {
@@ -63,13 +65,19 @@ export const SidebarOptionsPicker = ({
     <div
       role="radiogroup"
       aria-labelledby={groupLabelId}
+      aria-disabled={disabled}
       className={cn('grid grid-cols-1 items-stretch gap-3 sm:grid-cols-3', className)}
     >
       {options.map((optionValue) => (
         <SelectionCard
           key={optionValue}
           isSelected={value === optionValue}
-          onSelect={() => onValueChange(optionValue)}
+          onSelect={() => {
+            if (!disabled) {
+              onValueChange(optionValue)
+            }
+          }}
+          disabled={disabled}
           sizeClass="min-h-[88px] p-3"
         >
           <div className="flex h-full flex-col gap-3">

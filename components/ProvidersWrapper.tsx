@@ -9,6 +9,8 @@ import { PageTitle } from './PageTitle'
 import { PageTitleProvider } from './PageTitleProvider'
 import { PWAUpdatePrompt } from './PWAUpdatePrompt'
 import { RegisterServiceWorker } from '@/app/register-sw'
+import { useIOSNavigation } from '@/hooks/use-ios-navigation'
+import { IosBackButton } from './IosBackButton'
 
 type ProvidersWrapperProps = {
   messages: Record<string, unknown>
@@ -24,18 +26,23 @@ export function ProvidersWrapper({
   timeZone = 'UTC',
   children,
 }: ProvidersWrapperProps) {
+  const { isIOSNavigationEnabled } = useIOSNavigation()
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale} timeZone={timeZone}>
       <ThemeProvider defaultMode="system" defaultTheme="default">
         <PageTitleProvider>
           <SidebarProvider>
-            <AppSidebar />
+            {!isIOSNavigationEnabled && <AppSidebar />}
             <SidebarInset>
               <header
                 className="flex h-16 shrink-0 items-center gap-2 border-b px-4 sticky top-0 z-10 bg-background"
               >
-                <SidebarTrigger className="-ml-1" />
+                {isIOSNavigationEnabled ? (
+                  <IosBackButton />
+                ) : (
+                  <SidebarTrigger className="-ml-1" />
+                )}
                 <Separator orientation="vertical" className="mr-2 h-4" />
                 <PageTitle />
               </header>

@@ -11,11 +11,14 @@ export interface SettingsState {
     selectWheel: boolean
   }
   sidebarOptions: SidebarOptions
+  iosNavigationEnabled?: boolean
   setVibration: (vibration: Partial<SettingsState['vibration']>) => void
   setDiceRollVibration: (enabled: boolean) => void
   setSelectWheelVibration: (enabled: boolean) => void
   setAllVibration: (enabled: boolean) => void
   setSidebarOptions: (value: SidebarOptions) => void
+  setIosNavigationEnabled: (enabled: boolean) => void
+  initializeIosNavigationEnabled: (isIOSDevice: boolean) => void
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -27,6 +30,7 @@ export const useSettingsStore = create<SettingsState>()(
           selectWheel: true,
         },
         sidebarOptions: 'full',
+        iosNavigationEnabled: undefined,
         setVibration: (newVibration) =>
           set((state) => ({
             vibration: { ...state.vibration, ...newVibration },
@@ -47,12 +51,20 @@ export const useSettingsStore = create<SettingsState>()(
             },
           }),
         setSidebarOptions: (value) => set({ sidebarOptions: value }),
+        setIosNavigationEnabled: (enabled) => set({ iosNavigationEnabled: enabled }),
+        initializeIosNavigationEnabled: (isIOSDevice) =>
+          set((state) =>
+            typeof state.iosNavigationEnabled === 'undefined'
+              ? { iosNavigationEnabled: isIOSDevice }
+              : state
+          ),
       }),
       {
         name: 'talis-settings',
         partialize: (state) => ({
           vibration: state.vibration,
           sidebarOptions: state.sidebarOptions,
+          iosNavigationEnabled: state.iosNavigationEnabled,
         }),
       }
     ),

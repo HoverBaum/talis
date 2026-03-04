@@ -148,6 +148,7 @@
     "roll": "Roll"
   },
   "Navigation": {
+    "back": "Back",
     "home": "Home",
     "about": "About",
     "changelog": "Changelog",
@@ -212,10 +213,13 @@
     "appearanceDescription": "Customize language, theme, and color mode",
     "sidebarOptions": "Sidebar options",
     "sidebarOptionsDescription": "Choose how language, theme, and mode are shown in the sidebar",
+    "iosNavigation": "iOS Navigation",
+    "iosNavigationDescription": "Enable iOS-style navigation with a back button and no sidebar",
     "sidebarOptionsLabel": "Display",
     "sidebarOptionsFull": "Full (language, theme, mode)",
     "sidebarOptionsCondensed": "Condensed (theme, mode icon)",
     "sidebarOptionsNone": "Hidden",
+    "sidebarOptionsDisabledByIosNavigation": "Sidebar options are disabled while iOS Navigation is enabled.",
     "vibrationSettings": "Vibration",
     "vibrationSettingsDescription": "Configure haptic feedback for dice rolling and selection",
     "enableAllVibration": "Enable all vibration",

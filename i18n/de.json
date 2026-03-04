@@ -148,6 +148,7 @@
     "roll": "Würfeln"
   },
   "Navigation": {
+    "back": "Zurück",
     "home": "Startseite",
     "about": "Über",
     "changelog": "Changelog",
@@ -212,10 +213,13 @@
     "appearanceDescription": "Sprache, Theme und Farbmodus anpassen",
     "sidebarOptions": "Sidebar-Optionen",
     "sidebarOptionsDescription": "Wähle, wie Sprache, Theme und Modus in der Sidebar angezeigt werden",
+    "iosNavigation": "iOS-Navigation",
+    "iosNavigationDescription": "Aktiviert eine iOS-typische Navigation mit Zurück-Button und ohne Sidebar",
     "sidebarOptionsLabel": "Anzeige",
     "sidebarOptionsFull": "Voll (Sprache, Theme, Modus)",
     "sidebarOptionsCondensed": "Kompakt (Theme, Modus-Icon)",
     "sidebarOptionsNone": "Ausgeblendet",
+    "sidebarOptionsDisabledByIosNavigation": "Sidebar-Optionen sind deaktiviert, solange iOS-Navigation aktiv ist.",
     "vibrationSettings": "Vibration",
     "vibrationSettingsDescription": "Haptisches Feedback für Würfeln und Auswahl konfigurieren",
     "enableAllVibration": "Alle Vibrationen aktivieren",
