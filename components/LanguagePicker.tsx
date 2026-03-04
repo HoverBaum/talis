@@ -14,18 +14,16 @@ import { useTranslations } from 'next-intl'
 import { i18n, type Locale } from '@/i18n/config'
 import { Languages } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useEffect, useState } from 'react'
 import { SelectionCard } from './SelectionCard'
+import { useClientReady } from '@/hooks/useClientReady'
 
 type LanguagePreviewCardProps = {
-  locale: Locale
   isSelected: boolean
   onSelect: () => void
   label: string
 }
 
 const LanguagePreviewCard = ({
-  locale,
   isSelected,
   onSelect,
   label,
@@ -50,11 +48,7 @@ export const LanguagePicker = ({ className, groupLabelId }: LanguagePickerProps)
   const router = useRouter()
   const pathname = usePathname()
   const t = useTranslations('Language')
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const isClient = useClientReady()
 
   const handleLanguageChange = (newLocale: Locale) => {
     const segments = pathname.split('/').filter(Boolean)
@@ -68,7 +62,7 @@ export const LanguagePicker = ({ className, groupLabelId }: LanguagePickerProps)
   }
 
   // Prevent hydration mismatch by not rendering until mounted
-  if (!mounted) {
+  if (!isClient) {
     return (
       <div
         role="radiogroup"
@@ -99,7 +93,6 @@ export const LanguagePicker = ({ className, groupLabelId }: LanguagePickerProps)
       {i18n.locales.map((loc) => (
         <LanguagePreviewCard
           key={loc}
-          locale={loc}
           isSelected={locale === loc}
           onSelect={() => handleLanguageChange(loc)}
           label={loc === 'en' ? t('english') : t('german')}

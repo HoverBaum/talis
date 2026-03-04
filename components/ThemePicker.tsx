@@ -20,8 +20,8 @@ import { getThemeBranding } from '@/lib/theme-config'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
-import { useEffect, useState } from 'react'
 import { SelectionCard } from './SelectionCard'
+import { useClientReady } from '@/hooks/useClientReady'
 
 // Color strip showing key theme colors using global mode
 const ColorStrip = () => {
@@ -89,14 +89,10 @@ type ThemePickerProps = {
 export const ThemePicker = ({ className, groupLabelId }: ThemePickerProps) => {
   const { theme: currentTheme, setTheme, resolvedMode } = useTheme()
   const t = useTranslations('Theme')
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const isClient = useClientReady()
 
   // Prevent hydration mismatch by not rendering until mounted
-  if (!mounted) {
+  if (!isClient) {
     return (
       <div
         role="radiogroup"

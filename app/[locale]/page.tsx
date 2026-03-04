@@ -43,15 +43,13 @@ export default async function HomePage({
             <h2 className="text-xl font-semibold">{navT('rollers')}</h2>
             <div className="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 @3xl:grid-cols-4 gap-4">
               {rollerNavItems.map((roller) => {
-                const nameKeyPart = roller.nameKey.split('.')[1]
-                const subtitleKeyPart = roller.subtitleKey.split('.')[1]
                 return (
                   <HomeCard
                     key={roller.id}
                     href={`/${locale}${roller.link}`}
                     icon={roller.icon}
-                    title={navT(nameKeyPart as any)}
-                    description={t(subtitleKeyPart as any)}
+                    title={navT(roller.nameKey)}
+                    description={t(roller.subtitleKey)}
                   />
                 )
               })}
@@ -62,15 +60,13 @@ export default async function HomePage({
             <h2 className="text-xl font-semibold">{navT('pages')}</h2>
             <div className="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 @3xl:grid-cols-4 gap-4">
               {pageNavItems.map((page) => {
-                const nameKeyPart = page.nameKey.split('.')[1]
-                const subtitleKeyPart = page.subtitleKey.split('.')[1]
                 return (
                   <HomeCard
                     key={page.id}
                     href={`/${locale}${page.link}`}
                     icon={page.icon}
-                    title={navT(nameKeyPart as any)}
-                    description={t(subtitleKeyPart as any)}
+                    title={navT(page.nameKey)}
+                    description={t(page.subtitleKey)}
                   />
                 )
               })}

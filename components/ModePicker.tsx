@@ -14,8 +14,8 @@ import { type Mode, type ResolvedMode, useTheme } from './ThemeProvider'
 import { useTranslations } from 'next-intl'
 import { Sun, Moon, SunMoonIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useEffect, useState } from 'react'
 import { SelectionCard } from './SelectionCard'
+import { useClientReady } from '@/hooks/useClientReady'
 
 const modes: Mode[] = ['light', 'dark', 'system']
 
@@ -60,14 +60,10 @@ type ModePickerProps = {
 export const ModePicker = ({ className, groupLabelId }: ModePickerProps) => {
   const { mode: currentMode, setMode, systemMode } = useTheme()
   const t = useTranslations('Theme.mode')
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const isClient = useClientReady()
 
   // Prevent hydration mismatch by not rendering until mounted
-  if (!mounted) {
+  if (!isClient) {
     return (
       <div
         role="radiogroup"

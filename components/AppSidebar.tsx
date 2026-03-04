@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, type ComponentProps } from 'react'
+import { type ComponentProps } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -28,6 +28,7 @@ import { useThemeBranding } from '@/lib/theme-config'
 import { useSettingsStore } from '@/app/[locale]/pages/settings/settings-store'
 import packageJson from '@/package.json'
 import { rollerNavItems, pageNavItems } from '@/lib/nav'
+import { useHasHydrated } from '@/hooks/useStoreHydration'
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
@@ -38,14 +39,8 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const tLanguage = useTranslations('Language')
   const { setOpenMobile } = useSidebar()
   const branding = useThemeBranding()
+  const hasHydrated = useHasHydrated(useSettingsStore)
   const sidebarOptions = useSettingsStore((state) => state.sidebarOptions)
-  const [isClient, setIsClient] = useState(false)
-
-  // We need client info because we render based on localstorage.
-  // https://nextjs.org/docs/messages/react-hydration-error
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
 
   // Get version from package.json
   const appVersion = packageJson.version
@@ -62,9 +57,8 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
       icon: null,
     },
     ...pageNavItems.map((item) => {
-      const nameKeyPart = item.nameKey.split('.')[1]
       return {
-        title: navT(nameKeyPart as any),
+        title: navT(item.nameKey),
         url: `/${locale}${item.link}`,
         icon: null,
       }
@@ -72,9 +66,8 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   ]
 
   const rollersNav = rollerNavItems.map((roller) => {
-    const nameKeyPart = roller.nameKey.split('.')[1]
     return {
-      title: navT(nameKeyPart as any),
+      title: navT(roller.nameKey),
       url: `/${locale}${roller.link}`,
       icon: roller.icon,
     }
@@ -84,7 +77,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
     return pathname === url
   }
 
-  if (!isClient) {
+  if (!hasHydrated) {
     return null
   }
 

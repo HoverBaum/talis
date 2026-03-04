@@ -1,14 +1,21 @@
 import { Settings2, Info, ScrollText, type LucideIcon } from 'lucide-react'
-import { rollers } from './rollers'
+import { rollers, type RollerNameKey, type RollerSubtitleKey } from './rollers'
 
 export type NavCategory = 'roller' | 'page'
+export type PageNameKey = 'about' | 'changelog' | 'settings'
+export type PageSubtitleKey =
+  | 'aboutDescription'
+  | 'changelogDescription'
+  | 'settingsDescription'
+export type NavNameKey = RollerNameKey | PageNameKey
+export type NavSubtitleKey = RollerSubtitleKey | PageSubtitleKey
 
 export interface NavItem {
   id: string
   link: string
   icon: LucideIcon
-  nameKey: string
-  subtitleKey: string
+  nameKey: NavNameKey
+  subtitleKey: NavSubtitleKey
   category: NavCategory
 }
 
@@ -26,24 +33,24 @@ export const pageNavItems: NavItem[] = [
     id: 'about',
     link: '/pages/about',
     icon: Info,
-    nameKey: 'Navigation.about',
-    subtitleKey: 'Home.aboutDescription',
+    nameKey: 'about',
+    subtitleKey: 'aboutDescription',
     category: 'page',
   },
   {
     id: 'changelog',
     link: '/pages/changelog',
     icon: ScrollText,
-    nameKey: 'Navigation.changelog',
-    subtitleKey: 'Home.changelogDescription',
+    nameKey: 'changelog',
+    subtitleKey: 'changelogDescription',
     category: 'page',
   },
   {
     id: 'settings',
     link: '/pages/settings',
     icon: Settings2,
-    nameKey: 'Navigation.settings',
-    subtitleKey: 'Home.settingsDescription',
+    nameKey: 'settings',
+    subtitleKey: 'settingsDescription',
     category: 'page',
   },
 ]
