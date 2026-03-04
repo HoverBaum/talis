@@ -80,7 +80,7 @@ export const getAllCoins = (config: CoinConfigType): CoinType[] => {
  */
 export const getCoinById = (
   coinId: string,
-  config: CoinConfigType
+  config: CoinConfigType,
 ): CoinType | undefined => {
   return getAllCoins(config).find((coin) => coin.id === coinId)
 }
@@ -109,20 +109,23 @@ if (typeof window !== 'undefined') {
         // Remove deprecated primary-accent if present
         const currentConfig = parsed.state.config
         if (currentConfig.resultColorMode === 'primary-accent') {
-          const migratedConfig = { ...currentConfig, resultColorMode: 'positive-negative' }
+          const migratedConfig = {
+            ...currentConfig,
+            resultColorMode: 'positive-negative',
+          }
           parsed.state.config = migratedConfig
           localStorage.setItem(storageKey, JSON.stringify(parsed))
         }
       }
     }
-  } catch (e) {
+  } catch {
     // If migration fails, continue with defaults
   }
 }
 
 export const useCoinStore = create<CoinState>()(
   createStoreMiddleware({
-    stateCreator: (set, get, api) => {
+    stateCreator: (set) => {
       return {
         selectedCoinId: 'heads-tails',
         flips: [],
@@ -135,9 +138,9 @@ export const useCoinStore = create<CoinState>()(
           })),
         updateConfig: (newConfig) => {
           return set((state) => {
-            const updated = { ...state.config, ...newConfig };
-            return { config: updated };
-          });
+            const updated = { ...state.config, ...newConfig }
+            return { config: updated }
+          })
         },
         addCustomCoin: (coin: CoinType) =>
           set((state) => ({
@@ -149,7 +152,7 @@ export const useCoinStore = create<CoinState>()(
         removeCustomCoin: (coinId: string) =>
           set((state) => {
             const newCustomCoins = state.config.customCoins.filter(
-              (c) => c.id !== coinId
+              (c) => c.id !== coinId,
             )
             // If the removed coin was selected, switch to default
             const needsSwitch =
@@ -163,7 +166,7 @@ export const useCoinStore = create<CoinState>()(
                 customCoins: newCustomCoins,
               },
             }
-          })
+          }),
       }
     },
     persistConfig: {
@@ -172,8 +175,8 @@ export const useCoinStore = create<CoinState>()(
         return {
           config: state.config,
           selectedCoinId: state.selectedCoinId,
-        };
+        }
       },
     },
-  })
+  }),
 )

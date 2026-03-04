@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "theme:check": "node scripts/check-theme-contrast.js"
+    "theme:check": "node scripts/check-theme-contrast.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

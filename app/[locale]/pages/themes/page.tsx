@@ -26,15 +26,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Skeleton } from '@/components/ui/skeleton'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog'
 import { d6Mapping } from '@/utils/dice-constants'
 import type { Theme } from '@/components/ThemeProvider'
 import { getThemeBranding } from '@/lib/theme-config'

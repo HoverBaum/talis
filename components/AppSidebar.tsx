@@ -26,7 +26,6 @@ import { SelectRow } from './SelectRow'
 import { PWAInstallPrompt } from './PWAInstallPrompt'
 import { useThemeBranding } from '@/lib/theme-config'
 import { useSettingsStore } from '@/app/[locale]/pages/settings/settings-store'
-import packageJson from '@/package.json'
 import { rollerNavItems, pageNavItems } from '@/lib/nav'
 import { useHasHydrated } from '@/hooks/useStoreHydration'
 
@@ -42,8 +41,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const hasHydrated = useHasHydrated(useSettingsStore)
   const sidebarOptions = useSettingsStore((state) => state.sidebarOptions)
 
-  // Get version from package.json
-  const appVersion = packageJson.version
+  const appVersion = process.env.NEXT_PUBLIC_APP_VERSION ?? 'dev'
 
   // Close sidebar on mobile when navigating.
   const handleMobileNavigation = () => {

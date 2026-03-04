@@ -20,7 +20,6 @@
  * 
  * Used by PolyhedralRoller and DaggerheartRoller to display polyhedral dice roll history in the result area.
  */
-import { useTranslations } from 'next-intl'
 import { PolyhedralRollResult, usePolyhedralStore } from '@/app/[locale]/dice/polyhedral/polyhedral-store'
 
 type PolyhedralResultDisplayProps = {
@@ -32,7 +31,6 @@ export function PolyhedralResultDisplay({
     diceRoll,
     isHighlighted = false,
 }: PolyhedralResultDisplayProps) {
-    const t = useTranslations('General')
     const sortDice = usePolyhedralStore((state) => state.config.sortDice)
     const sumDice = usePolyhedralStore((state) => state.config.sumDice)
 
@@ -77,4 +75,3 @@ export function PolyhedralResultDisplay({
         </div>
     )
 }
-

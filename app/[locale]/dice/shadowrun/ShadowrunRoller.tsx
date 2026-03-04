@@ -1,6 +1,5 @@
 'use client'
 
-import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { useShadowrunStore } from './shadowrun-store'
 import { DiceRollResult } from './DiceRollResult'
@@ -22,7 +21,6 @@ import {
   useHasHydrated,
   type StoreWithPersist,
 } from '@/hooks/useStoreHydration'
-import { Skeleton } from '@/components/ui/skeleton'
 import { nanoid } from 'nanoid'
 
 export function ShadowrunRoller() {
@@ -37,33 +35,30 @@ export function ShadowrunRoller() {
   const clearRolls = useShadowrunStore((state) => state.clearRolls)
   const addRoll = useShadowrunStore((state) => state.addRoll)
 
-  const rollD6 = useCallback(
-    (dice: number) => {
-      diceRollVibration(dice)
-      const diceRolls: number[] = []
-      for (let i = 0; i < dice; i++) {
-        diceRolls.push(Math.floor(Math.random() * 6) + 1)
-      }
+  const rollD6 = (dice: number) => {
+    diceRollVibration(dice)
+    const diceRolls: number[] = []
+    for (let i = 0; i < dice; i++) {
+      diceRolls.push(Math.floor(Math.random() * 6) + 1)
+    }
 
-      const hits = diceRolls.reduce(
-        (hits, roll) => (roll >= 5 ? hits + 1 : hits),
-        0,
-      )
+    const hits = diceRolls.reduce(
+      (hits, roll) => (roll >= 5 ? hits + 1 : hits),
+      0,
+    )
 
-      const isGlitch = diceRolls.filter((roll) => roll === 1).length >= dice / 2
-      const isCriticalGlitch = isGlitch && hits === 0
+    const isGlitch = diceRolls.filter((roll) => roll === 1).length >= dice / 2
+    const isCriticalGlitch = isGlitch && hits === 0
 
-      const result: DiceRollType = {
-        results: diceRolls,
-        type: 'Shadowrun',
-        timestamp: Date.now(),
-        id: nanoid(),
-        shadowrun: { hits, isGlitch, isCriticalGlitch },
-      }
-      addRoll(result)
-    },
-    [rolls.length, addRoll],
-  )
+    const result: DiceRollType = {
+      results: diceRolls,
+      type: 'Shadowrun',
+      timestamp: Date.now(),
+      id: nanoid(),
+      shadowrun: { hits, isGlitch, isCriticalGlitch },
+    }
+    addRoll(result)
+  }
 
   useAutoScroll('d6Results', config.showNewResultBottom, [
     rolls,

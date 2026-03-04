@@ -28,7 +28,7 @@ const DEFAULT_CONFIG = {
       acc[diceType] = { maxQuantity: DEFAULT_MAX_QUANTITY }
       return acc
     },
-    {} as Record<number, { maxQuantity: number }>
+    {} as Record<number, { maxQuantity: number }>,
   ),
 }
 
@@ -49,12 +49,15 @@ export interface DaggerheartState {
   setSelectedDiceType: (diceType: PolyhedralDiceType) => void
   setDiceQuantity: (diceType: number, quantity: number) => void
   toggleDiceType: (diceType: PolyhedralDiceType) => void
-  setMaxQuantityForDice: (diceType: PolyhedralDiceType, maxQuantity: number) => void
+  setMaxQuantityForDice: (
+    diceType: PolyhedralDiceType,
+    maxQuantity: number,
+  ) => void
 }
 
 export const useDaggerheartStore = create<DaggerheartState>()(
   createStoreMiddleware({
-    stateCreator: (set, get) => ({
+    stateCreator: (set) => ({
       rolls: [],
       config: DEFAULT_CONFIG,
       rollMode: 'daggerheart' as RollMode,
@@ -80,7 +83,10 @@ export const useDaggerheartStore = create<DaggerheartState>()(
               ...(newConfig.diceSettings || {}),
             },
             // Ensure enabledDice is an array
-            enabledDice: newConfig.enabledDice || state.config.enabledDice || DEFAULT_CONFIG.enabledDice,
+            enabledDice:
+              newConfig.enabledDice ||
+              state.config.enabledDice ||
+              DEFAULT_CONFIG.enabledDice,
           }
           const config = mergedConfig
           // If enabled dice changed, ensure selected dice type is still enabled
@@ -140,7 +146,10 @@ export const useDaggerheartStore = create<DaggerheartState>()(
             selectedDiceType: newSelectedDiceType,
           }
         }),
-      setMaxQuantityForDice: (diceType: PolyhedralDiceType, maxQuantity: number) =>
+      setMaxQuantityForDice: (
+        diceType: PolyhedralDiceType,
+        maxQuantity: number,
+      ) =>
         set((state) => {
           const safe = Math.max(1, Math.floor(maxQuantity))
           // Merge with defaults to ensure all required properties exist
@@ -166,5 +175,5 @@ export const useDaggerheartStore = create<DaggerheartState>()(
       }),
     },
     devtoolsName: 'DaggerheartStore',
-  })
+  }),
 )
