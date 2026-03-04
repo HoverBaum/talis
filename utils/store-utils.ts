@@ -1,7 +1,7 @@
 'use client'
 
 import { StateCreator } from 'zustand'
-import { devtools, persist } from 'zustand/middleware'
+import { devtools, persist, type PersistOptions } from 'zustand/middleware'
 
 export const STORAGE_PREFIX = 'talis_deletable'
 
@@ -21,6 +21,8 @@ export interface StoreConfig<T> {
   persistConfig?: {
     name: string
     partialize?: (state: T) => Partial<T>
+    version?: number
+    migrate?: PersistOptions<T, Partial<T>>['migrate']
   }
   /**
    * Optional name for the store in Redux DevTools. Defaults to the persist name
@@ -89,6 +91,12 @@ export function createStoreMiddleware<T extends object>(
       name: `${STORAGE_PREFIX}-${persistConfig.name}`,
       ...(persistConfig.partialize && {
         partialize: persistConfig.partialize,
+      }),
+      ...(typeof persistConfig.version === 'number' && {
+        version: persistConfig.version,
+      }),
+      ...(persistConfig.migrate && {
+        migrate: persistConfig.migrate,
       }),
     })
     // Then wrap with devtools (devtools should be outermost to track all changes)

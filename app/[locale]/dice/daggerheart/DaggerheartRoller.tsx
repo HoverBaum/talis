@@ -23,19 +23,14 @@ import { PolyhedralResultDisplay } from '@/components/PolyhedralResultDisplay'
 import { DiceSelectWheel } from '@/components/DiceSelectWheel'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
-import {
-  useHasHydrated,
-  type StoreWithPersist,
-} from '@/hooks/useStoreHydration'
+import { useHasHydrated } from '@/hooks/useStoreHydration'
 import { Button } from '@/components/ui/button'
 import { nanoid } from 'nanoid'
 
 export function DaggerheartRoller() {
   const t = useTranslations('Roller.Daggerheart')
   const tGeneral = useTranslations('General')
-  const hasHydrated = useHasHydrated(
-    useDaggerheartStore as unknown as StoreWithPersist,
-  )
+  const hasHydrated = useHasHydrated(useDaggerheartStore)
   const rolls = useDaggerheartStore((state) => state.rolls)
   const config = useDaggerheartStore((state) => state.config)
   const rollMode = useDaggerheartStore((state) => state.rollMode)

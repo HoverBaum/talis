@@ -1,7 +1,7 @@
 'use client'
 
 import { create } from 'zustand'
-import { createStoreMiddleware, STORAGE_PREFIX } from '@/utils/store-utils'
+import { createStoreMiddleware } from '@/utils/store-utils'
 
 /**
  * Represents a coin type with display name and values for heads/tails.
@@ -55,6 +55,7 @@ const DEFAULT_CONFIG = {
 }
 
 export type CoinConfigType = typeof DEFAULT_CONFIG
+const COIN_STORE_VERSION = 1
 
 export interface CoinState {
   selectedCoinId: string
@@ -85,41 +86,36 @@ export const getCoinById = (
   return getAllCoins(config).find((coin) => coin.id === coinId)
 }
 
-// Migration: Handle old localStorage data before Zustand loads it
-if (typeof window !== 'undefined') {
-  try {
-    const storageKey = `${STORAGE_PREFIX}-coin-storage`
-    const persistedState = localStorage.getItem(storageKey)
-    if (persistedState) {
-      const parsed = JSON.parse(persistedState)
-      if (parsed?.state?.config) {
-        const config = parsed.state.config
-        // Migrate old useColoredResults boolean to new resultColorMode
-        if ('useColoredResults' in config && !('resultColorMode' in config)) {
-          const migratedConfig = {
-            ...config,
-            resultColorMode: config.useColoredResults
-              ? 'positive-negative'
-              : 'none',
-          }
-          delete (migratedConfig as Record<string, unknown>).useColoredResults
-          parsed.state.config = migratedConfig
-          localStorage.setItem(storageKey, JSON.stringify(parsed))
-        }
-        // Remove deprecated primary-accent if present
-        const currentConfig = parsed.state.config
-        if (currentConfig.resultColorMode === 'primary-accent') {
-          const migratedConfig = {
-            ...currentConfig,
-            resultColorMode: 'positive-negative',
-          }
-          parsed.state.config = migratedConfig
-          localStorage.setItem(storageKey, JSON.stringify(parsed))
-        }
-      }
-    }
-  } catch {
-    // If migration fails, continue with defaults
+type LegacyCoinConfig = {
+  showNewResultBottom?: boolean
+  customCoins?: CoinType[]
+  resultColorMode?: CoinConfigType['resultColorMode'] | 'primary-accent'
+  useColoredResults?: boolean
+}
+
+function migrateCoinPersistedState(
+  persistedState: unknown,
+): Partial<CoinState> {
+  const state = (persistedState ?? {}) as Partial<CoinState>
+  const legacyConfig = (state.config ?? {}) as LegacyCoinConfig
+
+  const fallbackColorMode =
+    legacyConfig.useColoredResults === false ? 'none' : 'positive-negative'
+  const resultColorMode =
+    legacyConfig.resultColorMode === 'none' ||
+    legacyConfig.resultColorMode === 'positive-negative'
+      ? legacyConfig.resultColorMode
+      : fallbackColorMode
+
+  return {
+    ...state,
+    selectedCoinId: state.selectedCoinId ?? 'heads-tails',
+    config: {
+      showNewResultBottom:
+        legacyConfig.showNewResultBottom ?? DEFAULT_CONFIG.showNewResultBottom,
+      resultColorMode,
+      customCoins: legacyConfig.customCoins ?? [],
+    },
   }
 }
 
@@ -171,6 +167,8 @@ export const useCoinStore = create<CoinState>()(
     },
     persistConfig: {
       name: 'coin-storage',
+      version: COIN_STORE_VERSION,
+      migrate: (persistedState) => migrateCoinPersistedState(persistedState),
       partialize: (state) => {
         return {
           config: state.config,

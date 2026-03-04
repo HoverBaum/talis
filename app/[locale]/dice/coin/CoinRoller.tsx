@@ -44,10 +44,7 @@ import { RollerControls } from '@/components/RollerControls'
 import { CoinResultDisplay } from './CoinResultDisplay'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
-import {
-  useHasHydrated,
-  type StoreWithPersist,
-} from '@/hooks/useStoreHydration'
+import { useHasHydrated } from '@/hooks/useStoreHydration'
 import { Button } from '@/components/ui/button'
 import { nanoid } from 'nanoid'
 
@@ -67,9 +64,7 @@ const getCoinDisplayName = (
 
 export const CoinRoller = () => {
   const tRoller = useTranslations('Roller')
-  const hasHydrated = useHasHydrated(
-    useCoinStore as unknown as StoreWithPersist,
-  )
+  const hasHydrated = useHasHydrated(useCoinStore)
   const flips = useCoinStore((state) => state.flips)
   const config = useCoinStore((state) => state.config)
   const selectedCoinId = useCoinStore((state) => state.selectedCoinId)

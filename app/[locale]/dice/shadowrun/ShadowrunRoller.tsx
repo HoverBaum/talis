@@ -17,17 +17,12 @@ import { QuickButton } from './QuickButton'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { DiceRollType } from './shadowrun-store'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
-import {
-  useHasHydrated,
-  type StoreWithPersist,
-} from '@/hooks/useStoreHydration'
+import { useHasHydrated } from '@/hooks/useStoreHydration'
 import { nanoid } from 'nanoid'
 
 export function ShadowrunRoller() {
   const t = useTranslations('Roller.Shadowrun')
-  const hasHydrated = useHasHydrated(
-    useShadowrunStore as unknown as StoreWithPersist,
-  )
+  const hasHydrated = useHasHydrated(useShadowrunStore)
   const rolls = useShadowrunStore((state) => state.rolls)
   const config = useShadowrunStore((state) => state.config)
   const numberOfDice = useShadowrunStore((state) => state.diceAmount)

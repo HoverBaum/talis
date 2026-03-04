@@ -2,25 +2,27 @@
 
 import { useSyncExternalStore } from 'react'
 
-export type StoreWithPersist = {
-  persist: {
-    hasHydrated: () => boolean
-    onFinishHydration: (cb: () => void) => () => void
-  }
+type PersistApi = {
+  hasHydrated: () => boolean
+  onFinishHydration: (cb: () => void) => () => void
 }
 
+const subscribeNoop = () => () => {}
+const getServerSnapshot = () => false
+const getDefaultClientSnapshot = () => true
+
 /**
- * Returns true once the persisted store has finished rehydrating from storage.
- * Use this to avoid flicker when rendering config that depends on persisted state
- * (e.g. switches that show default value before rehydration completes).
- *
- * @param store - A Zustand store created with persist middleware
- * @returns true when hydration is complete, false while loading
+ * Supports both persisted and non-persisted stores. Non-persisted stores are
+ * considered hydrated immediately on the client.
  */
-export function useHasHydrated(store: StoreWithPersist): boolean {
+export function useHasHydrated<TStore extends object>(
+  store: TStore & { persist?: PersistApi }
+): boolean {
+  const persist = store.persist
+
   return useSyncExternalStore(
-    (onStoreChange) => store.persist.onFinishHydration(onStoreChange),
-    () => store.persist.hasHydrated(),
-    () => false
+    persist ? persist.onFinishHydration : subscribeNoop,
+    persist ? persist.hasHydrated : getDefaultClientSnapshot,
+    getServerSnapshot
   )
 }

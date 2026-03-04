@@ -45,18 +45,13 @@ import { RollerControls } from '@/components/RollerControls'
 import { PolyhedralResultDisplay } from '@/components/PolyhedralResultDisplay'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
-import {
-  useHasHydrated,
-  type StoreWithPersist,
-} from '@/hooks/useStoreHydration'
+import { useHasHydrated } from '@/hooks/useStoreHydration'
 import { Button } from '@/components/ui/button'
 import { nanoid } from 'nanoid'
 
 export function PolyhedralRoller() {
   const t = useTranslations('General')
-  const hasHydrated = useHasHydrated(
-    usePolyhedralStore as unknown as StoreWithPersist,
-  )
+  const hasHydrated = useHasHydrated(usePolyhedralStore)
   const rolls = usePolyhedralStore((state) => state.rolls)
   const config = usePolyhedralStore((state) => state.config)
   const selectedDiceType = usePolyhedralStore((state) => state.selectedDiceType)

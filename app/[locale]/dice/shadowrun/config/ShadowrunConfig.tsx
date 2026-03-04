@@ -3,10 +3,7 @@
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { MAX_DICE_AMOUNT, useShadowrunStore } from '../shadowrun-store'
-import {
-  useHasHydrated,
-  type StoreWithPersist,
-} from '@/hooks/useStoreHydration'
+import { useHasHydrated } from '@/hooks/useStoreHydration'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
@@ -29,9 +26,7 @@ const SwitchSkeleton = () => (
 
 export function ShadowrunConfig() {
   const t = useTranslations('Roller.Shadowrun.Config')
-  const hasHydrated = useHasHydrated(
-    useShadowrunStore as unknown as StoreWithPersist,
-  )
+  const hasHydrated = useHasHydrated(useShadowrunStore)
   const config = useShadowrunStore((state) => state.config)
   const updateConfig = useShadowrunStore((state) => state.updateConfig)
   const updateQuickButton = useShadowrunStore(

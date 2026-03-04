@@ -14,15 +14,12 @@ import { RollerControls } from '@/components/RollerControls'
 import { D6ResultDisplay } from './D6ResultDisplay'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
-import {
-  useHasHydrated,
-  type StoreWithPersist,
-} from '@/hooks/useStoreHydration'
+import { useHasHydrated } from '@/hooks/useStoreHydration'
 import { nanoid } from 'nanoid'
 
 export function D6Roller() {
   const t = useTranslations('General')
-  const hasHydrated = useHasHydrated(useD6Store as unknown as StoreWithPersist)
+  const hasHydrated = useHasHydrated(useD6Store)
   const rolls = useD6Store((state) => state.rolls)
   const config = useD6Store((state) => state.config)
   const numberOfDice = useD6Store((state) => state.diceAmount)
