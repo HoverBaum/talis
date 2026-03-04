@@ -6,6 +6,7 @@ import { useTheme } from '@/components/ThemeProvider'
 import talisLogo from '@/public/talis-dice.png'
 import spmLogo from '@/public/spm-logo.png'
 import talisNatureLogo from '@/public/talis-nature.png'
+import talisBrutalLogo from '@/public/talis-brutal.png'
 
 export type ThemeBranding = {
   logo: typeof talisLogo | typeof spmLogo | typeof talisNatureLogo
@@ -26,9 +27,12 @@ const themeBranding: Record<Theme, ThemeBranding> = {
   spm: {
     ...defaultBranding,
     logo: spmLogo,
-    brandName: 'SPM'
+    brandName: 'SPM',
   },
-  brutalism: defaultBranding,
+  brutalism: {
+    ...defaultBranding,
+    logo: talisBrutalLogo,
+  },
 }
 
 /**
@@ -50,4 +54,3 @@ export function useThemeBranding(): ThemeBranding {
     return themeBranding[theme] ?? defaultBranding
   }, [theme])
 }
-
