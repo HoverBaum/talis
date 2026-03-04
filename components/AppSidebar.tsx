@@ -27,7 +27,7 @@ import { PWAInstallPrompt } from './PWAInstallPrompt'
 import { useThemeBranding } from '@/lib/theme-config'
 import { useSettingsStore } from '@/app/[locale]/pages/settings/settings-store'
 import packageJson from '@/package.json'
-import { rollers } from '@/lib/rollers'
+import { rollerNavItems, pageNavItems } from '@/lib/nav'
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
@@ -61,25 +61,17 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
       url: `/${locale}`,
       icon: null,
     },
-    {
-      title: navT('about'),
-      url: `/${locale}/pages/about`,
-      icon: null,
-    },
-    {
-      title: navT('changelog'),
-      url: `/${locale}/pages/changelog`,
-      icon: null,
-    },
-    {
-      title: navT('settings'),
-      url: `/${locale}/pages/settings`,
-      icon: null,
-    },
+    ...pageNavItems.map((item) => {
+      const nameKeyPart = item.nameKey.split('.')[1]
+      return {
+        title: navT(nameKeyPart as any),
+        url: `/${locale}${item.link}`,
+        icon: null,
+      }
+    }),
   ]
 
-  const rollersNav = rollers.map((roller) => {
-    // Extract key from nameKey (e.g., "Navigation.shadowrun" -> "shadowrun")
+  const rollersNav = rollerNavItems.map((roller) => {
     const nameKeyPart = roller.nameKey.split('.')[1]
     return {
       title: navT(nameKeyPart as any),
@@ -102,7 +94,11 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Link href={`/${locale}`} className="flex items-center gap-2" onClick={handleMobileNavigation}>
+              <Link
+                href={`/${locale}`}
+                className="flex items-center gap-2"
+                onClick={handleMobileNavigation}
+              >
                 <Image
                   src={branding.logo}
                   width={32}
@@ -125,7 +121,9 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
               {mainNav.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={isActive(item.url)}>
-                    <Link href={item.url} onClick={handleMobileNavigation}>{item.title}</Link>
+                    <Link href={item.url} onClick={handleMobileNavigation}>
+                      {item.title}
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

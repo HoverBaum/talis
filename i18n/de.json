@@ -7,7 +7,9 @@
     "daggerheartDescription": "Daggerheart Würfel App",
     "polyhedralDescription": "Standard Polyeder Würfel App (d4, d6, d8, d10, d12, d20, d100)",
     "coinDescription": "Münzen werfen mit anpassbaren Seiten",
-    "settingsDescription": "App-Einstellungen und Präferenzen konfigurieren"
+    "settingsDescription": "App-Einstellungen und Präferenzen konfigurieren",
+    "aboutDescription": "Mehr über Talis erfahren",
+    "changelogDescription": "Aktuelle Änderungen und Updates ansehen"
   },
   "Roller": {
     "Shadowrun": {
@@ -151,6 +153,7 @@
     "changelog": "Changelog",
     "settings": "Einstellungen",
     "rollers": "Würfel Apps",
+    "pages": "Seiten",
     "shadowrun": "Shadowrun",
     "d6": "D6 Würfel",
     "daggerheart": "Daggerheart",

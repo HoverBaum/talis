@@ -7,7 +7,9 @@
     "daggerheartDescription": "Daggerheart dice roller",
     "polyhedralDescription": "Standard polyhedral dice roller (d4, d6, d8, d10, d12, d20, d100)",
     "coinDescription": "Flip coins with customizable sides",
-    "settingsDescription": "Configure app settings and preferences"
+    "settingsDescription": "Configure app settings and preferences",
+    "aboutDescription": "Learn more about Talis",
+    "changelogDescription": "View recent changes and updates"
   },
   "Roller": {
     "Shadowrun": {
@@ -151,6 +153,7 @@
     "changelog": "Changelog",
     "settings": "Settings",
     "rollers": "Rollers",
+    "pages": "Pages",
     "shadowrun": "Shadowrun",
     "d6": "D6 Roller",
     "daggerheart": "Daggerheart",
