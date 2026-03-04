@@ -10,4 +10,3 @@ export const d6Mapping = {
   5: '⚄',
   6: '⚅',
 } as const
-

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 /**
  * Hook to track window size and last height for responsive layout calculations.
  * Used by DiceSelectWheel to adjust its height when the window resizes.
- * 
+ *
  * Returns:
  * - width: Current window width
  * - height: Current window height
@@ -35,4 +35,3 @@ export function useWindowSize() {
 
   return windowSize
 }
-

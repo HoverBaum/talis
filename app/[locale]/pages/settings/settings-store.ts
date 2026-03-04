@@ -51,7 +51,8 @@ export const useSettingsStore = create<SettingsState>()(
             },
           }),
         setSidebarOptions: (value) => set({ sidebarOptions: value }),
-        setIosNavigationEnabled: (enabled) => set({ iosNavigationEnabled: enabled }),
+        setIosNavigationEnabled: (enabled) =>
+          set({ iosNavigationEnabled: enabled }),
         initializeIosNavigationEnabled: (isIOSDevice) =>
           set((state) =>
             typeof state.iosNavigationEnabled === 'undefined'

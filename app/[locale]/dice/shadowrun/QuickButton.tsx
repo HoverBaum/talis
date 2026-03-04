@@ -26,4 +26,3 @@ export function QuickButton({ quickButton, onClick }: QuickButtonProps) {
     </Button>
   )
 }
-

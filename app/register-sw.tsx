@@ -30,7 +30,7 @@ export function RegisterServiceWorker() {
 
     if (!shouldEnableSW) {
       console.log(
-        '[PWA] Service Worker disabled in development. Set NEXT_PUBLIC_ENABLE_SW_DEV=true to enable.',
+        '[PWA] Service Worker disabled in development. Set NEXT_PUBLIC_ENABLE_SW_DEV=true to enable.'
       )
 
       // Unregister any existing service workers and clear caches
@@ -42,7 +42,7 @@ export function RegisterServiceWorker() {
             if (unregistered) {
               console.log(
                 '[PWA] Unregistered existing service worker:',
-                registration.scope,
+                registration.scope
               )
             }
           }
@@ -53,10 +53,10 @@ export function RegisterServiceWorker() {
             cacheNames.map((cacheName) => {
               console.log('[PWA] Clearing cache:', cacheName)
               return caches.delete(cacheName)
-            }),
+            })
           )
           console.log(
-            '[PWA] All service workers unregistered and caches cleared.',
+            '[PWA] All service workers unregistered and caches cleared.'
           )
         } catch (error) {
           console.error('[PWA] Error unregistering service workers:', error)
@@ -115,13 +115,13 @@ export function RegisterServiceWorker() {
 
     navigator.serviceWorker.addEventListener(
       'controllerchange',
-      handleControllerChange,
+      handleControllerChange
     )
 
     return () => {
       navigator.serviceWorker.removeEventListener(
         'controllerchange',
-        handleControllerChange,
+        handleControllerChange
       )
       if (updateIntervalId) {
         clearInterval(updateIntervalId)

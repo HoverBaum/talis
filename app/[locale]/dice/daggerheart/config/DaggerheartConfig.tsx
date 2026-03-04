@@ -41,7 +41,9 @@ export function DaggerheartConfig() {
       <section className="space-y-6">
         <div className="flex items-center gap-2">
           <Dice1 className="h-4 w-4 text-muted-foreground" />
-          <h2 className="text-lg font-semibold">{tPolyhedral('diceSelection')}</h2>
+          <h2 className="text-lg font-semibold">
+            {tPolyhedral('diceSelection')}
+          </h2>
         </div>
         <p className="text-sm text-muted-foreground -mt-4 ml-6">
           {tPolyhedral('diceSelectionDescription')}
@@ -88,8 +90,9 @@ export function DaggerheartConfig() {
                       setMaxQuantityForDice(diceType, Number(e.target.value))
                     }
                     disabled={!isEnabled}
-                    className={`w-20 h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-ring ${!isEnabled ? 'opacity-50 cursor-not-allowed' : ''
-                      }`}
+                    className={`w-20 h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                      !isEnabled ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
                   />
                 </div>
               </div>

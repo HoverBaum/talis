@@ -33,7 +33,15 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Input } from '@/components/ui/input'
-import { Settings2, ArrowLeft, Monitor, Coins, Plus, Trash2, Check } from 'lucide-react'
+import {
+  Settings2,
+  ArrowLeft,
+  Monitor,
+  Coins,
+  Plus,
+  Trash2,
+  Check,
+} from 'lucide-react'
 import { nanoid } from 'nanoid'
 
 /**
@@ -58,10 +66,11 @@ const ColorModeOptionButton = ({
   return (
     <button
       type="button"
-      className={`relative p-3 rounded-lg border-2 transition-colors text-left ${isSelected
-        ? 'border-primary bg-primary/5'
-        : 'border-transparent bg-muted/50 hover:bg-muted'
-        }`}
+      className={`relative p-3 rounded-lg border-2 transition-colors text-left ${
+        isSelected
+          ? 'border-primary bg-primary/5'
+          : 'border-transparent bg-muted/50 hover:bg-muted'
+      }`}
       onClick={onClick}
     >
       <span className="text-xs text-muted-foreground block mb-1">{label}</span>
@@ -168,7 +177,9 @@ export const CoinConfig = () => {
                 value="positive-negative"
                 currentValue={config.resultColorMode ?? 'positive-negative'}
                 label={t('colorModePositiveNegative')}
-                onClick={() => updateConfig({ resultColorMode: 'positive-negative' })}
+                onClick={() =>
+                  updateConfig({ resultColorMode: 'positive-negative' })
+                }
                 preview={
                   <>
                     <span className="text-lg font-bold text-roll-positive">
@@ -206,9 +217,13 @@ export const CoinConfig = () => {
                   <div className="space-y-1">
                     <p className="font-medium">{coin.displayName}</p>
                     <p className="text-sm text-muted-foreground">
-                      <span className="text-roll-positive">{coin.headsValue}</span>
+                      <span className="text-roll-positive">
+                        {coin.headsValue}
+                      </span>
                       {' / '}
-                      <span className="text-roll-negative">{coin.tailsValue}</span>
+                      <span className="text-roll-negative">
+                        {coin.tailsValue}
+                      </span>
                     </p>
                   </div>
                   <Button

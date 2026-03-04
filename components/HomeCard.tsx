@@ -1,5 +1,10 @@
 import Link from 'next/link'
-import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { type LucideIcon } from 'lucide-react'
 
 interface HomeCardProps {
@@ -9,7 +14,12 @@ interface HomeCardProps {
   description: string
 }
 
-export function HomeCard({ href, icon: Icon, title, description }: HomeCardProps) {
+export function HomeCard({
+  href,
+  icon: Icon,
+  title,
+  description,
+}: HomeCardProps) {
   return (
     <Link
       href={href}

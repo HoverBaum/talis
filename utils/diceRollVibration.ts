@@ -12,4 +12,3 @@ export const diceRollVibration = (numberOfDice: number) => {
     navigator.vibrate(vibrationPattern)
   }
 }
-

@@ -56,7 +56,7 @@ export function PolyhedralRoller() {
   const config = usePolyhedralStore((state) => state.config)
   const selectedDiceType = usePolyhedralStore((state) => state.selectedDiceType)
   const setSelectedDiceType = usePolyhedralStore(
-    (state) => state.setSelectedDiceType,
+    (state) => state.setSelectedDiceType
   )
   const diceQuantities = usePolyhedralStore((state) => state.diceQuantities)
   const setDiceQuantity = usePolyhedralStore((state) => state.setDiceQuantity)

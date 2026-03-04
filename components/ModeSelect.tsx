@@ -73,4 +73,3 @@ export function ModeSelect({ className, variant = 'full' }: ModeSelectProps) {
     </SelectRow>
   )
 }
-

@@ -56,4 +56,3 @@ export function ThemeSelect({ className, variant = 'full' }: ThemeSelectProps) {
     </SelectRow>
   )
 }
-

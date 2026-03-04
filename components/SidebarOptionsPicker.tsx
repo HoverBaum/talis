@@ -66,7 +66,10 @@ export const SidebarOptionsPicker = ({
       role="radiogroup"
       aria-labelledby={groupLabelId}
       aria-disabled={disabled}
-      className={cn('grid grid-cols-1 items-stretch gap-3 sm:grid-cols-3', className)}
+      className={cn(
+        'grid grid-cols-1 items-stretch gap-3 sm:grid-cols-3',
+        className
+      )}
     >
       {options.map((optionValue) => (
         <SelectionCard

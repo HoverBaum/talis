@@ -80,7 +80,10 @@ self.addEventListener('fetch', (event) => {
           // Fallback to cache if network fails
           return caches.match(request).then((response) => {
             // If no cached response, return offline page for HTML requests
-            if (!response && request.headers.get('accept')?.includes('text/html')) {
+            if (
+              !response &&
+              request.headers.get('accept')?.includes('text/html')
+            ) {
               return caches.match('/_offline')
             }
             return response
@@ -121,9 +124,10 @@ self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'CLEAR_CACHE') {
     event.waitUntil(
       caches.keys().then((cacheNames) => {
-        return Promise.all(cacheNames.map((cacheName) => caches.delete(cacheName)))
+        return Promise.all(
+          cacheNames.map((cacheName) => caches.delete(cacheName))
+        )
       })
     )
   }
 })
-

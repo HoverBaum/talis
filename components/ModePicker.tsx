@@ -41,7 +41,11 @@ const ModePreviewCard = ({
   const previewMode = mode === 'system' ? systemMode : mode
 
   return (
-    <div data-theme={theme} data-mode={previewMode} className="[color-scheme:inherit]">
+    <div
+      data-theme={theme}
+      data-mode={previewMode}
+      className="[color-scheme:inherit]"
+    >
       <SelectionCard isSelected={isSelected} onSelect={onSelect}>
         <div className="flex items-center gap-3">
           <ModeIcon className="h-5 w-5" />

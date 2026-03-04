@@ -30,10 +30,10 @@ export function ShadowrunConfig() {
   const config = useShadowrunStore((state) => state.config)
   const updateConfig = useShadowrunStore((state) => state.updateConfig)
   const updateQuickButton = useShadowrunStore(
-    (state) => state.updateQuickButton,
+    (state) => state.updateQuickButton
   )
   const deleteQuickButton = useShadowrunStore(
-    (state) => state.deleteQuickButton,
+    (state) => state.deleteQuickButton
   )
 
   return (
@@ -149,7 +149,7 @@ export function ShadowrunConfig() {
                     updateConfig({
                       maxDiceAmount: Math.max(
                         1,
-                        Math.floor(Number(e.target.value)),
+                        Math.floor(Number(e.target.value))
                       ),
                     })
                   }

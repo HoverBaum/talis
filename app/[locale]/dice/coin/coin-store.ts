@@ -81,7 +81,7 @@ export const getAllCoins = (config: CoinConfigType): CoinType[] => {
  */
 export const getCoinById = (
   coinId: string,
-  config: CoinConfigType,
+  config: CoinConfigType
 ): CoinType | undefined => {
   return getAllCoins(config).find((coin) => coin.id === coinId)
 }
@@ -94,7 +94,7 @@ type LegacyCoinConfig = {
 }
 
 function migrateCoinPersistedState(
-  persistedState: unknown,
+  persistedState: unknown
 ): Partial<CoinState> {
   const state = (persistedState ?? {}) as Partial<CoinState>
   const legacyConfig = (state.config ?? {}) as LegacyCoinConfig
@@ -148,7 +148,7 @@ export const useCoinStore = create<CoinState>()(
         removeCustomCoin: (coinId: string) =>
           set((state) => {
             const newCustomCoins = state.config.customCoins.filter(
-              (c) => c.id !== coinId,
+              (c) => c.id !== coinId
             )
             // If the removed coin was selected, switch to default
             const needsSwitch =
@@ -176,5 +176,5 @@ export const useCoinStore = create<CoinState>()(
         }
       },
     },
-  }),
+  })
 )

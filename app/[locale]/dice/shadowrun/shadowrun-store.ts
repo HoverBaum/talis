@@ -79,7 +79,7 @@ export const useShadowrunStore = create<ShadowrunState>()(
           const config = {
             ...state.config,
             quickButtons: state.config.quickButtons.filter(
-              (button) => button.id !== id,
+              (button) => button.id !== id
             ),
           }
           return { config }
@@ -108,5 +108,5 @@ export const useShadowrunStore = create<ShadowrunState>()(
         diceAmount: state.diceAmount,
       }),
     },
-  }),
+  })
 )

@@ -29,15 +29,17 @@ export function ProvidersWrapper({
   const { isIOSNavigationEnabled } = useIOSNavigation()
 
   return (
-    <NextIntlClientProvider messages={messages} locale={locale} timeZone={timeZone}>
+    <NextIntlClientProvider
+      messages={messages}
+      locale={locale}
+      timeZone={timeZone}
+    >
       <ThemeProvider defaultMode="system" defaultTheme="default">
         <PageTitleProvider>
           <SidebarProvider>
             {!isIOSNavigationEnabled && <AppSidebar />}
             <SidebarInset>
-              <header
-                className="flex h-16 shrink-0 items-center gap-2 border-b px-4 sticky top-0 z-10 bg-background"
-              >
+              <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4 sticky top-0 z-10 bg-background">
                 {isIOSNavigationEnabled ? (
                   <IosBackButton />
                 ) : (
@@ -46,11 +48,7 @@ export function ProvidersWrapper({
                 <Separator orientation="vertical" className="mr-2 h-4" />
                 <PageTitle />
               </header>
-              <main
-                className="flex-1 min-h-0 overflow-y-auto"
-              >
-                {children}
-              </main>
+              <main className="flex-1 min-h-0 overflow-y-auto">{children}</main>
             </SidebarInset>
           </SidebarProvider>
         </PageTitleProvider>

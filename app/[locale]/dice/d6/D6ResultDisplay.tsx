@@ -26,8 +26,9 @@ export function D6ResultDisplay({
 
   return (
     <div
-      className={`animate-fadeIn p-2 mb-4 ${isHighlighted && 'bg-muted border-2 rounded-lg'
-        }`}
+      className={`animate-fadeIn p-2 mb-4 ${
+        isHighlighted && 'bg-muted border-2 rounded-lg'
+      }`}
     >
       {sumDice && (
         <span className={`${isHighlighted ? 'text-3xl' : 'text-xl'}`}>
@@ -53,4 +54,3 @@ export function D6ResultDisplay({
     </div>
   )
 }
-

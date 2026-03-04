@@ -41,7 +41,6 @@ The repo is setup for development in Cursor.
 
 ### Getting Started
 
-
 ```bash
 npm i
 npm run dev
@@ -64,4 +63,3 @@ NEXT_PUBLIC_ENABLE_SW_DEV=true npm run dev
 ## Contributing
 
 Talis is open source. Feel free to check out the code, open issues, or submit pull requests.
-

@@ -33,7 +33,10 @@ export function PWAUpdatePrompt() {
             if (!newWorker) return
 
             const handleStateChange = () => {
-              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              if (
+                newWorker.state === 'installed' &&
+                navigator.serviceWorker.controller
+              ) {
                 // There's a new service worker waiting
                 setWaitingWorker(newWorker)
                 setUpdateAvailable(true)
@@ -65,10 +68,16 @@ export function PWAUpdatePrompt() {
       window.location.reload()
     }
 
-    navigator.serviceWorker.addEventListener('controllerchange', handleControllerChange)
+    navigator.serviceWorker.addEventListener(
+      'controllerchange',
+      handleControllerChange
+    )
 
     return () => {
-      navigator.serviceWorker.removeEventListener('controllerchange', handleControllerChange)
+      navigator.serviceWorker.removeEventListener(
+        'controllerchange',
+        handleControllerChange
+      )
     }
   }, [])
 
@@ -119,4 +128,3 @@ export function PWAUpdatePrompt() {
     </div>
   )
 }
-

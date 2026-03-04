@@ -20,7 +20,14 @@ import { ModePicker } from '@/components/ModePicker'
 import { SetPageTitle } from '@/components/PageTitleProvider'
 import { SidebarOptionsPicker } from '@/components/SidebarOptionsPicker'
 import { useIOSNavigation } from '@/hooks/use-ios-navigation'
-import { Settings2, Palette, PanelLeft, Vibrate, Info, Smartphone } from 'lucide-react'
+import {
+  Settings2,
+  Palette,
+  PanelLeft,
+  Vibrate,
+  Info,
+  Smartphone,
+} from 'lucide-react'
 
 export default function SettingsPage() {
   const t = useTranslations('Settings')
@@ -29,11 +36,19 @@ export default function SettingsPage() {
   const tLanguage = useTranslations('Language')
   const vibration = useSettingsStore((state) => state.vibration)
   const sidebarOptions = useSettingsStore((state) => state.sidebarOptions)
-  const setDiceRollVibration = useSettingsStore((state) => state.setDiceRollVibration)
-  const setSelectWheelVibration = useSettingsStore((state) => state.setSelectWheelVibration)
+  const setDiceRollVibration = useSettingsStore(
+    (state) => state.setDiceRollVibration
+  )
+  const setSelectWheelVibration = useSettingsStore(
+    (state) => state.setSelectWheelVibration
+  )
   const setSidebarOptions = useSettingsStore((state) => state.setSidebarOptions)
-  const iosNavigationEnabled = useSettingsStore((state) => state.iosNavigationEnabled)
-  const setIosNavigationEnabled = useSettingsStore((state) => state.setIosNavigationEnabled)
+  const iosNavigationEnabled = useSettingsStore(
+    (state) => state.iosNavigationEnabled
+  )
+  const setIosNavigationEnabled = useSettingsStore(
+    (state) => state.setIosNavigationEnabled
+  )
   const { isResolved: isIOSNavigationResolved } = useIOSNavigation()
 
   const isIOSNavigationEnabled = iosNavigationEnabled ?? false
@@ -83,7 +98,10 @@ export default function SettingsPage() {
 
             {/* Language Picker */}
             <div className="space-y-3">
-              <Label id="language-picker-label" className="text-base font-medium">
+              <Label
+                id="language-picker-label"
+                className="text-base font-medium"
+              >
                 {tLanguage('select')}
               </Label>
               <LanguagePicker groupLabelId="language-picker-label" />
@@ -107,7 +125,10 @@ export default function SettingsPage() {
             <div className="space-y-2">
               <div className="flex items-center justify-between py-2">
                 <div className="space-y-0.5">
-                  <Label htmlFor="iosNavigationEnabled" className="flex items-center gap-2">
+                  <Label
+                    htmlFor="iosNavigationEnabled"
+                    className="flex items-center gap-2"
+                  >
                     <Smartphone className="h-4 w-4 text-muted-foreground" />
                     {t('iosNavigation')}
                   </Label>
@@ -119,7 +140,9 @@ export default function SettingsPage() {
                   id="iosNavigationEnabled"
                   checked={isIOSNavigationEnabled}
                   disabled={!isIOSNavigationResolved}
-                  onCheckedChange={(checked) => setIosNavigationEnabled(checked)}
+                  onCheckedChange={(checked) =>
+                    setIosNavigationEnabled(checked)
+                  }
                 />
               </div>
             </div>
@@ -127,7 +150,10 @@ export default function SettingsPage() {
             <Separator />
 
             <div className="space-y-3">
-              <Label id="sidebar-options-label" className="text-base font-medium">
+              <Label
+                id="sidebar-options-label"
+                className="text-base font-medium"
+              >
                 {t('sidebarOptionsLabel')}
               </Label>
               <SidebarOptionsPicker
@@ -150,7 +176,9 @@ export default function SettingsPage() {
           <div className="flex items-center gap-2">
             <Vibrate className="h-5 w-5 text-muted-foreground" />
             <div>
-              <h2 className="text-lg font-semibold">{t('vibrationSettings')}</h2>
+              <h2 className="text-lg font-semibold">
+                {t('vibrationSettings')}
+              </h2>
               <p className="text-sm text-muted-foreground">
                 {t('vibrationSettingsDescription')}
               </p>
@@ -167,7 +195,9 @@ export default function SettingsPage() {
 
             <div className="flex items-center justify-between py-2">
               <div className="space-y-0.5">
-                <Label htmlFor="diceRollVibration">{t('diceRollVibration')}</Label>
+                <Label htmlFor="diceRollVibration">
+                  {t('diceRollVibration')}
+                </Label>
                 <p className="text-sm text-muted-foreground">
                   {t('diceRollVibrationDescription')}
                 </p>

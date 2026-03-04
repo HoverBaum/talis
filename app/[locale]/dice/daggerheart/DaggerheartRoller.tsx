@@ -36,10 +36,10 @@ export function DaggerheartRoller() {
   const rollMode = useDaggerheartStore((state) => state.rollMode)
   const setRollMode = useDaggerheartStore((state) => state.setRollMode)
   const selectedDiceType = useDaggerheartStore(
-    (state) => state.selectedDiceType,
+    (state) => state.selectedDiceType
   )
   const setSelectedDiceType = useDaggerheartStore(
-    (state) => state.setSelectedDiceType,
+    (state) => state.setSelectedDiceType
   )
   const diceQuantities = useDaggerheartStore((state) => state.diceQuantities)
   const setDiceQuantity = useDaggerheartStore((state) => state.setDiceQuantity)
@@ -48,7 +48,7 @@ export function DaggerheartRoller() {
 
   // Type guard to check if a roll is a DaggerheartRoll
   const isDaggerheartRoll = (
-    roll: DaggerheartRollResult,
+    roll: DaggerheartRollResult
   ): roll is DaggerheartRoll => {
     return roll.type === 'Daggerheart'
   }
@@ -76,7 +76,7 @@ export function DaggerheartRoller() {
 
   const rollPolyhedralDice = (
     diceType: PolyhedralDiceType,
-    quantity: number,
+    quantity: number
   ) => {
     diceRollVibration(quantity)
     const diceRolls: number[] = []

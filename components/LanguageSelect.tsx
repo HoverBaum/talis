@@ -25,7 +25,10 @@ type LanguageSelectProps = {
   groupLabelId?: string
 }
 
-export function LanguageSelect({ className, groupLabelId }: LanguageSelectProps) {
+export function LanguageSelect({
+  className,
+  groupLabelId,
+}: LanguageSelectProps) {
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()
@@ -59,4 +62,3 @@ export function LanguageSelect({ className, groupLabelId }: LanguageSelectProps)
     </div>
   )
 }
-

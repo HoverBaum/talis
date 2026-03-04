@@ -9,13 +9,25 @@
  * Assumes only the current `talis-mode` / `talis-theme` keys exist; legacy keys
  * are intentionally ignored.
  */
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from 'react'
 
 export type Mode = 'system' | 'light' | 'dark'
 export type Theme = 'default' | 'shadowrun' | 'nature' | 'spm' | 'brutalism'
 export type ResolvedMode = 'light' | 'dark'
 
-export const THEMES: Theme[] = ['default', 'shadowrun', 'nature', 'spm', 'brutalism']
+export const THEMES: Theme[] = [
+  'default',
+  'shadowrun',
+  'nature',
+  'spm',
+  'brutalism',
+]
 
 type ThemeProviderProps = {
   children: ReactNode
@@ -65,7 +77,9 @@ export function ThemeProvider({
 
   const [systemMode, setSystemMode] = useState<ResolvedMode>(() => {
     if (typeof window === 'undefined') return 'light'
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light'
   })
 
   useEffect(() => {
@@ -131,4 +145,3 @@ export const useTheme = () => {
 
   return context
 }
-

@@ -7,4 +7,3 @@ export default function D6ConfigPage() {
     </div>
   )
 }
-

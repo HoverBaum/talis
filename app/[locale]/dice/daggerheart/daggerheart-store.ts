@@ -28,7 +28,7 @@ const DEFAULT_CONFIG = {
       acc[diceType] = { maxQuantity: DEFAULT_MAX_QUANTITY }
       return acc
     },
-    {} as Record<number, { maxQuantity: number }>,
+    {} as Record<number, { maxQuantity: number }>
   ),
 }
 
@@ -51,7 +51,7 @@ export interface DaggerheartState {
   toggleDiceType: (diceType: PolyhedralDiceType) => void
   setMaxQuantityForDice: (
     diceType: PolyhedralDiceType,
-    maxQuantity: number,
+    maxQuantity: number
   ) => void
 }
 
@@ -148,7 +148,7 @@ export const useDaggerheartStore = create<DaggerheartState>()(
         }),
       setMaxQuantityForDice: (
         diceType: PolyhedralDiceType,
-        maxQuantity: number,
+        maxQuantity: number
       ) =>
         set((state) => {
           const safe = Math.max(1, Math.floor(maxQuantity))
@@ -175,5 +175,5 @@ export const useDaggerheartStore = create<DaggerheartState>()(
       }),
     },
     devtoolsName: 'DaggerheartStore',
-  }),
+  })
 )

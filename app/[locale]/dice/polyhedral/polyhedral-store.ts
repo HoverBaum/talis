@@ -92,4 +92,3 @@ export const usePolyhedralStore = create<PolyhedralState>()(
     },
   })
 )
-

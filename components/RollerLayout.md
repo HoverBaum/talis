@@ -3,6 +3,7 @@
 Common layout component for dice rollers.
 
 Provides a consistent structure across all dice rollers with:
+
 - Full-height flex container
 - Responsive padding (p-2 on mobile, p-4 on desktop)
 - Composable sub-components for flexible layout
@@ -26,6 +27,7 @@ Always uses grid. Layout adapts based on children: when `RollerLayoutControlArea
 Scrollable area for displaying dice roll results. Use this component to wrap the list of roll results.
 
 **Props:**
+
 - `id` (required): String identifier for auto-scroll hooks
 - `showNewResultBottom` (optional): Boolean to control scroll direction (default: `true`)
 
@@ -62,9 +64,7 @@ Should be placed as the last child of `RollerLayout`.
       {/* Dice selector or other controls */}
     </RollerLayoutControlArea>
   </RollerLayoutContent>
-  <RollerLayoutFooter>
-    {/* Action buttons */}
-  </RollerLayoutFooter>
+  <RollerLayoutFooter>{/* Action buttons */}</RollerLayoutFooter>
 </RollerLayout>
 ```
 
@@ -81,9 +81,7 @@ Should be placed as the last child of `RollerLayout`.
       {/* Roll results */}
     </RollerLayoutResultArea>
   </RollerLayoutContent>
-  <RollerLayoutFooter>
-    {/* Action buttons */}
-  </RollerLayoutFooter>
+  <RollerLayoutFooter>{/* Action buttons */}</RollerLayoutFooter>
 </RollerLayout>
 ```
 
@@ -94,4 +92,3 @@ Should be placed as the last child of `RollerLayout`.
 - Polyhedral Roller
 - Shadowrun Roller
 - Coin Roller
-

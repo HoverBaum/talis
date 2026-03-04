@@ -21,15 +21,15 @@ type PWAInstallPromptProps = {
 
 /**
  * PWAInstallPrompt Component
- * 
+ *
  * Displays an install button when the Progressive Web App can be installed.
- * 
+ *
  * Purpose:
  * - Detects when the PWA meets installation criteria (via beforeinstallprompt event)
  * - Provides a user-friendly install button in the UI
  * - Handles the installation flow and user choice
  * - Optionally shows an installed hint when the app is already installed
- * 
+ *
  * Behavior:
  * - Listens for the `beforeinstallprompt` event to detect installability
  * - Checks if app is already installed via `display-mode: standalone` media query
@@ -38,20 +38,23 @@ type PWAInstallPromptProps = {
  * - Renders nothing when installed by default (unless `showInstalledHint` is true)
  * - Periodically checks installation status
  * - Cleans up event listeners on unmount
- * 
+ *
  * Usage:
  * - Place in the sidebar or navigation area
  * - Automatically shows/hides based on installation state
  * - Uses translations from the 'PWA' namespace for button text
  * - Pass `showInstalledHint={true}` to display a hint when installed
- * 
+ *
  * Constraints:
  * - Must be a client component (uses browser APIs)
  * - Only works in browsers that support PWA installation
  * - Requires proper PWA manifest and service worker setup
  */
-export function PWAInstallPrompt({ showInstalledHint = false }: PWAInstallPromptProps = {}) {
-  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null)
+export function PWAInstallPrompt({
+  showInstalledHint = false,
+}: PWAInstallPromptProps = {}) {
+  const [installPrompt, setInstallPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null)
   const [isInstalled, setIsInstalled] = useState(() => {
     if (typeof window === 'undefined') {
       return false
@@ -86,7 +89,10 @@ export function PWAInstallPrompt({ showInstalledHint = false }: PWAInstallPrompt
     const interval = setInterval(checkInstalled, 1000)
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+      window.removeEventListener(
+        'beforeinstallprompt',
+        handleBeforeInstallPrompt
+      )
       window.removeEventListener('appinstalled', checkInstalled)
       clearInterval(interval)
     }
@@ -140,4 +146,3 @@ export function PWAInstallPrompt({ showInstalledHint = false }: PWAInstallPrompt
     </Button>
   )
 }
-

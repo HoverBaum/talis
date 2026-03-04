@@ -7,7 +7,9 @@ import { useSettingsStore } from '@/app/[locale]/pages/settings/settings-store'
 
 export function useIOSNavigation() {
   const hasHydrated = useHasHydrated(useSettingsStore)
-  const iosNavigationEnabled = useSettingsStore((state) => state.iosNavigationEnabled)
+  const iosNavigationEnabled = useSettingsStore(
+    (state) => state.iosNavigationEnabled
+  )
   const initializeIosNavigationEnabled = useSettingsStore(
     (state) => state.initializeIosNavigationEnabled
   )

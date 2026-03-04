@@ -44,9 +44,11 @@ export const SelectionCard = ({
       className={cn(
         'relative w-full rounded-lg border-2 text-left text-foreground transition-all bg-card',
         'hover:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50',
-        isSelected ? 'border-primary border-2 ring-2 ring-primary/20' : 'border-border',
+        isSelected
+          ? 'border-primary border-2 ring-2 ring-primary/20'
+          : 'border-border',
         sizeClass,
-        className,
+        className
       )}
     >
       {isSelected && (

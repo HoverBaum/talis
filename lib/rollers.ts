@@ -1,6 +1,18 @@
-import { Layers, Dices, Pentagon, SquareSplitHorizontal, Coins, type LucideIcon } from 'lucide-react'
+import {
+  Layers,
+  Dices,
+  Pentagon,
+  SquareSplitHorizontal,
+  Coins,
+  type LucideIcon,
+} from 'lucide-react'
 
-export type RollerNameKey = 'shadowrun' | 'd6' | 'daggerheart' | 'polyhedral' | 'coin'
+export type RollerNameKey =
+  | 'shadowrun'
+  | 'd6'
+  | 'daggerheart'
+  | 'polyhedral'
+  | 'coin'
 export type RollerSubtitleKey =
   | 'shadowrunDescription'
   | 'd6Description'

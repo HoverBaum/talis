@@ -27,8 +27,7 @@ const requiredPairs = [
 
 const MIN_CONTRAST = 4.5
 
-const clamp = (value, min = 0, max = 1) =>
-  Math.min(max, Math.max(min, value))
+const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value))
 
 const parseOklch = (raw) => {
   const [components, alphaPart] = raw.split('/').map((part) => part.trim())
@@ -72,8 +71,7 @@ const oklchToLinearRgb = ({ l, c, h, alpha }) => {
   }
 }
 
-const relativeLuminance = ({ r, g, b }) =>
-  0.2126 * r + 0.7152 * g + 0.0722 * b
+const relativeLuminance = ({ r, g, b }) => 0.2126 * r + 0.7152 * g + 0.0722 * b
 
 const contrastRatio = (fg, bg) => {
   const blend = (front, back) => ({

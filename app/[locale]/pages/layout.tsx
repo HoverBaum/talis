@@ -3,9 +3,5 @@ export default function AboutLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <div className="p-4 md:p-8 max-w-3xl mx-auto">
-      {children}
-    </div>
-  )
+  return <div className="p-4 md:p-8 max-w-3xl mx-auto">{children}</div>
 }

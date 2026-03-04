@@ -39,7 +39,7 @@ export function ShadowrunRoller() {
 
     const hits = diceRolls.reduce(
       (hits, roll) => (roll >= 5 ? hits + 1 : hits),
-      0,
+      0
     )
 
     const isGlitch = diceRolls.filter((roll) => roll === 1).length >= dice / 2

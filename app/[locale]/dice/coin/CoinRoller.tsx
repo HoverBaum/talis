@@ -53,7 +53,7 @@ import { nanoid } from 'nanoid'
  */
 const getCoinDisplayName = (
   displayName: string,
-  t: ReturnType<typeof useTranslations<'Roller'>>,
+  t: ReturnType<typeof useTranslations<'Roller'>>
 ): string => {
   if (displayName.startsWith('Coin.')) {
     const key = displayName.replace('Coin.', '')

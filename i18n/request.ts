@@ -16,4 +16,3 @@ export default getRequestConfig(async ({ requestLocale }) => {
     timeZone: i18n.timeZone,
   }
 })
-

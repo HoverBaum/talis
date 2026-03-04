@@ -25,10 +25,11 @@ export function SelectRow({
   controlClassName = 'w-32',
 }: SelectRowProps) {
   return (
-    <div className={`flex items-center justify-between gap-2 ${className || ''}`}>
+    <div
+      className={`flex items-center justify-between gap-2 ${className || ''}`}
+    >
       <Label className="text-muted-foreground">{label}</Label>
       <div className={controlClassName}>{children}</div>
     </div>
   )
 }
-

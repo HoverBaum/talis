@@ -67,8 +67,9 @@ export const CoinResultDisplay = ({
 
   return (
     <div
-      className={`animate-fadeIn p-2 mb-4 ${isHighlighted && 'bg-muted border-2 rounded-lg'
-        }`}
+      className={`animate-fadeIn p-2 mb-4 ${
+        isHighlighted && 'bg-muted border-2 rounded-lg'
+      }`}
     >
       <div className="flex items-baseline gap-2 flex-wrap">
         <span

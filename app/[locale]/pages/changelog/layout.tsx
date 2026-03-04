@@ -1,12 +1,7 @@
 export default function ChangelogLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode
+  children: React.ReactNode
 }) {
-    return (
-        <div className="prose prose-sm md:prose-base">
-            {children}
-        </div>
-    )
+  return <div className="prose prose-sm md:prose-base">{children}</div>
 }
-

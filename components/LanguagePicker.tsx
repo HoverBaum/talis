@@ -43,7 +43,10 @@ type LanguagePickerProps = {
   groupLabelId?: string
 }
 
-export const LanguagePicker = ({ className, groupLabelId }: LanguagePickerProps) => {
+export const LanguagePicker = ({
+  className,
+  groupLabelId,
+}: LanguagePickerProps) => {
   const locale = useLocale()
   const router = useRouter()
   const pathname = usePathname()

@@ -35,12 +35,14 @@ export function DaggerheartResultDisplay({
 
   return (
     <div
-      className={`animate-fadeIn p-2 mb-6 ${isHighlighted ? 'bg-muted p-4 text-xl border-2 rounded-lg' : 'text-md'
-        }`}
+      className={`animate-fadeIn p-2 mb-6 ${
+        isHighlighted ? 'bg-muted p-4 text-xl border-2 rounded-lg' : 'text-md'
+      }`}
     >
       <div
-        className={`mb-1 flex items-center ${isHighlighted ? 'font-bold mb-2' : ''
-          }`}
+        className={`mb-1 flex items-center ${
+          isHighlighted ? 'font-bold mb-2' : ''
+        }`}
       >
         {!isCritical && (
           <>
