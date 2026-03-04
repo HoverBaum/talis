@@ -32,7 +32,7 @@ export default async function HomePage({
   return (
     <>
       <SetPageTitle title={navT('home')} />
-      <div className="flex flex-col gap-4 p-4 md:p-8">
+      <div className="flex flex-col gap-4 p-4 md:p-8 max-w-140 lg:max-w-3xl xl:max-w-5xl mx-auto">
         <div className="space-y-2">
           <h1 className="text-4xl font-bold">{t('title')}</h1>
           <p className="text-muted-foreground">{t('description')}</p>
@@ -41,7 +41,7 @@ export default async function HomePage({
         <div className="@container flex flex-col gap-8 mt-8">
           <section className="space-y-4">
             <h2 className="text-xl font-semibold">{navT('rollers')}</h2>
-            <div className="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 @xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 @3xl:grid-cols-4 gap-4">
               {rollerNavItems.map((roller) => {
                 const nameKeyPart = roller.nameKey.split('.')[1]
                 const subtitleKeyPart = roller.subtitleKey.split('.')[1]
@@ -60,7 +60,7 @@ export default async function HomePage({
 
           <section className="space-y-4">
             <h2 className="text-xl font-semibold">{navT('pages')}</h2>
-            <div className="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 @xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 @sm:grid-cols-2 @lg:grid-cols-3 @3xl:grid-cols-4 gap-4">
               {pageNavItems.map((page) => {
                 const nameKeyPart = page.nameKey.split('.')[1]
                 const subtitleKeyPart = page.subtitleKey.split('.')[1]
