@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { SetPageTitle } from '@/components/PageTitleProvider'
 import { HomeCard } from '@/components/HomeCard'
+import { VersionInfo } from '@/components/VersionInfo'
 import { rollerNavItems, pageNavItems } from '@/lib/nav'
 
 export async function generateMetadata({
@@ -73,6 +74,8 @@ export default async function HomePage({
             </div>
           </section>
         </div>
+
+        <VersionInfo />
       </div>
     </>
   )

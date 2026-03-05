@@ -24,6 +24,7 @@ import { ModeSelect } from './ModeSelect'
 import { LanguageSelect } from './LanguageSelect'
 import { SelectRow } from './SelectRow'
 import { PWAInstallPrompt } from './PWAInstallPrompt'
+import { VersionInfo } from './VersionInfo'
 import { useThemeBranding } from '@/lib/theme-config'
 import { useSettingsStore } from '@/app/[locale]/pages/settings/settings-store'
 import { rollerNavItems, pageNavItems } from '@/lib/nav'
@@ -33,15 +34,11 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
   const locale = useLocale()
   const navT = useTranslations('Navigation')
-  const tPWA = useTranslations('PWA')
-  const tFooter = useTranslations('Footer')
   const tLanguage = useTranslations('Language')
   const { setOpenMobile } = useSidebar()
   const branding = useThemeBranding()
   const hasHydrated = useHasHydrated(useSettingsStore)
   const sidebarOptions = useSettingsStore((state) => state.sidebarOptions)
-
-  const appVersion = process.env.NEXT_PUBLIC_APP_VERSION ?? 'dev'
 
   // Close sidebar on mobile when navigating.
   const handleMobileNavigation = () => {
@@ -164,35 +161,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
             </div>
           )}
           <PWAInstallPrompt />
-          <div className="text-xs text-muted-foreground space-y-1">
-            <div>
-              <span>
-                {tPWA('version')}: {appVersion}
-              </span>
-            </div>
-            <div>
-              <span>
-                {tFooter('builtBy')}{' '}
-                <a
-                  href="https://hendrikwallbaum.de/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline hover:text-foreground"
-                >
-                  Hendrik
-                </a>{' '}
-                on{' '}
-                <a
-                  href="https://github.com/HoverBaum/talis"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline hover:text-foreground"
-                >
-                  GitHub
-                </a>
-              </span>
-            </div>
-          </div>
+          <VersionInfo stacked />
         </div>
       </SidebarFooter>
       <SidebarRail />
