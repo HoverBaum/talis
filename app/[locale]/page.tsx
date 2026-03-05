@@ -75,7 +75,7 @@ export default async function HomePage({
           </section>
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8 sm:hidden">
           <VersionInfo />
         </div>
       </div>
