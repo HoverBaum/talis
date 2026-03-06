@@ -4,8 +4,9 @@
  * A scrollable wheel component for selecting the number of dice to roll.
  *
  * Features:
- * - Snap-to-center scrolling behavior with smooth spring physics
- * - Scroll-linked visual hierarchy (scale + opacity based on distance from center)
+ * - Velocity-sensitive drag scrolling via Motion's inertia physics (light swipe = small move,
+ *   fast swipe = large move), with snap-to-item via modifyTarget
+ * - Drag-linked visual hierarchy (scale + opacity based on distance from center)
  * - Satisfying tap feedback with spring animations
  * - Selection "pop" animation when item becomes selected
  * - Responsive height adjustment based on parent container
@@ -21,13 +22,14 @@ import React, {
   useLayoutEffect,
   useRef,
   useState,
-  type RefObject,
 } from 'react'
 import {
   motion,
-  useScroll,
+  animate,
+  useMotionValue,
   useTransform,
   useMotionValueEvent,
+  type MotionValue,
 } from 'motion/react'
 import { useWindowSize } from '@/utils/use-window-size'
 import { useSettingsStore } from '@/app/[locale]/pages/settings/settings-store'
@@ -63,45 +65,49 @@ const TAP_SCALE = 0.85
 const SELECT_POP_SCALE = 1.1
 const SPRING_STIFFNESS = 500
 const SPRING_DAMPING = 25
+// Drag physics: lower power = shorter throw for the same swipe velocity
+const DRAG_POWER = 0.3
+const DRAG_TIME_CONSTANT = 200 // ms
 
 type WheelItemProps = {
   number: number
   isSelected: boolean
   onChange: (value: number) => void
-  containerRef: RefObject<HTMLDivElement | null>
+  yMotionValue: MotionValue<number>
   containerHeight: number
   index: number
   reduceMotion: boolean
 }
 
 /**
- * Individual wheel item with scroll-linked animations.
+ * Individual wheel item with drag-linked animations.
  * Scale and opacity are driven by distance from the viewport center.
  * Uses a two-layer structure:
- * - Outer: scroll-linked scale/opacity transforms
+ * - Outer: drag-linked scale/opacity transforms
  * - Inner: tap feedback and selection "pop" animations
  */
 const WheelItem = ({
   number,
   isSelected,
   onChange,
-  containerRef,
+  yMotionValue,
   containerHeight,
   index,
   reduceMotion,
 }: WheelItemProps) => {
-  // Track scroll position of the container
-  const { scrollY } = useScroll({ container: containerRef })
+  // Derive a scroll-position equivalent from y (negate: y is negative when "scrolled down")
+  const scrollY = useTransform(yMotionValue, (v) => -v)
 
   // Track whether this item is currently centered in the viewport
   const [isCentered, setIsCentered] = useState(false)
+
+  // Calculate the scroll position where this item would be centered
+  const itemCenterScrollPosition = index * ITEM_HEIGHT
+
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const diff = Math.abs(latest - itemCenterScrollPosition)
     setIsCentered(diff <= ITEM_HEIGHT * CENTER_THRESHOLD)
   })
-
-  // Calculate the scroll position where this item would be centered
-  const itemCenterScrollPosition = index * ITEM_HEIGHT
 
   // Range over which the animation transitions (items within this range will be partially scaled)
   const animationRange = containerHeight / 2
@@ -129,11 +135,11 @@ const WheelItem = ({
   )
 
   return (
-    // Outer layer: scroll-linked transforms
+    // Outer layer: drag-linked transforms
     <motion.div
       id={`number-${number}`}
       data-number={number}
-      className="snap-center flex justify-center items-center"
+      className="flex justify-center items-center"
       role="option"
       aria-selected={isSelected}
       style={{
@@ -179,15 +185,12 @@ export const DiceSelectWheel = ({
   const [height, setHeight] = useState(0)
   const { height: windowHeight, lastHeight: lastWindowHeight } = useWindowSize()
   const wheelContainerRef = useRef<HTMLDivElement>(null)
-  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined
-  )
-  // Track which item is "passed" during scroll for haptic feedback
+  // Track which item is "passed" during drag for haptic feedback
   const lastScrolledItemRef = useRef<number>(current)
   const lastCenteredInThresholdRef = useRef<number>(current)
 
-  // Scroll position for haptics, shared with motion-based highlighting
-  const { scrollY } = useScroll({ container: wheelContainerRef })
+  // Motion value driving the drag position (0 = item 0 centered; negative = scrolled down)
+  const y = useMotionValue(0)
 
   // Subscribe once to store value for select wheel vibration
   const vibrationEnabled = useSettingsStore((s) => s.vibration.selectWheel)
@@ -222,27 +225,20 @@ export const DiceSelectWheel = ({
   }, [windowHeight, lastWindowHeight])
 
   // Scroll to current selection when it changes externally
-  // Ensure we have layout information before initial scroll to `current`
   useLayoutEffect(() => {
     if (height === 0 || current === 0) return
+    const targetY = -(current - 1) * ITEM_HEIGHT
+    animate(y, targetY, { type: 'spring', stiffness: 400, damping: 30 })
+  }, [current, height, y])
 
-    const wheelContainer = wheelContainerRef.current
-    if (!wheelContainer) return
-
-    // Calculate target scroll position to center the current item
-    const targetScrollPosition = (current - 1) * ITEM_HEIGHT
-    wheelContainer.scrollTo({ top: targetScrollPosition, behavior: 'smooth' })
-  }, [current, height])
-
-  // Haptic feedback while scrolling - align with motion-based centering
-  useMotionValueEvent(scrollY, 'change', (latest) => {
+  // Haptic feedback while dragging - align with motion-based centering
+  useMotionValueEvent(y, 'change', (latest) => {
     if (height === 0) return
 
-    const centeredIndex = Math.round(latest / ITEM_HEIGHT)
+    const scrollEquivalent = -latest
+    const centeredIndex = Math.round(scrollEquivalent / ITEM_HEIGHT)
     const centeredValue = Math.max(1, Math.min(max, centeredIndex + 1))
-    const centerDistance = Math.abs(latest - centeredIndex * ITEM_HEIGHT)
-
-    // Only trigger when the value sits inside the same threshold that bolding uses
+    const centerDistance = Math.abs(scrollEquivalent - centeredIndex * ITEM_HEIGHT)
     const withinCenter = centerDistance <= ITEM_HEIGHT * CENTER_THRESHOLD
 
     if (withinCenter && centeredValue !== lastCenteredInThresholdRef.current) {
@@ -250,65 +246,9 @@ export const DiceSelectWheel = ({
       lastScrolledItemRef.current = centeredValue
       vibrateTick(vibrationEnabled, 7)
     } else if (!withinCenter) {
-      // Allow re-trigger when exiting and re-entering next item
       lastScrolledItemRef.current = centeredValue
     }
   })
-
-  // Detect which item is centered after scrolling truly stops
-  useEffect(() => {
-    if (height === 0) return
-
-    const wheelContainer = wheelContainerRef.current
-    if (!wheelContainer) return
-
-    const findCurrentElement = () => {
-      const scrollTop = wheelContainer.scrollTop
-      // Find which item index is closest to center
-      const centeredIndex = Math.round(scrollTop / ITEM_HEIGHT)
-      const newValue = Math.max(1, Math.min(max, centeredIndex + 1))
-
-      // Always give a final tick when the wheel settles on a value
-      vibrateTick(vibrationEnabled, 18)
-
-      if (newValue !== current) {
-        onChange(newValue)
-      }
-    }
-
-    // Use scrollend event for accurate detection of when scrolling truly stops
-    // (including momentum scrolling on trackpads)
-    const supportsScrollEnd = 'onscrollend' in window
-
-    if (supportsScrollEnd) {
-      // Modern browsers: use scrollend for precise detection
-      wheelContainer.addEventListener('scrollend', findCurrentElement)
-      return () => {
-        wheelContainer.removeEventListener('scrollend', findCurrentElement)
-      }
-    } else {
-      // Fallback for older browsers: use debounced scroll with longer timeout
-      const handleScroll = () => {
-        clearTimeout(scrollTimeoutRef.current)
-        scrollTimeoutRef.current = setTimeout(findCurrentElement, 150)
-      }
-
-      wheelContainer.addEventListener('scroll', handleScroll)
-      return () => {
-        wheelContainer.removeEventListener('scroll', handleScroll)
-        clearTimeout(scrollTimeoutRef.current)
-      }
-    }
-  }, [height, onChange, current, max, vibrationEnabled])
-
-  // Clear any pending timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current)
-      }
-    }
-  }, [])
 
   // Keyboard navigation temporarily disabled per request
 
@@ -324,34 +264,58 @@ export const DiceSelectWheel = ({
       <div
         ref={wheelContainerRef}
         id="wheelContainer"
-        className="overflow-y-scroll scrollbar-none relative snap-y snap-mandatory"
+        className="overflow-hidden relative"
         role="listbox"
         aria-label="Select number of dice"
         aria-activedescendant={`number-${current}`}
         tabIndex={-1}
-        style={{
-          height: `${height}px`,
-          paddingTop: `${height / 2 - ITEM_HEIGHT / 2}px`,
-          paddingBottom: `${height / 2 - ITEM_HEIGHT / 2}px`,
-        }}
+        style={{ height: `${height}px` }}
       >
         {height === 0 ? (
           <div className="px-4 py-6">
             <Skeleton className="h-32 w-full" />
           </div>
         ) : (
-          diceNumberChoices.map((number, index) => (
-            <MemoWheelItem
-              key={number}
-              number={number}
-              index={index}
-              isSelected={number === current}
-              onChange={onChange}
-              containerRef={wheelContainerRef}
-              containerHeight={height}
-              reduceMotion={reduceMotion}
-            />
-          ))
+          <motion.div
+            drag="y"
+            dragConstraints={{ top: -(max - 1) * ITEM_HEIGHT, bottom: 0 }}
+            dragElastic={0.05}
+            dragTransition={{
+              type: 'inertia',
+              power: DRAG_POWER,
+              timeConstant: DRAG_TIME_CONSTANT,
+              modifyTarget: (target) => {
+                const index = Math.round(-target / ITEM_HEIGHT)
+                const clamped = Math.max(0, Math.min(max - 1, index))
+                return -clamped * ITEM_HEIGHT
+              },
+            }}
+            style={{
+              y,
+              paddingTop: `${height / 2 - ITEM_HEIGHT / 2}px`,
+              paddingBottom: `${height / 2 - ITEM_HEIGHT / 2}px`,
+            }}
+            onDragTransitionEnd={() => {
+              const currentY = y.get()
+              const index = Math.round(-currentY / ITEM_HEIGHT)
+              const newValue = Math.max(1, Math.min(max, index + 1))
+              vibrateTick(vibrationEnabled, 18)
+              if (newValue !== current) onChange(newValue)
+            }}
+          >
+            {diceNumberChoices.map((number, index) => (
+              <MemoWheelItem
+                key={number}
+                number={number}
+                index={index}
+                isSelected={number === current}
+                onChange={onChange}
+                yMotionValue={y}
+                containerHeight={height}
+                reduceMotion={reduceMotion}
+              />
+            ))}
+          </motion.div>
         )}
       </div>
     </>
