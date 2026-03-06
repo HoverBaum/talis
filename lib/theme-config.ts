@@ -7,9 +7,15 @@ import talisLogo from '@/public/talis-dice.png'
 import spmLogo from '@/public/spm-logo.png'
 import talisNatureLogo from '@/public/talis-nature.png'
 import talisBrutalLogo from '@/public/talis-brutal.png'
+import talisIridescentLogo from '@/public/talis-iridescent.png'
 
 export type ThemeBranding = {
-  logo: typeof talisLogo | typeof spmLogo | typeof talisNatureLogo
+  logo:
+    | typeof talisLogo
+    | typeof spmLogo
+    | typeof talisNatureLogo
+    | typeof talisBrutalLogo
+    | typeof talisIridescentLogo
   brandName: string
 }
 
@@ -32,6 +38,10 @@ const themeBranding: Record<Theme, ThemeBranding> = {
   brutalism: {
     ...defaultBranding,
     logo: talisBrutalLogo,
+  },
+  iridescent: {
+    ...defaultBranding,
+    logo: talisIridescentLogo,
   },
 }
 
