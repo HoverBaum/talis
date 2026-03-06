@@ -8,8 +8,8 @@ const GITHUB_URL = 'https://github.com/HoverBaum/talis'
 
 interface VersionInfoProps {
   /**
-   * When true, always renders two stacked lines.
-   * When false (default), renders two lines on mobile and one line on desktop.
+   * When true, forces a vertical two-line layout.
+   * When false (default), keeps inline layout and hides the separator on small screens.
    */
   stacked?: boolean
 }
