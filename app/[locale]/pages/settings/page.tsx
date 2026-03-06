@@ -230,7 +230,9 @@ export default function SettingsPage() {
           </div>
         </section>
 
-        <VersionInfo />
+        <div className="flex justify-center">
+          <VersionInfo />
+        </div>
       </div>
     </>
   )

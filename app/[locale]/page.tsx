@@ -75,7 +75,7 @@ export default async function HomePage({
           </section>
         </div>
 
-        <div className="mt-8 sm:hidden">
+        <div className="mt-8 sm:hidden flex justify-center">
           <VersionInfo />
         </div>
       </div>

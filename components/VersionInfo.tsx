@@ -20,10 +20,7 @@ export function VersionInfo({ stacked = false }: VersionInfoProps) {
 
   return (
     <div
-      className={
-        stacked
-          ? 'text-xs text-muted-foreground flex flex-col gap-1'
-          : 'text-xs text-muted-foreground flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-1.5'
+      className={`inline-flex text-xs text-muted-foreground flex-row gap-1 ${stacked ? '!flex-col' : ''} `
       }
     >
       <span>

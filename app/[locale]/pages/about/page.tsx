@@ -22,7 +22,7 @@ export default async function AboutPage({
       <div className="prose prose-sm md:prose-base">
         <AboutContent />
       </div>
-      <div className="mt-8">
+      <div className="mt-8 flex justify-center">
         <VersionInfo />
       </div>
     </>
