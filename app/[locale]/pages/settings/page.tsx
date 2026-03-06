@@ -19,6 +19,7 @@ import { ThemePicker } from '@/components/ThemePicker'
 import { ModePicker } from '@/components/ModePicker'
 import { SetPageTitle } from '@/components/PageTitleProvider'
 import { SidebarOptionsPicker } from '@/components/SidebarOptionsPicker'
+import { VersionInfo } from '@/components/VersionInfo'
 import { useIOSNavigation } from '@/hooks/use-ios-navigation'
 import {
   Settings2,
@@ -228,6 +229,10 @@ export default function SettingsPage() {
             </div>
           </div>
         </section>
+
+        <div className="flex justify-center">
+          <VersionInfo />
+        </div>
       </div>
     </>
   )
