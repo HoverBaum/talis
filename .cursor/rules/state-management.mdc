@@ -11,9 +11,9 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 * Stores must use the centrally provided `createStoreMiddleware` from `utils/store-utils.ts`.
 * Store files should live close to their roller, for example:
 
-  * `app/dice/[rollerName]/store.ts`
+  * `app/[locale]/dice/[rollerName]/[rollerName]-store.ts` (e.g. `coin-store.ts`, `shadowrun-store.ts`)
 
-* **Storage Registry**: `createStoreMiddleware` automatically registers storage names when `persistConfig` is provided. This enables automatic discovery of all roller stores for operations like cache clearing without hardcoding storage keys. Use `getAllRegisteredStorageNames()` to retrieve all registered storage keys.
+* **Cache clearing:** Operations like ClearCacheButton use `STORAGE_PREFIX` from `utils/store-utils.ts` and clear all localStorage keys that start with that prefix (all persisted roller stores use it).
 
 * When adding new state:
 

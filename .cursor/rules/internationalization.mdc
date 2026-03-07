@@ -6,10 +6,16 @@ alwaysApply: false
 
 These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
 
+* The app uses **next-intl** with locale segment `[locale]` and message files **`i18n/en.json`** and **`i18n/de.json`**.
 * The app is **fully translated** in **German** and **English**.
-* All user-facing strings **must be obtained from the i18n layer** (e.g. translation files or hooks), not hard-coded.
+* All user-facing strings **must be obtained from the i18n layer**, not hard-coded:
+  * **Client components:** `useTranslations('Namespace')` from `next-intl`
+  * **Server components:** `getTranslations('Namespace')` from `next-intl/server`
 * When adding new text:
 
+  * Add keys under the appropriate namespace in both `i18n/en.json` and `i18n/de.json`.
   * Provide both `en` and `de` translations.
-  * Use clear, context-rich keys (`diceRoller.rollButton.label`, not `roll`).
+  * Use clear, context-rich keys (e.g. `Theme.mode.light`, not `light`).
+
+**Exception:** The offline page (`app/_offline/page.tsx`) uses in-component strings that mirror the same keys as the "Offline" namespace, because it is served outside the Next.js i18n pipeline.
 

@@ -17,13 +17,19 @@ We follow the **App Router** approach:
 
 Note: Organizational folders in routes **should** be avoided as long, as feasable.
 
+## Locale Segment
+
+* All app routes (except root redirect and offline) live under `app/[locale]/`.
+* Root `app/page.tsx` redirects to `/{defaultLocale}`.
+
 ## Dice Rollers
 
 * All dice rollers live under:
-  `app/dice/[rollerName]/`
+  `app/[locale]/dice/[rollerName]/`
+  (e.g. `app/[locale]/dice/coin/`, `app/[locale]/dice/shadowrun/`)
 * Each roller:
 
-  * Has its **own Zustand slice**, which is **persisted**.
+  * Has its **own Zustand slice**, which is **persisted** (store file: `[rollerName]-store.ts`, e.g. `coin-store.ts`, `shadowrun-store.ts`).
   * Has a **config page** to configure it.
 
 ## Shared vs Route-Local Code
@@ -31,7 +37,7 @@ Note: Organizational folders in routes **should** be avoided as long, as feasabl
 * **Route-local components/hooks**
   Components, stores and hooks used **only by one route** live directly in that route's folder (or its `_`-prefixed subfolders).
 
-  * Example: `app/dice/dnd/ResultList.tsx`
+  * Example: `app/[locale]/dice/coin/CoinRoller.tsx` or `app/[locale]/dice/shadowrun/ShadowrunRoller.tsx`
 
 * **Shared components**
   Components reused across multiple routes live in:
@@ -43,12 +49,12 @@ Note: Organizational folders in routes **should** be avoided as long, as feasabl
 
 ## PWA Files
 
-* **Offline fallback page:** `app/_offline/page.tsx` - Shown when user is offline and page isn't cached
+* **Offline fallback page:** `app/_offline/page.tsx` - Shown when user is offline and page isn't cached. Lives outside `[locale]` so the service worker can serve it without Next.js i18n.
 * **PWA components:**
   * `components/PWAUpdatePrompt.tsx` - Detects and notifies about service worker updates
   * `components/PWAInstallPrompt.tsx` - Shows install button when app is installable
 * **PWA assets:**
   * `public/manifest.json` - Web app manifest
   * `public/icons/` - PWA icons (192x192, 512x512)
-* **Service worker:** Auto-generated in `public/` during build (not in source control)
+* **Service worker:** Manual implementation in `public/sw.js`
 

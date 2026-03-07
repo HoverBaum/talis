@@ -9,19 +9,18 @@
  * - Allows users to fix broken rollers by clearing corrupted cache data
  * - Only clears roller store data, preserving theme and mode preferences
  * - Uses shadcn/ui Dialog for confirmation before clearing
- * - Automatically discovers all roller stores via storage registry (no hardcoding)
+ * - Clears all localStorage keys with STORAGE_PREFIX from utils/store-utils (all persisted roller stores use this prefix)
  *
  * Behavior:
  * - Shows a confirmation dialog before clearing cache
- * - Clears all registered roller storage keys from localStorage
+ * - Clears all roller storage keys (those starting with STORAGE_PREFIX) from localStorage
  * - Preserves theme (`talis-theme`) and mode (`talis-mode`) settings
  * - Reloads the page after clearing to ensure stores reset properly
  * - Uses i18n translations for all user-facing text
  *
  * Usage:
  * - Place in MDX content (e.g., about page)
- * - Automatically discovers all roller stores via getAllRegisteredStorageNames()
- * - Future rollers using createStoreMiddleware are automatically included
+ * - Any roller using createStoreMiddleware with persistConfig uses STORAGE_PREFIX and is included when clearing
  *
  * Constraints:
  * - Must be a client component (uses localStorage and browser APIs)
