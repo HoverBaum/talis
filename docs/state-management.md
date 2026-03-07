@@ -1,7 +1,3 @@
----
-description: Statemanagement using zustand
-alwaysApply: false
----
 # State Management (Zustand)
 
 These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
@@ -19,4 +15,3 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 
   * Make sure it is serializable and safe to persist.
   * Document any performance / UX constraints in the component description block or store comments.
-

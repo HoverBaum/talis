@@ -1,7 +1,3 @@
----
-description: React component developer guide
-alwaysApply: true
----
 # React Components
 
 These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
@@ -50,4 +46,3 @@ Each React component file **must** start with a description block. This descript
   * How it is intended to be used / composed.
 
 * This block **must be kept up to date** whenever we learn new requirements or usage constraints.
-

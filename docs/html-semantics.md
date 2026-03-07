@@ -1,7 +1,3 @@
----
-description: JSX, TSX and HTML standards and guidelines
-alwaysApply: false
----
 # HTML Semantics & Comments
 
 These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
@@ -31,4 +27,3 @@ We want clear structure and future-proof semantics:
 * When possible, prefer semantic elements over `div`s:
 
   * `button`, `nav`, `header`, `section`, `main`, `aside`, `footer`, etc.
-

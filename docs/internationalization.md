@@ -1,7 +1,3 @@
----
-description: Guide for working with text in the UI
-alwaysApply: false
----
 # Internationalization (i18n)
 
 These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
@@ -18,4 +14,3 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
   * Use clear, context-rich keys (e.g. `Theme.mode.light`, not `light`).
 
 **Exception:** The offline page (`app/_offline/page.tsx`) uses in-component strings that mirror the same keys as the "Offline" namespace, because it is served outside the Next.js i18n pipeline.
-

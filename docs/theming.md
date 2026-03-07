@@ -1,7 +1,3 @@
----
-description: Themeing guides, especially for CSS variables
-alwaysApply: false
----
 # Theming & Color Schemes
 
 These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
@@ -56,6 +52,9 @@ surface ladder so interactive states are consistent across modes.
 ### Core Variables (2 required)
 * `--background` - Main background color
 * `--foreground` - Main text color
+
+### Radius (1 required)
+* `--radius` - Base border radius (e.g. `0.625rem`). The theme derives `--radius-sm`, `--radius-md`, `--radius-lg`, `--radius-xl` from it in `@theme inline` in `app/globals.css`.
 
 ### Component Variables (4 required)
 * `--card` - Card background color
@@ -145,7 +144,7 @@ When introducing a new theme, follow this checklist to keep ThemePicker, brandin
 
 1. **CSS variables**
    - Add light and dark blocks in `app/globals.css` using the `[data-theme='NAME'][data-mode='light']` / `[data-theme='NAME'][data-mode='dark']` pattern.
-   - Define all required variables (core, component, palette, sidebar, chart, roll result).
+   - Define all required variables (core, radius, component, palette, sidebar, chart, roll result).
 
 2. **Theme type and list**
    - Update `Theme` and `THEMES` in `components/ThemeProvider.tsx` so the app recognizes the new theme.
@@ -168,25 +167,25 @@ Example:
 /* Default theme, light mode */
 [data-theme='default'][data-mode='light'] {
   --background: oklch(1 0 0);
-  /* ... all 31 variables ... */
+  /* ... all 32 variables ... */
 }
 
 /* Default theme, dark mode */
 [data-theme='default'][data-mode='dark'] {
   --background: oklch(0.145 0 0);
-  /* ... all 31 variables ... */
+  /* ... all 32 variables ... */
 }
 
 /* Shadowrun theme, light mode */
 [data-theme='shadowrun'][data-mode='light'] {
   --background: oklch(0.98 0.01 330);
-  /* ... all 31 variables ... */
+  /* ... all 32 variables ... */
 }
 
 /* Shadowrun theme, dark mode */
 [data-theme='shadowrun'][data-mode='dark'] {
   --background: oklch(0.15 0.02 330);
-  /* ... all 31 variables ... */
+  /* ... all 32 variables ... */
 }
 ```
 
@@ -198,4 +197,3 @@ See `app/globals.css` for complete examples of theme definitions:
 * Same pattern for `nature`, `spm`, `brutalism`, and `iridescent`. The `iridescent` theme also has extra overrides for body, buttons, and overlays.
 
 The `:root` selector is kept as a fallback for default theme light mode when no data attributes are present.
-

@@ -1,7 +1,3 @@
----
-alwaysApply: true
----
-
 # Tech Stack
 
 These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
@@ -13,7 +9,7 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 * **UI Library:** shadcn/ui
 * **State Management:** Zustand (with persistence per roller)
 * **Content:** MDX for docs/guides/changelogs under `app/[locale]/pages/` (e.g. `changelog/`, `about/`)
-* **PWA:** Manual service worker (`public/sw.js`) and registration in `app/register-sw.tsx`; see the PWA rule for details
+* **PWA:** Manual service worker (`public/sw.js`) and registration in `app/register-sw.tsx`; see [docs/pwa.md](pwa.md) for details
 * **i18n:** next-intl (locale segment `[locale]`, messages in `i18n/en.json`, `i18n/de.json`)
 * **ID Generation:** nanoid - Use `nanoid()` directly for all dynamically generated unique identifiers (e.g., roll result IDs, custom coin IDs, quick button IDs)
 
@@ -24,4 +20,3 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 * **ALWAYS use shadcn/ui components** - Never use browser UI components like `confirm()`, `alert()`, `prompt()`, etc. Use shadcn/ui Dialog, Alert, or other appropriate components instead.
 
 > When generating code (by hand or via AI), always assume this stack and follow the conventions in the other rule files.
-

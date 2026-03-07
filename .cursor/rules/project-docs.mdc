@@ -1,0 +1,7 @@
+---
+alwaysApply: true
+---
+
+Read the developer documentation entry file at **docs/README.md**. It lists all project guidelines and when to read each doc (always-applied vs by-topic). Follow the entry file's instructions: load the docs it marks as always apply, and load any doc it lists under "Read when relevant" when your task touches that topic.
+
+When a general approach for the project is discussed, update or create the relevant doc in `docs/` as part of your work (see `docs/maintenance.md`).

@@ -1,7 +1,3 @@
----
-description: Commit message guideline
-alwaysApply: false
----
 # Commit Message Format
 
 These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
@@ -38,4 +34,3 @@ Use the following emoji prefixes based on the type of change:
 2. **Use present tense**: Write as if the commit is doing the action (e.g., "Add feature" not "Added feature")
 3. **Keep it concise**: Aim for clarity without unnecessary verbosity
 4. **One change per commit**: Each commit should represent a single logical change
-

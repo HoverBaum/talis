@@ -1,7 +1,3 @@
----
-description: PWA and offline support guidelines
-alwaysApply: false
----
 # PWA & Offline Support
 
 These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.

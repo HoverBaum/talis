@@ -1,7 +1,3 @@
----
-alwaysApply: true
----
-
 # Project Structure & Routing
 
 These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
@@ -57,4 +53,3 @@ Note: Organizational folders in routes **should** be avoided as long, as feasabl
   * `public/manifest.json` - Web app manifest
   * `public/icons/` - PWA icons (192x192, 512x512)
 * **Service worker:** Manual implementation in `public/sw.js`
-
