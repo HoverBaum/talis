@@ -183,26 +183,6 @@
   }
 }
 
-@keyframes iridescentShimmer {
-  0% {
-    background-position:
-      0% 50%,
-      0% 0%;
-  }
-
-  50% {
-    background-position:
-      100% 50%,
-      0% 0%;
-  }
-
-  100% {
-    background-position:
-      0% 50%,
-      0% 0%;
-  }
-}
-
 @layer utilities {
   .animate-fadeIn {
     animation: fadeIn 0.3s ease-out forwards;
@@ -214,10 +194,6 @@
 
   .animate-indeterminate {
     animation: indeterminate 2s infinite linear;
-  }
-
-  .animate-iridescent-shimmer {
-    animation: iridescentShimmer 22s ease-in-out infinite;
   }
 
   .scrollbar-none {
@@ -235,8 +211,7 @@
     .transition-shadow,
     .animate-fadeIn,
     .animate-fadeOut,
-    .animate-indeterminate,
-    .animate-iridescent-shimmer {
+    .animate-indeterminate {
       animation: none !important;
       transition: none !important;
     }
@@ -566,166 +541,6 @@
 
   & [data-slot='switch']:not([data-state='checked']) {
     border: 1px solid oklch(0.985 0 0);
-  }
-}
-
-/* Iridescent Theme - Light Mode */
-[data-theme='iridescent'][data-mode='light'] {
-  --background: oklch(0.97 0.02 250);
-  --foreground: oklch(0.2 0.02 258);
-  --card: oklch(0.99 0.01 250 / 58%);
-  --card-foreground: oklch(0.2 0.02 258);
-  --popover: oklch(0.99 0.02 255 / 72%);
-  --popover-foreground: oklch(0.2 0.02 258);
-  --primary: oklch(0.53 0.16 255);
-  --primary-foreground: oklch(0.99 0.01 250);
-  --secondary: oklch(0.9 0.03 300 / 74%);
-  --secondary-foreground: oklch(0.24 0.02 290);
-  --muted: oklch(0.95 0.02 245 / 72%);
-  --muted-foreground: oklch(0.34 0.03 252);
-  --accent: oklch(0.9 0.08 75 / 74%);
-  --accent-foreground: oklch(0.25 0.03 75);
-  --destructive: oklch(0.64 0.19 25);
-  --border: oklch(0.82 0.05 258 / 58%);
-  --input: oklch(0.98 0.02 250 / 72%);
-  --ring: oklch(0.7 0.18 278);
-  --chart-1: oklch(0.53 0.16 255);
-  --chart-2: oklch(0.66 0.14 320);
-  --chart-3: oklch(0.79 0.13 75);
-  --chart-4: oklch(0.65 0.11 188);
-  --chart-5: oklch(0.74 0.16 35);
-  --roll-positive: oklch(0.78 0.16 165);
-  --roll-positive-foreground: oklch(0.18 0.03 170);
-  --roll-negative: oklch(0.79 0.15 52);
-  --roll-negative-foreground: oklch(0.2 0.03 52);
-  --sidebar: oklch(0.98 0.02 250 / 68%);
-  --sidebar-foreground: oklch(0.2 0.02 258);
-  --sidebar-primary: oklch(0.53 0.16 255);
-  --sidebar-primary-foreground: oklch(0.99 0.01 250);
-  --sidebar-accent: oklch(0.92 0.06 292 / 72%);
-  --sidebar-accent-foreground: oklch(0.24 0.02 290);
-  --sidebar-border: oklch(0.82 0.05 258 / 52%);
-  --sidebar-ring: oklch(0.7 0.18 278);
-}
-
-/* Iridescent Theme - Dark Mode */
-[data-theme='iridescent'][data-mode='dark'] {
-  --background: oklch(0.21 0.03 258);
-  --foreground: oklch(0.95 0.01 250);
-  --card: oklch(0.3 0.03 260 / 50%);
-  --card-foreground: oklch(0.95 0.01 250);
-  --popover: oklch(0.28 0.03 255 / 64%);
-  --popover-foreground: oklch(0.95 0.01 250);
-  --primary: oklch(0.78 0.16 235);
-  --primary-foreground: oklch(0.2 0.03 250);
-  --secondary: oklch(0.36 0.05 302 / 62%);
-  --secondary-foreground: oklch(0.94 0.01 300);
-  --muted: oklch(0.29 0.03 252 / 56%);
-  --muted-foreground: oklch(0.83 0.03 245);
-  --accent: oklch(0.5 0.11 72 / 64%);
-  --accent-foreground: oklch(0.96 0.01 90);
-  --destructive: oklch(0.69 0.19 22);
-  --border: oklch(0.72 0.08 258 / 38%);
-  --input: oklch(0.32 0.04 255 / 64%);
-  --ring: oklch(0.74 0.18 278);
-  --chart-1: oklch(0.78 0.16 235);
-  --chart-2: oklch(0.7 0.16 315);
-  --chart-3: oklch(0.79 0.13 75);
-  --chart-4: oklch(0.7 0.13 185);
-  --chart-5: oklch(0.72 0.14 35);
-  --roll-positive: oklch(0.78 0.16 165);
-  --roll-positive-foreground: oklch(0.18 0.03 170);
-  --roll-negative: oklch(0.79 0.14 55);
-  --roll-negative-foreground: oklch(0.18 0.03 55);
-  --sidebar: oklch(0.24 0.03 258 / 70%);
-  --sidebar-foreground: oklch(0.95 0.01 250);
-  --sidebar-primary: oklch(0.78 0.16 235);
-  --sidebar-primary-foreground: oklch(0.2 0.03 250);
-  --sidebar-accent: oklch(0.36 0.06 298 / 64%);
-  --sidebar-accent-foreground: oklch(0.94 0.01 300);
-  --sidebar-border: oklch(0.72 0.08 258 / 40%);
-  --sidebar-ring: oklch(0.74 0.18 278);
-}
-
-[data-theme='iridescent'] body {
-  background-image:
-    radial-gradient(circle at 18% 24%, oklch(0.84 0.22 215 / 22%), transparent 44%),
-    radial-gradient(circle at 82% 18%, oklch(0.84 0.19 330 / 22%), transparent 42%),
-    radial-gradient(circle at 74% 78%, oklch(0.86 0.17 72 / 24%), transparent 46%),
-    linear-gradient(135deg, oklch(0.24 0.03 260 / 8%), transparent 60%);
-  background-attachment: fixed;
-}
-
-[data-theme='iridescent'] :is(
-    [data-slot='card'],
-    [data-slot='dialog-content'],
-    [data-slot='sheet-content'],
-    [data-slot='select-content'],
-    [data-slot='select-trigger'],
-    [data-slot='sidebar']
-  ) {
-  background-image:
-    linear-gradient(
-      120deg,
-      oklch(0.93 0.17 210 / 20%) 0%,
-      oklch(0.9 0.13 312 / 11%) 36%,
-      oklch(0.92 0.18 76 / 18%) 68%,
-      oklch(0.91 0.15 235 / 16%) 100%
-    ),
-    linear-gradient(var(--card), var(--card));
-  background-size:
-    220% 220%,
-    100% 100%;
-  border-color: var(--border);
-  box-shadow:
-    inset 0 1px 0 oklch(1 0 0 / 36%),
-    0 16px 36px oklch(0.22 0.07 275 / 18%);
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
-  animation: iridescentShimmer 26s ease-in-out infinite;
-}
-
-[data-theme='iridescent'] [data-slot='button'] {
-  background-image: linear-gradient(
-    120deg,
-    oklch(0.93 0.2 212 / 20%) 0%,
-    oklch(0.9 0.14 315 / 12%) 45%,
-    oklch(0.92 0.19 80 / 16%) 100%
-  );
-  border-color: var(--border);
-  box-shadow:
-    inset 0 1px 0 oklch(1 0 0 / 28%),
-    0 8px 18px oklch(0.24 0.08 272 / 20%);
-  backdrop-filter: blur(10px) saturate(145%);
-  -webkit-backdrop-filter: blur(10px) saturate(145%);
-  animation: iridescentShimmer 30s ease-in-out infinite;
-}
-
-[data-theme='iridescent'] [data-slot='button'].bg-destructive {
-  box-shadow:
-    inset 0 1px 0 oklch(1 0 0 / 24%),
-    0 8px 18px oklch(0.33 0.14 25 / 20%);
-}
-
-[data-theme='iridescent'] :is([data-slot='dialog-overlay'], [data-slot='sheet-overlay']) {
-  background: oklch(0.16 0.02 255 / 56%);
-  backdrop-filter: blur(2px);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [data-theme='iridescent'] :is(
-      [data-slot='card'],
-      [data-slot='dialog-content'],
-      [data-slot='sheet-content'],
-      [data-slot='select-content'],
-      [data-slot='select-trigger'],
-      [data-slot='sidebar']
-    ) {
-    animation: none !important;
-  }
-
-  [data-theme='iridescent'] [data-slot='button'] {
-    animation: none !important;
   }
 }
 

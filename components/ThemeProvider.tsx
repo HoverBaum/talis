@@ -18,13 +18,7 @@ import {
 } from 'react'
 
 export type Mode = 'system' | 'light' | 'dark'
-export type Theme =
-  | 'default'
-  | 'shadowrun'
-  | 'nature'
-  | 'spm'
-  | 'brutalism'
-  | 'iridescent'
+export type Theme = 'default' | 'shadowrun' | 'nature' | 'spm' | 'brutalism'
 export type ResolvedMode = 'light' | 'dark'
 
 export const THEMES: Theme[] = [
@@ -33,7 +27,6 @@ export const THEMES: Theme[] = [
   'nature',
   'spm',
   'brutalism',
-  'iridescent',
 ]
 
 type ThemeProviderProps = {
