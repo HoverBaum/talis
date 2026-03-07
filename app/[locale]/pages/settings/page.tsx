@@ -71,7 +71,7 @@ export default function SettingsPage() {
               <Palette className="h-5 w-5 text-muted-foreground" />
               <h2 className="text-lg font-semibold">{t('appearance')}</h2>
             </div>
-            <p className="mt-1 md:ml-7 text-sm text-muted-foreground">
+            <p className="mt-1 md:pl-7 text-sm text-muted-foreground">
               {t('appearanceDescription')}
             </p>
           </div>
@@ -117,7 +117,7 @@ export default function SettingsPage() {
               <PanelLeft className="h-5 w-5 text-muted-foreground" />
               <h2 className="text-lg font-semibold">{t('sidebarOptions')}</h2>
             </div>
-            <p className="mt-1 md:ml-7 text-sm text-muted-foreground">
+            <p className="mt-1 md:pl-7 text-sm text-muted-foreground">
               {t('sidebarOptionsDescription')}
             </p>
           </div>
@@ -181,7 +181,7 @@ export default function SettingsPage() {
                 {t('vibrationSettings')}
               </h2>
             </div>
-            <p className="mt-1 md:ml-7 text-sm text-muted-foreground">
+            <p className="mt-1 md:pl-7 text-sm text-muted-foreground">
               {t('vibrationSettingsDescription')}
             </p>
           </div>

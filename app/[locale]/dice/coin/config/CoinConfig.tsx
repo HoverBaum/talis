@@ -124,15 +124,17 @@ export const CoinConfig = () => {
       </div>
 
       <section className="space-y-6">
-        <div className="flex items-center gap-2">
-          <Monitor className="h-4 w-4 text-muted-foreground" />
-          <h2 className="text-lg font-semibold">{t('displaySettings')}</h2>
+        <div>
+          <div className="flex items-center gap-2">
+            <Monitor className="h-4 w-4 text-muted-foreground" />
+            <h2 className="text-lg font-semibold">{t('displaySettings')}</h2>
+          </div>
+          <p className="mt-1 md:pl-7 text-sm text-muted-foreground">
+            {t('displaySettingsDescription')}
+          </p>
         </div>
-        <p className="text-sm text-muted-foreground -mt-4 ml-6">
-          {t('displaySettingsDescription')}
-        </p>
 
-        <div className="space-y-4 ml-6">
+        <div className="space-y-4 md:pl-7">
           <div className="flex items-center justify-between py-2">
             <div className="space-y-0.5">
               <Label htmlFor="newResultsBottom">
@@ -197,15 +199,17 @@ export const CoinConfig = () => {
       </section>
 
       <section className="space-y-6">
-        <div className="flex items-center gap-2">
-          <Coins className="h-4 w-4 text-muted-foreground" />
-          <h2 className="text-lg font-semibold">{t('customCoins')}</h2>
+        <div>
+          <div className="flex items-center gap-2">
+            <Coins className="h-4 w-4 text-muted-foreground" />
+            <h2 className="text-lg font-semibold">{t('customCoins')}</h2>
+          </div>
+          <p className="mt-1 md:pl-7 text-sm text-muted-foreground">
+            {t('customCoinsDescription')}
+          </p>
         </div>
-        <p className="text-sm text-muted-foreground -mt-4 ml-6">
-          {t('customCoinsDescription')}
-        </p>
 
-        <div className="space-y-4 ml-6">
+        <div className="space-y-4 md:pl-7">
           {/* Existing custom coins */}
           {config.customCoins.length > 0 && (
             <div className="space-y-2">

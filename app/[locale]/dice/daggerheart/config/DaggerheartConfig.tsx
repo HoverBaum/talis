@@ -39,17 +39,19 @@ export function DaggerheartConfig() {
       </div>
 
       <section className="space-y-6">
-        <div className="flex items-center gap-2">
-          <Dice1 className="h-4 w-4 text-muted-foreground" />
-          <h2 className="text-lg font-semibold">
-            {tPolyhedral('diceSelection')}
-          </h2>
+        <div>
+          <div className="flex items-center gap-2">
+            <Dice1 className="h-4 w-4 text-muted-foreground" />
+            <h2 className="text-lg font-semibold">
+              {tPolyhedral('diceSelection')}
+            </h2>
+          </div>
+          <p className="mt-1 md:pl-7 text-sm text-muted-foreground">
+            {tPolyhedral('diceSelectionDescription')}
+          </p>
         </div>
-        <p className="text-sm text-muted-foreground -mt-4 ml-6">
-          {tPolyhedral('diceSelectionDescription')}
-        </p>
 
-        <div className="space-y-4 ml-6">
+        <div className="space-y-4 md:pl-7">
           {ALL_DICE_TYPES.map((diceType) => {
             const enabledDice = config.enabledDice || []
             const isEnabled = enabledDice.includes(diceType)
@@ -74,7 +76,7 @@ export function DaggerheartConfig() {
                     d{diceType}
                   </Label>
                 </div>
-                <div className="flex items-center gap-2 ml-7">
+                <div className="flex items-center gap-2 md:pl-7">
                   <Label
                     htmlFor={`max-${diceType}`}
                     className={`text-sm ${isEnabled ? 'text-muted-foreground' : 'text-muted-foreground/50'}`}
@@ -102,15 +104,17 @@ export function DaggerheartConfig() {
       </section>
 
       <section className="space-y-6">
-        <div className="flex items-center gap-2">
-          <Palette className="h-4 w-4 text-muted-foreground" />
-          <h2 className="text-lg font-semibold">{t('displaySettings')}</h2>
+        <div>
+          <div className="flex items-center gap-2">
+            <Palette className="h-4 w-4 text-muted-foreground" />
+            <h2 className="text-lg font-semibold">{t('displaySettings')}</h2>
+          </div>
+          <p className="mt-1 md:pl-7 text-sm text-muted-foreground">
+            {t('displaySettingsDescription')}
+          </p>
         </div>
-        <p className="text-sm text-muted-foreground -mt-4 ml-6">
-          {t('displaySettingsDescription')}
-        </p>
 
-        <div className="space-y-4 ml-6">
+        <div className="space-y-4 md:pl-7">
           <div className="flex items-center justify-between py-2">
             <div className="space-y-0.5">
               <Label htmlFor="useThemeColors">{t('useThemeColors')}</Label>

@@ -78,15 +78,17 @@ export function PolyhedralConfig() {
       </div>
 
       <section className="space-y-6">
-        <div className="flex items-center gap-2">
-          <Dice1 className="h-4 w-4 text-muted-foreground" />
-          <h2 className="text-lg font-semibold">{t('diceSelection')}</h2>
+        <div>
+          <div className="flex items-center gap-2">
+            <Dice1 className="h-4 w-4 text-muted-foreground" />
+            <h2 className="text-lg font-semibold">{t('diceSelection')}</h2>
+          </div>
+          <p className="mt-1 md:pl-7 text-sm text-muted-foreground">
+            {t('diceSelectionDescription')}
+          </p>
         </div>
-        <p className="text-sm text-muted-foreground -mt-4 ml-6">
-          {t('diceSelectionDescription')}
-        </p>
 
-        <div className="space-y-4 ml-6">
+        <div className="space-y-4 md:pl-7">
           {ALL_DICE_TYPES.map((diceType) => {
             const isEnabled = config.enabledDice.includes(diceType)
             const maxQuantity = config.diceSettings[diceType]?.maxQuantity ?? 8
@@ -109,7 +111,7 @@ export function PolyhedralConfig() {
                     d{diceType}
                   </Label>
                 </div>
-                <div className="flex items-center gap-2 ml-7">
+                <div className="flex items-center gap-2 md:pl-7">
                   <Label
                     htmlFor={`max-${diceType}`}
                     className={`text-sm ${isEnabled ? 'text-muted-foreground' : 'text-muted-foreground/50'}`}
@@ -137,15 +139,17 @@ export function PolyhedralConfig() {
       </section>
 
       <section className="space-y-6">
-        <div className="flex items-center gap-2">
-          <Monitor className="h-4 w-4 text-muted-foreground" />
-          <h2 className="text-lg font-semibold">{t('displaySettings')}</h2>
+        <div>
+          <div className="flex items-center gap-2">
+            <Monitor className="h-4 w-4 text-muted-foreground" />
+            <h2 className="text-lg font-semibold">{t('displaySettings')}</h2>
+          </div>
+          <p className="mt-1 md:pl-7 text-sm text-muted-foreground">
+            {t('displaySettingsDescription')}
+          </p>
         </div>
-        <p className="text-sm text-muted-foreground -mt-4 ml-6">
-          {t('displaySettingsDescription')}
-        </p>
 
-        <div className="space-y-4 ml-6">
+        <div className="space-y-4 md:pl-7">
           <div className="flex items-center justify-between py-2">
             <div className="space-y-0.5">
               <Label htmlFor="newResultsBottom">
