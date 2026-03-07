@@ -56,6 +56,7 @@
 /* Default Theme - Light Mode */
 [data-theme='default'][data-mode='light'],
 :root:not([data-theme]):not([data-mode]) {
+  --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -95,6 +96,7 @@
 
 /* Default Theme - Dark Mode */
 [data-theme='default'][data-mode='dark'] {
+  --radius: 0.625rem;
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -220,6 +222,7 @@
 
 /* Shadowrun Theme - Light Mode */
 [data-theme='shadowrun'][data-mode='light'] {
+  --radius: 0.625rem;
   --primary: oklch(0.5 0.2 330);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.9 0.02 330);
@@ -259,6 +262,7 @@
 
 /* Shadowrun Theme - Dark Mode */
 [data-theme='shadowrun'][data-mode='dark'] {
+  --radius: 0.625rem;
   --primary: oklch(0.5 0.2 330);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.25 0.02 330);
@@ -298,6 +302,7 @@
 
 /* Nature Theme - Light Mode */
 [data-theme='nature'][data-mode='light'] {
+  --radius: 0.625rem;
   --primary: oklch(0.5 0.08 145);
   --primary-foreground: oklch(0.95 0.01 60);
   --secondary: oklch(0.93 0.015 145);
@@ -337,6 +342,7 @@
 
 /* Nature Theme - Dark Mode */
 [data-theme='nature'][data-mode='dark'] {
+  --radius: 0.625rem;
   --primary: oklch(0.5 0.08 145);
   --primary-foreground: oklch(0.95 0.01 60);
   --secondary: oklch(0.36 0.02 145);
@@ -376,6 +382,7 @@
 
 /* SPM Theme - Light Mode */
 [data-theme='spm'][data-mode='light'] {
+  --radius: 0.625rem;
   --primary: oklch(0.5 0.13 245);
   --primary-foreground: oklch(0.95 0 0);
   --secondary: oklch(0.93 0.02 245);
@@ -415,6 +422,7 @@
 
 /* SPM Theme - Dark Mode */
 [data-theme='spm'][data-mode='dark'] {
+  --radius: 0.625rem;
   --primary: oklch(0.5 0.13 245);
   --primary-foreground: oklch(0.95 0 0);
   --secondary: oklch(0.31 0.02 245);
