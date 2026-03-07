@@ -60,23 +60,23 @@ export default function SettingsPage() {
       <div className="space-y-10 pb-4">
         {/* Page Header */}
         <div className="flex items-center gap-3">
-          <Settings2 className="h-6 w-6 text-primary" />
+          <Settings2 className="size-6" />
           <h1 className="text-2xl font-bold tracking-tight">{t('title')}</h1>
         </div>
 
         {/* Appearance Section */}
         <section className="space-y-6">
-          <div className="flex items-center gap-2">
-            <Palette className="h-5 w-5 text-muted-foreground" />
-            <div>
+          <div>
+            <div className="flex items-center gap-2">
+              <Palette className="h-5 w-5 text-muted-foreground" />
               <h2 className="text-lg font-semibold">{t('appearance')}</h2>
-              <p className="text-sm text-muted-foreground">
-                {t('appearanceDescription')}
-              </p>
             </div>
+            <p className="mt-1 md:ml-7 text-sm text-muted-foreground">
+              {t('appearanceDescription')}
+            </p>
           </div>
 
-          <div className="space-y-6 ml-7">
+          <div className="space-y-6 md:pl-7">
             {/* Theme Picker */}
             <div className="space-y-3">
               <Label id="theme-picker-label" className="text-base font-medium">
@@ -112,17 +112,17 @@ export default function SettingsPage() {
 
         {/* Sidebar Section */}
         <section className="space-y-6">
-          <div className="flex items-center gap-2">
-            <PanelLeft className="h-5 w-5 text-muted-foreground" />
-            <div>
+          <div>
+            <div className="flex items-center gap-2">
+              <PanelLeft className="h-5 w-5 text-muted-foreground" />
               <h2 className="text-lg font-semibold">{t('sidebarOptions')}</h2>
-              <p className="text-sm text-muted-foreground">
-                {t('sidebarOptionsDescription')}
-              </p>
             </div>
+            <p className="mt-1 md:ml-7 text-sm text-muted-foreground">
+              {t('sidebarOptionsDescription')}
+            </p>
           </div>
 
-          <div className="space-y-4 ml-7">
+          <div className="space-y-4 md:pl-7">
             <div className="space-y-2">
               <div className="flex items-center justify-between py-2">
                 <div className="space-y-0.5">
@@ -174,19 +174,19 @@ export default function SettingsPage() {
 
         {/* Vibration Section */}
         <section className="space-y-6">
-          <div className="flex items-center gap-2">
-            <Vibrate className="h-5 w-5 text-muted-foreground" />
-            <div>
+          <div>
+            <div className="flex items-center gap-2">
+              <Vibrate className="h-5 w-5 text-muted-foreground" />
               <h2 className="text-lg font-semibold">
                 {t('vibrationSettings')}
               </h2>
-              <p className="text-sm text-muted-foreground">
-                {t('vibrationSettingsDescription')}
-              </p>
             </div>
+            <p className="mt-1 md:ml-7 text-sm text-muted-foreground">
+              {t('vibrationSettingsDescription')}
+            </p>
           </div>
 
-          <div className="space-y-4 ml-7">
+          <div className="space-y-4 md:pl-7">
             <Alert variant="default" className="bg-muted/50">
               <Info className="h-4 w-4" />
               <AlertDescription className="text-sm">
