@@ -19,6 +19,7 @@ import {
   Keyboard,
 } from 'lucide-react'
 import { nanoid } from 'nanoid'
+import { Input } from '@/components/ui/input'
 
 const SwitchSkeleton = () => (
   <Skeleton className="h-[1.15rem] w-8 shrink-0 rounded-full" />
@@ -135,7 +136,7 @@ export function ShadowrunConfig() {
         </div>
 
         <div className="space-y-4 md:pl-7">
-          <div className="flex items-center justify-between py-2">
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between py-2">
             <div className="space-y-0.5">
               <Label htmlFor="maxDiceAmount">{t('maxDiceAmount')}</Label>
               <p className="text-sm text-muted-foreground">
@@ -143,8 +144,8 @@ export function ShadowrunConfig() {
               </p>
             </div>
             {hasHydrated ? (
-              <div className="flex items-center gap-2">
-                <input
+              <div className="w-full md:w-auto grid grid-cols-1 gap-2">
+                <Input
                   id="maxDiceAmount"
                   type="number"
                   min={1}
@@ -157,7 +158,6 @@ export function ShadowrunConfig() {
                       ),
                     })
                   }
-                  className="w-20 h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 />
                 <Button
                   variant="outline"
@@ -168,7 +168,7 @@ export function ShadowrunConfig() {
                     amount: MAX_DICE_AMOUNT,
                   })}
                 >
-                  {t('resetMaxDiceAmount')}
+                  {t('resetMaxDiceAmount')} ({MAX_DICE_AMOUNT})
                 </Button>
               </div>
             ) : (
