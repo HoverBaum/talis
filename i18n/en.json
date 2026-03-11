@@ -194,6 +194,11 @@
     "helpText": "To access new pages or features, please check your internet connection and try again.",
     "goHome": "Go to Home"
   },
+  "NotFound": {
+    "title": "Roll for Investigation... Failed",
+    "description": "You've wandered off the map. This page doesn't exist — not even a natural 20 could uncover it. Time to head back.",
+    "goHome": "Go Home"
+  },
   "Footer": {
     "builtBy": "Built by"
   },
