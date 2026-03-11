@@ -3,6 +3,7 @@ import { SetPageTitle } from '@/components/PageTitleProvider'
 import { HomeCard } from '@/components/HomeCard'
 import { VersionInfo } from '@/components/VersionInfo'
 import { rollerNavItems, pageNavItems } from '@/lib/nav'
+import { PageContentContainer } from '@/components/PageContentContainer'
 
 export async function generateMetadata({
   params,
@@ -31,7 +32,7 @@ export default async function HomePage({
   return (
     <>
       <SetPageTitle title={navT('home')} />
-      <div className="flex flex-col gap-4 p-4 md:p-8 max-w-140 lg:max-w-3xl xl:max-w-5xl mx-auto">
+      <PageContentContainer className="flex flex-col gap-4">
         <div className="space-y-2">
           <h1 className="text-4xl font-bold">{t('title')}</h1>
         </div>
@@ -75,7 +76,7 @@ export default async function HomePage({
         <div className="mt-8 sm:hidden flex justify-center">
           <VersionInfo />
         </div>
-      </div>
+      </PageContentContainer>
     </>
   )
 }

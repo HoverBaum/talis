@@ -1,7 +1,9 @@
-export default function AboutLayout({
+import { PageContentContainer } from '@/components/PageContentContainer'
+
+export default function PagesLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  return <div className="p-4 md:p-8 max-w-3xl mx-auto">{children}</div>
+  return <PageContentContainer>{children}</PageContentContainer>
 }
