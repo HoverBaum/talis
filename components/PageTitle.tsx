@@ -19,7 +19,7 @@
  * - Must be a client component (uses React context)
  * - Requires PageTitleProvider to be in the component tree
  * - Pages must use SetPageTitle component to set their title
- * - Returns only the page name (no "Talis" prefix) for navbar display
+ * - Header title must remain single-line with ellipsis for long localized text
  *
  * Performance:
  * - Lightweight component with minimal re-renders
@@ -43,8 +43,8 @@ export const PageTitle = () => {
   const Icon = roller?.icon
 
   return (
-    <span className="font-semibold flex items-center gap-2">
-      <Link href="/" className="flex items-center gap-2">
+    <span className="flex min-w-0 flex-1 items-center gap-2 overflow-hidden font-semibold">
+      <Link href="/" className="flex shrink-0 items-center gap-2">
         <Image
           src={branding.logo}
           width={32}
@@ -53,11 +53,13 @@ export const PageTitle = () => {
           className="size-8 inline-block"
         />
 
-        <span>{branding.brandName}</span>
+        <span className="shrink-0">{branding.brandName}</span>
       </Link>
-      <span> - </span>
-      {Icon && <Icon className="w-5 h-5" />}
-      {title}
+      <span className="shrink-0"> - </span>
+      {Icon && <Icon className="h-5 w-5 shrink-0" />}
+      <span className="min-w-0 overflow-hidden whitespace-nowrap text-ellipsis">
+        {title}
+      </span>
     </span>
   )
 }
