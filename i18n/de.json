@@ -195,6 +195,7 @@
     "goHome": "Zur Startseite"
   },
   "NotFound": {
+    "pageTitle": "404",
     "title": "Nachforschungswurf... Fehlgeschlagen",
     "description": "Du hast dich verirrt. Diese Seite existiert nicht — selbst ein natürlicher 20er könnte sie nicht finden. Ab, zurück auf Start.",
     "goHome": "Zur Startseite"

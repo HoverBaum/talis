@@ -195,6 +195,7 @@
     "goHome": "Go to Home"
   },
   "NotFound": {
+    "pageTitle": "404",
     "title": "Roll for Investigation... Failed",
     "description": "You've wandered off the map. This page doesn't exist — not even a natural 20 could uncover it. Time to head back.",
     "goHome": "Go Home"
