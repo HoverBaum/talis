@@ -47,6 +47,8 @@ import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
 import { useHasHydrated } from '@/hooks/useStoreHydration'
 import { Button } from '@/components/ui/button'
+import { rollManyDice } from '@/utils/dice-utils'
+import { sanitizeIntegerInRange } from '@/utils/number-utils'
 import { nanoid } from 'nanoid'
 
 export function PolyhedralRoller() {
@@ -63,15 +65,26 @@ export function PolyhedralRoller() {
   const clearRolls = usePolyhedralStore((state) => state.clearRolls)
   const addRoll = usePolyhedralStore((state) => state.addRoll)
 
-  const maxQuantity = config.diceSettings[selectedDiceType]?.maxQuantity ?? 8
-  const currentQuantity = diceQuantities[selectedDiceType] ?? 1
+  const maxQuantity = sanitizeIntegerInRange(
+    config.diceSettings[selectedDiceType]?.maxQuantity ?? 8,
+    {
+      min: 1,
+      max: 999,
+      fallback: 8,
+    }
+  )
+  const currentQuantity = sanitizeIntegerInRange(
+    diceQuantities[selectedDiceType] ?? 1,
+    {
+      min: 1,
+      max: maxQuantity,
+      fallback: 1,
+    }
+  )
 
   const rollDice = (diceType: PolyhedralDiceType, quantity: number) => {
     diceRollVibration(quantity)
-    const diceRolls: number[] = []
-    for (let i = 0; i < quantity; i++) {
-      diceRolls.push(Math.floor(Math.random() * diceType) + 1)
-    }
+    const diceRolls = rollManyDice(diceType, quantity)
     const result: PolyhedralRollResult = {
       results: diceRolls,
       diceType,

@@ -18,6 +18,8 @@ import { diceRollVibration } from '@/utils/diceRollVibration'
 import { DiceRollType } from './shadowrun-store'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
 import { useHasHydrated } from '@/hooks/useStoreHydration'
+import { rollManyDice } from '@/utils/dice-utils'
+import { sanitizeIntegerInRange } from '@/utils/number-utils'
 import { nanoid } from 'nanoid'
 
 export function ShadowrunRoller() {
@@ -29,13 +31,20 @@ export function ShadowrunRoller() {
   const setNumberOfDice = useShadowrunStore((state) => state.setDiceAmount)
   const clearRolls = useShadowrunStore((state) => state.clearRolls)
   const addRoll = useShadowrunStore((state) => state.addRoll)
+  const safeMaxDiceAmount = sanitizeIntegerInRange(config.maxDiceAmount, {
+    min: 1,
+    max: 999,
+    fallback: 30,
+  })
+  const safeNumberOfDice = sanitizeIntegerInRange(numberOfDice, {
+    min: 1,
+    max: safeMaxDiceAmount,
+    fallback: 1,
+  })
 
   const rollD6 = (dice: number) => {
     diceRollVibration(dice)
-    const diceRolls: number[] = []
-    for (let i = 0; i < dice; i++) {
-      diceRolls.push(Math.floor(Math.random() * 6) + 1)
-    }
+    const diceRolls = rollManyDice(6, dice)
 
     const hits = diceRolls.reduce(
       (hits, roll) => (roll >= 5 ? hits + 1 : hits),
@@ -73,7 +82,7 @@ export function ShadowrunRoller() {
               diceRoll={roll}
               isFaded={index > 1}
               isHighlighted={index === 0}
-              key={roll.timestamp}
+              key={roll.id}
             />
           ))}
         </RollerLayoutResultArea>
@@ -81,8 +90,8 @@ export function ShadowrunRoller() {
           {/* Wait for hydration before rendering config-dependent maxDiceAmount */}
           {hasHydrated && (
             <DiceSelectWheel
-              max={config.maxDiceAmount}
-              current={numberOfDice}
+              max={safeMaxDiceAmount}
+              current={safeNumberOfDice}
               onChange={setNumberOfDice}
             />
           )}
@@ -91,8 +100,8 @@ export function ShadowrunRoller() {
       <RollerLayoutFooter>
         <RollerControls
           onClear={clearRolls}
-          onRoll={() => rollD6(numberOfDice)}
-          rollDisabled={numberOfDice <= 0}
+          onRoll={() => rollD6(safeNumberOfDice)}
+          rollDisabled={safeNumberOfDice <= 0}
           rollLabel={t('roll')}
           settingsHref="shadowrun/config"
         >
@@ -101,9 +110,9 @@ export function ShadowrunRoller() {
             <>
               {config.useFreeInput && (
                 <FreeDiceInput
-                  numberOfDice={numberOfDice}
+                  numberOfDice={safeNumberOfDice}
                   onNewNumber={setNumberOfDice}
-                  maxDiceAmount={config.maxDiceAmount}
+                  maxDiceAmount={safeMaxDiceAmount}
                 />
               )}
 

@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import { nanoid } from 'nanoid'
 import { Input } from '@/components/ui/input'
+import { sanitizeIntegerInRange } from '@/utils/number-utils'
 
 const SwitchSkeleton = () => (
   <Skeleton className="h-[1.15rem] w-8 shrink-0 rounded-full" />
@@ -152,9 +153,13 @@ export function ShadowrunConfig() {
                   value={config.maxDiceAmount}
                   onChange={(e) =>
                     updateConfig({
-                      maxDiceAmount: Math.max(
-                        1,
-                        Math.floor(Number(e.target.value))
+                      maxDiceAmount: sanitizeIntegerInRange(
+                        Number(e.target.value),
+                        {
+                          min: 1,
+                          max: 999,
+                          fallback: MAX_DICE_AMOUNT,
+                        }
                       ),
                     })
                   }

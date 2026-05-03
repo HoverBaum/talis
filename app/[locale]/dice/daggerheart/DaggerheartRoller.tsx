@@ -24,6 +24,8 @@ import { DiceSelectWheel } from '@/components/DiceSelectWheel'
 import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
 import { useHasHydrated } from '@/hooks/useStoreHydration'
+import { rollDie, rollManyDice } from '@/utils/dice-utils'
+import { sanitizeIntegerInRange } from '@/utils/number-utils'
 import { Button } from '@/components/ui/button'
 import { nanoid } from 'nanoid'
 
@@ -54,13 +56,25 @@ export function DaggerheartRoller() {
   }
 
   const maxQuantity = config.diceSettings?.[selectedDiceType]?.maxQuantity ?? 8
-  const currentQuantity = diceQuantities[selectedDiceType] ?? 1
+  const safeMaxQuantity = sanitizeIntegerInRange(maxQuantity, {
+    min: 1,
+    max: 999,
+    fallback: 8,
+  })
+  const currentQuantity = sanitizeIntegerInRange(
+    diceQuantities[selectedDiceType] ?? 1,
+    {
+      min: 1,
+      max: safeMaxQuantity,
+      fallback: 1,
+    }
+  )
 
   const rollDice = () => {
     if (rollMode === 'daggerheart') {
       diceRollVibration(2)
-      const hope = Math.floor(Math.random() * 12) + 1
-      const fear = Math.floor(Math.random() * 12) + 1
+      const hope = rollDie(12)
+      const fear = rollDie(12)
       const roll: DaggerheartRoll = {
         hope,
         fear,
@@ -79,10 +93,7 @@ export function DaggerheartRoller() {
     quantity: number
   ) => {
     diceRollVibration(quantity)
-    const diceRolls: number[] = []
-    for (let i = 0; i < quantity; i++) {
-      diceRolls.push(Math.floor(Math.random() * diceType) + 1)
-    }
+    const diceRolls = rollManyDice(diceType, quantity)
     const result: PolyhedralRollResult = {
       results: diceRolls,
       diceType,
@@ -146,7 +157,7 @@ export function DaggerheartRoller() {
               }`}
             >
               <DiceSelectWheel
-                max={maxQuantity}
+                max={safeMaxQuantity}
                 current={currentQuantity}
                 onChange={handleQuantityChange}
               />

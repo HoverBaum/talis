@@ -2,6 +2,7 @@
 
 import { create } from 'zustand'
 import { createStoreMiddleware } from '@/utils/store-utils'
+import { sanitizeIntegerInRange } from '@/utils/number-utils'
 
 const MAX_DICE_AMOUNT = 8
 const INITIAL_DICE_AMOUNT = 1
@@ -41,7 +42,14 @@ export const useD6Store = create<D6State>()(
       diceAmount: INITIAL_DICE_AMOUNT,
       rolls: [],
       config: DEFAULT_CONFIG,
-      setDiceAmount: (amount: number) => set({ diceAmount: amount }),
+      setDiceAmount: (amount: number) =>
+        set((state) => ({
+          diceAmount: sanitizeIntegerInRange(amount, {
+            min: INITIAL_DICE_AMOUNT,
+            max: state.config.maxDice,
+            fallback: INITIAL_DICE_AMOUNT,
+          }),
+        })),
       clearRolls: () => set({ rolls: [] }),
       addRoll: (roll: D6RollResult) =>
         set((state) => ({
@@ -50,11 +58,23 @@ export const useD6Store = create<D6State>()(
       updateConfig: (newConfig) =>
         set((state) => {
           const config = { ...state.config, ...newConfig }
+          const maxDice = sanitizeIntegerInRange(config.maxDice, {
+            min: INITIAL_DICE_AMOUNT,
+            max: 999,
+            fallback: MAX_DICE_AMOUNT,
+          })
           let diceAmount = state.diceAmount
           if (typeof newConfig.maxDice === 'number') {
-            diceAmount = Math.min(diceAmount, newConfig.maxDice)
+            diceAmount = Math.min(diceAmount, maxDice)
           }
-          return { config, diceAmount }
+          return {
+            config: { ...config, maxDice },
+            diceAmount: sanitizeIntegerInRange(diceAmount, {
+              min: INITIAL_DICE_AMOUNT,
+              max: maxDice,
+              fallback: INITIAL_DICE_AMOUNT,
+            }),
+          }
         }),
     }),
     persistConfig: {

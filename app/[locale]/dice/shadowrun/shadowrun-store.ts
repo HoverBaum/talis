@@ -2,8 +2,10 @@
 
 import { create } from 'zustand'
 import { createStoreMiddleware } from '@/utils/store-utils'
+import { sanitizeIntegerInRange } from '@/utils/number-utils'
 
 export const MAX_DICE_AMOUNT = 30
+const MAX_DICE_LIMIT = 999
 
 export type QuickButtonTypes = 'instantRoll' | 'setAmount'
 export type QuickButtonType = {
@@ -63,7 +65,14 @@ export const useShadowrunStore = create<ShadowrunState>()(
       diceAmount: 8,
       rolls: [],
       config: DEFAULT_CONFIG,
-      setDiceAmount: (amount) => set({ diceAmount: amount }),
+      setDiceAmount: (amount) =>
+        set((state) => ({
+          diceAmount: sanitizeIntegerInRange(amount, {
+            min: 1,
+            max: state.config.maxDiceAmount,
+            fallback: 1,
+          }),
+        })),
       clearRolls: () => set({ rolls: [] }),
       addRoll: (roll) =>
         set((state) => ({
@@ -72,7 +81,30 @@ export const useShadowrunStore = create<ShadowrunState>()(
       updateConfig: (newConfig) =>
         set((state) => {
           const config = { ...state.config, ...newConfig }
-          return { config }
+          const maxDiceAmount = sanitizeIntegerInRange(config.maxDiceAmount, {
+            min: 1,
+            max: MAX_DICE_LIMIT,
+            fallback: MAX_DICE_AMOUNT,
+          })
+          config.maxDiceAmount = maxDiceAmount
+
+          const clampAmount = (amount: number, fallback: number) =>
+            sanitizeIntegerInRange(amount, {
+              min: 1,
+              max: maxDiceAmount,
+              fallback,
+            })
+
+          return {
+            config: {
+              ...config,
+              quickButtons: config.quickButtons.map((button) => ({
+                ...button,
+                amount: clampAmount(button.amount, 1),
+              })),
+            },
+            diceAmount: clampAmount(state.diceAmount, 1),
+          }
         }),
       deleteQuickButton: (id) =>
         set((state) => {
