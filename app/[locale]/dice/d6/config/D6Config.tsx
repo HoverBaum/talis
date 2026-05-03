@@ -8,13 +8,18 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Settings2, ArrowLeft, Monitor } from 'lucide-react'
+import { sanitizeIntegerInRange } from '@/utils/number-utils'
 
 export function D6Config() {
   const t = useTranslations('Roller.D6.Config')
   const config = useD6Store((state) => state.config)
   const updateConfig = useD6Store((state) => state.updateConfig)
   const setMaxDice = (value: number) => {
-    const safe = Math.max(1, Math.floor(value))
+    const safe = sanitizeIntegerInRange(value, {
+      min: 1,
+      max: 999,
+      fallback: 8,
+    })
     updateConfig({ maxDice: safe })
   }
 

@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Settings2, ArrowLeft, Palette, Dice1 } from 'lucide-react'
+import { sanitizeIntegerInRange } from '@/utils/number-utils'
 
 const ALL_DICE_TYPES: PolyhedralDiceType[] = [4, 6, 8, 10, 12, 20, 100]
 
@@ -89,7 +90,14 @@ export function DaggerheartConfig() {
                     min={1}
                     value={maxQuantity}
                     onChange={(e) =>
-                      setMaxQuantityForDice(diceType, Number(e.target.value))
+                      setMaxQuantityForDice(
+                        diceType,
+                        sanitizeIntegerInRange(Number(e.target.value), {
+                          min: 1,
+                          max: 999,
+                          fallback: 8,
+                        })
+                      )
                     }
                     disabled={!isEnabled}
                     className={`w-20 h-9 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-ring ${

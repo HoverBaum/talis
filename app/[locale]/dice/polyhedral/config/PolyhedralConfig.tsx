@@ -37,8 +37,10 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Settings2, ArrowLeft, Monitor, Dice1 } from 'lucide-react'
+import { sanitizeIntegerInRange } from '@/utils/number-utils'
 
 const ALL_DICE_TYPES: PolyhedralDiceType[] = [4, 6, 8, 10, 12, 20, 100]
+const MAX_DICE_QUANTITY_LIMIT = 999
 
 export function PolyhedralConfig() {
   const t = useTranslations('Roller.Polyhedral.Config')
@@ -61,7 +63,12 @@ export function PolyhedralConfig() {
   }
 
   const setMaxQuantity = (diceType: PolyhedralDiceType, value: number) => {
-    const safe = Math.max(1, Math.floor(value))
+    const currentMax = config.diceSettings[diceType]?.maxQuantity ?? 8
+    const safe = sanitizeIntegerInRange(value, {
+      min: 1,
+      max: MAX_DICE_QUANTITY_LIMIT,
+      fallback: currentMax,
+    })
     updateConfig({
       diceSettings: {
         ...config.diceSettings,

@@ -5,6 +5,7 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 * Each roller has its **own Zustand store slice**, scoped and typed for that roller.
 * State for each roller is **persisted** (e.g. last used settings and results if desired).
 * Stores must use the centrally provided `createStoreMiddleware` from `utils/store-utils.ts`.
+* For numeric state coming from user input (dice amount, max values), sanitize and clamp values before storing them (e.g. with `utils/number-utils.ts`) to avoid persisting `NaN`, `Infinity`, or out-of-range values.
 * Store files should live close to their roller, for example:
 
   * `app/[locale]/dice/[rollerName]/[rollerName]-store.ts` (e.g. `coin-store.ts`, `shadowrun-store.ts`)

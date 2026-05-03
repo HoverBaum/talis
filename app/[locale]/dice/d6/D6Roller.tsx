@@ -16,6 +16,12 @@ import { diceRollVibration } from '@/utils/diceRollVibration'
 import { useAutoScroll } from '@/utils/use-auto-scroll'
 import { useHasHydrated } from '@/hooks/useStoreHydration'
 import { nanoid } from 'nanoid'
+import { rollManyDice } from '@/utils/dice-utils'
+import { sanitizeIntegerInRange } from '@/utils/number-utils'
+
+const isD6 = (value: number): value is D6 => {
+  return value >= 1 && value <= 6
+}
 
 export function D6Roller() {
   const t = useTranslations('General')
@@ -26,13 +32,20 @@ export function D6Roller() {
   const setNumberOfDice = useD6Store((state) => state.setDiceAmount)
   const clearRolls = useD6Store((state) => state.clearRolls)
   const addRoll = useD6Store((state) => state.addRoll)
+  const safeMaxDice = sanitizeIntegerInRange(config.maxDice, {
+    min: 1,
+    max: 999,
+    fallback: 8,
+  })
+  const safeDiceAmount = sanitizeIntegerInRange(numberOfDice, {
+    min: 1,
+    max: safeMaxDice,
+    fallback: 1,
+  })
 
   const rollD6 = (diceAmount: number) => {
     diceRollVibration(diceAmount)
-    const diceRolls: D6[] = []
-    for (let i = 0; i < diceAmount; i++) {
-      diceRolls.push((Math.floor(Math.random() * 6) + 1) as D6)
-    }
+    const diceRolls = rollManyDice(6, diceAmount).filter(isD6)
     const result: D6RollResult = {
       results: diceRolls,
       type: 'D6',
@@ -68,8 +81,8 @@ export function D6Roller() {
           {/* Wait for hydration before rendering config-dependent maxDice */}
           {hasHydrated && (
             <DiceSelectWheel
-              max={config.maxDice}
-              current={numberOfDice}
+              max={safeMaxDice}
+              current={safeDiceAmount}
               onChange={setNumberOfDice}
             />
           )}
@@ -78,8 +91,8 @@ export function D6Roller() {
       <RollerLayoutFooter>
         <RollerControls
           onClear={clearRolls}
-          onRoll={() => rollD6(numberOfDice)}
-          rollDisabled={numberOfDice <= 0}
+          onRoll={() => rollD6(safeDiceAmount)}
+          rollDisabled={safeDiceAmount <= 0}
           rollLabel={t('roll')}
           settingsHref="d6/config"
         />

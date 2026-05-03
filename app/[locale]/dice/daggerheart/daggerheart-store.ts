@@ -2,6 +2,7 @@
 
 import { create } from 'zustand'
 import { createStoreMiddleware } from '@/utils/store-utils'
+import { sanitizeIntegerInRange } from '@/utils/number-utils'
 import {
   type PolyhedralRollResult,
   type PolyhedralDiceType,
@@ -71,6 +72,14 @@ export const useDaggerheartStore = create<DaggerheartState>()(
       setRollMode: (mode: RollMode) => set({ rollMode: mode }),
       updateConfig: (newConfig) =>
         set((state) => {
+          const currentEnabledDice =
+            state.config.enabledDice ?? DEFAULT_CONFIG.enabledDice
+          const requestedEnabledDice = newConfig.enabledDice
+            ? newConfig.enabledDice.length > 0
+              ? newConfig.enabledDice
+              : currentEnabledDice
+            : currentEnabledDice
+
           // Merge with defaults to ensure all required properties exist
           const mergedConfig = {
             ...DEFAULT_CONFIG,
@@ -83,15 +92,12 @@ export const useDaggerheartStore = create<DaggerheartState>()(
               ...(newConfig.diceSettings || {}),
             },
             // Ensure enabledDice is an array
-            enabledDice:
-              newConfig.enabledDice ||
-              state.config.enabledDice ||
-              DEFAULT_CONFIG.enabledDice,
+            enabledDice: requestedEnabledDice,
           }
           const config = mergedConfig
           // If enabled dice changed, ensure selected dice type is still enabled
           if (newConfig.enabledDice) {
-            const enabledDice = newConfig.enabledDice
+            const enabledDice = requestedEnabledDice
             if (!enabledDice.includes(state.selectedDiceType)) {
               const firstEnabled = enabledDice[0] as PolyhedralDiceType
               return {
@@ -105,16 +111,28 @@ export const useDaggerheartStore = create<DaggerheartState>()(
       setSelectedDiceType: (diceType: PolyhedralDiceType) =>
         set({ selectedDiceType: diceType }),
       setDiceQuantity: (diceType: number, quantity: number) =>
-        set((state) => ({
-          diceQuantities: {
-            ...state.diceQuantities,
-            [diceType]: quantity,
-          },
-        })),
+        set((state) => {
+          const maxQuantity =
+            state.config.diceSettings?.[diceType]?.maxQuantity ??
+            DEFAULT_MAX_QUANTITY
+          return {
+            diceQuantities: {
+              ...state.diceQuantities,
+              [diceType]: sanitizeIntegerInRange(quantity, {
+                min: 1,
+                max: maxQuantity,
+                fallback: 1,
+              }),
+            },
+          }
+        }),
       toggleDiceType: (diceType: PolyhedralDiceType) =>
         set((state) => {
           const enabledDice = state.config.enabledDice || []
           const isEnabled = enabledDice.includes(diceType)
+          if (isEnabled && enabledDice.length === 1) {
+            return {}
+          }
           let newEnabledDice: PolyhedralDiceType[]
           let newSelectedDiceType = state.selectedDiceType
 
@@ -151,7 +169,14 @@ export const useDaggerheartStore = create<DaggerheartState>()(
         maxQuantity: number
       ) =>
         set((state) => {
-          const safe = Math.max(1, Math.floor(maxQuantity))
+          const currentMax =
+            state.config.diceSettings?.[diceType]?.maxQuantity ??
+            DEFAULT_MAX_QUANTITY
+          const safe = sanitizeIntegerInRange(maxQuantity, {
+            min: 1,
+            max: 999,
+            fallback: currentMax,
+          })
           // Merge with defaults to ensure all required properties exist
           const mergedConfig = {
             ...DEFAULT_CONFIG,

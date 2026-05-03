@@ -2,6 +2,7 @@
 
 import { create } from 'zustand'
 import { createStoreMiddleware } from '@/utils/store-utils'
+import { sanitizeIntegerInRange } from '@/utils/number-utils'
 
 export type PolyhedralDiceType = 4 | 6 | 8 | 10 | 12 | 20 | 100
 
@@ -57,7 +58,13 @@ export const usePolyhedralStore = create<PolyhedralState>()(
         set((state) => ({
           diceQuantities: {
             ...state.diceQuantities,
-            [diceType]: quantity,
+            [diceType]: sanitizeIntegerInRange(quantity, {
+              min: 1,
+              max:
+                state.config.diceSettings[diceType]?.maxQuantity ??
+                DEFAULT_MAX_QUANTITY,
+              fallback: 1,
+            }),
           },
         })),
       clearRolls: () => set({ rolls: [] }),
@@ -67,10 +74,18 @@ export const usePolyhedralStore = create<PolyhedralState>()(
         })),
       updateConfig: (newConfig) =>
         set((state) => {
+          let nextEnabledDice = newConfig.enabledDice
+          if (newConfig.enabledDice && newConfig.enabledDice.length === 0) {
+            nextEnabledDice = [state.selectedDiceType]
+          }
+
           const config = { ...state.config, ...newConfig }
+          if (nextEnabledDice) {
+            config.enabledDice = nextEnabledDice
+          }
           // If enabled dice changed, ensure selected dice type is still enabled
-          if (newConfig.enabledDice) {
-            const enabledDice = newConfig.enabledDice
+          if (nextEnabledDice) {
+            const enabledDice = nextEnabledDice
             if (!enabledDice.includes(state.selectedDiceType)) {
               const firstEnabled = enabledDice[0] as PolyhedralDiceType
               return {
