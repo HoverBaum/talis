@@ -191,8 +191,11 @@
   "Offline": {
     "title": "You're Offline",
     "description": "It looks like you're not connected to the internet. Don't worry, Talis works offline! You can still use all the dice rollers you've already visited.",
+    "slowConnectionHint": "Your device is online, but the connection is currently too slow to load this page.",
     "helpText": "To access new pages or features, please check your internet connection and try again.",
-    "goHome": "Go to Home"
+    "goHome": "Go to Home",
+    "retry": "Try Again",
+    "retrying": "Checking connection..."
   },
   "NotFound": {
     "pageTitle": "404",
