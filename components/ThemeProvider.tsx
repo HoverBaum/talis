@@ -27,7 +27,6 @@ import {
   parseTheme,
   resolveMode,
   SYSTEM_MODE_QUERY,
-  THEMES,
   THEME_STORAGE_KEY,
   type Mode,
   type ResolvedMode,
@@ -47,15 +46,6 @@ type ThemeProviderState = {
   resolvedMode: ResolvedMode
   setMode: (mode: Mode) => void
   setTheme: (theme: Theme) => void
-}
-
-const initialState: ThemeProviderState = {
-  mode: DEFAULT_MODE,
-  theme: DEFAULT_THEME,
-  systemMode: 'light',
-  resolvedMode: 'light',
-  setMode: () => null,
-  setTheme: () => null,
 }
 
 const ThemeProviderContext = createContext<ThemeProviderState | null>(null)
