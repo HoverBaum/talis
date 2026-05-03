@@ -8,7 +8,8 @@
  * - Options are derived from `THEMES` in `ThemeProvider` to avoid implicit coupling.
  */
 
-import { THEMES, type Theme, useTheme } from './ThemeProvider'
+import { THEMES, isTheme } from '@/lib/theme-system'
+import { useTheme } from './ThemeProvider'
 import {
   Select,
   SelectContent,
@@ -30,8 +31,8 @@ export function ThemeSelect({ className, variant = 'full' }: ThemeSelectProps) {
   const t = useTranslations('Theme')
 
   const selectContent = (
-    <Select value={theme} onValueChange={(value) => setTheme(value as Theme)}>
-      <SelectTrigger className={variant === 'compact' ? 'w-full' : 'w-full'}>
+    <Select value={theme} onValueChange={(value) => isTheme(value) && setTheme(value)}>
+      <SelectTrigger className="w-full">
         <SelectValue placeholder={t('select')} />
       </SelectTrigger>
       <SelectContent>

@@ -9,14 +9,14 @@ Talis uses a **two-dimensional theming system** that separates **mode** (light/d
   * `dark` - Always use dark mode
   * `system` - Respects the user's OS setting (light/dark) and automatically switches
 
-* **Theme** - Controls color scheme. Current themes (see `THEMES` in `components/ThemeProvider.tsx`): `default`, `shadowrun`, `nature`, `spm`, `brutalism`, `iridescent`. Additional themes can be added.
+* **Theme** - Controls color scheme. Current themes (see `THEMES` in `lib/theme-system.ts`): `default`, `shadowrun`, `nature`, `spm`, `brutalism`. Additional themes can be added.
 
 **Every theme MUST provide both light and dark variants.** The mode selector determines which variant is used.
 
 Implementation notes:
 
 * Use Tailwind v4 utilities and appropriate theme tokens.
-* Theming logic should be centralized (e.g. in layout or a theme provider), not per-component.
+* Theming logic should be centralized in `lib/theme-system.ts` and consumed by `ThemeProvider` / `theme-init`, not reimplemented per component.
 * Components should:
 
   * Avoid hard-coded colors.
@@ -147,10 +147,10 @@ When introducing a new theme, follow this checklist to keep ThemePicker, brandin
    - Define all required variables (core, radius, component, palette, sidebar, chart, roll result).
 
 2. **Theme type and list**
-   - Update `Theme` and `THEMES` in `components/ThemeProvider.tsx` so the app recognizes the new theme.
+   - Update `Theme` and `THEMES` in `lib/theme-system.ts` so the app and init script recognize the new theme.
 
 3. **Branding**
-   - Add any logo assets in `public/` and update `lib/theme-config.ts` with `logo` and `brandName` entries. The file already includes entries for all six current themes.
+   - Add any logo assets in `public/` and update `lib/theme-config.ts` with `logo` and `brandName` entries. Keep the branding map aligned with `THEMES` from `lib/theme-system.ts`.
 
 4. **Localization**
    - Add theme labels in `i18n/en.json` and `i18n/de.json` under the `Theme` namespace.
@@ -194,6 +194,6 @@ Example:
 See `app/globals.css` for complete examples of theme definitions:
 * `[data-theme='default'][data-mode='light']` and `[data-theme='default'][data-mode='dark']`
 * `[data-theme='shadowrun'][data-mode='light']` and `[data-theme='shadowrun'][data-mode='dark']`
-* Same pattern for `nature`, `spm`, `brutalism`, and `iridescent`. The `iridescent` theme also has extra overrides for body, buttons, and overlays.
+* Same pattern for `nature`, `spm`, and `brutalism`.
 
 The `:root` selector is kept as a fallback for default theme light mode when no data attributes are present.

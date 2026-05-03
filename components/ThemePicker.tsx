@@ -14,8 +14,8 @@ import {
   THEMES,
   type ResolvedMode,
   type Theme,
-  useTheme,
-} from './ThemeProvider'
+} from '@/lib/theme-system'
+import { useTheme } from './ThemeProvider'
 import { getThemeBranding } from '@/lib/theme-config'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'

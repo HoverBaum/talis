@@ -7,7 +7,8 @@
  * - variant="iconOnly": compact icon-only trigger for condensed sidebar layout
  */
 
-import { Mode, useTheme } from './ThemeProvider'
+import { MODES, isMode, type Mode } from '@/lib/theme-system'
+import { useTheme } from './ThemeProvider'
 import {
   Select,
   SelectContent,
@@ -17,7 +18,7 @@ import {
 } from '@/components/ui/select'
 import { useTranslations } from 'next-intl'
 import { SelectRow } from './SelectRow'
-import { Sun, Moon, SunMoonIcon } from 'lucide-react'
+import { Moon, Sun, SunMoonIcon } from 'lucide-react'
 
 type ModeSelectProps = {
   className?: string
@@ -35,7 +36,7 @@ export function ModeSelect({ className, variant = 'full' }: ModeSelectProps) {
   const t = useTranslations('Theme.mode')
 
   const selectContent = (
-    <Select value={mode} onValueChange={(value) => setMode(value as Mode)}>
+    <Select value={mode} onValueChange={(value) => isMode(value) && setMode(value)}>
       <SelectTrigger
         className={
           variant === 'iconOnly'
@@ -56,9 +57,11 @@ export function ModeSelect({ className, variant = 'full' }: ModeSelectProps) {
         )}
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="system">{t('system')}</SelectItem>
-        <SelectItem value="light">{t('light')}</SelectItem>
-        <SelectItem value="dark">{t('dark')}</SelectItem>
+        {MODES.map((modeValue) => (
+          <SelectItem key={modeValue} value={modeValue}>
+            {t(modeValue)}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   )
