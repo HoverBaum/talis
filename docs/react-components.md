@@ -4,17 +4,21 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 
 ## Naming & Files
 
-* React component files **must** use **PascalCase**:
+* React component files **should** use **PascalCase**:
 
   * `DiceRoller.tsx`, `RollResultList.tsx`
 
 * React components themselves are **PascalCase**.
-* Use **named exports** for components:
+* Use **named exports** for reusable components:
 
   ```tsx
   // Good
   export const DiceRoller = () => { ... }
   ```
+
+* **Next.js route files are an explicit exception** and follow framework conventions:
+
+  * `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx` typically use `export default`.
 
 ## Function Style
 
@@ -22,7 +26,7 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 
 ## Imports
 
-* **Do NOT** use the `React.something` pattern. Instead, import functions and types directly from `'react'`:
+* Prefer direct imports over the `React.something` pattern. Import functions and types directly from `'react'` when practical:
 
   ```tsx
   // Good
@@ -33,6 +37,7 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 
 * Import hooks, utilities, and types directly by name.
 * Use `type` keyword for type-only imports when appropriate.
+* Namespace imports (`import * as React from 'react'`) are acceptable when they improve readability for context-heavy files.
 
 ## Component Description Block
 

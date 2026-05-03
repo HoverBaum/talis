@@ -7,11 +7,12 @@ These guidelines apply to all developers and AI agents contributing to **Talis**
 * **Framework:** Next.js (App Router with `app/`)
 * **Styling:** Tailwind CSS v4
 * **UI Library:** shadcn/ui
-* **State Management:** Zustand (with persistence per roller)
-* **Content:** MDX for docs/guides/changelogs under `app/[locale]/pages/` (e.g. `changelog/`, `about/`)
-* **PWA:** Manual service worker (`public/sw.js`) and registration in `app/register-sw.tsx`; see [docs/pwa.md](pwa.md) for details
+* **State Management:** Zustand (roller stores use shared middleware + persistence; settings store is persisted separately)
+* **Content:** MDX is used for changelog pages and locale-specific about content (`about.en.mdx`, `about.de.mdx`) under `app/[locale]/pages/`
+* **PWA:** Manual service worker (`public/sw.js`) and registration via `RegisterServiceWorker` from `app/register-sw.tsx`; see [docs/pwa.md](pwa.md) for details
 * **i18n:** next-intl (locale segment `[locale]`, messages in `i18n/en.json`, `i18n/de.json`)
 * **ID Generation:** nanoid - Use `nanoid()` directly for all dynamically generated unique identifiers (e.g., roll result IDs, custom coin IDs, quick button IDs)
+* **Analytics/Telemetry:** PostHog config is applied in production builds via `@posthog/nextjs-config` in `next.config.ts`
 
 ## shadcn/ui Components
 

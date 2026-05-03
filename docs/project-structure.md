@@ -11,7 +11,7 @@ We follow the **App Router** approach:
 
   * Example: `app/(marketing)/_components/`
 
-Note: Organizational folders in routes **should** be avoided as long, as feasable.
+Note: Organizational folders in routes **should** be avoided as long as feasible.
 
 ## Locale Segment
 
@@ -23,10 +23,16 @@ Note: Organizational folders in routes **should** be avoided as long, as feasabl
 * All dice rollers live under:
   `app/[locale]/dice/[rollerName]/`
   (e.g. `app/[locale]/dice/coin/`, `app/[locale]/dice/shadowrun/`)
+* Current rollers are defined in `lib/rollers.ts`: `shadowrun`, `d6`, `daggerheart`, `polyhedral`, `coin`.
 * Each roller:
 
-  * Has its **own Zustand slice**, which is **persisted** (store file: `[rollerName]-store.ts`, e.g. `coin-store.ts`, `shadowrun-store.ts`).
+  * Has its **own persisted Zustand store** (store file: `[rollerName]-store.ts`, e.g. `coin-store.ts`, `shadowrun-store.ts`).
   * Has a **config page** to configure it.
+
+## Static pages (`app/[locale]/pages/`)
+
+* App pages live under `app/[locale]/pages/` (currently `about`, `changelog`, `settings`, and `themes`).
+* `themes` exists as a dedicated showcase route (`/pages/themes`) but is currently not part of `lib/nav.ts` sidebar navigation.
 
 ## Shared vs Route-Local Code
 
@@ -47,8 +53,9 @@ Note: Organizational folders in routes **should** be avoided as long, as feasabl
 
 * **Offline fallback page:** `app/_offline/page.tsx` - Shown when user is offline and page isn't cached. Lives outside `[locale]` so the service worker can serve it without Next.js i18n.
 * **PWA components:**
-  * `components/PWAUpdatePrompt.tsx` - Detects and notifies about service worker updates
-  * `components/PWAInstallPrompt.tsx` - Shows install button when app is installable
+  * `app/register-sw.tsx` (`RegisterServiceWorker`) - Registers service worker and checks for updates
+  * `components/PWAUpdatePrompt.tsx` - Detects and notifies about available service worker updates
+  * `components/PWAInstallPrompt.tsx` - Shows install button when app is installable (used in sidebar and available in MDX content)
 * **PWA assets:**
   * `public/manifest.json` - Web app manifest
   * `public/icons/` - PWA icons (192x192, 512x512)

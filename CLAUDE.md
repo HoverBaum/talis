@@ -46,11 +46,11 @@ See `docs/pwa.md` for details.
 
 ### Key Patterns
 
-**State Management:** All stores use `createStoreMiddleware` from `utils/store-utils.ts` with localStorage persistence. See `docs/state-management.md`.
+**State Management:** Dice roller stores use `createStoreMiddleware` from `utils/store-utils.ts` with localStorage persistence. The settings store (`app/[locale]/pages/settings/settings-store.ts`) currently uses `persist` directly with key `talis-settings`. See `docs/state-management.md`.
 
-**Theming:** Two-dimensional system (mode + theme). Every theme MUST provide both light and dark variants with all 32 CSS variables. See `docs/theming.md`.
+**Theming:** Two-dimensional system (mode + theme). Every theme MUST provide both light and dark variants with the full required variable set documented in `docs/theming.md`.
 
-**i18n:** All user-facing text comes from `i18n/en.json` and `i18n/de.json`. See `docs/internationalization.md`.
+**i18n:** User-facing text should come from `i18n/en.json` and `i18n/de.json` through next-intl where possible. See `docs/internationalization.md`.
 
 **Components:** PascalCase files, named exports, arrow functions, description blocks. See `docs/react-components.md`.
 
@@ -58,7 +58,10 @@ See `docs/pwa.md` for details.
 
 ### Provider Hierarchy
 ```
-NextIntlClientProvider → ThemeProvider → PageTitleProvider → SidebarProvider → Content
+NextIntlClientProvider
+  ├─ ThemeProvider → PageTitleProvider → SidebarProvider → Content
+  ├─ RegisterServiceWorker
+  └─ PWAUpdatePrompt
 ```
 
 Root layout includes blocking theme init script to prevent flash.
@@ -78,13 +81,13 @@ Standard pattern for all rollers:
 
 1. **Read `/docs` first** - All guidelines live there, not duplicated here
 2. **Never modify `components/ui/**`** - These are shadcn/ui components
-3. **All text must be i18n** - Add keys to both `i18n/en.json` and `i18n/de.json`
-4. **Themes need 32 variables** - Light and dark variants required for every theme
+3. **All text should use i18n by default** - Add keys to both `i18n/en.json` and `i18n/de.json`; keep route-level exceptions documented in `docs/internationalization.md`
+4. **Themes need full required variables** - Light and dark variants required for every theme
 5. **Update `/docs` when needed** - See `docs/maintenance.md` for when to update documentation
 
 ## Development Notes
 
-- Service workers cache aggressively in production - increment version in `package.json` to invalidate
+- Service workers cache aggressively in production - update `public/sw.js` `CACHE_NAME` when releasing to invalidate caches
 - Redux DevTools enabled in development for Zustand stores
 - Use `useHasHydrated(store)` to prevent hydration mismatches with persistent stores
 - Navigation structure defined in `lib/nav.ts`
