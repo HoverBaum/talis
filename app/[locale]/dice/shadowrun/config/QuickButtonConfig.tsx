@@ -34,6 +34,7 @@ export function QuickButtonConfig({
               onUpdate({ id: quickButton.id, amount: newAmount })
             }
             maxDiceAmount={maxDiceAmount}
+            minDiceAmount={1}
           />
         </div>
 

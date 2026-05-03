@@ -13,12 +13,19 @@
   "Roller": {
     "Shadowrun": {
       "roll": "Roll",
+      "standardMode": "Standard",
+      "edgeMode": "Edge",
       "DiceRollResult": {
         "dice": "dice",
+        "ones": "ones",
         "hit": "hit",
         "hits": "hits",
         "glitch": "Glitch",
-        "criticalGlitch": "Critical Glitch"
+        "criticalGlitch": "Critical Glitch",
+        "thresholdMet": "Threshold {threshold} met",
+        "thresholdMissed": "Threshold {threshold} missed",
+        "limitApplied": "Limit {limit} applied ({rawHits} -> {hits})",
+        "extraDice": "+{count} exploding dice"
       },
       "Config": {
         "title": "Shadowrun Configuration",
@@ -45,7 +52,19 @@
         "maxDiceAmount": "Max dice on wheel",
         "maxDiceAmountDescription": "Maximum number of dice selectable on the wheel",
         "resetMaxDiceAmount": "Reset",
-        "resetMaxDiceAmountTooltip": "Reset to default ({amount})"
+        "resetMaxDiceAmountTooltip": "Reset to default ({amount})",
+        "rulesSettings": "Rules Settings",
+        "rulesSettingsDescription": "Enable optional Shadowrun mechanics for your table",
+        "useRuleOfSix": "Rule of Six",
+        "useRuleOfSixDescription": "Sixes explode and roll an additional die",
+        "useHitLimit": "Use hit limit",
+        "useHitLimitDescription": "Cap hits in standard mode (Edge ignores this)",
+        "hitLimit": "Hit limit",
+        "hitLimitDescription": "Maximum hits counted in standard mode",
+        "useThreshold": "Use threshold",
+        "useThresholdDescription": "Evaluate each roll against a target threshold",
+        "threshold": "Threshold",
+        "thresholdDescription": "Minimum hits needed for success"
       }
     },
     "D6": {
