@@ -13,12 +13,19 @@
   "Roller": {
     "Shadowrun": {
       "roll": "Würfeln",
+      "standardMode": "Standard",
+      "edgeMode": "Edge",
       "DiceRollResult": {
         "dice": "Würfel",
+        "ones": "Einsen",
         "hit": "Erfolg",
         "hits": "Erfolge",
         "glitch": "Patzer",
-        "criticalGlitch": "Kritischer Patzer"
+        "criticalGlitch": "Kritischer Patzer",
+        "thresholdMet": "Schwelle {threshold} erreicht",
+        "thresholdMissed": "Schwelle {threshold} verfehlt",
+        "limitApplied": "Limit {limit} angewendet ({rawHits} → {hits})",
+        "extraDice": "+{count} Explosionswürfel"
       },
       "Config": {
         "title": "Shadowrun Konfiguration",
@@ -45,7 +52,19 @@
         "maxDiceAmount": "Max. Würfel am Rad",
         "maxDiceAmountDescription": "Maximale Anzahl an Würfeln, die am Rad auswählbar sind",
         "resetMaxDiceAmount": "Zurücksetzen",
-        "resetMaxDiceAmountTooltip": "Auf Standard zurücksetzen ({amount})"
+        "resetMaxDiceAmountTooltip": "Auf Standard zurücksetzen ({amount})",
+        "rulesSettings": "Regeloptionen",
+        "rulesSettingsDescription": "Aktiviere optionale Shadowrun-Regelmechaniken für Standardwürfe.",
+        "useRuleOfSix": "Regel der Sechs (Explodieren)",
+        "useRuleOfSixDescription": "Bei einer 6 wird ein zusätzlicher Würfel geworfen.",
+        "useHitLimit": "Erfolgslimit anwenden",
+        "useHitLimitDescription": "Begrenze Erfolge bei Standardwürfen auf ein konfiguriertes Limit (nicht bei Edge).",
+        "hitLimit": "Erfolgslimit",
+        "hitLimitDescription": "Maximale Erfolge bei Standardwürfen.",
+        "useThreshold": "Schwelle auswerten",
+        "useThresholdDescription": "Zeigt an, ob das Würfelergebnis eine Zielschwelle erreicht.",
+        "threshold": "Schwelle",
+        "thresholdDescription": "Benötigte Erfolge für Erfolg."
       }
     },
     "D6": {

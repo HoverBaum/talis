@@ -17,6 +17,7 @@ import {
   Zap,
   Monitor,
   Keyboard,
+  ShieldCheck,
 } from 'lucide-react'
 import { nanoid } from 'nanoid'
 import { Input } from '@/components/ui/input'
@@ -219,6 +220,144 @@ export function ShadowrunConfig() {
               <SwitchSkeleton />
             )}
           </div>
+        </div>
+      </section>
+
+      <section className="space-y-6">
+        <div>
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="h-4 w-4 text-muted-foreground" />
+            <h2 className="text-lg font-semibold">{t('rulesSettings')}</h2>
+          </div>
+          <p className="mt-1 md:pl-7 text-sm text-muted-foreground">
+            {t('rulesSettingsDescription')}
+          </p>
+        </div>
+
+        <div className="space-y-4 md:pl-7">
+          <div className="flex items-center justify-between py-2">
+            <div className="space-y-0.5">
+              <Label htmlFor="ruleOfSix">{t('useRuleOfSix')}</Label>
+              <p className="text-sm text-muted-foreground">
+                {t('useRuleOfSixDescription')}
+              </p>
+            </div>
+            {hasHydrated ? (
+              <Switch
+                id="ruleOfSix"
+                checked={config.useRuleOfSix}
+                onCheckedChange={(checked) =>
+                  updateConfig({ useRuleOfSix: checked })
+                }
+              />
+            ) : (
+              <SwitchSkeleton />
+            )}
+          </div>
+
+          <Separator />
+
+          <div className="flex items-center justify-between py-2">
+            <div className="space-y-0.5">
+              <Label htmlFor="hitLimit">{t('useHitLimit')}</Label>
+              <p className="text-sm text-muted-foreground">
+                {t('useHitLimitDescription')}
+              </p>
+            </div>
+            {hasHydrated ? (
+              <Switch
+                id="hitLimit"
+                checked={config.useHitLimit}
+                onCheckedChange={(checked) =>
+                  updateConfig({ useHitLimit: checked })
+                }
+              />
+            ) : (
+              <SwitchSkeleton />
+            )}
+          </div>
+
+          {config.useHitLimit && (
+            <>
+              <Separator />
+              <div className="flex flex-col md:flex-row gap-4 items-center justify-between py-2">
+                <div className="space-y-0.5">
+                  <Label htmlFor="hitLimitValue">{t('hitLimit')}</Label>
+                  <p className="text-sm text-muted-foreground">
+                    {t('hitLimitDescription')}
+                  </p>
+                </div>
+                {hasHydrated ? (
+                  <Input
+                    id="hitLimitValue"
+                    type="number"
+                    min={1}
+                    className="w-full md:w-24"
+                    value={config.hitLimit}
+                    onChange={(e) =>
+                      updateConfig({
+                        hitLimit: Math.max(1, Math.floor(Number(e.target.value))),
+                      })
+                    }
+                  />
+                ) : (
+                  <SwitchSkeleton />
+                )}
+              </div>
+            </>
+          )}
+
+          <Separator />
+
+          <div className="flex items-center justify-between py-2">
+            <div className="space-y-0.5">
+              <Label htmlFor="threshold">{t('useThreshold')}</Label>
+              <p className="text-sm text-muted-foreground">
+                {t('useThresholdDescription')}
+              </p>
+            </div>
+            {hasHydrated ? (
+              <Switch
+                id="threshold"
+                checked={config.useThreshold}
+                onCheckedChange={(checked) =>
+                  updateConfig({ useThreshold: checked })
+                }
+              />
+            ) : (
+              <SwitchSkeleton />
+            )}
+          </div>
+
+          {config.useThreshold && (
+            <>
+              <Separator />
+              <div className="flex flex-col md:flex-row gap-4 items-center justify-between py-2">
+                <div className="space-y-0.5">
+                  <Label htmlFor="thresholdValue">{t('threshold')}</Label>
+                  <p className="text-sm text-muted-foreground">
+                    {t('thresholdDescription')}
+                  </p>
+                </div>
+                {hasHydrated ? (
+                  <Input
+                    id="thresholdValue"
+                    type="number"
+                    min={1}
+                    className="w-full md:w-24"
+                    value={config.threshold}
+                    onChange={(e) =>
+                      updateConfig({
+                        threshold: Math.max(1, Math.floor(Number(e.target.value))),
+                      })
+                    }
+                  />
+                ) : (
+                  <SwitchSkeleton />
+                )}
+              </div>
+            </>
+          )}
         </div>
       </section>
 
