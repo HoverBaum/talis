@@ -191,8 +191,11 @@
   "Offline": {
     "title": "Du bist offline",
     "description": "Es sieht so aus, als ob du nicht mit dem Internet verbunden bist. Keine Sorge, Talis funktioniert offline! Du kannst weiterhin alle Würfel-Apps verwenden, die du bereits besucht hast.",
+    "slowConnectionHint": "Dein Gerät ist online, aber die Verbindung ist derzeit zu langsam, um diese Seite zu laden.",
     "helpText": "Um auf neue Seiten oder Funktionen zuzugreifen, überprüfe bitte deine Internetverbindung und versuche es erneut.",
-    "goHome": "Zur Startseite"
+    "goHome": "Zur Startseite",
+    "retry": "Erneut versuchen",
+    "retrying": "Verbindung wird geprüft..."
   },
   "NotFound": {
     "pageTitle": "404",

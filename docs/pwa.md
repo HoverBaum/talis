@@ -25,9 +25,10 @@ Talis is a **fully offline-capable Progressive Web App (PWA)**:
 ## PWA Configuration
 
 * **Service Worker:** Manual implementation in `public/sw.js`
-  * Network-first strategy for HTML/API routes
-  * Cache-first strategy for static assets (CSS, JS, images, fonts)
+  * Timeout-aware network-first strategy for HTML/API routes (falls back quickly when connections are slow)
+  * Stale-while-revalidate strategy for static assets (CSS, JS, images, fonts) for faster repeat loads on weak networks
   * Cache versioning tied to app version for proper invalidation
+  * Uses `/_offline` fallback page for uncached navigation requests when offline or timing out
 * **Service Worker Registration:** `app/register-sw.tsx` component registers the service worker on app load
   * Automatically detects development mode (localhost/127.0.0.1)
   * In dev: Only registers if `NEXT_PUBLIC_ENABLE_SW_DEV=true` is set
