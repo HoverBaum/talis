@@ -33,7 +33,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { d6Mapping } from '@/utils/dice-constants'
-import type { Theme } from '@/components/ThemeProvider'
+import type { Theme } from '@/lib/theme-system'
 import { getThemeBranding } from '@/lib/theme-config'
 import Image from 'next/image'
 

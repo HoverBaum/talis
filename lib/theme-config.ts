@@ -1,8 +1,7 @@
 'use client'
 
-import { useMemo } from 'react'
-import type { Theme } from '@/components/ThemeProvider'
 import { useTheme } from '@/components/ThemeProvider'
+import type { Theme } from '@/lib/theme-system'
 import talisLogo from '@/public/talis-dice.png'
 import spmLogo from '@/public/spm-logo.png'
 import talisNatureLogo from '@/public/talis-nature.png'
@@ -37,10 +36,10 @@ const themeBranding: Record<Theme, ThemeBranding> = {
 
 /**
  * Get branding configuration for a specific theme.
- * Falls back to default Talis branding if theme not found.
+ * Theme keys are validated by `theme-system`, so this lookup is exhaustive.
  */
 export function getThemeBranding(theme: Theme): ThemeBranding {
-  return themeBranding[theme] ?? defaultBranding
+  return themeBranding[theme]
 }
 
 /**
@@ -49,8 +48,5 @@ export function getThemeBranding(theme: Theme): ThemeBranding {
  */
 export function useThemeBranding(): ThemeBranding {
   const { theme } = useTheme()
-
-  return useMemo(() => {
-    return themeBranding[theme] ?? defaultBranding
-  }, [theme])
+  return themeBranding[theme]
 }

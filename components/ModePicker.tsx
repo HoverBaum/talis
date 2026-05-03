@@ -10,14 +10,13 @@
  * - Responsive layout, works down to 320px
  */
 
-import { type Mode, type ResolvedMode, useTheme } from './ThemeProvider'
+import { resolveMode, type Mode, type ResolvedMode, MODES } from '@/lib/theme-system'
+import { useTheme } from './ThemeProvider'
 import { useTranslations } from 'next-intl'
 import { Sun, Moon, SunMoonIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { SelectionCard } from './SelectionCard'
 import { useClientReady } from '@/hooks/useClientReady'
-
-const modes: Mode[] = ['light', 'dark', 'system']
 
 type ModePreviewCardProps = {
   mode: Mode
@@ -38,7 +37,7 @@ const ModePreviewCard = ({
   const ModeIcon = mode === 'light' ? Sun : mode === 'dark' ? Moon : SunMoonIcon
 
   // Determine actual mode for preview (resolve 'system' to light/dark)
-  const previewMode = mode === 'system' ? systemMode : mode
+  const previewMode = resolveMode(mode, systemMode)
 
   return (
     <div
@@ -74,7 +73,7 @@ export const ModePicker = ({ className, groupLabelId }: ModePickerProps) => {
         aria-labelledby={groupLabelId}
         className={cn('grid grid-cols-1 gap-3 sm:grid-cols-3', className)}
       >
-        {modes.map((mode) => (
+        {MODES.map((mode) => (
           <div
             key={mode}
             className="relative w-full min-h-[64px] rounded-lg border-2 p-4 bg-card border-border"
@@ -95,7 +94,7 @@ export const ModePicker = ({ className, groupLabelId }: ModePickerProps) => {
       aria-labelledby={groupLabelId}
       className={cn('grid grid-cols-1 gap-3 sm:grid-cols-3', className)}
     >
-      {modes.map((mode) => (
+      {MODES.map((mode) => (
         <ModePreviewCard
           key={mode}
           mode={mode}

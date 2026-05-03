@@ -34,7 +34,7 @@ export function ProvidersWrapper({
       locale={locale}
       timeZone={timeZone}
     >
-      <ThemeProvider defaultMode="system" defaultTheme="default">
+      <ThemeProvider>
         <PageTitleProvider>
           <SidebarProvider>
             {!isIOSNavigationEnabled && <AppSidebar />}
