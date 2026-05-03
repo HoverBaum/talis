@@ -2,7 +2,9 @@
 
 These guidelines apply to all developers and AI agents contributing to **Talis**, a Next.js app for Pen-and-Paper dice rollers.
 
-All commit messages must follow the emoji-prefixed format below to maintain consistency and improve readability of the project history.
+All commit messages should follow the emoji-prefixed format below to maintain consistency and improve readability of the project history.
+
+This is a team convention. The repository does not currently enforce commit-message format with commitlint/husky/CI checks.
 
 ## Commit Message Format
 

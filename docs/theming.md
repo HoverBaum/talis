@@ -9,7 +9,7 @@ Talis uses a **two-dimensional theming system** that separates **mode** (light/d
   * `dark` - Always use dark mode
   * `system` - Respects the user's OS setting (light/dark) and automatically switches
 
-* **Theme** - Controls color scheme. Current themes (see `THEMES` in `components/ThemeProvider.tsx`): `default`, `shadowrun`, `nature`, `spm`, `brutalism`, `iridescent`. Additional themes can be added.
+* **Theme** - Controls color scheme. Current themes (see `THEMES` in `components/ThemeProvider.tsx`): `default`, `shadowrun`, `nature`, `spm`, `brutalism`. Additional themes can be added.
 
 **Every theme MUST provide both light and dark variants.** The mode selector determines which variant is used.
 
@@ -47,7 +47,7 @@ surface ladder so interactive states are consistent across modes.
 
 ## Required CSS Variables
 
-**Every theme MUST define ALL of the following CSS variables** for shadcn/ui components to work correctly. Missing variables will cause components to fall back to `:root` defaults, resulting in inconsistent theming (e.g., sidebar not matching the selected theme).
+**Every theme MUST define all of the following CSS variables** for consistent theming across components.
 
 ### Core Variables (2 required)
 * `--background` - Main background color
@@ -150,7 +150,7 @@ When introducing a new theme, follow this checklist to keep ThemePicker, brandin
    - Update `Theme` and `THEMES` in `components/ThemeProvider.tsx` so the app recognizes the new theme.
 
 3. **Branding**
-   - Add any logo assets in `public/` and update `lib/theme-config.ts` with `logo` and `brandName` entries. The file already includes entries for all six current themes.
+   - Add any logo assets in `public/` and update `lib/theme-config.ts` with `logo` and `brandName` entries for the new `Theme` key.
 
 4. **Localization**
    - Add theme labels in `i18n/en.json` and `i18n/de.json` under the `Theme` namespace.
@@ -167,25 +167,25 @@ Example:
 /* Default theme, light mode */
 [data-theme='default'][data-mode='light'] {
   --background: oklch(1 0 0);
-  /* ... all 32 variables ... */
+  /* ... all required variables ... */
 }
 
 /* Default theme, dark mode */
 [data-theme='default'][data-mode='dark'] {
   --background: oklch(0.145 0 0);
-  /* ... all 32 variables ... */
+  /* ... all required variables ... */
 }
 
 /* Shadowrun theme, light mode */
 [data-theme='shadowrun'][data-mode='light'] {
   --background: oklch(0.98 0.01 330);
-  /* ... all 32 variables ... */
+  /* ... all required variables ... */
 }
 
 /* Shadowrun theme, dark mode */
 [data-theme='shadowrun'][data-mode='dark'] {
   --background: oklch(0.15 0.02 330);
-  /* ... all 32 variables ... */
+  /* ... all required variables ... */
 }
 ```
 
@@ -194,6 +194,6 @@ Example:
 See `app/globals.css` for complete examples of theme definitions:
 * `[data-theme='default'][data-mode='light']` and `[data-theme='default'][data-mode='dark']`
 * `[data-theme='shadowrun'][data-mode='light']` and `[data-theme='shadowrun'][data-mode='dark']`
-* Same pattern for `nature`, `spm`, `brutalism`, and `iridescent`. The `iridescent` theme also has extra overrides for body, buttons, and overlays.
+* Same pattern for `nature`, `spm`, and `brutalism`.
 
-The `:root` selector is kept as a fallback for default theme light mode when no data attributes are present.
+The `:root:not([data-theme]):not([data-mode])` selector is kept as a fallback for default theme light mode when both attributes are absent.
