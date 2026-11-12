@@ -106,6 +106,7 @@ export function DaggerheartRoller() {
   useAutoScroll('d12Results', true, [rolls])
 
   const hasEnabledPolyhedralDice = (config.enabledDice || []).length > 0
+  const showDiceWheel = hasHydrated && rollMode === 'polyhedral'
 
   return (
     <RollerLayout>
@@ -113,7 +114,7 @@ export function DaggerheartRoller() {
         <RollerLayoutResultArea
           id="d12Results"
           showNewResultBottom={true}
-          className="col-span-10"
+          className={showDiceWheel ? 'col-span-10' : 'col-span-12'}
         >
           {[...rolls].reverse().map((roll, index) => {
             if (isDaggerheartRoll(roll)) {
@@ -135,16 +136,12 @@ export function DaggerheartRoller() {
             }
           })}
         </RollerLayoutResultArea>
-        <RollerLayoutControlArea className="col-span-2">
+        <RollerLayoutControlArea
+          className={showDiceWheel ? 'col-span-2' : 'hidden'}
+        >
           {/* Wait for hydration before rendering config-dependent dice wheel */}
           {hasHydrated && (
-            <div
-              className={`transition-opacity duration-300 ease-out h-full ${
-                rollMode === 'polyhedral'
-                  ? 'opacity-100 pointer-events-auto'
-                  : 'opacity-0 pointer-events-none'
-              }`}
-            >
+            <div className="h-full">
               <DiceSelectWheel
                 max={maxQuantity}
                 current={currentQuantity}
